@@ -1,11 +1,17 @@
+import { WeeklyHoursPieChart } from "@/components/dashboard/weekly-hours-pie-chart";
 import { ButtonLink } from "@/components/ui/button";
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
-import { getDashboardStats } from "@/lib/services/time-tracking";
+import { getDashboardStats, getWeeklySummaryForYear } from "@/lib/services/time-tracking";
 import { formatHours } from "@/lib/utils/format";
 
 export default async function DashboardPage() {
   const ownerId = await getCurrentWorkbookOwnerId();
   const dashboardStats = await getDashboardStats(ownerId);
+  const weeklySummary = await getWeeklySummaryForYear(
+    ownerId,
+    dashboardStats.currentWeekNumber,
+    dashboardStats.currentWeekYear
+  );
 
   return (
     <section className="py-8">
@@ -23,6 +29,7 @@ export default async function DashboardPage() {
         <article className="border border-[var(--border)] bg-[var(--panel)] p-5">
           <p className="text-sm text-[var(--muted)]">Current week</p>
           <p className="mt-3 text-3xl font-semibold">{dashboardStats.currentWeekNumber}</p>
+          <p className="mt-1 text-sm text-[var(--muted)]">{dashboardStats.currentWeekYear}</p>
         </article>
         <article className="border border-[var(--border)] bg-[var(--panel)] p-5">
           <p className="text-sm text-[var(--muted)]">Week total</p>
@@ -37,6 +44,13 @@ export default async function DashboardPage() {
           </p>
         </article>
       </div>
+
+      <WeeklyHoursPieChart
+        groupedHours={weeklySummary.groupedHours}
+        totalHours={weeklySummary.totalHours}
+        weekNumber={dashboardStats.currentWeekNumber}
+        weekYear={dashboardStats.currentWeekYear}
+      />
 
       <section className="mt-8 border border-[var(--border)] bg-[var(--panel)] p-6">
         <div className="flex flex-wrap items-center justify-between gap-4">

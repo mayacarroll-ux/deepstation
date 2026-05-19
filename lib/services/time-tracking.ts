@@ -422,14 +422,26 @@ export async function deleteTimeEntry(ownerId: string, timeEntryId: string) {
 
 export async function getDashboardStats(ownerId: string) {
   const currentWeekNumber = getIsoWeekNumber(getTodayInputValue());
+  const currentWeekYear = getIsoWeekYear(getTodayInputValue());
   const recentEntries = await listTimeEntries(ownerId);
   const currentWeekEntries = recentEntries.filter(
-    (timeEntry) => timeEntry.weekNumber === currentWeekNumber
+    (timeEntry) =>
+      timeEntry.weekNumber === currentWeekNumber &&
+      getIsoWeekYear(timeEntry.entryDate) === currentWeekYear
   );
+  const fallbackEntry = recentEntries[0];
   const displayedWeekNumber =
-    currentWeekEntries.length > 0 ? currentWeekNumber : recentEntries[0]?.weekNumber ?? currentWeekNumber;
+    currentWeekEntries.length > 0 ? currentWeekNumber : fallbackEntry?.weekNumber ?? currentWeekNumber;
+  const displayedWeekYear =
+    currentWeekEntries.length > 0
+      ? currentWeekYear
+      : fallbackEntry
+        ? getIsoWeekYear(fallbackEntry.entryDate)
+        : currentWeekYear;
   const displayedWeekEntries = recentEntries.filter(
-    (timeEntry) => timeEntry.weekNumber === displayedWeekNumber
+    (timeEntry) =>
+      timeEntry.weekNumber === displayedWeekNumber &&
+      getIsoWeekYear(timeEntry.entryDate) === displayedWeekYear
   );
   const currentWeekTotalHours = displayedWeekEntries.reduce(
     (totalHours, timeEntry) => totalHours + Number(timeEntry.hoursWorked),
@@ -438,6 +450,7 @@ export async function getDashboardStats(ownerId: string) {
 
   return {
     currentWeekNumber: displayedWeekNumber,
+    currentWeekYear: displayedWeekYear,
     currentWeekTotalHours,
     recentEntries: recentEntries.slice(0, 5)
   };
