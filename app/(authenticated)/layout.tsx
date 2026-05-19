@@ -19,7 +19,7 @@ export default async function AuthenticatedLayout({
   }
 
   return (
-    <main className="min-h-screen px-6 py-6">
+    <main className="min-h-screen bg-[var(--background)] px-6 py-6 text-[var(--foreground)]">
       <div className="mx-auto max-w-7xl">
         <header className="grid gap-5 border-b border-[var(--border)] pb-5">
           <div className="flex flex-wrap items-center justify-between gap-4">

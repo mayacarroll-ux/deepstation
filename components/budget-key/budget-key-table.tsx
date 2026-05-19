@@ -20,7 +20,7 @@ export function BudgetKeyTable({ budgetMappings, deleteAction }: BudgetKeyTableP
   return (
     <div className="overflow-x-auto border border-[var(--border)] bg-[var(--panel)]">
       <table className="w-full min-w-[760px] border-collapse text-left text-sm">
-        <thead className="border-b border-[var(--border)] bg-[#eef1eb]">
+        <thead className="border-b border-[var(--border)] bg-[var(--surface-muted)] text-[var(--foreground)]">
           <tr>
             <th className="px-4 py-3">Product Name</th>
             <th className="px-4 py-3">Budget Name</th>
@@ -31,7 +31,7 @@ export function BudgetKeyTable({ budgetMappings, deleteAction }: BudgetKeyTableP
         </thead>
         <tbody className="divide-y divide-[var(--border)]">
           {budgetMappings.map((budgetMapping) => (
-            <tr key={budgetMapping.id}>
+            <tr className="transition-colors hover:bg-[var(--surface)]" key={budgetMapping.id}>
               <td className="px-4 py-3 font-semibold">{budgetMapping.productName}</td>
               <td className="px-4 py-3">{budgetMapping.budgetName}</td>
               <td className="px-4 py-3">{budgetMapping.budgetNumber}</td>

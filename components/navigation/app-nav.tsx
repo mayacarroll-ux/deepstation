@@ -12,7 +12,7 @@ export function AppNav() {
     <nav className="flex flex-wrap gap-2">
       {navigationItems.map((navigationItem) => (
         <Link
-          className="border border-[var(--border)] bg-[var(--panel)] px-3 py-2 text-sm font-semibold hover:bg-[#eef1eb]"
+          className="border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm font-semibold text-[var(--foreground)] transition-colors hover:border-[var(--accent)] hover:bg-[var(--surface-muted)]"
           href={navigationItem.href}
           key={navigationItem.href}
         >

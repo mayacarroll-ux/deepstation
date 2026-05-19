@@ -21,7 +21,7 @@ export function TimeEntryTable({ deleteAction, timeEntries }: TimeEntryTableProp
   return (
     <div className="overflow-x-auto border border-[var(--border)] bg-[var(--panel)]">
       <table className="w-full min-w-[1080px] border-collapse text-left text-sm">
-        <thead className="border-b border-[var(--border)] bg-[#eef1eb]">
+        <thead className="border-b border-[var(--border)] bg-[var(--surface-muted)] text-[var(--foreground)]">
           <tr>
             <th className="px-4 py-3">Date</th>
             <th className="px-4 py-3">Product Name</th>
@@ -36,7 +36,7 @@ export function TimeEntryTable({ deleteAction, timeEntries }: TimeEntryTableProp
         </thead>
         <tbody className="divide-y divide-[var(--border)]">
           {timeEntries.map((timeEntry) => (
-            <tr key={timeEntry.id}>
+            <tr className="transition-colors hover:bg-[var(--surface)]" key={timeEntry.id}>
               <td className="px-4 py-3">{timeEntry.entryDate}</td>
               <td className="px-4 py-3 font-semibold">{timeEntry.productName}</td>
               <td className="px-4 py-3">{timeEntry.budgetName}</td>

@@ -50,7 +50,7 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
         </p>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[0.7fr_1.3fr]">
+      <div className="grid gap-6 lg:grid-cols-[0.72fr_1.28fr]">
         <section className="border border-[var(--border)] bg-[var(--panel)] p-6">
           <form className="grid gap-4">
             <label className="grid gap-2 text-sm font-semibold">
@@ -78,21 +78,21 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
               />
             </label>
             <button
-              className="h-11 border border-[var(--accent)] bg-[var(--accent)] px-5 text-sm font-semibold text-[var(--accent-foreground)]"
+              className="h-11 border border-[var(--accent)] bg-[var(--accent)] px-5 text-sm font-semibold text-[var(--accent-foreground)] transition-colors hover:bg-[var(--accent-hover)]"
               type="submit"
             >
               View week
             </button>
           </form>
-          <div className="mt-6 border-t border-[var(--border)] pt-6">
+          <div className="mt-6 border-t border-[var(--border)] bg-[var(--surface)] p-5">
             <p className="text-sm text-[var(--muted)]">Total hours</p>
-            <p className="mt-2 text-4xl font-semibold">
+            <p className="mt-2 text-4xl font-semibold text-[var(--accent)]">
               {formatHours(weeklySummary.totalHours)} hrs
             </p>
           </div>
         </section>
 
-        <section className="border border-[var(--border)] bg-[var(--panel)] p-6">
+        <section className="border border-[var(--border)] bg-[var(--panel-elevated)] p-6">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <h3 className="text-xl font-semibold">Ready to send</h3>
@@ -102,7 +102,7 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
             </div>
             <WeeklySummaryCopy summaryText={summaryText} weekNumber={selectedWeekNumber} />
           </div>
-          <pre className="mt-5 min-h-40 whitespace-pre-wrap border border-[var(--border)] bg-[#f6f7f4] p-4 font-mono text-sm leading-7">
+          <pre className="mt-5 min-h-40 whitespace-pre-wrap border border-[var(--border)] bg-[var(--surface)] p-4 font-mono text-sm leading-7 text-[var(--foreground)]">
             {summaryText || "No billable summary lines for this week."}
           </pre>
         </section>

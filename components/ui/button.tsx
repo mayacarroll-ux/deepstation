@@ -8,9 +8,9 @@ const buttonBaseClassName =
 
 const buttonVariantClassNames = {
   primary:
-    "border-[var(--accent)] bg-[var(--accent)] text-[var(--accent-foreground)] hover:bg-[#0d5748]",
+    "border-[var(--accent)] bg-[var(--accent)] text-[var(--accent-foreground)] hover:bg-[var(--accent-hover)]",
   secondary:
-    "border-[var(--border)] bg-[var(--panel)] text-[var(--foreground)] hover:bg-[#eef1eb]"
+    "border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)] hover:bg-[var(--surface-muted)]"
 };
 
 type ButtonVariant = keyof typeof buttonVariantClassNames;
