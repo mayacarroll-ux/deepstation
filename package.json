@@ -1,0 +1,40 @@
+{
+  "name": "deepstation",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build --webpack",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "import:workbook": "node scripts/import-workbook.mjs",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "3.0.64",
+    "@ai-sdk/react": "3.0.186",
+    "@auth/drizzle-adapter": "1.11.2",
+    "ai": "6.0.184",
+    "drizzle-orm": "0.45.2",
+    "next": "16.2.6",
+    "next-auth": "5.0.0-beta.31",
+    "pg": "8.20.0",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@next/swc-wasm-nodejs": "^16.2.6",
+    "@tailwindcss/postcss": "4.3.0",
+    "@types/node": "^24.0.0",
+    "@types/pg": "^8.15.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "drizzle-kit": "0.31.10",
+    "tailwindcss": "4.3.0",
+    "typescript": "^5.9.0"
+  }
+}

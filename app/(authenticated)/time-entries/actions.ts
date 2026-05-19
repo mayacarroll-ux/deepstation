@@ -1,0 +1,46 @@
+"use server";
+
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+
+import {
+  ensureCurrentUserExists,
+  getCurrentWorkbookOwnerId
+} from "@/lib/services/current-user";
+import {
+  createTimeEntry,
+  deleteTimeEntry,
+  updateTimeEntry
+} from "@/lib/services/time-tracking";
+
+export async function createTimeEntryAction(formData: FormData) {
+  const ownerId = await getCurrentWorkbookOwnerId();
+
+  await ensureCurrentUserExists();
+  await createTimeEntry(ownerId, formData);
+  revalidatePath("/dashboard");
+  revalidatePath("/time-entries");
+  revalidatePath("/weekly-summary");
+  redirect("/time-entries");
+}
+
+export async function updateTimeEntryAction(timeEntryId: string, formData: FormData) {
+  const ownerId = await getCurrentWorkbookOwnerId();
+
+  await ensureCurrentUserExists();
+  await updateTimeEntry(ownerId, timeEntryId, formData);
+  revalidatePath("/dashboard");
+  revalidatePath("/time-entries");
+  revalidatePath("/weekly-summary");
+  redirect("/time-entries");
+}
+
+export async function deleteTimeEntryAction(timeEntryId: string) {
+  const ownerId = await getCurrentWorkbookOwnerId();
+
+  await ensureCurrentUserExists();
+  await deleteTimeEntry(ownerId, timeEntryId);
+  revalidatePath("/dashboard");
+  revalidatePath("/time-entries");
+  revalidatePath("/weekly-summary");
+}

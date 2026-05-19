@@ -1,0 +1,395 @@
+{
+  "sourceWorkbook": "/Users/mayacarroll/Downloads/Maya_Time_Tracking_Final_Updated.xlsx",
+  "importedAt": "2026-05-16T18:25:51Z",
+  "budgetMappings": [
+    {
+      "id": "94a2693a-f9de-51a1-b751-d33db1ca2c73",
+      "productName": "BizQuest Nationa Exp",
+      "budgetName": "Zurich Middle School",
+      "budgetNumber": "G0486 MS 6050 C&C",
+      "notes": null
+    },
+    {
+      "id": "344afe40-94fe-5a45-8562-6ad6a8efa507",
+      "productName": "H2C JANI",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "G0486 HS 6050 C&C",
+      "notes": "Need to determine actual project, also adds admin time - 1 hr a week"
+    },
+    {
+      "id": "6c9ae5e7-2cfe-5474-befd-6aca560a3d06",
+      "productName": "H2C Maritime",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "IBAS-Y2-CD11.1 6010 FED",
+      "notes": null
+    },
+    {
+      "id": "5a7b0f29-8853-56b7-a5f1-97c53e636ec8",
+      "productName": "H2C AI Chat Bot",
+      "budgetName": "AI Accenture Design",
+      "budgetNumber": "G0487 6090 C&C",
+      "notes": null
+    },
+    {
+      "id": "feee307e-df71-5a46-8cab-694df100f262",
+      "productName": "Fin Lit HS Course",
+      "budgetName": "Zurich HS Courses-Custom",
+      "budgetNumber": "-",
+      "notes": null
+    }
+  ],
+  "timeEntries": [
+    {
+      "id": "1447192e-1285-51d5-82e0-9868c62b0f84",
+      "entryDate": "2026-05-08",
+      "productName": "Fin Lit HS Course",
+      "budgetName": "Zurich HS Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Indesign FG review with Sandy",
+      "hoursWorked": "1.00",
+      "weekNumber": 19,
+      "notes": null,
+      "budgetMappingKey": [
+        "fin lit hs course",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "5e1cf412-f60e-5f0f-9eca-6a82dd3de5af",
+      "entryDate": "2026-05-08",
+      "productName": "Fin Lit HS Course",
+      "budgetName": "Zurich HS Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Indesign FG",
+      "hoursWorked": "6.00",
+      "weekNumber": 19,
+      "notes": null,
+      "budgetMappingKey": [
+        "fin lit hs course",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "e6b0a5ab-2e23-5118-ac31-04d1b632b98a",
+      "entryDate": "2026-05-08",
+      "productName": "H2C Maritime",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "IBAS-Y2-CD11.1 6010 FED",
+      "taskDescription": "Maritime Spotlight Content",
+      "hoursWorked": "1.00",
+      "weekNumber": 19,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c maritime",
+        "ibas cd11.1",
+        "ibas-y2-cd11.1 6010 fed"
+      ]
+    },
+    {
+      "id": "575b3b3c-63ec-54fd-a623-6578f18b1289",
+      "entryDate": "2026-05-07",
+      "productName": "H2C JANI",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "G0486 HS 6050 C&C",
+      "taskDescription": "Weekly UX Sync with Catalyte",
+      "hoursWorked": "0.50",
+      "weekNumber": 19,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c jani",
+        "zurich hs courses-custom",
+        "g0486 hs 6050 c&c"
+      ]
+    },
+    {
+      "id": "bb5bfa01-560f-53f6-85a1-0db9c5224418",
+      "entryDate": "2026-05-07",
+      "productName": "H2C JANI",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "G0486 HS 6050 C&C",
+      "taskDescription": "Educator Dashboard",
+      "hoursWorked": "0.50",
+      "weekNumber": 19,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c jani",
+        "zurich hs courses-custom",
+        "g0486 hs 6050 c&c"
+      ]
+    },
+    {
+      "id": "188321cb-36c3-52cc-8a4d-c48417c14edd",
+      "entryDate": "2026-05-07",
+      "productName": "H2C JANI",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "G0486 HS 6050 C&C",
+      "taskDescription": "Catalyte & JANI 1:1",
+      "hoursWorked": "0.50",
+      "weekNumber": 19,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c jani",
+        "zurich hs courses-custom",
+        "g0486 hs 6050 c&c"
+      ]
+    },
+    {
+      "id": "78da00ed-df85-5756-be32-7122ac530b4b",
+      "entryDate": "2026-05-06",
+      "productName": "Fin Lit HS Course",
+      "budgetName": "Zurich HS Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Indesign FG",
+      "hoursWorked": "6.00",
+      "weekNumber": 19,
+      "notes": null,
+      "budgetMappingKey": [
+        "fin lit hs course",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "be31bed7-5690-5f4c-8d4f-2f0271e98753",
+      "entryDate": "2026-05-06",
+      "productName": "Fin Lit HS Course",
+      "budgetName": "Zurich HS Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Facilitator Guide Indesign File Training",
+      "hoursWorked": "1.00",
+      "weekNumber": 19,
+      "notes": null,
+      "budgetMappingKey": [
+        "fin lit hs course",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "23875b03-4c99-5144-88a7-ec24d32d9593",
+      "entryDate": "2026-05-05",
+      "productName": "H2C JANI",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "G0486 HS 6050 C&C",
+      "taskDescription": "Touch Base UX Architect",
+      "hoursWorked": "0.50",
+      "weekNumber": 19,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c jani",
+        "zurich hs courses-custom",
+        "g0486 hs 6050 c&c"
+      ]
+    },
+    {
+      "id": "d3bf8fae-f892-530f-a4a7-6d339ee37f90",
+      "entryDate": "2026-05-05",
+      "productName": "Fin Lit HS Course",
+      "budgetName": "Zurich HS Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Facilitator Guide Indesign File Training",
+      "hoursWorked": "0.50",
+      "weekNumber": 19,
+      "notes": null,
+      "budgetMappingKey": [
+        "fin lit hs course",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "7e8c12b3-750d-5648-aed1-ee9485ddab9f",
+      "entryDate": "2026-05-05",
+      "productName": "H2C AI Chat Bot",
+      "budgetName": "AI Accenture Design",
+      "budgetNumber": "G0487 6090 C&C",
+      "taskDescription": "JA Inspire to Here to Career use case",
+      "hoursWorked": "1.00",
+      "weekNumber": 19,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c ai chat bot",
+        "ai accenture design",
+        "g0487 6090 c&c"
+      ]
+    },
+    {
+      "id": "7c3fa288-4122-53ab-9d10-a86e0341f4b8",
+      "entryDate": "2026-05-05",
+      "productName": "H2C JANI",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "G0486 HS 6050 C&C",
+      "taskDescription": "JA & Catalyte Product Planning",
+      "hoursWorked": "0.50",
+      "weekNumber": 19,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c jani",
+        "zurich hs courses-custom",
+        "g0486 hs 6050 c&c"
+      ]
+    },
+    {
+      "id": "6c88219d-c8ed-5392-9058-63e7930adefa",
+      "entryDate": "2026-05-04",
+      "productName": "H2C AI Chat Bot",
+      "budgetName": "AI Accenture Design",
+      "budgetNumber": "G0487 6090 C&C",
+      "taskDescription": "JA Inspire User Journey",
+      "hoursWorked": "0.50",
+      "weekNumber": 19,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c ai chat bot",
+        "ai accenture design",
+        "g0487 6090 c&c"
+      ]
+    },
+    {
+      "id": "2b080056-843f-5c6d-8794-f9129d850b8b",
+      "entryDate": "2026-05-04",
+      "productName": "H2C JANI",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "G0486 HS 6050 C&C",
+      "taskDescription": "UX & UXR Subteam Standup",
+      "hoursWorked": "0.50",
+      "weekNumber": 19,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c jani",
+        "zurich hs courses-custom",
+        "g0486 hs 6050 c&c"
+      ]
+    },
+    {
+      "id": "a173dcfb-cab0-5754-84c9-18df3b476523",
+      "entryDate": "2026-05-01",
+      "productName": "H2C AI Chat Bot",
+      "budgetName": "AI Accenture Design",
+      "budgetNumber": "G0487 6090 C&C",
+      "taskDescription": "JA Inspire User Journey",
+      "hoursWorked": "1.00",
+      "weekNumber": 18,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c ai chat bot",
+        "ai accenture design",
+        "g0487 6090 c&c"
+      ]
+    },
+    {
+      "id": "345f4f96-fc62-559e-8989-10320858f978",
+      "entryDate": "2026-05-01",
+      "productName": "H2C JANI",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "G0486 HS 6050 C&C",
+      "taskDescription": "UX Architecture Touch Base with Julia",
+      "hoursWorked": "0.50",
+      "weekNumber": 18,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c jani",
+        "zurich hs courses-custom",
+        "g0486 hs 6050 c&c"
+      ]
+    },
+    {
+      "id": "e1964913-48fe-523f-99a8-4e7769b67cfa",
+      "entryDate": "2026-04-30",
+      "productName": "H2C AI Chat Bot",
+      "budgetName": "AI Accenture Design",
+      "budgetNumber": "G0487 6090 C&C",
+      "taskDescription": "Ideation and journey mapping",
+      "hoursWorked": "8.00",
+      "weekNumber": 18,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c ai chat bot",
+        "ai accenture design",
+        "g0487 6090 c&c"
+      ]
+    },
+    {
+      "id": "9e2ad868-8f5e-53e0-8f53-cea76263dd49",
+      "entryDate": "2026-04-30",
+      "productName": "H2C JANI",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "G0486 HS 6050 C&C",
+      "taskDescription": "Weekly UX Sync with Catalyte",
+      "hoursWorked": "0.50",
+      "weekNumber": 18,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c jani",
+        "zurich hs courses-custom",
+        "g0486 hs 6050 c&c"
+      ]
+    },
+    {
+      "id": "cc2b4b9b-b113-5c6a-b9b2-c168ca0c2689",
+      "entryDate": "2026-04-28",
+      "productName": "H2C JANI",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "G0486 HS 6050 C&C",
+      "taskDescription": "JA/Catalyte Product Planning",
+      "hoursWorked": "0.50",
+      "weekNumber": 18,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c jani",
+        "zurich hs courses-custom",
+        "g0486 hs 6050 c&c"
+      ]
+    },
+    {
+      "id": "5193e62e-b35b-5610-8a89-1d38434affcf",
+      "entryDate": "2026-04-28",
+      "productName": "H2C Maritime",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "IBAS-Y2-CD11.1 6010 FED",
+      "taskDescription": "Maritime Spotlight Content",
+      "hoursWorked": "8.50",
+      "weekNumber": 18,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c maritime",
+        "ibas cd11.1",
+        "ibas-y2-cd11.1 6010 fed"
+      ]
+    },
+    {
+      "id": "0bc07bd1-cf0c-5ac4-8083-1c5848a6c1fd",
+      "entryDate": "2026-04-27",
+      "productName": "H2C JANI",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "G0486 HS 6050 C&C",
+      "taskDescription": "UX & UXR Subteam Meeting",
+      "hoursWorked": "0.50",
+      "weekNumber": 18,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c jani",
+        "zurich hs courses-custom",
+        "g0486 hs 6050 c&c"
+      ]
+    },
+    {
+      "id": "ddea12b6-a780-5fd3-ac6c-7db9bf2c31e9",
+      "entryDate": "2026-04-27",
+      "productName": "H2C JANI",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "G0486 HS 6050 C&C",
+      "taskDescription": "Experience Design Stand Up",
+      "hoursWorked": "0.25",
+      "weekNumber": 18,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c jani",
+        "zurich hs courses-custom",
+        "g0486 hs 6050 c&c"
+      ]
+    }
+  ]
+}
