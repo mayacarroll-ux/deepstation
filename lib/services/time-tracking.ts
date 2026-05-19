@@ -68,12 +68,24 @@ export type TimeEntryFilters = {
   endDate?: string;
 };
 
+const billingProjectNamesByProductName = new Map([
+  ["bizquest nationa exp", "Zurich Middle School"],
+  ["h2c jani", "Zurich Hs Courses-Custom"],
+  ["h2c maritime", "IBAS-Y2-CD11.1"],
+  ["h2c ai chat bot", "AI ACCENTURE PROD"],
+  ["fin lit hs course", "ZURICH HS COURSES-CUSTOM"]
+]);
+
 export function requireDatabase() {
   if (!database) {
     throw new Error("DATABASE_URL is required for this workflow.");
   }
 
   return database;
+}
+
+function getBillingProjectName(productName: string, budgetName: string) {
+  return billingProjectNamesByProductName.get(productName.trim().toLowerCase()) ?? budgetName.trim();
 }
 
 async function readImportedWorkbookData() {
@@ -471,22 +483,22 @@ export async function getWeeklySummaryForYear(
     }
 
     const weeklyTimeEntries = await listFallbackTimeEntries({ weekNumber, weekYear });
-    const groupedHoursByBudgetName = new Map<string, number>();
+    const groupedHoursByProjectName = new Map<string, number>();
 
     for (const timeEntry of weeklyTimeEntries) {
-      const normalizedBudgetName = timeEntry.budgetName.trim().toUpperCase();
+      const projectName = getBillingProjectName(timeEntry.productName, timeEntry.budgetName);
 
-      groupedHoursByBudgetName.set(
-        normalizedBudgetName,
-        (groupedHoursByBudgetName.get(normalizedBudgetName) ?? 0) +
-          Number(timeEntry.hoursWorked)
+      groupedHoursByProjectName.set(
+        projectName,
+        (groupedHoursByProjectName.get(projectName) ?? 0) + Number(timeEntry.hoursWorked)
       );
     }
 
-    const groupedHours = Array.from(groupedHoursByBudgetName.entries())
-      .map(([budgetName, totalHours]) => ({ budgetName, totalHours }))
+    const groupedHours = Array.from(groupedHoursByProjectName.entries())
+      .map(([projectName, totalHours]) => ({ projectName, budgetName: projectName, totalHours }))
+      .filter((groupedHour) => groupedHour.totalHours > 0)
       .sort((firstGroupedHour, secondGroupedHour) =>
-        firstGroupedHour.budgetName.localeCompare(secondGroupedHour.budgetName)
+        firstGroupedHour.projectName.localeCompare(secondGroupedHour.projectName)
       );
 
     return {
@@ -500,7 +512,8 @@ export async function getWeeklySummaryForYear(
 
   const groupedHours = await database
     .select({
-      budgetName: sql<string>`upper(trim(${timeEntries.budgetName}))`,
+      productName: timeEntries.productName,
+      budgetName: timeEntries.budgetName,
       totalHours: sql<string>`sum(${timeEntries.hoursWorked})`
     })
     .from(timeEntries)
@@ -511,17 +524,35 @@ export async function getWeeklySummaryForYear(
         sql`extract(isoyear from ${timeEntries.entryDate}) = ${weekYear}`
       )
     )
-    .groupBy(sql`upper(trim(${timeEntries.budgetName}))`)
-    .orderBy(sql`upper(trim(${timeEntries.budgetName}))`);
+    .groupBy(timeEntries.productName, timeEntries.budgetName);
 
-  const totalHours = groupedHours.reduce(
+  const groupedHoursByProjectName = new Map<string, number>();
+
+  for (const groupedHour of groupedHours) {
+    const projectName = getBillingProjectName(groupedHour.productName, groupedHour.budgetName);
+
+    groupedHoursByProjectName.set(
+      projectName,
+      (groupedHoursByProjectName.get(projectName) ?? 0) + Number(groupedHour.totalHours)
+    );
+  }
+
+  const billingGroupedHours = Array.from(groupedHoursByProjectName.entries())
+    .map(([projectName, totalHours]) => ({ projectName, budgetName: projectName, totalHours }))
+    .filter((groupedHour) => groupedHour.totalHours > 0)
+    .sort((firstGroupedHour, secondGroupedHour) =>
+      firstGroupedHour.projectName.localeCompare(secondGroupedHour.projectName)
+    );
+
+  const totalHours = billingGroupedHours.reduce(
     (currentTotalHours, groupedHour) => currentTotalHours + Number(groupedHour.totalHours),
     0
   );
 
   return {
     totalHours,
-    groupedHours: groupedHours.map((groupedHour) => ({
+    groupedHours: billingGroupedHours.map((groupedHour) => ({
+      projectName: groupedHour.projectName,
       budgetName: groupedHour.budgetName,
       totalHours: Number(groupedHour.totalHours)
     }))

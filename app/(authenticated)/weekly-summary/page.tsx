@@ -2,7 +2,7 @@ import { WeeklySummaryCopy } from "@/components/weekly-summary/weekly-summary-co
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
 import { getDashboardStats, getWeeklySummaryForYear } from "@/lib/services/time-tracking";
 import { formatWeekLabel, getIsoWeekYear, getTodayInputValue } from "@/lib/utils/dates";
-import { formatBillingSummaryLine, formatHours } from "@/lib/utils/format";
+import { formatBillingSummaryText, formatHours } from "@/lib/utils/format";
 
 type WeeklySummaryPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -36,18 +36,17 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
     selectedWeekYear
   );
   const selectedWeekLabel = formatWeekLabel(selectedWeekNumber, selectedWeekYear);
-  const summaryText = weeklySummary.groupedHours
-    .map((groupedHour) =>
-      formatBillingSummaryLine(groupedHour.totalHours, groupedHour.budgetName)
-    )
-    .join("\n");
+  const summaryText = formatBillingSummaryText(
+    weeklySummary.groupedHours,
+    weeklySummary.totalHours
+  );
 
   return (
     <section className="py-8">
       <div className="mb-6">
         <h2 className="text-2xl font-semibold">Weekly billing summary</h2>
         <p className="mt-2 text-[var(--muted)]">
-          Select a week and copy a clean billing summary grouped by Budget Name.
+          Select a week and copy a clean billing summary grouped by accounting project name.
         </p>
       </div>
 
@@ -98,7 +97,7 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
             <div>
               <h3 className="text-xl font-semibold">Ready to send</h3>
               <p className="mt-2 text-sm text-[var(--muted)]">
-                {selectedWeekLabel}, grouped by Budget Name / project.
+                {selectedWeekLabel}, formatted for billing copy/export.
               </p>
             </div>
             <WeeklySummaryCopy summaryText={summaryText} weekNumber={selectedWeekNumber} />
