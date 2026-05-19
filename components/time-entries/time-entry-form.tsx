@@ -7,7 +7,12 @@ import type {
   BudgetMappingRecord,
   TimeEntryRecord
 } from "@/lib/services/time-tracking";
-import { getIsoWeekNumber, getTodayInputValue } from "@/lib/utils/dates";
+import {
+  formatWeekLabel,
+  getIsoWeekNumber,
+  getIsoWeekYear,
+  getTodayInputValue
+} from "@/lib/utils/dates";
 
 type TimeEntryFormProps = {
   action: (formData: FormData) => Promise<void>;
@@ -31,6 +36,11 @@ export function TimeEntryForm({
   const [weekNumber, setWeekNumber] = useState(
     String(timeEntry?.weekNumber ?? getIsoWeekNumber(initialEntryDate))
   );
+  const parsedWeekNumber = Number(weekNumber);
+  const weekLabel =
+    Number.isInteger(parsedWeekNumber) && parsedWeekNumber >= 1 && parsedWeekNumber <= 53
+      ? formatWeekLabel(parsedWeekNumber, getIsoWeekYear(entryDate))
+      : null;
 
   const productNames = useMemo(
     () =>
@@ -130,6 +140,9 @@ export function TimeEntryForm({
             type="number"
             value={weekNumber}
           />
+          {weekLabel ? (
+            <span className="text-xs font-normal text-[var(--muted)]">{weekLabel}</span>
+          ) : null}
         </label>
       </div>
 

@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import type { TimeEntryRecord } from "@/lib/services/time-tracking";
+import { formatWeekLabel, getIsoWeekYear } from "@/lib/utils/dates";
 import { formatHours } from "@/lib/utils/format";
 
 type TimeEntryTableProps = {
@@ -45,7 +46,9 @@ export function TimeEntryTable({ deleteAction, timeEntries }: TimeEntryTableProp
               <td className="px-4 py-3 tabular-nums">
                 {formatHours(Number(timeEntry.hoursWorked))}
               </td>
-              <td className="px-4 py-3">{timeEntry.weekNumber}</td>
+              <td className="px-4 py-3">
+                {formatWeekLabel(timeEntry.weekNumber, getIsoWeekYear(timeEntry.entryDate))}
+              </td>
               <td className="px-4 py-3 text-[var(--muted)]">{timeEntry.notes}</td>
               <td className="px-4 py-3">
                 <div className="flex justify-end gap-2">

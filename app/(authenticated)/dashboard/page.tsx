@@ -2,6 +2,7 @@ import { WeeklyHoursPieChart } from "@/components/dashboard/weekly-hours-pie-cha
 import { ButtonLink } from "@/components/ui/button";
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
 import { getDashboardStats, getWeeklySummaryForYear } from "@/lib/services/time-tracking";
+import { formatWeekLabel, getIsoWeekYear } from "@/lib/utils/dates";
 import { formatHours } from "@/lib/utils/format";
 
 export default async function DashboardPage() {
@@ -9,6 +10,10 @@ export default async function DashboardPage() {
   const dashboardStats = await getDashboardStats(ownerId);
   const weeklySummary = await getWeeklySummaryForYear(
     ownerId,
+    dashboardStats.currentWeekNumber,
+    dashboardStats.currentWeekYear
+  );
+  const currentWeekLabel = formatWeekLabel(
     dashboardStats.currentWeekNumber,
     dashboardStats.currentWeekYear
   );
@@ -28,7 +33,7 @@ export default async function DashboardPage() {
       <div className="grid gap-4 md:grid-cols-3">
         <article className="border border-[var(--border)] bg-[var(--panel)] p-5">
           <p className="text-sm text-[var(--muted)]">Current week</p>
-          <p className="mt-3 text-3xl font-semibold">{dashboardStats.currentWeekNumber}</p>
+          <p className="mt-3 text-2xl font-semibold">{currentWeekLabel}</p>
           <p className="mt-1 text-sm text-[var(--muted)]">{dashboardStats.currentWeekYear}</p>
         </article>
         <article className="border border-[var(--border)] bg-[var(--panel)] p-5">
@@ -82,7 +87,8 @@ export default async function DashboardPage() {
                   </p>
                 </div>
                 <p className="text-sm text-[var(--muted)]">
-                  {timeEntry.entryDate} · Week {timeEntry.weekNumber}
+                  {timeEntry.entryDate} ·{" "}
+                  {formatWeekLabel(timeEntry.weekNumber, getIsoWeekYear(timeEntry.entryDate))}
                 </p>
               </article>
             ))

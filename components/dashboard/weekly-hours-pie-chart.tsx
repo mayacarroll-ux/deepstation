@@ -1,4 +1,5 @@
 import { formatHours } from "@/lib/utils/format";
+import { formatWeekLabel } from "@/lib/utils/dates";
 
 type WeeklyHoursBreakdown = {
   budgetName: string;
@@ -53,6 +54,7 @@ export function WeeklyHoursPieChart({
     color: chartColors[index % chartColors.length],
     percentage: totalHours > 0 ? (groupedHour.totalHours / totalHours) * 100 : 0
   }));
+  const weekLabel = formatWeekLabel(weekNumber, weekYear);
   let accumulatedAngle = 0;
 
   return (
@@ -61,7 +63,7 @@ export function WeeklyHoursPieChart({
         <div>
           <h3 className="text-xl font-semibold">Weekly project mix</h3>
           <p className="mt-2 text-sm text-[var(--muted)]">
-            Week {weekNumber}, {weekYear}, grouped by Budget Name / project.
+            {weekLabel}, grouped by Budget Name / project.
           </p>
         </div>
         <div className="text-left sm:text-right">

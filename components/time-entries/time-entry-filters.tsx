@@ -9,7 +9,7 @@ export function TimeEntryFilters({ filters }: TimeEntryFiltersProps) {
   return (
     <form className="grid gap-4 border border-[var(--border)] bg-[var(--panel)] p-5 md:grid-cols-6">
       <label className="grid gap-2 text-sm font-semibold">
-        Week
+        Week number
         <input
           className="h-10 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
           defaultValue={filters.weekNumber ?? ""}
@@ -18,6 +18,9 @@ export function TimeEntryFilters({ filters }: TimeEntryFiltersProps) {
           name="week"
           type="number"
         />
+        <span className="text-xs font-normal text-[var(--muted)]">
+          Date range depends on entry year.
+        </span>
       </label>
       <label className="grid gap-2 text-sm font-semibold">
         Product

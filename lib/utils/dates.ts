@@ -26,3 +26,35 @@ export function getIsoWeekYear(dateInputValue: string) {
 
   return utcDate.getUTCFullYear();
 }
+
+function formatWeekRangeDate(date: Date) {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC"
+  }).format(date);
+}
+
+export function getIsoWeekDateRange(weekNumber: number, weekYear: number) {
+  const fourthOfJanuary = new Date(Date.UTC(weekYear, 0, 4));
+  const fourthOfJanuaryDayNumber = fourthOfJanuary.getUTCDay() || 7;
+  const firstIsoWeekMonday = new Date(fourthOfJanuary);
+
+  firstIsoWeekMonday.setUTCDate(fourthOfJanuary.getUTCDate() - fourthOfJanuaryDayNumber + 1);
+
+  const weekStartDate = new Date(firstIsoWeekMonday);
+  weekStartDate.setUTCDate(firstIsoWeekMonday.getUTCDate() + (weekNumber - 1) * 7);
+
+  const weekEndDate = new Date(weekStartDate);
+  weekEndDate.setUTCDate(weekStartDate.getUTCDate() + 6);
+
+  return {
+    startDate: weekStartDate.toISOString().slice(0, 10),
+    endDate: weekEndDate.toISOString().slice(0, 10),
+    label: `${formatWeekRangeDate(weekStartDate)} - ${formatWeekRangeDate(weekEndDate)}`
+  };
+}
+
+export function formatWeekLabel(weekNumber: number, weekYear: number) {
+  return `Week ${weekNumber} · ${getIsoWeekDateRange(weekNumber, weekYear).label}`;
+}

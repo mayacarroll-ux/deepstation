@@ -1,7 +1,7 @@
 import { WeeklySummaryCopy } from "@/components/weekly-summary/weekly-summary-copy";
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
 import { getDashboardStats, getWeeklySummaryForYear } from "@/lib/services/time-tracking";
-import { getIsoWeekYear, getTodayInputValue } from "@/lib/utils/dates";
+import { formatWeekLabel, getIsoWeekYear, getTodayInputValue } from "@/lib/utils/dates";
 import { formatBillingSummaryLine, formatHours } from "@/lib/utils/format";
 
 type WeeklySummaryPageProps = {
@@ -35,6 +35,7 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
     selectedWeekNumber,
     selectedWeekYear
   );
+  const selectedWeekLabel = formatWeekLabel(selectedWeekNumber, selectedWeekYear);
   const summaryText = weeklySummary.groupedHours
     .map((groupedHour) =>
       formatBillingSummaryLine(groupedHour.totalHours, groupedHour.budgetName)
@@ -97,7 +98,7 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
             <div>
               <h3 className="text-xl font-semibold">Ready to send</h3>
               <p className="mt-2 text-sm text-[var(--muted)]">
-                Week {selectedWeekNumber}, {selectedWeekYear}, grouped by Budget Name / project.
+                {selectedWeekLabel}, grouped by Budget Name / project.
               </p>
             </div>
             <WeeklySummaryCopy summaryText={summaryText} weekNumber={selectedWeekNumber} />
