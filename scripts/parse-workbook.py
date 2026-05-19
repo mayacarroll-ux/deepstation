@@ -132,6 +132,14 @@ def parse_week_number(value):
     return int(float(value))
 
 
+def get_iso_week_number(date_input_value):
+    return datetime.fromisoformat(date_input_value).isocalendar().week
+
+
+def normalize_budget_number(value):
+    return clean_text(value) or "-"
+
+
 def parse_workbook(path):
     with zipfile.ZipFile(path) as archive:
         shared_strings = load_shared_strings(archive)
@@ -143,19 +151,11 @@ def parse_workbook(path):
     budget_mappings = []
     seen_budget_mapping_keys = set()
 
-    for row_index, row in enumerate(key_rows[1:], start=2):
-        product_name = clean_text(get_value(row, 0))
-        budget_name = clean_text(get_value(row, 1))
-        budget_number = clean_text(get_value(row, 2)) or "-"
-        notes = clean_text(get_value(row, 3))
-
-        if not product_name or not budget_name:
-            continue
-
+    def add_budget_mapping(product_name, budget_name, budget_number, notes=None):
         budget_mapping_key = (product_name, budget_name, budget_number)
 
         if budget_mapping_key in seen_budget_mapping_keys:
-            continue
+            return
 
         seen_budget_mapping_keys.add(budget_mapping_key)
         budget_mappings.append(
@@ -173,14 +173,16 @@ def parse_workbook(path):
             }
         )
 
-    budget_mapping_lookup = {
-        (
-            budget_mapping["productName"].lower(),
-            budget_mapping["budgetName"].lower(),
-            budget_mapping["budgetNumber"].lower(),
-        ): budget_mapping
-        for budget_mapping in budget_mappings
-    }
+    for row_index, row in enumerate(key_rows[1:], start=2):
+        product_name = clean_text(get_value(row, 0))
+        budget_name = clean_text(get_value(row, 1))
+        budget_number = normalize_budget_number(get_value(row, 2))
+        notes = clean_text(get_value(row, 3))
+
+        if not product_name or not budget_name:
+            continue
+
+        add_budget_mapping(product_name, budget_name, budget_number, notes)
 
     time_entries = []
 
@@ -188,7 +190,7 @@ def parse_workbook(path):
         date_value = get_value(row, 0)
         product_name = clean_text(get_value(row, 1))
         budget_name = clean_text(get_value(row, 2))
-        budget_number = clean_text(get_value(row, 3))
+        budget_number = normalize_budget_number(get_value(row, 3))
         task_description = clean_text(get_value(row, 4))
         hours_worked = get_value(row, 5)
         week_number = get_value(row, 6)
@@ -198,32 +200,33 @@ def parse_workbook(path):
             not date_value
             or not product_name
             or not budget_name
-            or not budget_number
             or not task_description
             or not hours_worked
-            or not week_number
         ):
             continue
 
+        entry_date = excel_serial_to_date(date_value)
+        add_budget_mapping(product_name, budget_name, budget_number)
         budget_mapping_key = (
             product_name.lower(),
             budget_name.lower(),
             budget_number.lower(),
         )
-        matching_budget_mapping = budget_mapping_lookup.get(budget_mapping_key)
 
         time_entries.append(
             {
                 "id": str(uuid.uuid5(uuid.NAMESPACE_URL, f"deepstation-time-entry:{row_index}")),
-                "entryDate": excel_serial_to_date(date_value),
+                "entryDate": entry_date,
                 "productName": product_name,
                 "budgetName": budget_name,
                 "budgetNumber": budget_number,
                 "taskDescription": task_description,
                 "hoursWorked": parse_hours(hours_worked),
-                "weekNumber": parse_week_number(week_number),
+                "weekNumber": parse_week_number(week_number)
+                if week_number
+                else get_iso_week_number(entry_date),
                 "notes": notes or None,
-                "budgetMappingKey": budget_mapping_key if matching_budget_mapping else None,
+                "budgetMappingKey": budget_mapping_key,
             }
         )
 

@@ -1,6 +1,6 @@
 {
   "sourceWorkbook": "/Users/mayacarroll/Downloads/Maya_Time_Tracking_Final_Updated.xlsx",
-  "importedAt": "2026-05-16T18:25:51Z",
+  "importedAt": "2026-05-19T00:58:47Z",
   "budgetMappings": [
     {
       "id": "94a2693a-f9de-51a1-b751-d33db1ca2c73",
@@ -34,6 +34,258 @@
       "id": "feee307e-df71-5a46-8cab-694df100f262",
       "productName": "Fin Lit HS Course",
       "budgetName": "Zurich HS Courses-Custom",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "cc962bf0-8a72-5364-a70a-3803b62e6471",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "f3724e2c-b51e-5885-9c92-130466b82a83",
+      "productName": "H2C",
+      "budgetName": "AI Accenture Design",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "3976b9ba-b981-5530-8653-27b827769a78",
+      "productName": "BizQuest",
+      "budgetName": "National Expansion",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "9b1a3d70-a93f-52ab-8c04-06730fdf425b",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "794add7d-5699-5b11-b6c7-b7a3b2d88938",
+      "productName": "Finance Park",
+      "budgetName": "Finance Park",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "7ed35931-2928-5094-9480-71c4a9ba8a3c",
+      "productName": "JA Inspire",
+      "budgetName": "?",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "7df9f7b2-984b-5b51-b128-e346888781f8",
+      "productName": "Career Speaker Series",
+      "budgetName": "?",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "d13fdda9-64c2-5654-9988-defe320f0759",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "e39c89a2-0da5-5dd9-abe0-e6155a400d23",
+      "productName": "Admin",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "36c92610-5950-5123-b7fb-bb61b64a4bad",
+      "productName": "Accessibility",
+      "budgetName": "UX Meetings",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "fffe9d80-db2b-5025-84fe-cc039cbc0ce6",
+      "productName": "UX Meetings",
+      "budgetName": "Professional Development",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "5b416708-829b-52df-ada8-ba1564c573d9",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "530f7ef8-b3b8-5f82-9fc3-bf032550abf9",
+      "productName": "Maritime Website",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "0342c1ed-315f-557f-aa0d-3830821a6dad",
+      "productName": "H2C",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "12b70bab-7cc4-50ca-8dd1-bfef2a79b77d",
+      "productName": "UX Meetings",
+      "budgetName": "UX Professional Develop",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "f5245e45-8bda-5d54-b4ec-dac120cb27a4",
+      "productName": "H2C",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "1612d148-77fd-5e1d-9c71-45b7e95d299e",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "2a989bd2-5de9-5676-a579-862832f11bb4",
+      "productName": "Custom HS Courses",
+      "budgetName": "Zurich 6-12 General",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "69db6423-0617-530e-a853-a83339959bad",
+      "productName": "Custom HS Courses",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "4906b849-8e69-5e1c-acde-8bcbf186a44e",
+      "productName": "HS Semester",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "8ce84666-81c0-5583-957c-b1c7609f15a2",
+      "productName": "UX Meetings",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "504da5c4-3411-50b5-97d8-86e1db3869e6",
+      "productName": "Maritime Curriculum",
+      "budgetName": "IBAS CD10.1",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "28ec20e3-bd04-56bd-888a-e58609ba3811",
+      "productName": "Custom HS Courses",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "01efcded-29f9-5aad-bca0-ae49f21ce91d",
+      "productName": "HS Semester",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "7a362e55-bc42-5953-9fe2-88dee1fb6bb4",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD10.1",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "db1ce717-c729-5133-a74d-a9bb2027fe7f",
+      "productName": "Company Program",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "8b214231-a69b-5a4b-9833-6a486f5f28ab",
+      "productName": "Maritime Website",
+      "budgetName": "Maritime Curriculum Site Design\nIBAS-CD 11.1 6010",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "5ca51b4e-2340-5650-9086-bcf43467e996",
+      "productName": "Maritime Website",
+      "budgetName": "Maritime Curriculum Site Production\nIBAS-CD 11.2 6010",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "2750e1cb-3ee6-5f7e-816a-7782c6d3299d",
+      "productName": "Admin",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "49b3cb25-b04d-563a-8ba5-b7519891e8d2",
+      "productName": "Maritime Curriculum",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "16b92ad7-432e-5ffb-9ab3-cb80c47d11ba",
+      "productName": "UX Meetings",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "5055a9fb-18ea-5bb0-8fa7-8d82e6572b46",
+      "productName": "Admin",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "f6d1cdf2-5592-58b3-ae8a-5ec94b928b48",
+      "productName": "H2C",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "ee95f4eb-bc41-5b5c-b8bd-b931391043e6",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "b09d76e0-fa0c-5799-9b0b-cb438a67380b",
+      "productName": "Maritime Website",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "notes": null
+    },
+    {
+      "id": "551c2784-7060-5407-8b78-92074d730102",
+      "productName": "Custom HS Courses",
+      "budgetName": "UX DESIGN",
       "budgetNumber": "-",
       "notes": null
     }
@@ -389,6 +641,6518 @@
         "h2c jani",
         "zurich hs courses-custom",
         "g0486 hs 6050 c&c"
+      ]
+    },
+    {
+      "id": "644b0f5b-bf66-54b7-b419-acf357a7740a",
+      "entryDate": "2026-04-24",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "H2C + Maritime Wireframes & Prototype revisions",
+      "hoursWorked": "6.00",
+      "weekNumber": 17,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "2096d551-cd20-5f40-8f00-9d95b4a66e4a",
+      "entryDate": "2026-04-24",
+      "productName": "H2C",
+      "budgetName": "AI Accenture Design",
+      "budgetNumber": "-",
+      "taskDescription": "Journey mapping exercise",
+      "hoursWorked": "0.50",
+      "weekNumber": 17,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ai accenture design",
+        "-"
+      ]
+    },
+    {
+      "id": "35f7214f-9240-5a29-aa4f-ca4c3732a92e",
+      "entryDate": "2026-04-22",
+      "productName": "BizQuest",
+      "budgetName": "National Expansion",
+      "budgetNumber": "-",
+      "taskDescription": "Business Quest Internal Meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 17,
+      "notes": null,
+      "budgetMappingKey": [
+        "bizquest",
+        "national expansion",
+        "-"
+      ]
+    },
+    {
+      "id": "642f4ece-9cda-5e31-a1ee-b157e10339ef",
+      "entryDate": "2026-04-21",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Educator dashboard wireframe & prototype revisions",
+      "hoursWorked": "5.50",
+      "weekNumber": 17,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "c24f6301-2bdc-547f-876d-8432204f9b70",
+      "entryDate": "2026-04-21",
+      "productName": "H2C",
+      "budgetName": "AI Accenture Design",
+      "budgetNumber": "-",
+      "taskDescription": "Accenture AI: Career Exploration Bot",
+      "hoursWorked": "0.50",
+      "weekNumber": 17,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ai accenture design",
+        "-"
+      ]
+    },
+    {
+      "id": "d68be202-dc87-5e02-b416-f9de0c53ecdb",
+      "entryDate": "2026-04-21",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "JA/Catalyte Product Planning",
+      "hoursWorked": "0.50",
+      "weekNumber": 17,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "00096158-c1c7-5f40-a338-773049bc1d18",
+      "entryDate": "2026-04-21",
+      "productName": "BizQuest",
+      "budgetName": "National Expansion",
+      "budgetNumber": "-",
+      "taskDescription": "Business Quest Internal Meeting",
+      "hoursWorked": "0.25",
+      "weekNumber": 17,
+      "notes": null,
+      "budgetMappingKey": [
+        "bizquest",
+        "national expansion",
+        "-"
+      ]
+    },
+    {
+      "id": "66d2797c-090b-51d4-8fc3-3e7e47440e16",
+      "entryDate": "2026-04-20",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Geolocator wireframe and prototype revisions",
+      "hoursWorked": "5.00",
+      "weekNumber": 17,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "44e28346-82f2-56b4-971a-ff79d0dda88e",
+      "entryDate": "2026-04-20",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "UX & UXR Subteam Meeting",
+      "hoursWorked": "0.50",
+      "weekNumber": 17,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "47918bab-e848-5010-97d6-47e111ac7d93",
+      "entryDate": "2026-04-20",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Experience Design Stand Up",
+      "hoursWorked": "0.25",
+      "weekNumber": 17,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "d2ce007b-38fe-50bb-8066-f5d9f487fb22",
+      "entryDate": "2026-04-16",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "H2C + Maritime Wireframes & Prototype revisions",
+      "hoursWorked": "4.00",
+      "weekNumber": 16,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "86a9f609-30a5-50b2-b7e1-a92a4790d79e",
+      "entryDate": "2026-04-16",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Weekly UX Sync with Catalyte",
+      "hoursWorked": "0.50",
+      "weekNumber": 16,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "2a8f3621-66d9-5022-90f6-41f7a593b793",
+      "entryDate": "2026-04-16",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Educator Dashboard Requirements meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 16,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "d03e66f6-e0e9-5ed2-a2c5-ba33fe05c0a6",
+      "entryDate": "2026-04-15",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Educator Dashboard Wireframe & prototype",
+      "hoursWorked": "4.00",
+      "weekNumber": 16,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "a1836774-bdd0-57c9-acff-e82a6e025b29",
+      "entryDate": "2026-04-14",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "JA/Catalyte Product Planning",
+      "hoursWorked": "0.50",
+      "weekNumber": 16,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "7e27672c-2540-54c5-96c3-6607ef082df8",
+      "entryDate": "2026-04-13",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Experinece Design Standup",
+      "hoursWorked": "0.50",
+      "weekNumber": 16,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "b5783274-4c06-5ee0-85f0-29564133db55",
+      "entryDate": "2026-04-10",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Career Cluster meeting with Julia and Shannon",
+      "hoursWorked": "0.50",
+      "weekNumber": 15,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "2614c908-17d1-535b-96b9-0f925058047f",
+      "entryDate": "2026-04-10",
+      "productName": "Finance Park",
+      "budgetName": "Finance Park",
+      "budgetNumber": "-",
+      "taskDescription": "Image cropping ad hoc meetings and work",
+      "hoursWorked": "3.00",
+      "weekNumber": 15,
+      "notes": null,
+      "budgetMappingKey": [
+        "finance park",
+        "finance park",
+        "-"
+      ]
+    },
+    {
+      "id": "292a71c8-7175-5c45-9e5a-7ca47eccbee4",
+      "entryDate": "2026-04-09",
+      "productName": "Finance Park",
+      "budgetName": "Finance Park",
+      "budgetNumber": "-",
+      "taskDescription": "Image cropping ad hoc meetings and work",
+      "hoursWorked": "4.00",
+      "weekNumber": 15,
+      "notes": null,
+      "budgetMappingKey": [
+        "finance park",
+        "finance park",
+        "-"
+      ]
+    },
+    {
+      "id": "f18e11b9-91c8-5f08-a0b8-061d765288a9",
+      "entryDate": "2026-04-09",
+      "productName": "Finance Park",
+      "budgetName": "Finance Park",
+      "budgetNumber": "-",
+      "taskDescription": "Image cropping meeting",
+      "hoursWorked": "0.50",
+      "weekNumber": 15,
+      "notes": null,
+      "budgetMappingKey": [
+        "finance park",
+        "finance park",
+        "-"
+      ]
+    },
+    {
+      "id": "01a51b05-6a2b-59ce-b1d2-dce80e529d59",
+      "entryDate": "2026-04-09",
+      "productName": "H2C",
+      "budgetName": "AI Accenture Design",
+      "budgetNumber": "-",
+      "taskDescription": "Accenture AI: Career Exploration Bot",
+      "hoursWorked": "0.50",
+      "weekNumber": 15,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ai accenture design",
+        "-"
+      ]
+    },
+    {
+      "id": "2699f2db-da16-5b9a-b549-cc64947c15d5",
+      "entryDate": "2026-04-08",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Career Cluster wireframe walkthrough with Shannon",
+      "hoursWorked": "0.50",
+      "weekNumber": 15,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "ea3b872c-d014-571c-8abf-01db8d4feb96",
+      "entryDate": "2026-04-08",
+      "productName": "BizQuest",
+      "budgetName": "National Expansion",
+      "budgetNumber": "-",
+      "taskDescription": "JA USA BQ Nation Expansion Design Phase",
+      "hoursWorked": "0.50",
+      "weekNumber": 15,
+      "notes": null,
+      "budgetMappingKey": [
+        "bizquest",
+        "national expansion",
+        "-"
+      ]
+    },
+    {
+      "id": "383f30d6-5c5d-5f17-8227-d2244d836f27",
+      "entryDate": "2026-04-07",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Touch Base UX Architect",
+      "hoursWorked": "1.00",
+      "weekNumber": 15,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "5fd96c0b-28bb-5cd0-82d0-77e38c955c9b",
+      "entryDate": "2026-04-07",
+      "productName": "H2C",
+      "budgetName": "AI Accenture Design",
+      "budgetNumber": "-",
+      "taskDescription": "Accenture AI: Career Exploration Bot",
+      "hoursWorked": "1.00",
+      "weekNumber": 15,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ai accenture design",
+        "-"
+      ]
+    },
+    {
+      "id": "106c9192-b390-5a2b-a3d3-7a3a70f778d8",
+      "entryDate": "2026-04-07",
+      "productName": "BizQuest",
+      "budgetName": "National Expansion",
+      "budgetNumber": "-",
+      "taskDescription": "JA USA BQ Nation Expansion Design Phase",
+      "hoursWorked": "0.50",
+      "weekNumber": 15,
+      "notes": null,
+      "budgetMappingKey": [
+        "bizquest",
+        "national expansion",
+        "-"
+      ]
+    },
+    {
+      "id": "90fe3692-e747-5b76-a82c-d9a73403d08f",
+      "entryDate": "2026-04-07",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "JA/Catalyte Product Planning",
+      "hoursWorked": "0.50",
+      "weekNumber": 15,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "c8d1ef5e-918c-5714-b124-dc58c825c323",
+      "entryDate": "2026-04-06",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Gelocator map wireframe & prototype updates",
+      "hoursWorked": "4.50",
+      "weekNumber": 15,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "f0c2ca7f-9eee-5425-8e37-cc0c6bab9fa5",
+      "entryDate": "2026-04-06",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Educator dashboard wireframe & prototype",
+      "hoursWorked": "3.00",
+      "weekNumber": 15,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "3944803b-474c-5c53-89d6-0227c3ea3f57",
+      "entryDate": "2026-04-03",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "H2C + Maritime Wireframes & Prototype revisions",
+      "hoursWorked": "3.00",
+      "weekNumber": 14,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "d0494a71-3dbd-5d54-929c-67dab65247b7",
+      "entryDate": "2026-04-03",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Educator dashboard wireframe & prototype",
+      "hoursWorked": "3.00",
+      "weekNumber": 14,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "452dee3b-f2b4-5d81-a421-83dd9d73d5de",
+      "entryDate": "2026-04-02",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Gelocator map wireframe & prototype updates",
+      "hoursWorked": "6.00",
+      "weekNumber": 14,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "11ab0aa8-3b0e-520f-b8d8-afad9b171fbe",
+      "entryDate": "2026-04-02",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Weekly UX sync with Catalyte",
+      "hoursWorked": "0.50",
+      "weekNumber": 14,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "f71211f3-fb39-54ca-b604-4c5472788294",
+      "entryDate": "2026-04-01",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "H2C + Maritime Wireframes & Prototype revisions",
+      "hoursWorked": "6.50",
+      "weekNumber": 14,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "de89421b-716a-5f26-a0a1-48a83ced25ea",
+      "entryDate": "2026-04-01",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "H2C Maritime and More meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 14,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "142932d1-8835-5b0a-acd9-00a7028b0100",
+      "entryDate": "2026-03-27",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "H2C + Maritime Wireframes & Prototype revisions",
+      "hoursWorked": "5.00",
+      "weekNumber": 13,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "e01b2ec9-b910-55fe-8a04-549072bbafe9",
+      "entryDate": "2026-03-27",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "UX Touch Base with Julia",
+      "hoursWorked": "0.50",
+      "weekNumber": 13,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "9d2c845c-aae3-541a-a8e6-1537c9975679",
+      "entryDate": "2026-03-26",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "H2C + Maritime Wireframes & Prototype revisions",
+      "hoursWorked": "8.00",
+      "weekNumber": 13,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "8a6ad185-412d-565c-85ae-09c54ecac462",
+      "entryDate": "2026-03-26",
+      "productName": "JA Inspire",
+      "budgetName": "?",
+      "budgetNumber": "-",
+      "taskDescription": "Accessibility Review",
+      "hoursWorked": "0.50",
+      "weekNumber": 13,
+      "notes": null,
+      "budgetMappingKey": [
+        "ja inspire",
+        "?",
+        "-"
+      ]
+    },
+    {
+      "id": "615fc09b-0b0e-5eab-a174-0a434be05528",
+      "entryDate": "2026-03-26",
+      "productName": "Career Speaker Series",
+      "budgetName": "?",
+      "budgetNumber": "-",
+      "taskDescription": "Accessibility Reivew",
+      "hoursWorked": "0.50",
+      "weekNumber": 13,
+      "notes": null,
+      "budgetMappingKey": [
+        "career speaker series",
+        "?",
+        "-"
+      ]
+    },
+    {
+      "id": "535ecb6f-e6f3-5362-9a70-0bc149bb11bc",
+      "entryDate": "2026-03-26",
+      "productName": "H2C",
+      "budgetName": "AI Accenture Design",
+      "budgetNumber": "-",
+      "taskDescription": "Accenture AI: Career Exploration Bot",
+      "hoursWorked": "1.00",
+      "weekNumber": 13,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ai accenture design",
+        "-"
+      ]
+    },
+    {
+      "id": "0a38d274-bf51-5c02-8246-e42602658391",
+      "entryDate": "2026-03-26",
+      "productName": "BizQuest",
+      "budgetName": "National Expansion",
+      "budgetNumber": "-",
+      "taskDescription": "Business Quest Internal Meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 13,
+      "notes": null,
+      "budgetMappingKey": [
+        "bizquest",
+        "national expansion",
+        "-"
+      ]
+    },
+    {
+      "id": "669c66d3-747c-57b1-b557-bef75f0a1126",
+      "entryDate": "2026-03-26",
+      "productName": "BizQuest",
+      "budgetName": "National Expansion",
+      "budgetNumber": "-",
+      "taskDescription": "Accessibility Review",
+      "hoursWorked": "1.00",
+      "weekNumber": 13,
+      "notes": null,
+      "budgetMappingKey": [
+        "bizquest",
+        "national expansion",
+        "-"
+      ]
+    },
+    {
+      "id": "cedc214a-7d3a-58d0-b1a3-9b33fec965e2",
+      "entryDate": "2026-03-25",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Arch Meeting with Jonathan and Diana",
+      "hoursWorked": "0.50",
+      "weekNumber": 13,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "82a1d1fb-ab62-5a13-9966-7073c0c4817d",
+      "entryDate": "2026-03-25",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Weekly UX Sync with Catalyte",
+      "hoursWorked": "0.50",
+      "weekNumber": 13,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "dcb32a3d-ad0e-51ef-b6a7-9b655301da80",
+      "entryDate": "2026-03-24",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "JA/ Catalyte Product Planning",
+      "hoursWorked": "0.50",
+      "weekNumber": 13,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "70e370d4-d2e2-5395-920b-6a04f5e7c1aa",
+      "entryDate": "2026-03-23",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Standup Meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 13,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "09937978-7cef-5463-b0f4-84997849645e",
+      "entryDate": "2026-03-20",
+      "productName": "Admin",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Timetracking, email, teams messages, admin, etc.",
+      "hoursWorked": "0.50",
+      "weekNumber": 12,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "355acc0a-e0ce-5858-85b8-ee477c3b07cd",
+      "entryDate": "2026-03-20",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "H2C + Maritime Wireframe Revisions",
+      "hoursWorked": "8.00",
+      "weekNumber": 12,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "cd619a56-7b9e-5638-9e5d-99b04f0f5516",
+      "entryDate": "2026-03-19",
+      "productName": "BizQuest",
+      "budgetName": "National Expansion",
+      "budgetNumber": "-",
+      "taskDescription": "Business Quest Internal Meeting",
+      "hoursWorked": "0.50",
+      "weekNumber": 12,
+      "notes": null,
+      "budgetMappingKey": [
+        "bizquest",
+        "national expansion",
+        "-"
+      ]
+    },
+    {
+      "id": "f0cfaa19-cb90-5b4f-aaa5-2c8f4176d91a",
+      "entryDate": "2026-03-19",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Weekly UX Sync with Catalyte",
+      "hoursWorked": "0.50",
+      "weekNumber": 12,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "012a7392-28b4-5519-a0ff-cbfdd6d2f309",
+      "entryDate": "2026-03-18",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "H2C + Maritime Wireframe Review",
+      "hoursWorked": "0.50",
+      "weekNumber": 12,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "09fbdd9c-6756-52c2-9121-108516f8806b",
+      "entryDate": "2026-03-17",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Geolocator Co-Design Session",
+      "hoursWorked": "0.50",
+      "weekNumber": 12,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "c430c2c5-5139-53ec-84ae-d1237606ba41",
+      "entryDate": "2026-03-17",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "JA / Catalyte Product Planning",
+      "hoursWorked": "0.50",
+      "weekNumber": 12,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "03fd9d42-343f-5b4e-a845-a98557635ad5",
+      "entryDate": "2026-03-16",
+      "productName": "H2C",
+      "budgetName": "AI Accenture Design",
+      "budgetNumber": "-",
+      "taskDescription": "Accenture AI: Career Exploration Bot Brainstorm",
+      "hoursWorked": "1.00",
+      "weekNumber": 12,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ai accenture design",
+        "-"
+      ]
+    },
+    {
+      "id": "fa8f02b7-a8ae-5080-a0cd-31f3720adc51",
+      "entryDate": "2026-03-16",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "H2C Geolocator",
+      "hoursWorked": "8.00",
+      "weekNumber": 12,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "329fb1b4-f8eb-553f-8ca2-05780263207f",
+      "entryDate": "2026-03-13",
+      "productName": "Admin",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Timetracking, email, teams messages, admin, etc.",
+      "hoursWorked": "1.00",
+      "weekNumber": 11,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "355630c4-b311-5003-a6d5-aa0469d20b62",
+      "entryDate": "2026-03-13",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Touchbase with Diana",
+      "hoursWorked": "1.00",
+      "weekNumber": 11,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "5dfa78d5-dd4c-5c75-9e3a-18b5f54e067c",
+      "entryDate": "2026-03-13",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "H2C: Maya & Julia Touch Base",
+      "hoursWorked": "0.50",
+      "weekNumber": 11,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "e5af509a-5e9b-501e-b388-ea0afdabbb9f",
+      "entryDate": "2026-03-12",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Calatyle & JANI 1:1",
+      "hoursWorked": "0.50",
+      "weekNumber": 11,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "6f73aeeb-c154-5885-af1b-5265eb619a2e",
+      "entryDate": "2026-03-12",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Weekly UX Sync with Catalyte",
+      "hoursWorked": "0.50",
+      "weekNumber": 11,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "7bda21f2-7ccb-5cb1-8c6a-eb2ea299283f",
+      "entryDate": "2026-03-11",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Career Cluster Wireframe & Prototype revisions",
+      "hoursWorked": "8.00",
+      "weekNumber": 11,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "fd12b9d9-af51-5d7e-9437-4ad0aca5226f",
+      "entryDate": "2026-03-10",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "H2C Cii with Julia and Julie Phelan",
+      "hoursWorked": "0.50",
+      "weekNumber": 11,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "e5a03f5b-609a-5fd5-b91e-2ba841e6e539",
+      "entryDate": "2026-03-09",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "H2C + Maritime Wireframes & Prototype revisions + geolocator prototype updates",
+      "hoursWorked": "8.00",
+      "weekNumber": 11,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "84096740-c641-5ce6-aa4d-7ba9650c9f8b",
+      "entryDate": "2026-03-06",
+      "productName": "Admin",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Timetracking, email, teams messages, admin, etc.",
+      "hoursWorked": "1.00",
+      "weekNumber": 10,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "9da9de33-a768-51b5-8718-87daab29bc28",
+      "entryDate": "2026-03-06",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "H2C: Maya & Julia Touch Base",
+      "hoursWorked": "1.00",
+      "weekNumber": 10,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "61b0687f-2231-558d-bc48-f9b4dafd7f8b",
+      "entryDate": "2026-03-06",
+      "productName": "BizQuest",
+      "budgetName": "National Expansion",
+      "budgetNumber": "-",
+      "taskDescription": "Business Quest Project Check-in Meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 10,
+      "notes": null,
+      "budgetMappingKey": [
+        "bizquest",
+        "national expansion",
+        "-"
+      ]
+    },
+    {
+      "id": "417c5b6c-50a7-5289-8e09-944ebcfc9028",
+      "entryDate": "2026-03-06",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Touchbase with Diana",
+      "hoursWorked": "0.50",
+      "weekNumber": 10,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "703a852d-505b-5903-b04e-7c30f439dbad",
+      "entryDate": "2026-03-05",
+      "productName": "BizQuest",
+      "budgetName": "National Expansion",
+      "budgetNumber": "-",
+      "taskDescription": "Discuss FP iPad Accessibility with Jon and Sandy",
+      "hoursWorked": "0.50",
+      "weekNumber": 10,
+      "notes": null,
+      "budgetMappingKey": [
+        "bizquest",
+        "national expansion",
+        "-"
+      ]
+    },
+    {
+      "id": "2bdc51be-c2c7-529d-9521-55a3f843c0db",
+      "entryDate": "2026-03-04",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "H2C + Maritime Prototype + Wireframes",
+      "hoursWorked": "8.00",
+      "weekNumber": 10,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "8670696b-9811-5e88-a2e1-17dfd60d235b",
+      "entryDate": "2026-03-03",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "H2C Career Cluster Prototype + Wireframes",
+      "hoursWorked": "7.00",
+      "weekNumber": 10,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "2fb7603c-7fb6-5fdd-893b-0887cfb6ae9a",
+      "entryDate": "2026-03-02",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Standup",
+      "hoursWorked": "1.00",
+      "weekNumber": 10,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "62ba5643-bc8c-508c-8912-3a0886bc3b4b",
+      "entryDate": "2026-02-27",
+      "productName": "Admin",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Timetracking, email, teams messages, admin, etc.",
+      "hoursWorked": "1.00",
+      "weekNumber": 9,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "0d4bde7f-f3b9-5266-97d0-9b8f77f2c245",
+      "entryDate": "2026-02-27",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "H2C Prioritization Discussion",
+      "hoursWorked": "1.50",
+      "weekNumber": 9,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "d9058c10-957e-5005-b6f2-8bfb7db88a28",
+      "entryDate": "2026-02-27",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Prep for H2C workshop with Julia",
+      "hoursWorked": "1.50",
+      "weekNumber": 9,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "d272c3c2-876b-5da6-81d5-84577382243c",
+      "entryDate": "2026-02-26",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Prep Mural boardH2C workshop",
+      "hoursWorked": "6.00",
+      "weekNumber": 9,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "f198c848-a067-5a4e-b57f-0a6796081d88",
+      "entryDate": "2026-02-26",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Prep for H2C workshop with Julia",
+      "hoursWorked": "0.50",
+      "weekNumber": 9,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "99faae2f-0a53-5b39-b6c6-470c9b338feb",
+      "entryDate": "2026-02-25",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "H2C + Maritime wireframes",
+      "hoursWorked": "8.00",
+      "weekNumber": 9,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "81082d96-976b-5f81-99b3-d1031a3119f1",
+      "entryDate": "2026-02-24",
+      "productName": "BizQuest",
+      "budgetName": "National Expansion",
+      "budgetNumber": "-",
+      "taskDescription": "JA USA BQ Nation Expansion Design Phase",
+      "hoursWorked": "1.00",
+      "weekNumber": 9,
+      "notes": null,
+      "budgetMappingKey": [
+        "bizquest",
+        "national expansion",
+        "-"
+      ]
+    },
+    {
+      "id": "2b3a0edb-947c-5161-b2da-178607b84486",
+      "entryDate": "2026-02-23",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Review user stories with stakeholders",
+      "hoursWorked": "0.50",
+      "weekNumber": 9,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "35765135-ee62-5934-a220-af19ee386afc",
+      "entryDate": "2026-02-20",
+      "productName": "Admin",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Timetracking, email, teams messages, admin, etc.",
+      "hoursWorked": "1.00",
+      "weekNumber": 8,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "6c96516f-e491-52de-8394-0e193bbe7eeb",
+      "entryDate": "2026-02-20",
+      "productName": "H2C",
+      "budgetName": "AI Accenture Design",
+      "budgetNumber": "-",
+      "taskDescription": "JA/Wisewirefe JA pathfinder: AI Career Coach",
+      "hoursWorked": "1.00",
+      "weekNumber": 8,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ai accenture design",
+        "-"
+      ]
+    },
+    {
+      "id": "8f1de1d0-3dc0-52ba-9756-d22a1f1da847",
+      "entryDate": "2026-02-20",
+      "productName": "Accessibility",
+      "budgetName": "UX Meetings",
+      "budgetNumber": "-",
+      "taskDescription": "Accessibility training",
+      "hoursWorked": "0.50",
+      "weekNumber": 8,
+      "notes": null,
+      "budgetMappingKey": [
+        "accessibility",
+        "ux meetings",
+        "-"
+      ]
+    },
+    {
+      "id": "e5e8ffcd-6009-5b8b-844e-655531138560",
+      "entryDate": "2026-02-20",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "H2C + Maritime wireframes",
+      "hoursWorked": "3.50",
+      "weekNumber": 8,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "28e67a3f-18d0-518c-8e83-fa6165563b6f",
+      "entryDate": "2026-02-19",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Clickup 4.0 learning session",
+      "hoursWorked": "0.50",
+      "weekNumber": 8,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "f3b35fc7-1a48-5a14-86f2-8ee9c0cbd424",
+      "entryDate": "2026-02-19",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Weekly UX Sync with Catalyte",
+      "hoursWorked": "0.50",
+      "weekNumber": 8,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "4002997d-e5ea-5e6a-98e8-309dc864f393",
+      "entryDate": "2026-02-19",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "UX Arch Touch Base with Julia",
+      "hoursWorked": "1.00",
+      "weekNumber": 8,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "613f35d6-7afa-5eb2-9362-85e93703bbba",
+      "entryDate": "2026-02-19",
+      "productName": "UX Meetings",
+      "budgetName": "Professional Development",
+      "budgetNumber": "-",
+      "taskDescription": "Professional Development Meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 8,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "professional development",
+        "-"
+      ]
+    },
+    {
+      "id": "9e2e6abe-ecc8-5be8-83d5-2cd90e5e02d0",
+      "entryDate": "2026-02-18",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "H2C + Maritime wireframes",
+      "hoursWorked": "4.00",
+      "weekNumber": 8,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "95d2b573-1aba-5d78-9789-8ba8859d5f5c",
+      "entryDate": "2026-02-18",
+      "productName": "Accessibility",
+      "budgetName": "UX Meetings",
+      "budgetNumber": "-",
+      "taskDescription": "Accessibility meeting",
+      "hoursWorked": "0.50",
+      "weekNumber": 8,
+      "notes": null,
+      "budgetMappingKey": [
+        "accessibility",
+        "ux meetings",
+        "-"
+      ]
+    },
+    {
+      "id": "817dbece-0445-5e02-af49-0a0dce8f244d",
+      "entryDate": "2026-02-17",
+      "productName": "BizQuest",
+      "budgetName": "National Expansion",
+      "budgetNumber": "-",
+      "taskDescription": "Business Quest Internal Meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 8,
+      "notes": null,
+      "budgetMappingKey": [
+        "bizquest",
+        "national expansion",
+        "-"
+      ]
+    },
+    {
+      "id": "0a42baf4-9a16-5abc-a897-305bae196e2b",
+      "entryDate": "2026-02-17",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "JA / Catalyte Product Planning",
+      "hoursWorked": "0.50",
+      "weekNumber": 8,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "ad806fdb-3b70-51e9-8ada-cf62b889bb41",
+      "entryDate": "2026-02-17",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Standup",
+      "hoursWorked": "1.00",
+      "weekNumber": 8,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "2a01695c-0110-5106-8bd4-bc108d76bd92",
+      "entryDate": "2026-02-16",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "H2C + Maritime wireframes",
+      "hoursWorked": "4.00",
+      "weekNumber": 8,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "1fa5441c-8a38-5211-932e-a225aff544b3",
+      "entryDate": "2026-02-11",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "AR/VR Reviews",
+      "hoursWorked": "5.00",
+      "weekNumber": 7,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "1c738dd7-aa4d-538b-a33c-b5d7ab7eb376",
+      "entryDate": "2026-02-11",
+      "productName": "Admin",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Timetracking, email, teams messages, admin, etc.",
+      "hoursWorked": "1.00",
+      "weekNumber": 7,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "7dfa4145-bfd4-54bd-9f7c-5eaf21870554",
+      "entryDate": "2026-02-11",
+      "productName": "BizQuest",
+      "budgetName": "National Expansion",
+      "budgetNumber": "-",
+      "taskDescription": "JA USA BQ Nation Expansion Design Phase",
+      "hoursWorked": "1.00",
+      "weekNumber": 7,
+      "notes": null,
+      "budgetMappingKey": [
+        "bizquest",
+        "national expansion",
+        "-"
+      ]
+    },
+    {
+      "id": "e1f164e0-8649-550f-858b-8a0dcb235900",
+      "entryDate": "2026-02-10",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "H2C + Maritime user stories & workshop prep",
+      "hoursWorked": "5.00",
+      "weekNumber": 7,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "1db9f19f-d0df-5d97-881a-2129068a7848",
+      "entryDate": "2026-02-10",
+      "productName": "H2C",
+      "budgetName": "AI Accenture Design",
+      "budgetNumber": "-",
+      "taskDescription": "Accenture AI: Career Exploration Bot",
+      "hoursWorked": "1.00",
+      "weekNumber": 7,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ai accenture design",
+        "-"
+      ]
+    },
+    {
+      "id": "3242d997-dbc1-54c8-9469-93b4028d0341",
+      "entryDate": "2026-02-10",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "JA / Catalyte Product Planning",
+      "hoursWorked": "0.50",
+      "weekNumber": 7,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "4b981d14-f7f7-5b6f-8815-9f197dd27fff",
+      "entryDate": "2026-02-09",
+      "productName": "H2C",
+      "budgetName": "AI Accenture Design",
+      "budgetNumber": "-",
+      "taskDescription": "Presentation prep & prototype updates",
+      "hoursWorked": "5.50",
+      "weekNumber": 7,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ai accenture design",
+        "-"
+      ]
+    },
+    {
+      "id": "36b06b32-5e2a-5176-8ce4-7c727c9b5268",
+      "entryDate": "2026-02-09",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Standup",
+      "hoursWorked": "1.00",
+      "weekNumber": 7,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "1e3643f2-f647-5d27-b92b-8ae2b322ef5a",
+      "entryDate": "2026-02-06",
+      "productName": "Admin",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Timetracking, email, teams messages, admin, etc.",
+      "hoursWorked": "3.50",
+      "weekNumber": 6,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "3057e592-c364-5599-a779-66f6aaa9217c",
+      "entryDate": "2026-02-06",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Maritme + H2C",
+      "hoursWorked": "4.00",
+      "weekNumber": 6,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "7b32f040-06fc-55b1-9072-60bc37fb7dd6",
+      "entryDate": "2026-02-05",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Web Strategy (H2C, Connect)",
+      "hoursWorked": "1.00",
+      "weekNumber": 6,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "722088f0-bb33-56a3-b2e1-1bc69a20e2d7",
+      "entryDate": "2026-02-05",
+      "productName": "H2C",
+      "budgetName": "AI Accenture Design",
+      "budgetNumber": "-",
+      "taskDescription": "AI Career Coach",
+      "hoursWorked": "3.00",
+      "weekNumber": 6,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ai accenture design",
+        "-"
+      ]
+    },
+    {
+      "id": "8e465f19-b1f4-5455-8645-a2cdef2a49c3",
+      "entryDate": "2026-02-05",
+      "productName": "UX Meetings",
+      "budgetName": "Professional Development",
+      "budgetNumber": "-",
+      "taskDescription": "Professional Development Meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 6,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "professional development",
+        "-"
+      ]
+    },
+    {
+      "id": "5dd1af8f-8d2a-5645-9610-8ba02857d838",
+      "entryDate": "2026-02-04",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "UX Arch Touch Base",
+      "hoursWorked": "1.00",
+      "weekNumber": 6,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "6fd6872d-b545-5f01-98ba-71e78c8ea49f",
+      "entryDate": "2026-02-03",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "JA / Catalyte Product Planning",
+      "hoursWorked": "0.50",
+      "weekNumber": 6,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "6c070b69-d8c0-5b6c-81a4-8aa94627de6c",
+      "entryDate": "2026-02-03",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Maritme + H2C",
+      "hoursWorked": "4.00",
+      "weekNumber": 6,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "92870eee-28a4-51ea-9817-22a876ff945f",
+      "entryDate": "2026-02-02",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Maritime Reviews",
+      "hoursWorked": "1.00",
+      "weekNumber": 6,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "5612b55b-e8a0-56e8-872d-bb44b33d958b",
+      "entryDate": "2026-02-02",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Standup",
+      "hoursWorked": "1.00",
+      "weekNumber": 6,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "3500169c-62d3-5c33-9033-13ea4fbe8614",
+      "entryDate": "2026-01-30",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "H2C + Maritime User Stories and Wireframe prototype",
+      "hoursWorked": "4.00",
+      "weekNumber": 5,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "8558cb6f-ce95-576a-a468-4f6f33a09d3e",
+      "entryDate": "2026-01-30",
+      "productName": "Admin",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Timetracking, email, teams messages, admin, etc.",
+      "hoursWorked": "1.00",
+      "weekNumber": 5,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "5ac3b54e-0652-5ffe-8516-c5b3bd6f64d3",
+      "entryDate": "2026-01-29",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Weekly UX Sync with Catalyte",
+      "hoursWorked": "0.50",
+      "weekNumber": 5,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "cceb65fc-a4de-513d-a2be-a60db6d4a888",
+      "entryDate": "2026-01-29",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "UX Arch Touch Base with Julia",
+      "hoursWorked": "0.50",
+      "weekNumber": 5,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "c7716b06-4bce-551b-a3ab-a88d02348bdb",
+      "entryDate": "2026-01-29",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "H2C reviews & H2C Digital Twin",
+      "hoursWorked": "6.00",
+      "weekNumber": 5,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "9248111e-c6c0-575d-96f4-2dfe4e2ad062",
+      "entryDate": "2026-01-28",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Career Connected Learning Design Meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 5,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "9834531e-d997-5f59-bea8-321a66e425ab",
+      "entryDate": "2026-01-27",
+      "productName": "H2C",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "H2C + Maritime User Stories and Wireframe prototype",
+      "hoursWorked": "5.00",
+      "weekNumber": 5,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "bb3a0a7e-0898-588d-bf9e-790b71a3df31",
+      "entryDate": "2026-01-26",
+      "productName": "Maritime Website",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Discuss Maritime Careers on H2C",
+      "hoursWorked": "0.50",
+      "weekNumber": 5,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "49b127d7-0574-503d-b28c-72830bee5b76",
+      "entryDate": "2026-01-26",
+      "productName": "H2C",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Arch Sync with Julia",
+      "hoursWorked": "1.00",
+      "weekNumber": 5,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "c48f2f23-05a7-5604-97c0-6482609ee985",
+      "entryDate": "2026-01-26",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Discuss Career Data needed Pt 2",
+      "hoursWorked": "0.50",
+      "weekNumber": 5,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "bc1a594c-24ff-5a3b-93ce-e900e2162f75",
+      "entryDate": "2026-01-23",
+      "productName": "H2C",
+      "budgetName": "AI Accenture Design",
+      "budgetNumber": "-",
+      "taskDescription": "JA Connect AI Career Coach proposal and prototype",
+      "hoursWorked": "7.00",
+      "weekNumber": 4,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ai accenture design",
+        "-"
+      ]
+    },
+    {
+      "id": "e40afde8-e7ab-52ec-879e-9fdc6276b3df",
+      "entryDate": "2026-01-23",
+      "productName": "Admin",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Timetracking, email, teams messages, admin, etc.",
+      "hoursWorked": "1.00",
+      "weekNumber": 4,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "0b0653fe-dc6b-5d17-92c0-2e301638cf2c",
+      "entryDate": "2026-01-22",
+      "productName": "UX Meetings",
+      "budgetName": "UX Professional Develop",
+      "budgetNumber": "-",
+      "taskDescription": "Professional Development Meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 4,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux professional develop",
+        "-"
+      ]
+    },
+    {
+      "id": "2845465e-35bf-5f25-915f-d646ff9e63b2",
+      "entryDate": "2026-01-22",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Geolocator MVP",
+      "hoursWorked": "2.50",
+      "weekNumber": 4,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "835f2282-05fc-59cf-ab91-4ae10b9fddb5",
+      "entryDate": "2026-01-21",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "H2C Redesign",
+      "hoursWorked": "7.00",
+      "weekNumber": 4,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "8a93a925-b4fd-532b-a089-42d60cf8d4b0",
+      "entryDate": "2026-01-20",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "JA/Catalyte Product Planning",
+      "hoursWorked": "0.50",
+      "weekNumber": 4,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "fc993ed5-e2e9-512e-b598-a27365f1fba5",
+      "entryDate": "2026-01-20",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Standup Meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 4,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "2f643cf4-0c09-5fa6-839d-d7538b94be45",
+      "entryDate": "2026-01-16",
+      "productName": "Admin",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Timetracking, email, teams messages, admin, etc.",
+      "hoursWorked": "1.00",
+      "weekNumber": 3,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "c1272e29-3c4c-56d6-b335-094b0bbed949",
+      "entryDate": "2026-01-16",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Resetting H2C meeting",
+      "hoursWorked": "0.50",
+      "weekNumber": 3,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "cd613766-72b3-5133-8531-41bea76ddd92",
+      "entryDate": "2026-01-15",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "UAT & AR reviews",
+      "hoursWorked": "6.00",
+      "weekNumber": 3,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "09993f14-eec7-54a6-9448-4e2c1de9ec13",
+      "entryDate": "2026-01-15",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Weekly UX Sync with Catalyte",
+      "hoursWorked": "0.50",
+      "weekNumber": 3,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "2aa809a1-bec9-51de-9e3e-02fb778c2f64",
+      "entryDate": "2026-01-15",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Catalyte & JANI 1:1",
+      "hoursWorked": "0.50",
+      "weekNumber": 3,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "ca53562e-8206-55b4-bf50-c9eb00b5e6fa",
+      "entryDate": "2026-01-15",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "UX Architecture Touch Base with Julia",
+      "hoursWorked": "0.50",
+      "weekNumber": 3,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "5ec79f2d-5c01-5542-a73b-42b934885140",
+      "entryDate": "2026-01-14",
+      "productName": "H2C",
+      "budgetName": "AI Accenture Design",
+      "budgetNumber": "-",
+      "taskDescription": "Accenture AI: Career Exploration Bot prototype demo",
+      "hoursWorked": "1.00",
+      "weekNumber": 3,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ai accenture design",
+        "-"
+      ]
+    },
+    {
+      "id": "afdb65a7-1a7d-5867-a56b-e06ef53a01bd",
+      "entryDate": "2026-01-13",
+      "productName": "H2C",
+      "budgetName": "AI Accenture Design",
+      "budgetNumber": "-",
+      "taskDescription": "Accenture AI: Career Exploration Bot prototype abd presentation",
+      "hoursWorked": "9.00",
+      "weekNumber": 3,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ai accenture design",
+        "-"
+      ]
+    },
+    {
+      "id": "7cb40c8e-f3d7-5c5d-bf95-0310ae55ca6a",
+      "entryDate": "2026-01-13",
+      "productName": "H2C",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "JA/Catalyte Product Planning",
+      "hoursWorked": "0.50",
+      "weekNumber": 3,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "50b81458-3cc6-523d-a330-f5a3a1f4b3fa",
+      "entryDate": "2026-01-12",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX team Standup",
+      "hoursWorked": "0.50",
+      "weekNumber": 3,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "4f0827e0-9fcb-522d-b20d-da6576bb6d22",
+      "entryDate": "2026-01-09",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Martime website reviews and feedback, Interactive reviews",
+      "hoursWorked": "9.00",
+      "weekNumber": 2,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "0b1d34f4-e864-51af-bad8-ff4661033e20",
+      "entryDate": "2026-01-08",
+      "productName": "H2C",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "Meeting with Catalyte, H2C AI Concept and improvements",
+      "hoursWorked": "5.00",
+      "weekNumber": 2,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "fe205485-ef3d-5455-97ce-1a15d48de222",
+      "entryDate": "2026-01-05",
+      "productName": "H2C",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "H2C AI Concept & Exisiting site reviews and improvements",
+      "hoursWorked": "5.00",
+      "weekNumber": 2,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "1757cb3c-8861-5f91-ab3e-5e70c35c0ce9",
+      "entryDate": "2026-01-05",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Team Standup",
+      "hoursWorked": "1.00",
+      "weekNumber": 2,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "469ed648-3f8b-51c5-85a6-0ffecaec8499",
+      "entryDate": "2025-12-19",
+      "productName": "H2C",
+      "budgetName": "AI Accenture Design",
+      "budgetNumber": "-",
+      "taskDescription": "H2C & AI proposal and Make prototype",
+      "hoursWorked": "3.00",
+      "weekNumber": 51,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ai accenture design",
+        "-"
+      ]
+    },
+    {
+      "id": "80517cb7-9faa-5d81-96f7-2e75b7c6496c",
+      "entryDate": "2025-12-19",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "Clickup Reviews",
+      "hoursWorked": "0.50",
+      "weekNumber": 51,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "95b2059f-cfb1-5316-8a6e-8886cd1d0160",
+      "entryDate": "2025-12-19",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Clickup Reviews",
+      "hoursWorked": "0.50",
+      "weekNumber": 51,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "dd7ce5c6-b226-5d7d-a5cd-ab4d6a12621b",
+      "entryDate": "2025-12-19",
+      "productName": "Admin",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Timetracking, email, teams messages, admin, etc.",
+      "hoursWorked": "3.00",
+      "weekNumber": 51,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "7f1d7e36-a5b0-5c63-aba9-90bb5a7b90d4",
+      "entryDate": "2025-12-18",
+      "productName": "H2C",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "Weekly Sync with Catalyte",
+      "hoursWorked": "0.50",
+      "weekNumber": 51,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "d5878017-ab2e-5781-a176-4bdb38ea89d9",
+      "entryDate": "2025-12-18",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Sync with Julia on Martime",
+      "hoursWorked": "0.50",
+      "weekNumber": 51,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "78b9e386-c974-511f-8c6a-c58297b46ded",
+      "entryDate": "2025-12-18",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Copy and asset inventory",
+      "hoursWorked": "5.00",
+      "weekNumber": 51,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "2e4b529d-3302-50cf-a57d-ac8c6eef94ac",
+      "entryDate": "2025-12-16",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Copy and asset inventory",
+      "hoursWorked": "5.00",
+      "weekNumber": 51,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "c2990e78-50e9-5335-97fa-c8e37b9f2bb1",
+      "entryDate": "2025-12-15",
+      "productName": "H2C",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "Quick sync with Julia",
+      "hoursWorked": "0.50",
+      "weekNumber": 51,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "c02b65c4-3a57-5dae-ad9d-b151feb4a6bc",
+      "entryDate": "2025-12-15",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Standup",
+      "hoursWorked": "1.00",
+      "weekNumber": 51,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "94d36bc1-2b03-58c7-8a03-318cdbbc8224",
+      "entryDate": "2025-12-15",
+      "productName": "Custom HS Courses",
+      "budgetName": "Zurich 6-12 General",
+      "budgetNumber": "-",
+      "taskDescription": "HS Course Standup",
+      "hoursWorked": "0.50",
+      "weekNumber": 51,
+      "notes": null,
+      "budgetMappingKey": [
+        "custom hs courses",
+        "zurich 6-12 general",
+        "-"
+      ]
+    },
+    {
+      "id": "18930c79-1a28-541d-9976-087330286b3c",
+      "entryDate": "2025-12-12",
+      "productName": "Admin",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Timetracking, email, teams messages, admin, etc.",
+      "hoursWorked": "1.00",
+      "weekNumber": 50,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "8d2f0f18-ef2a-5579-ae6d-86d613cafde6",
+      "entryDate": "2025-12-12",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Clickup review tasks",
+      "hoursWorked": "0.50",
+      "weekNumber": 50,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "e8885568-e5ee-5f7a-af36-3c85b08ae454",
+      "entryDate": "2025-12-12",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "Clickup review tasks",
+      "hoursWorked": "0.50",
+      "weekNumber": 50,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "6c7559e6-aa2f-5240-8ddb-dae9478b34ce",
+      "entryDate": "2025-12-11",
+      "productName": "H2C",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "Weekly Sync with Catalyte",
+      "hoursWorked": "0.50",
+      "weekNumber": 50,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "76b04cc9-d297-585e-b598-682879e87ad4",
+      "entryDate": "2025-12-09",
+      "productName": "Custom HS Courses",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "HS FG Sync with Diana",
+      "hoursWorked": "1.00",
+      "weekNumber": 50,
+      "notes": null,
+      "budgetMappingKey": [
+        "custom hs courses",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "ff6915b3-1e6f-5491-9875-43f47da88171",
+      "entryDate": "2025-12-09",
+      "productName": "Custom HS Courses",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "HS Course Standup",
+      "hoursWorked": "0.50",
+      "weekNumber": 50,
+      "notes": null,
+      "budgetMappingKey": [
+        "custom hs courses",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "f29d1363-1445-5b60-bd51-886e98b30695",
+      "entryDate": "2025-12-08",
+      "productName": "HS Semester",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "HS Update meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 50,
+      "notes": null,
+      "budgetMappingKey": [
+        "hs semester",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "42113a5b-e089-5aad-bfde-78275a5df9dc",
+      "entryDate": "2025-12-08",
+      "productName": "H2C",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "Status Check on H2C meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 50,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "e9e6789d-33bc-5fad-bbbe-7fb5c02579f7",
+      "entryDate": "2025-12-08",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Maritime Website Copy meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 50,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "bd288f33-9355-5d7f-8dde-14787ad220dc",
+      "entryDate": "2025-12-08",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Standup",
+      "hoursWorked": "1.00",
+      "weekNumber": 50,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "f1afd724-fa77-5871-9b52-2073831286a2",
+      "entryDate": "2025-12-05",
+      "productName": "HS Semester",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Sync with Sandy to review FG",
+      "hoursWorked": "0.50",
+      "weekNumber": 49,
+      "notes": null,
+      "budgetMappingKey": [
+        "hs semester",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "241af861-079f-5aab-8cf0-e349db06b591",
+      "entryDate": "2025-12-05",
+      "productName": "HS Semester",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "HS 9-12 FG wireframes",
+      "hoursWorked": "6.00",
+      "weekNumber": 49,
+      "notes": null,
+      "budgetMappingKey": [
+        "hs semester",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "a831804a-9c59-52ac-8757-ef33261753b3",
+      "entryDate": "2025-12-05",
+      "productName": "Admin",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Timetracking, email, teams messages, admin, etc.",
+      "hoursWorked": "1.00",
+      "weekNumber": 49,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "1286bb46-12bd-5d15-ad3f-86d3a7ce7af7",
+      "entryDate": "2025-12-05",
+      "productName": "HS Semester",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "HS Course Standup",
+      "hoursWorked": "0.50",
+      "weekNumber": 49,
+      "notes": null,
+      "budgetMappingKey": [
+        "hs semester",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "e55eace0-0110-5ade-b40e-eb112768e224",
+      "entryDate": "2025-12-04",
+      "productName": "HS Semester",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "HS 9-12 FG wireframes",
+      "hoursWorked": "5.00",
+      "weekNumber": 49,
+      "notes": null,
+      "budgetMappingKey": [
+        "hs semester",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "3e189b7a-8d76-5ee7-8780-5838b5524572",
+      "entryDate": "2025-12-04",
+      "productName": "HS Semester",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Weekly UX sync with Catalyte",
+      "hoursWorked": "0.50",
+      "weekNumber": 49,
+      "notes": null,
+      "budgetMappingKey": [
+        "hs semester",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "81c1ffb6-9b31-5855-9894-f246c36c60aa",
+      "entryDate": "2025-12-04",
+      "productName": "HS Semester",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "HS FG Sync with Sandy",
+      "hoursWorked": "0.50",
+      "weekNumber": 49,
+      "notes": null,
+      "budgetMappingKey": [
+        "hs semester",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "1ddbb120-8173-5f45-a80b-064d6a2072fd",
+      "entryDate": "2025-12-04",
+      "productName": "HS Semester",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "UX Arch Touch Base with Julia",
+      "hoursWorked": "0.50",
+      "weekNumber": 49,
+      "notes": null,
+      "budgetMappingKey": [
+        "hs semester",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "590619be-7a5b-52cd-a150-ee41924839c9",
+      "entryDate": "2025-12-04",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Review career info page with Symphonize",
+      "hoursWorked": "1.00",
+      "weekNumber": 49,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "c769abee-2b2b-5ab1-97ac-1934c2f278c1",
+      "entryDate": "2025-12-04",
+      "productName": "HS Semester",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "HS Course Standup",
+      "hoursWorked": "0.50",
+      "weekNumber": 49,
+      "notes": null,
+      "budgetMappingKey": [
+        "hs semester",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "824b5c77-d3c7-5655-abcb-f671f9cfc4ab",
+      "entryDate": "2025-12-03",
+      "productName": "HS Semester",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "HS Course Standup",
+      "hoursWorked": "0.50",
+      "weekNumber": 49,
+      "notes": null,
+      "budgetMappingKey": [
+        "hs semester",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "c87673be-e4f5-57bd-8aca-2ce069233541",
+      "entryDate": "2025-12-03",
+      "productName": "HS Semester",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "HS 9-12 FG wireframes",
+      "hoursWorked": "3.00",
+      "weekNumber": 49,
+      "notes": null,
+      "budgetMappingKey": [
+        "hs semester",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "5c8e0e07-c291-568e-8167-ef57ba19f10a",
+      "entryDate": "2025-12-03",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Website and Career Pages",
+      "hoursWorked": "1.00",
+      "weekNumber": 49,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "d9110b23-a76b-5418-9c1c-7d8af7b29c5f",
+      "entryDate": "2025-12-02",
+      "productName": "HS Semester",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Sync with Julia and Sandy on the FG",
+      "hoursWorked": "0.50",
+      "weekNumber": 49,
+      "notes": null,
+      "budgetMappingKey": [
+        "hs semester",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "37601986-7b47-543e-9164-43f6fe7d20a9",
+      "entryDate": "2025-12-02",
+      "productName": "H2C",
+      "budgetName": "AI Accenture Design",
+      "budgetNumber": "-",
+      "taskDescription": "Accenture AI: Career Exploration Bot brainstorm",
+      "hoursWorked": "1.00",
+      "weekNumber": 49,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ai accenture design",
+        "-"
+      ]
+    },
+    {
+      "id": "01bf0ea5-1732-5893-80b4-c425945db901",
+      "entryDate": "2025-12-02",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "JA Maritime Weekly Status Review & Action Planning meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 49,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "2850b5ee-3f83-58f8-91c8-1ae26c5c57fd",
+      "entryDate": "2025-12-02",
+      "productName": "Custom HS Courses",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Exploring login school lookup options",
+      "hoursWorked": "0.50",
+      "weekNumber": 49,
+      "notes": null,
+      "budgetMappingKey": [
+        "custom hs courses",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "2f19782a-81d1-58ef-995e-99c3e621751c",
+      "entryDate": "2025-12-02",
+      "productName": "HS Semester",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "HS 9-12 FG wireframes",
+      "hoursWorked": "6.00",
+      "weekNumber": 49,
+      "notes": null,
+      "budgetMappingKey": [
+        "hs semester",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "57c590b2-d07a-5bf6-a002-1d1f59baf6c9",
+      "entryDate": "2025-12-02",
+      "productName": "HS Semester",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "HS Course Standup",
+      "hoursWorked": "0.50",
+      "weekNumber": 49,
+      "notes": null,
+      "budgetMappingKey": [
+        "hs semester",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "75f86d26-bdcc-5619-8ade-b56b5579f720",
+      "entryDate": "2025-12-01",
+      "productName": "HS Semester",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "HS 9-12 FG wireframes",
+      "hoursWorked": "4.00",
+      "weekNumber": 49,
+      "notes": null,
+      "budgetMappingKey": [
+        "hs semester",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "4fda4a97-efce-52a3-9cd7-5e9d68dcddca",
+      "entryDate": "2025-12-01",
+      "productName": "HS Semester",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "HS Coordination",
+      "hoursWorked": "0.60",
+      "weekNumber": 49,
+      "notes": null,
+      "budgetMappingKey": [
+        "hs semester",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "45e8c2c7-974d-5b3c-bf77-ba11f41e995f",
+      "entryDate": "2025-12-01",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Design Standup",
+      "hoursWorked": "0.50",
+      "weekNumber": 49,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "07b0b1d0-232b-5cde-9a9a-0a6dd965eccd",
+      "entryDate": "2025-11-24",
+      "productName": "Admin",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Timetracking",
+      "hoursWorked": "0.50",
+      "weekNumber": 48,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "3745bc8c-90bb-5c1b-8e5c-059667359495",
+      "entryDate": "2025-11-24",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Martime website content design and collaboration",
+      "hoursWorked": "6.00",
+      "weekNumber": 48,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "25e7d1ae-beca-5ed1-816d-acfdea4c2ceb",
+      "entryDate": "2025-11-24",
+      "productName": "Custom HS Courses",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "SSO Integration Alignment",
+      "hoursWorked": "0.50",
+      "weekNumber": 48,
+      "notes": null,
+      "budgetMappingKey": [
+        "custom hs courses",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "d29fdfae-a387-5864-b509-bb20b793d980",
+      "entryDate": "2025-11-24",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Standup Meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 48,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "8dd0e993-c025-510b-bc47-2cf764c77f6a",
+      "entryDate": "2025-11-21",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Figma + Sheets integration and copy, videos, and photos inventory for collaboration with copy writer and stakeholders",
+      "hoursWorked": "5.00",
+      "weekNumber": 47,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "73db00ec-180c-52f7-a22a-0fce7a2df6a2",
+      "entryDate": "2025-11-21",
+      "productName": "Admin",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Time tracking",
+      "hoursWorked": "0.50",
+      "weekNumber": 47,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "ff650dd1-c916-5868-a5a2-8a18a5ef241e",
+      "entryDate": "2025-11-21",
+      "productName": "H2C",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "Weekly Sync with Catalyte",
+      "hoursWorked": "0.50",
+      "weekNumber": 47,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "157a893c-4fbf-57cd-aa3f-47e31097da69",
+      "entryDate": "2025-11-21",
+      "productName": "HS Semester",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "HS Project work - Knowledge transfer with Diana",
+      "hoursWorked": "0.50",
+      "weekNumber": 47,
+      "notes": null,
+      "budgetMappingKey": [
+        "hs semester",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "5a8fc621-f808-507d-99c8-3253ff5f1345",
+      "entryDate": "2025-11-21",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "Review UMS & D2L Scribe files with Reed",
+      "hoursWorked": "1.00",
+      "weekNumber": 47,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "149a9662-48e9-5a82-885b-6d63968305fc",
+      "entryDate": "2025-11-21",
+      "productName": "UX Meetings",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "Research automation demo with Jared",
+      "hoursWorked": "0.50",
+      "weekNumber": 47,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "18c63e3b-88d3-54b5-ba61-d3831b6c8ae9",
+      "entryDate": "2025-11-20",
+      "productName": "UX Meetings",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "Set up research automation demo",
+      "hoursWorked": "6.00",
+      "weekNumber": 47,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "bffe966d-03cb-517a-99af-93137961bf1e",
+      "entryDate": "2025-11-20",
+      "productName": "H2C",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "Carrie & Julia H2C",
+      "hoursWorked": "0.50",
+      "weekNumber": 47,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "f3ebc2a4-d848-5aa1-a69b-b70a2a8a9660",
+      "entryDate": "2025-11-20",
+      "productName": "H2C",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "UX Arch Touch Base with Julia",
+      "hoursWorked": "1.00",
+      "weekNumber": 47,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "ebf5ee58-684f-5cd2-86dd-3dd5cd081797",
+      "entryDate": "2025-11-20",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "JA Maritime Website Copy",
+      "hoursWorked": "1.00",
+      "weekNumber": 47,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "f6509a3f-47f1-5b10-99d3-21274d57e430",
+      "entryDate": "2025-11-18",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "JA Maritime Weekly Status Review & Action Items Meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 47,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "a6af1e0a-c457-591e-b3ff-a997683395b6",
+      "entryDate": "2025-11-17",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Figma Workspace Organization Sync",
+      "hoursWorked": "0.50",
+      "weekNumber": 47,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "6bf1d999-c8a7-537a-b933-445ece3ff982",
+      "entryDate": "2025-11-17",
+      "productName": "UX Meetings",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "Publishing Workflow & Folder Structure Alignment",
+      "hoursWorked": "1.00",
+      "weekNumber": 47,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "9cf54d89-17bc-5c7e-b951-a1d215170197",
+      "entryDate": "2025-11-17",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Standup",
+      "hoursWorked": "1.00",
+      "weekNumber": 47,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "7e6e5e7f-7ee0-55dd-a04d-1efa53eacfdc",
+      "entryDate": "2025-11-14",
+      "productName": "H2C",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "Audit & quick wins",
+      "hoursWorked": "5.00",
+      "weekNumber": 46,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "5d4f793e-c2ef-53ea-860e-04fe0ab87cda",
+      "entryDate": "2025-11-13",
+      "productName": "H2C",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "UX Arch Sync with Julia - reviewed maritime hi-fi designs",
+      "hoursWorked": "1.00",
+      "weekNumber": 46,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "09ce1839-e14b-56f9-9ab6-347e3d9d60dd",
+      "entryDate": "2025-11-13",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "Scribe technical writing",
+      "hoursWorked": "2.00",
+      "weekNumber": 46,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "68a01a61-8d87-50ea-b188-12d555e56136",
+      "entryDate": "2025-11-12",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "JA USA: Dream Accelerator Expansion Weekly Client Meeting",
+      "hoursWorked": "1.50",
+      "weekNumber": 46,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "ee1fae07-9f8c-52e0-98a4-e334925a5c44",
+      "entryDate": "2025-11-12",
+      "productName": "Custom HS Courses",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Login page with IDP prototypes and admin",
+      "hoursWorked": "3.00",
+      "weekNumber": 46,
+      "notes": null,
+      "budgetMappingKey": [
+        "custom hs courses",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "dd13d071-a638-584c-bfc3-91a51f9597ce",
+      "entryDate": "2025-11-07",
+      "productName": "Admin",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Timetracking, email, teams messages, admin, etc.",
+      "hoursWorked": "1.00",
+      "weekNumber": 45,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "f9b02083-d6af-5b66-966b-1ea77d3db7cf",
+      "entryDate": "2025-11-07",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "Scribe documentation",
+      "hoursWorked": "2.00",
+      "weekNumber": 45,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "4ff7cc50-d0b2-5dc5-87a7-63296d2bff96",
+      "entryDate": "2025-11-07",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "UMS and D2L training file",
+      "hoursWorked": "2.00",
+      "weekNumber": 45,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "15732c1b-5962-56e8-8f69-bf3366164606",
+      "entryDate": "2025-11-07",
+      "productName": "Maritime Curriculum",
+      "budgetName": "IBAS CD10.1",
+      "budgetNumber": "-",
+      "taskDescription": "Review XR & AR Deliverables",
+      "hoursWorked": "1.00",
+      "weekNumber": 45,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime curriculum",
+        "ibas cd10.1",
+        "-"
+      ]
+    },
+    {
+      "id": "a005a9e7-bc74-53c1-b3d2-c0d66e9197f6",
+      "entryDate": "2025-11-07",
+      "productName": "Custom HS Courses",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "Weekly sync with Catalyte",
+      "hoursWorked": "0.50",
+      "weekNumber": 45,
+      "notes": null,
+      "budgetMappingKey": [
+        "custom hs courses",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "b4662b4d-ed48-5064-a179-d7c47721c608",
+      "entryDate": "2025-11-06",
+      "productName": "HS Semester",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "Wireframes for Login page",
+      "hoursWorked": "3.00",
+      "weekNumber": 45,
+      "notes": null,
+      "budgetMappingKey": [
+        "hs semester",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "94d1fdd5-4da1-5f5c-9935-a8daa6406c71",
+      "entryDate": "2025-11-06",
+      "productName": "Custom HS Courses",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "Wireframes for H2C",
+      "hoursWorked": "4.00",
+      "weekNumber": 45,
+      "notes": null,
+      "budgetMappingKey": [
+        "custom hs courses",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "25dbbe93-6e35-5367-a217-ac245f833799",
+      "entryDate": "2025-11-05",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "JA USA: Dream Accelerator Expansion Weekly Client Meeting",
+      "hoursWorked": "1.50",
+      "weekNumber": 45,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "e57f36ef-0a93-58fd-8916-3c43ed325a5c",
+      "entryDate": "2025-11-04",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "IBAS Internal Weekly Meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 45,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "77861a5b-a2b9-5370-b335-77f0fae4bd4c",
+      "entryDate": "2025-11-04",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Present JA Maritime Website designs to MC with Gabe",
+      "hoursWorked": "0.50",
+      "weekNumber": 45,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "6ee60adb-6415-55d6-b467-f4e5c4200ec7",
+      "entryDate": "2025-11-04",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "JA Maritime Weekly Status Review & Action Items Meeting",
+      "hoursWorked": "0.50",
+      "weekNumber": 45,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "0f29a546-be7b-509b-b2ac-57f09948341d",
+      "entryDate": "2025-11-04",
+      "productName": "Custom HS Courses",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "JA/ Catalyte Product Planning",
+      "hoursWorked": "1.00",
+      "weekNumber": 45,
+      "notes": null,
+      "budgetMappingKey": [
+        "custom hs courses",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "585e9859-e016-5c30-a301-3ceeceedb4a7",
+      "entryDate": "2025-11-04",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Align Maritime Assets for Vendors",
+      "hoursWorked": "0.50",
+      "weekNumber": 45,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "13bb2d3e-61a8-5a2e-8a9b-1ab819ce6efb",
+      "entryDate": "2025-11-03",
+      "productName": "Finance Park",
+      "budgetName": "Finance Park",
+      "budgetNumber": "-",
+      "taskDescription": "Finance Park",
+      "hoursWorked": "0.50",
+      "weekNumber": 45,
+      "notes": null,
+      "budgetMappingKey": [
+        "finance park",
+        "finance park",
+        "-"
+      ]
+    },
+    {
+      "id": "68dc4c78-c3a8-5271-bff8-cb35936d9b4d",
+      "entryDate": "2025-11-03",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Standup",
+      "hoursWorked": "1.00",
+      "weekNumber": 45,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "804d5ad5-13eb-5d60-b180-708a9600ba9c",
+      "entryDate": "2025-10-31",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "Click up tasks and UMS",
+      "hoursWorked": "5.00",
+      "weekNumber": 44,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "fe2d5cd3-454d-54b9-bb0e-1fc1229a1d85",
+      "entryDate": "2025-10-31",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "Dream Accelerator Weekly meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 44,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "3115591e-7996-5f49-8179-e9ec157a20fc",
+      "entryDate": "2025-10-30",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "UX Arch Touch Base with Julia",
+      "hoursWorked": "1.00",
+      "weekNumber": 44,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "f387c707-3548-55f6-88df-f392bb984337",
+      "entryDate": "2025-10-30",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD10.1",
+      "budgetNumber": "-",
+      "taskDescription": "Clickup tasks and reviews",
+      "hoursWorked": "5.00",
+      "weekNumber": 44,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd10.1",
+        "-"
+      ]
+    },
+    {
+      "id": "6514117e-a494-51e0-a325-0700c9330dda",
+      "entryDate": "2025-10-29",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "JA USA: Dream Accelertor Expansion Weekly Meeting",
+      "hoursWorked": "1.50",
+      "weekNumber": 44,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "fcab71b6-28ac-5305-8d01-ab9d09a19e0e",
+      "entryDate": "2025-10-29",
+      "productName": "UX Meetings",
+      "budgetName": "UX Professional Develop",
+      "budgetNumber": "-",
+      "taskDescription": "UX Professional Development team meeting",
+      "hoursWorked": "0.50",
+      "weekNumber": 44,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux professional develop",
+        "-"
+      ]
+    },
+    {
+      "id": "b810585b-df3c-570c-8b3d-dbe90175832e",
+      "entryDate": "2025-10-28",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "Clickup task - review mockups",
+      "hoursWorked": "0.50",
+      "weekNumber": 44,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "608df50f-f692-5a51-96b7-493bbb433385",
+      "entryDate": "2025-10-28",
+      "productName": "Company Program",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "JA Company Program - Info gathering",
+      "hoursWorked": "1.00",
+      "weekNumber": 44,
+      "notes": null,
+      "budgetMappingKey": [
+        "company program",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "a0a3c2db-4211-5f83-8d05-f9692816b335",
+      "entryDate": "2025-10-28",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "Review UMS steps and catalog with Reed and Dennis",
+      "hoursWorked": "0.50",
+      "weekNumber": 44,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "dd010833-2233-5713-97e5-22fb7eda8009",
+      "entryDate": "2025-10-28",
+      "productName": "H2C",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "JA/Catalyte Product Planning",
+      "hoursWorked": "1.00",
+      "weekNumber": 44,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "3b9a424c-7c9b-50c8-a588-e0f563d123d1",
+      "entryDate": "2025-10-28",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "JA Maritime Website Weekly Sync",
+      "hoursWorked": "0.50",
+      "weekNumber": 44,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "b30999bb-126c-5609-90de-4dca28a45930",
+      "entryDate": "2025-10-27",
+      "productName": "H2C",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "JA Inspire & H2C overlap sync with Diana",
+      "hoursWorked": "0.50",
+      "weekNumber": 44,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "8b3d9780-84a2-5e43-bd1c-79d15481fd15",
+      "entryDate": "2025-10-27",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Standup",
+      "hoursWorked": "1.00",
+      "weekNumber": 44,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "6738a732-4772-57b4-a6ff-9cf5400ed72d",
+      "entryDate": "2025-10-27",
+      "productName": "Maritime Website",
+      "budgetName": "Maritime Curriculum Site Design\nIBAS-CD 11.1 6010",
+      "budgetNumber": "-",
+      "taskDescription": "Maritime Website UI Design",
+      "hoursWorked": "1.00",
+      "weekNumber": 44,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "maritime curriculum site design\nibas-cd 11.1 6010",
+        "-"
+      ]
+    },
+    {
+      "id": "67390c43-9bb6-51fd-bbcf-cba43fa8dcca",
+      "entryDate": "2025-10-24",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Review v2 Designs and provide feedback clickup task",
+      "hoursWorked": "0.50",
+      "weekNumber": 43,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "d2fcb59e-48c1-5f92-aacf-ce845af06149",
+      "entryDate": "2025-10-24",
+      "productName": "Admin",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Time tracking",
+      "hoursWorked": "0.50",
+      "weekNumber": 43,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "eba613d9-79c1-5399-81ab-95be5583e584",
+      "entryDate": "2025-10-24",
+      "productName": "H2C",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "UX Arch Touch Base with Julia",
+      "hoursWorked": "1.00",
+      "weekNumber": 43,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "a3de171c-2280-50be-be87-48c0e1736812",
+      "entryDate": "2025-10-24",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "Dream Accelerator Weekly meeting",
+      "hoursWorked": "0.50",
+      "weekNumber": 43,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "4f9a0c75-e7a7-57dd-bec0-c2dbaa9e8d5f",
+      "entryDate": "2025-10-24",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "DA Review of customization document",
+      "hoursWorked": "1.50",
+      "weekNumber": 43,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "edeef9b0-c5a3-50c2-a105-3e9285c92b09",
+      "entryDate": "2025-10-23",
+      "productName": "H2C",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "H2C Desktop Wireframes",
+      "hoursWorked": "5.00",
+      "weekNumber": 43,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "51bf1917-23f1-5911-a3e6-1941a232a31e",
+      "entryDate": "2025-10-23",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Maritime Website Design v2 Presentation",
+      "hoursWorked": "1.00",
+      "weekNumber": 43,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "982b8b95-2613-58b7-9201-6a7dc041000b",
+      "entryDate": "2025-10-22",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "Dream Accelerator Expansion Weekly Client Meeting",
+      "hoursWorked": "1.50",
+      "weekNumber": 43,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "75999a00-f4cf-5e8b-8ae3-d870e70298e2",
+      "entryDate": "2025-10-22",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "JAUSA opportunity meeting",
+      "hoursWorked": "0.50",
+      "weekNumber": 43,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "d9fc7ff2-edfc-5ae4-9a7f-37d9b503ffa0",
+      "entryDate": "2025-10-21",
+      "productName": "H2C",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "H2C desktop wireframe (Career Detail page)",
+      "hoursWorked": "1.00",
+      "weekNumber": 43,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "e35d2cce-617e-5f93-8446-7f34df1c99f9",
+      "entryDate": "2025-10-21",
+      "productName": "Custom HS Courses",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "Maya <> Owen Review Class Code UI (Catalyte)",
+      "hoursWorked": "0.50",
+      "weekNumber": 43,
+      "notes": null,
+      "budgetMappingKey": [
+        "custom hs courses",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "4ce2e074-9177-5a99-9156-5b36054a6958",
+      "entryDate": "2025-10-21",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "IBAS Internal Meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 43,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "d4af683c-9dc3-5457-b8e6-ee14e177203a",
+      "entryDate": "2025-10-21",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "JA Maritime Weekly Status Review & Action Planning meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 43,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "37849ed4-2e2a-5065-b4bc-0dcae4836a85",
+      "entryDate": "2025-10-20",
+      "productName": "HS Semester",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "Login page wireframes",
+      "hoursWorked": "3.00",
+      "weekNumber": 43,
+      "notes": null,
+      "budgetMappingKey": [
+        "hs semester",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "6b027a6f-434f-5b32-bcc9-6f6dfc226e11",
+      "entryDate": "2025-10-20",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Research Touchbase with Jared",
+      "hoursWorked": "0.50",
+      "weekNumber": 43,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "a11a0b17-11d6-5f24-b526-4d98b71a7a69",
+      "entryDate": "2025-10-20",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Standup",
+      "hoursWorked": "1.00",
+      "weekNumber": 43,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "55f26834-8fcd-56e9-9ea9-bf0313706d56",
+      "entryDate": "2025-10-17",
+      "productName": "HS Semester",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "Login page wireframes",
+      "hoursWorked": "3.00",
+      "weekNumber": 42,
+      "notes": null,
+      "budgetMappingKey": [
+        "hs semester",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "0c7be26c-56fc-566a-bc63-8949568ac3c6",
+      "entryDate": "2025-10-17",
+      "productName": "H2C",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "H2C desktop wireframe (Career Detail page)",
+      "hoursWorked": "3.00",
+      "weekNumber": 42,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "2f12b11e-8e49-53d7-bb3f-8a50a8ded7b2",
+      "entryDate": "2025-10-17",
+      "productName": "Custom HS Courses",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "Wireframe for class codes site, collaboration with Catalyte",
+      "hoursWorked": "1.00",
+      "weekNumber": 42,
+      "notes": null,
+      "budgetMappingKey": [
+        "custom hs courses",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "52b72aef-b9be-5c25-ac56-9cc572f58397",
+      "entryDate": "2025-10-17",
+      "productName": "Maritime Website",
+      "budgetName": "Maritime Curriculum Site Design\nIBAS-CD 11.1 6010",
+      "budgetNumber": "-",
+      "taskDescription": "Review UI designs v1 with Gabe",
+      "hoursWorked": "1.00",
+      "weekNumber": 42,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "maritime curriculum site design\nibas-cd 11.1 6010",
+        "-"
+      ]
+    },
+    {
+      "id": "2b79be0b-3596-5cd2-8acd-13363390ad9d",
+      "entryDate": "2025-10-17",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "Clickup review tasks",
+      "hoursWorked": "0.50",
+      "weekNumber": 42,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "34aab912-ab9d-5a3a-9d8a-1c42820b1f6f",
+      "entryDate": "2025-10-17",
+      "productName": "Maritime Website",
+      "budgetName": "Maritime Curriculum Site Production\nIBAS-CD 11.2 6010",
+      "budgetNumber": "-",
+      "taskDescription": "Review XR deliverable",
+      "hoursWorked": "0.50",
+      "weekNumber": 42,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "maritime curriculum site production\nibas-cd 11.2 6010",
+        "-"
+      ]
+    },
+    {
+      "id": "6caa5366-1fde-5f8d-833f-b083d0a896c8",
+      "entryDate": "2025-10-17",
+      "productName": "Admin",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Time tracking",
+      "hoursWorked": "0.50",
+      "weekNumber": 42,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "c1902754-adfa-553a-9253-16b9c1f6d98c",
+      "entryDate": "2025-10-17",
+      "productName": "Maritime Website",
+      "budgetName": "Maritime Curriculum Site Production\nIBAS-CD 11.2 6010",
+      "budgetNumber": "-",
+      "taskDescription": "A11y Review for XR",
+      "hoursWorked": "1.00",
+      "weekNumber": 42,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "maritime curriculum site production\nibas-cd 11.2 6010",
+        "-"
+      ]
+    },
+    {
+      "id": "99385e7a-ce78-579e-be14-be422799e449",
+      "entryDate": "2025-10-17",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "Dream Accelerator Weekly meeting",
+      "hoursWorked": "0.50",
+      "weekNumber": 42,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "531edc52-3e65-5a86-a47a-b223796cd30d",
+      "entryDate": "2025-10-17",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "DA Review of customization document",
+      "hoursWorked": "1.50",
+      "weekNumber": 42,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "bcfd9247-05d0-5592-8bd9-83005b0dc031",
+      "entryDate": "2025-10-15",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "JA USA: Dream Accelerator Expansion Weekly Client Meeting",
+      "hoursWorked": "1.50",
+      "weekNumber": 42,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "f1920e36-4ac7-5e99-b279-3e60e0f822e4",
+      "entryDate": "2025-10-15",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "UX Arch Sync with Julia - reviewed maritime hi-fi designs",
+      "hoursWorked": "0.50",
+      "weekNumber": 42,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "401a55f1-a564-539b-bb10-3f895a983030",
+      "entryDate": "2025-10-15",
+      "productName": "HS Semester",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "\"NEXT@ Clever: Build what's next. We'll power it.\" Webinar",
+      "hoursWorked": "1.00",
+      "weekNumber": 42,
+      "notes": null,
+      "budgetMappingKey": [
+        "hs semester",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "b69edd31-af48-511c-bde8-4537bfddc4dd",
+      "entryDate": "2025-10-14",
+      "productName": "HS Semester",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "Login Screen - Request for mockup",
+      "hoursWorked": "0.50",
+      "weekNumber": 42,
+      "notes": null,
+      "budgetMappingKey": [
+        "hs semester",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "783f22c7-0ba7-5022-ada8-e8367e896f6f",
+      "entryDate": "2025-10-14",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "JA Maritime - Weekly Status Review & Action Planning",
+      "hoursWorked": "1.00",
+      "weekNumber": 42,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "a6ef9953-3976-562b-9ec4-d93988b9b6b2",
+      "entryDate": "2025-10-14",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "IBAS Internal Weekly",
+      "hoursWorked": "1.00",
+      "weekNumber": 42,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "92acfb78-a772-5e07-981b-ec02ffe0d1d8",
+      "entryDate": "2025-10-14",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Disuss Sharepoint sites",
+      "hoursWorked": "1.00",
+      "weekNumber": 42,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "d3b4a3e3-d91c-55db-98bf-394b594bd20c",
+      "entryDate": "2025-10-13",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Standup",
+      "hoursWorked": "1.00",
+      "weekNumber": 42,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "9c2848e7-1bc6-5913-9fff-7f9be1fb86f0",
+      "entryDate": "2025-10-07",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "IBAS internal weekly",
+      "hoursWorked": "1.00",
+      "weekNumber": 41,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "368661b2-14ff-5e1b-93d9-b6700c9e9142",
+      "entryDate": "2025-10-07",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "JA Maritime - Weekly Status Review & Action Planning",
+      "hoursWorked": "0.50",
+      "weekNumber": 41,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "4cdb1991-51ff-5843-82bc-d9062667c646",
+      "entryDate": "2025-10-07",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Impromptu sync with Julia, Carl, and Gabe to align supporting Symphonize on Hi-Fi design deliverables",
+      "hoursWorked": "0.50",
+      "weekNumber": 41,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "828d9118-1b41-5f0f-b070-51c0f858f322",
+      "entryDate": "2025-10-06",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "Click Up Tasks to review Dream Accelerator deliverables",
+      "hoursWorked": "2.00",
+      "weekNumber": 41,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "15c0bb57-9f57-5d10-8df9-f1d271624d83",
+      "entryDate": "2025-10-06",
+      "productName": "Admin",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Timetracking and issue resolution",
+      "hoursWorked": "1.00",
+      "weekNumber": 41,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "38963b22-e473-5afd-b984-ac5116ad9400",
+      "entryDate": "2025-10-03",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "Dream Accelerator Weekly meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 40,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "20b4a8dc-21cf-5048-a3fd-b5df5a02aa11",
+      "entryDate": "2025-10-03",
+      "productName": "Admin",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Record JA Maritime Walkthrough of Wireframes for Stakeholders",
+      "hoursWorked": "0.50",
+      "weekNumber": 40,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "9080b2a7-2e32-52ba-80a8-ab9d7b8cd777",
+      "entryDate": "2025-10-02",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Wireframes Figma review",
+      "hoursWorked": "5.50",
+      "weekNumber": 40,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "3298c4d0-c5e3-5e59-988d-856a6bdf6272",
+      "entryDate": "2025-10-02",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Wireframes v2 part 2 discussion",
+      "hoursWorked": "0.50",
+      "weekNumber": 40,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "8160cb0d-a6e8-5ace-b754-56fd50be7ae9",
+      "entryDate": "2025-10-02",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Team Standup",
+      "hoursWorked": "0.50",
+      "weekNumber": 40,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "f918ff2b-b728-554b-b344-35798bd9037d",
+      "entryDate": "2025-10-01",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "JA USA: Dream Accelerator Expansion Weekly Client Meeting",
+      "hoursWorked": "1.50",
+      "weekNumber": 40,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "7b8b4547-03e6-5e14-9957-f8975ca2fa8b",
+      "entryDate": "2025-10-01",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Wireframes v2 discussion",
+      "hoursWorked": "0.50",
+      "weekNumber": 40,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "d867c0cf-d5bd-53d7-8268-471264419c15",
+      "entryDate": "2025-10-01",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "UX Arch Touch Base",
+      "hoursWorked": "1.00",
+      "weekNumber": 40,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "25a136d6-d499-5570-9bc0-9ae6f1b49132",
+      "entryDate": "2025-10-01",
+      "productName": "Maritime Curriculum",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Discuss Career Interest Inventory/H2C for JA Maritime",
+      "hoursWorked": "0.50",
+      "weekNumber": 40,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime curriculum",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "7679c347-7f5b-5787-a258-2d2afe4df15e",
+      "entryDate": "2025-09-30",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "IBAS internal weekly",
+      "hoursWorked": "1.00",
+      "weekNumber": 40,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "d58125a9-a958-508d-8cea-dd9324261e59",
+      "entryDate": "2025-09-30",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "JA Maritime - Weekly Status Review & Action Planning",
+      "hoursWorked": "0.50",
+      "weekNumber": 40,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "5bdb87a0-ba11-5e30-bc0a-69e44199fdfc",
+      "entryDate": "2025-09-29",
+      "productName": "H2C",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Mobile wireframes v1",
+      "hoursWorked": "7.00",
+      "weekNumber": 40,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "39cf7001-05f9-528f-b6df-fffd30e1735e",
+      "entryDate": "2025-10-07",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "IBAS Internal Weekly",
+      "hoursWorked": "1.00",
+      "weekNumber": 41,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "942778e0-9ec6-521b-b5d8-fdc75ab3aaa6",
+      "entryDate": "2025-10-07",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "JA Maritime Weekly Status Review & Action Planning meeting",
+      "hoursWorked": "0.50",
+      "weekNumber": 41,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "f5ed0112-0cdf-5a83-9620-1add38b49e89",
+      "entryDate": "2025-10-08",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "Dream Accelerator Expansion Weekly Client Meeting",
+      "hoursWorked": "1.50",
+      "weekNumber": 41,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "f2e19d07-9061-5b8f-8282-3323c632e9bb",
+      "entryDate": "2025-10-08",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Maritime Sync-Up for website wireframes",
+      "hoursWorked": "0.50",
+      "weekNumber": 41,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "3e7cc2d0-6e9e-5419-b6fc-27c346b9955e",
+      "entryDate": "2025-10-08",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Deck & prep for wireframe review meeting",
+      "hoursWorked": "5.00",
+      "weekNumber": 41,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "4a5d72c4-c4af-5ab4-ba24-56cf13721937",
+      "entryDate": "2025-10-08",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "JA Maritime website wireframe review with Brianna and Nicole",
+      "hoursWorked": "1.00",
+      "weekNumber": 41,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "ce25363e-9190-5a04-a486-b74301bf878e",
+      "entryDate": "2025-10-09",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Maritime UI Design v1 Pt 2",
+      "hoursWorked": "1.00",
+      "weekNumber": 41,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "34bfc429-f3a8-514e-872e-e12b52dd6ec5",
+      "entryDate": "2025-10-09",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "UX Arch Touch Base",
+      "hoursWorked": "0.50",
+      "weekNumber": 41,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "e4591093-8d6c-5690-a919-526b710de8d5",
+      "entryDate": "2025-10-09",
+      "productName": "H2C",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "H2C UI w/ Catalyte (Part 2)",
+      "hoursWorked": "1.00",
+      "weekNumber": 41,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "4350f904-3872-55ce-bba2-3a1820200887",
+      "entryDate": "2025-10-09",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Review and give feedback on v3 wireframes",
+      "hoursWorked": "1.00",
+      "weekNumber": 41,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "85ac1531-4f7f-574a-99e3-caff3bfc16ab",
+      "entryDate": "2025-10-09",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Team Standup",
+      "hoursWorked": "0.50",
+      "weekNumber": 41,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "5a7a8edf-6e2f-5e2a-9937-4436248fd961",
+      "entryDate": "2025-10-10",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "Weekly meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 41,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "5c1c22c4-0817-569f-8d23-745ea2f0f584",
+      "entryDate": "2025-10-10",
+      "productName": "DreamAccelerator",
+      "budgetName": "Dream Accelerator G0483 6050 ELC",
+      "budgetNumber": "-",
+      "taskDescription": "Review and provide feedback on Cortina deliverables",
+      "hoursWorked": "2.00",
+      "weekNumber": 41,
+      "notes": null,
+      "budgetMappingKey": [
+        "dreamaccelerator",
+        "dream accelerator g0483 6050 elc",
+        "-"
+      ]
+    },
+    {
+      "id": "2bc25287-61af-5be2-9de5-7bfbb297c07f",
+      "entryDate": "2025-10-10",
+      "productName": "H2C",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "H2C Desktop wireframe (Career Detail page)",
+      "hoursWorked": "2.50",
+      "weekNumber": 41,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "3ebda06e-0aa7-543c-b190-e0dcc67bdd78",
+      "entryDate": "2025-10-10",
+      "productName": "Admin",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Timetracking, email, teams messages, admin, etc.",
+      "hoursWorked": "1.00",
+      "weekNumber": 41,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "aa941581-4f1c-5fe7-a36e-cc1b61698970",
+      "entryDate": "2025-09-26",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Login deck for MC",
+      "hoursWorked": "3.00",
+      "weekNumber": 39,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "08af8f0d-2c8e-5adf-84c7-ec198a77fb71",
+      "entryDate": "2025-09-26",
+      "productName": "Admin",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Project admin (emails, notes, file sharing, etc.)",
+      "hoursWorked": "1.00",
+      "weekNumber": 39,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "be7eb810-bebb-52f9-911d-4931f2b83f33",
+      "entryDate": "2025-09-25",
+      "productName": "UX Meetings",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "UX Architecture Sync with Julia",
+      "hoursWorked": "0.50",
+      "weekNumber": 39,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "7be6200d-ba36-570a-b918-68773010dc4c",
+      "entryDate": "2025-09-25",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Meeting to discuss wireframe feedback with Symphonize",
+      "hoursWorked": "1.00",
+      "weekNumber": 39,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "02faaad7-7999-5ec7-bebb-ec13f3cd82ff",
+      "entryDate": "2025-09-25",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Updated Maritime sitemap",
+      "hoursWorked": "3.00",
+      "weekNumber": 39,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "7c0034e8-3a6f-533b-acdd-b79d79756f72",
+      "entryDate": "2025-09-25",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Review & Finalize Technical Architectural Diagram",
+      "hoursWorked": "0.50",
+      "weekNumber": 39,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "50f29a96-ac07-548a-82da-9a966977b82d",
+      "entryDate": "2025-09-23",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Content and image inventory for exisiting JA Maritime Site",
+      "hoursWorked": "1.00",
+      "weekNumber": 39,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "e24154eb-3c03-5a29-8f99-b6bc1cadf4b4",
+      "entryDate": "2025-09-23",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "IBAS Internal Weekly Meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 39,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "daec3dd4-b590-55a0-95d7-59e57c785d32",
+      "entryDate": "2025-09-23",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "JA Maritime Website Design Discussion",
+      "hoursWorked": "1.00",
+      "weekNumber": 39,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "7e1ffab0-3954-5fcc-a108-c34513360a7e",
+      "entryDate": "2025-09-23",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "JA Maritime Weekly Status Review Meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 39,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "838c54f1-cf71-58f9-84b9-952ecfffa562",
+      "entryDate": "2025-09-23",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Review 6th XR Deliverable",
+      "hoursWorked": "1.00",
+      "weekNumber": 39,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "1450633b-67f1-5b6c-a863-58ef95718167",
+      "entryDate": "2025-09-22",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "JA Maritime \"Login\" Discussion",
+      "hoursWorked": "0.50",
+      "weekNumber": 39,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "5bb1a50b-27c2-5f9b-9cd5-0b4075bbd3d0",
+      "entryDate": "2025-09-24",
+      "productName": "Maritime Website",
+      "budgetName": "Maritime Curriculum Site Design\nIBAS-CD 11.1 6010",
+      "budgetNumber": "-",
+      "taskDescription": "Reviewed 1st draft wireframes with Elisa and left feedback for Charlie",
+      "hoursWorked": "1.00",
+      "weekNumber": 39,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "maritime curriculum site design\nibas-cd 11.1 6010",
+        "-"
+      ]
+    },
+    {
+      "id": "41f0ae55-d4b1-5e4e-acdb-86da872394ad",
+      "entryDate": "2025-09-26",
+      "productName": "Admin",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Timetracking",
+      "hoursWorked": "0.50",
+      "weekNumber": 39,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "9d4afc69-84f1-5d56-bcf5-9ec68fb7d93b",
+      "entryDate": "2025-09-25",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Team Standup Meeting",
+      "hoursWorked": "0.50",
+      "weekNumber": 39,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "f6e8b618-cd28-5faf-b3a5-d812b46a07c4",
+      "entryDate": "2025-09-23",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "AI Award prep meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 39,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "0e3c57b4-466d-5489-8209-bb66d4a8ff1d",
+      "entryDate": "2025-09-22",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Standup Meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 39,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "81202513-64ac-5ca4-98cb-5b8ff4b97071",
+      "entryDate": "2025-09-22",
+      "productName": "Admin",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "Timetracking",
+      "hoursWorked": "0.50",
+      "weekNumber": 39,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "fe4db9ef-4488-5bf5-b175-76f6637830b6",
+      "entryDate": "2025-09-26",
+      "productName": "Custom HS Courses",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "D2L Working Group UX Improvement (Native Activities)",
+      "hoursWorked": "1.00",
+      "weekNumber": 39,
+      "notes": null,
+      "budgetMappingKey": [
+        "custom hs courses",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "03ff7aee-fdbe-54bb-96a4-28e70cf76920",
+      "entryDate": "2025-09-19",
+      "productName": "H2C",
+      "budgetName": "Missing Project Code",
+      "budgetNumber": "-",
+      "taskDescription": "Workshop prep & Lo-Fi Design",
+      "hoursWorked": "4.00",
+      "weekNumber": 38,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "missing project code",
+        "-"
+      ]
+    },
+    {
+      "id": "2ed704e1-526a-5b0b-81de-d29e4f065e85",
+      "entryDate": "2025-09-18",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Team Standup",
+      "hoursWorked": "0.50",
+      "weekNumber": 38,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "72ffd748-5f0e-52b7-8665-ed3e64a3e1c5",
+      "entryDate": "2025-09-17",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Meeting with stakeholders to discuss IBAS career profiles for H2C overlap",
+      "hoursWorked": "0.50",
+      "weekNumber": 38,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "44edaa12-000e-5f1c-9121-a602d5f41c71",
+      "entryDate": "2025-09-17",
+      "productName": "UX Meetings",
+      "budgetName": "UX Professional Develop",
+      "budgetNumber": "-",
+      "taskDescription": "UX Professional Development team meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 38,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux professional develop",
+        "-"
+      ]
+    },
+    {
+      "id": "c432275d-1c76-5279-9630-e1006240d36a",
+      "entryDate": "2025-09-17",
+      "productName": "UX Meetings",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "UX Architecture Touch Base with Julia",
+      "hoursWorked": "0.50",
+      "weekNumber": 38,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "7d42f0de-25b1-52c3-9452-8cb39a381026",
+      "entryDate": "2025-09-16",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "IBAS Internal Weekly Meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 38,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "45bdf89c-2883-5ff8-9ee4-5923c05015a2",
+      "entryDate": "2025-09-16",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "JA Maritime Weekly Status Review Meeting and Maritime Website A11y meeting.",
+      "hoursWorked": "2.00",
+      "weekNumber": 38,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "793a835d-a005-5b58-b3c6-c81194529628",
+      "entryDate": "2025-09-15",
+      "productName": "UX Meetings",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "UX Standup Meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 38,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "077780d5-5b34-50ac-ab2b-f0772e011bc6",
+      "entryDate": "2025-09-11",
+      "productName": "Admin",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Timetracking",
+      "hoursWorked": "1.00",
+      "weekNumber": 37,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "5641f3f2-244f-57db-89db-fc3b38e1c5e7",
+      "entryDate": "2025-09-11",
+      "productName": "UX Meetings",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "UX Arch Sync with Julia",
+      "hoursWorked": "0.50",
+      "weekNumber": 37,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "53f94fe0-f9ac-5905-a3ef-9b9e7179b9ef",
+      "entryDate": "2025-09-11",
+      "productName": "H2C",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "H2C Workshop - research on Jeff Patton techniques",
+      "hoursWorked": "1.00",
+      "weekNumber": 37,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "d98ac02c-96b0-502a-bca7-2f9caf9309fd",
+      "entryDate": "2025-09-11",
+      "productName": "H2C",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "H2C Workshop brainstorm with Julia",
+      "hoursWorked": "0.50",
+      "weekNumber": 37,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "8362e268-e66f-5cf0-a694-ff0541a84320",
+      "entryDate": "2025-09-11",
+      "productName": "Admin",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Timetracking - troubleshooting issues",
+      "hoursWorked": "3.00",
+      "weekNumber": 37,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "cbeb5050-18a5-54e2-9ef6-c8d00b46e94f",
+      "entryDate": "2025-09-11",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "UX team standup meeting",
+      "hoursWorked": "0.50",
+      "weekNumber": 37,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "07970a7a-9b36-568b-b3a8-949b0a602c88",
+      "entryDate": "2025-09-10",
+      "productName": "Admin",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Timetracking - backfill data into new spreadsheet",
+      "hoursWorked": "2.50",
+      "weekNumber": 37,
+      "notes": null,
+      "budgetMappingKey": [
+        "admin",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "f4b201cd-dc36-5e31-b69f-835d52ddf104",
+      "entryDate": "2025-09-09",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "JA Maritime - Weekly Status Review & Action Planning",
+      "hoursWorked": "0.50",
+      "weekNumber": 37,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "ba5d7762-b235-53bb-ad5c-47156c0dc01d",
+      "entryDate": "2025-09-09",
+      "productName": "Custom HS Courses",
+      "budgetName": "Zurich Hs Courses-Custom",
+      "budgetNumber": "-",
+      "taskDescription": "Interactives Platform (D2L, H5P, Webflow) meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 37,
+      "notes": null,
+      "budgetMappingKey": [
+        "custom hs courses",
+        "zurich hs courses-custom",
+        "-"
+      ]
+    },
+    {
+      "id": "3c8086af-9057-5ad3-bd0f-b4f7628580c5",
+      "entryDate": "2025-09-05",
+      "productName": "H2C",
+      "budgetName": "UX Design",
+      "budgetNumber": "-",
+      "taskDescription": "H2C & Career Speakers Mtg",
+      "hoursWorked": "1.00",
+      "weekNumber": 36,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "b1f12c33-9daf-5d58-bc5a-451619a7ac8a",
+      "entryDate": "2025-09-05",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Maritime Design/Research Sync & Admin",
+      "hoursWorked": "3.00",
+      "weekNumber": 36,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "aa1a404e-1b18-5a52-9ff2-79665bcc5d61",
+      "entryDate": "2025-09-04",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Maritime User Story Review & Touch Base with JS",
+      "hoursWorked": "7.00",
+      "weekNumber": 36,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "d8f83654-d874-57b5-9968-03713f3e1d47",
+      "entryDate": "2025-09-03",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "UX Professional Dev Meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 36,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "5e626103-9361-5b5a-b7f9-a9a47229ab8e",
+      "entryDate": "2025-09-03",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Maritime Webiste Sync Reed & User Discovery P2",
+      "hoursWorked": "1.50",
+      "weekNumber": 36,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "9ca74563-5a3c-563b-bf54-7975ce54c3ce",
+      "entryDate": "2025-09-02",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "UX Standup Meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 36,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "ac90d07c-3154-5b30-9238-355bf9f47c82",
+      "entryDate": "2025-09-02",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Maritme Weekly Status Review & Action Planning, Experience Blueprint and IBAS Internal Weekly Mtg",
+      "hoursWorked": "5.50",
+      "weekNumber": 36,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "90f84ae4-c7ef-5855-b0bc-7d1cfde49d99",
+      "entryDate": "2025-08-29",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Maritime Project",
+      "hoursWorked": "1.00",
+      "weekNumber": 35,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "237b028d-0573-58d6-a52e-eb6fc8c9aaa9",
+      "entryDate": "2025-08-29",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Maritime Project",
+      "hoursWorked": "1.00",
+      "weekNumber": 35,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "685ce76d-d8b0-559d-b175-56634da4cfdd",
+      "entryDate": "2025-08-29",
+      "productName": "UX Meetings",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Time-Tracking + Organization",
+      "hoursWorked": "1.00",
+      "weekNumber": 35,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "847454f2-dd5d-530e-a234-a35c2a1abeef",
+      "entryDate": "2025-08-28",
+      "productName": "Maritime Website",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Maritime Project",
+      "hoursWorked": "1.00",
+      "weekNumber": 35,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "910b566e-c903-5a24-8a68-2cf61e6f4973",
+      "entryDate": "2025-08-28",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Maritime Project",
+      "hoursWorked": "0.50",
+      "weekNumber": 35,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "a79646d2-0f9d-587c-bf8e-a5af40905911",
+      "entryDate": "2025-08-28",
+      "productName": "UX Meetings",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "UX Architecture Sync with Julia",
+      "hoursWorked": "1.00",
+      "weekNumber": 35,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "d8ab7a3f-1905-55f8-b2bb-c07020698a22",
+      "entryDate": "2025-08-28",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "UX Team Meeting",
+      "hoursWorked": "0.50",
+      "weekNumber": 35,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "8f7c2a94-02c3-59c3-b098-cb73f9b1eca4",
+      "entryDate": "2025-08-27",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Maritime Project",
+      "hoursWorked": "1.00",
+      "weekNumber": 35,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "d7080ef2-75e0-56d4-b892-05e8e32c602f",
+      "entryDate": "2025-08-27",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Maritime Project",
+      "hoursWorked": "2.00",
+      "weekNumber": 35,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "8c4c0fc4-4f29-5367-bddb-89d7973d21ea",
+      "entryDate": "2025-08-27",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Maritime Project",
+      "hoursWorked": "1.00",
+      "weekNumber": 35,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "ac2fe40a-11a5-5f9e-a671-78c8b78a7ee9",
+      "entryDate": "2025-08-27",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Maritime Project",
+      "hoursWorked": "3.00",
+      "weekNumber": 35,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "0729ea2e-c605-57a9-95dd-64225e847018",
+      "entryDate": "2025-08-26",
+      "productName": "UX Meetings",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Accessibility & Maritime Project",
+      "hoursWorked": "4.00",
+      "weekNumber": 35,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "0cc9502f-12ab-59f3-8866-36feba79afbe",
+      "entryDate": "2025-08-25",
+      "productName": "UX Meetings",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Maritime Project",
+      "hoursWorked": "2.00",
+      "weekNumber": 35,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "be4a97b3-b0f6-5be8-b218-e1d7238073ab",
+      "entryDate": "2025-08-25",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "UX Standup Meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 35,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "cefd4938-7a2b-5807-bd9b-0071a392dc46",
+      "entryDate": "2025-08-22",
+      "productName": "Custom HS Courses",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "D2L Brainstorm next steps with Diana",
+      "hoursWorked": "0.50",
+      "weekNumber": 34,
+      "notes": "D2L",
+      "budgetMappingKey": [
+        "custom hs courses",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "a95a6138-3382-5b25-a2d9-214cd8d1a5f8",
+      "entryDate": "2025-08-22",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Time Tracking",
+      "hoursWorked": "0.50",
+      "weekNumber": 34,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "f45c7a42-9585-5133-bd28-ce6265f4008c",
+      "entryDate": "2025-08-22",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "UX Architecture Touch Base with Julia",
+      "hoursWorked": "1.00",
+      "weekNumber": 34,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "5c3f18b9-aa12-5b26-97da-0c4e66252a03",
+      "entryDate": "2025-08-21",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "1:1 Prep",
+      "hoursWorked": "3.00",
+      "weekNumber": 34,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "c5911e4c-ffd6-5622-a4f7-cbf2c9dd4027",
+      "entryDate": "2025-08-21",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "UX Templates Catch Up with Diana",
+      "hoursWorked": "0.50",
+      "weekNumber": 34,
+      "notes": "Templates",
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "56be889d-1f46-5d13-bcd5-0ab3f926ac2c",
+      "entryDate": "2025-08-21",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "UX Team Standup",
+      "hoursWorked": "0.50",
+      "weekNumber": 34,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "a10aede9-cab0-5818-9b4b-06a478d3302b",
+      "entryDate": "2025-08-20",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Maritime tasks & stakeholder docs",
+      "hoursWorked": "2.00",
+      "weekNumber": 34,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "dc2d988f-f295-5abe-90c9-77e0ff14a954",
+      "entryDate": "2025-08-20",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "JA Townhall meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 34,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "78461b75-95da-5c57-8f0b-f62b29bff87a",
+      "entryDate": "2025-08-19",
+      "productName": "H2C",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Here 2 Career tasks, stakeholders, workshop plan docs",
+      "hoursWorked": "3.50",
+      "weekNumber": 34,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "151df6a2-e566-59dc-8681-d585f1ad2ee2",
+      "entryDate": "2025-08-20",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Templates tasks, stakeholders docs",
+      "hoursWorked": "1.00",
+      "weekNumber": 34,
+      "notes": "Templates",
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "26d25b30-a2c0-53e1-9b6e-dee4cb13bf34",
+      "entryDate": "2025-08-19",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Maritime Accessibility Meeting with David",
+      "hoursWorked": "0.50",
+      "weekNumber": 34,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "881962ae-1c25-5366-8a06-97d270549b06",
+      "entryDate": "2025-08-18",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "UX Standup",
+      "hoursWorked": "1.00",
+      "weekNumber": 34,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "12ab560f-2904-5282-90ae-b962e2c887c9",
+      "entryDate": "2025-08-18",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Notebook LM setup",
+      "hoursWorked": "2.00",
+      "weekNumber": 34,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "578502f8-eabc-52ec-b426-56cc9704b534",
+      "entryDate": "2025-08-18",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Maritime Website Redesign Meeting with Julia, Gabe and Carl",
+      "hoursWorked": "1.00",
+      "weekNumber": 34,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "0db70405-b7e5-5805-906b-7117edb61cbd",
+      "entryDate": "2025-08-18",
+      "productName": "Custom HS Courses",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "D2L tasks and stakeholders docs",
+      "hoursWorked": "2.00",
+      "weekNumber": 34,
+      "notes": "D2L",
+      "budgetMappingKey": [
+        "custom hs courses",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "a22c167e-77a0-5adb-b8b1-02c281aa6e01",
+      "entryDate": "2025-08-15",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Maritime Project Discovery",
+      "hoursWorked": "2.00",
+      "weekNumber": 33,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "e4d6c180-9d5b-5340-813e-1a95be906a2f",
+      "entryDate": "2025-08-15",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Maritime Project Kickoff",
+      "hoursWorked": "0.50",
+      "weekNumber": 33,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "2011c1ea-7f94-521e-99e5-288e5be8b9a0",
+      "entryDate": "2025-08-15",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Time Tracking",
+      "hoursWorked": "0.50",
+      "weekNumber": 33,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "1549dfaa-8763-5706-8efd-5e4108894a54",
+      "entryDate": "2025-08-14",
+      "productName": "H2C",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Here 2 Career Discovery",
+      "hoursWorked": "2.00",
+      "weekNumber": 33,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "5d33eea4-4a03-5392-8b05-384669462517",
+      "entryDate": "2025-08-14",
+      "productName": "Maritime Website",
+      "budgetName": "IBAS CD11.1",
+      "budgetNumber": "-",
+      "taskDescription": "Here 2 Career & Maritime Knowledge Transfer with Julia",
+      "hoursWorked": "1.50",
+      "weekNumber": 33,
+      "notes": null,
+      "budgetMappingKey": [
+        "maritime website",
+        "ibas cd11.1",
+        "-"
+      ]
+    },
+    {
+      "id": "b35730ee-83f0-5e6b-9c7d-2a3e253457d8",
+      "entryDate": "2025-08-12",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "JA West Palm Beach Onsite Tour",
+      "hoursWorked": "2.00",
+      "weekNumber": 33,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "2087b190-4994-51a9-a47d-cee28f747b65",
+      "entryDate": "2025-08-12",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Onboarding & Discovery",
+      "hoursWorked": "2.00",
+      "weekNumber": 33,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "5fe5be13-6818-5c23-8b1b-ae28838aae9f",
+      "entryDate": "2025-08-11",
+      "productName": "Custom HS Courses",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "D2L Stakeholder Interviews with Instructional & Content Designers",
+      "hoursWorked": "0.50",
+      "weekNumber": 33,
+      "notes": "D2L",
+      "budgetMappingKey": [
+        "custom hs courses",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "10ee3164-d552-5ffd-9945-66ba35bfe6e8",
+      "entryDate": "2025-08-11",
+      "productName": "H2C",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Here 2 Career Sync with Gabe",
+      "hoursWorked": "0.50",
+      "weekNumber": 33,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "2566529b-5c1a-5c6e-a715-4fe7c8df117f",
+      "entryDate": "2025-08-11",
+      "productName": "Custom HS Courses",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Templates and JA Inspire Sync with Julia",
+      "hoursWorked": "0.50",
+      "weekNumber": 33,
+      "notes": "D2L",
+      "budgetMappingKey": [
+        "custom hs courses",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "f3d91687-a5b0-503a-91aa-83b64480cee3",
+      "entryDate": "2025-08-11",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "UX Standup",
+      "hoursWorked": "1.00",
+      "weekNumber": 33,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "d06688a0-3d28-5a0d-8e58-c239181ce1e0",
+      "entryDate": "2025-08-08",
+      "productName": "H2C",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Here 2 Career Part 2 knowledge transfer with Julia",
+      "hoursWorked": "0.50",
+      "weekNumber": 32,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "50d355ee-d873-5168-8601-bf8cfc6ec023",
+      "entryDate": "2025-08-08",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Onboarding Buddy Sync with Diana",
+      "hoursWorked": "0.50",
+      "weekNumber": 32,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "f0c109f5-e502-553c-aa1e-1a28cf63c321",
+      "entryDate": "2025-08-08",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Time Tracking",
+      "hoursWorked": "0.50",
+      "weekNumber": 32,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "ecb9956d-1471-531c-9ad0-8222aeb9001a",
+      "entryDate": "2025-08-07",
+      "productName": "H2C",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Here 2 Career Discovery",
+      "hoursWorked": "2.00",
+      "weekNumber": 32,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "579dabba-36b1-52e5-9a12-3f86be485353",
+      "entryDate": "2025-08-07",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "LMS PDF best way forward discovery",
+      "hoursWorked": "2.00",
+      "weekNumber": 32,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "aac2fe3a-2d49-5c1a-a477-82791b6d0d42",
+      "entryDate": "2025-08-07",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "UX Team Standup",
+      "hoursWorked": "0.50",
+      "weekNumber": 32,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "84bff80c-3acc-5de9-9cbf-f12726035427",
+      "entryDate": "2025-08-06",
+      "productName": "H2C",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Here 2 Career Part 1 knowledge transfer with Julia",
+      "hoursWorked": "0.50",
+      "weekNumber": 32,
+      "notes": null,
+      "budgetMappingKey": [
+        "h2c",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "974606bf-49ae-562a-ae74-73a8a1a4bef3",
+      "entryDate": "2025-08-06",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "General onboarding",
+      "hoursWorked": "1.00",
+      "weekNumber": 32,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "76c2b547-9087-5f76-b62c-c1878b0c1821",
+      "entryDate": "2025-08-06",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "UX Professional Development team meeting",
+      "hoursWorked": "1.00",
+      "weekNumber": 32,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "2194b4ca-52b2-5942-bec2-18755a188581",
+      "entryDate": "2025-08-06",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Userlytics onboarding",
+      "hoursWorked": "2.00",
+      "weekNumber": 32,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "f91c4256-20c3-5160-aa81-8c6502e96995",
+      "entryDate": "2025-08-05",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "General onboarding",
+      "hoursWorked": "3.00",
+      "weekNumber": 32,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "134ca3ad-54bf-582e-9856-bcfe47c005d4",
+      "entryDate": "2025-08-05",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Rising women usability run through part 2 with Jared",
+      "hoursWorked": "1.00",
+      "weekNumber": 32,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "4f57ad9e-8964-54a5-aa25-1b56af23e88e",
+      "entryDate": "2025-08-05",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Rising women usability script and test plan review",
+      "hoursWorked": "2.00",
+      "weekNumber": 32,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "66bbe028-d8cb-5a5a-85e0-c7abc616c223",
+      "entryDate": "2025-08-04",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "General onboarding",
+      "hoursWorked": "1.50",
+      "weekNumber": 32,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "83c53125-75fe-553d-b0a0-07cade0362d4",
+      "entryDate": "2025-08-04",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "LMS PDF best way forward knowledge transfer meeting with Julia and Diana",
+      "hoursWorked": "0.50",
+      "weekNumber": 32,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "32b6d5cc-2d9a-5c0e-a939-8acfcc9e240c",
+      "entryDate": "2025-08-04",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Rising women usability run through part 1 with Jared",
+      "hoursWorked": "0.50",
+      "weekNumber": 32,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "45e540da-a022-584a-bb8f-e4e5779b600a",
+      "entryDate": "2025-08-04",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "UX Standup",
+      "hoursWorked": "1.00",
+      "weekNumber": 32,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "4d1e066d-8e35-5ffc-bb03-495892bc093f",
+      "entryDate": "2025-08-01",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Discovery and note taking",
+      "hoursWorked": "1.00",
+      "weekNumber": 31,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "dead136e-01fd-5ca5-84cc-dcbd9a48557f",
+      "entryDate": "2025-08-01",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Onboarding meeting part 2",
+      "hoursWorked": "1.00",
+      "weekNumber": 31,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
+      ]
+    },
+    {
+      "id": "d8d9d4b4-af44-5ac2-b739-00579d3fdcc9",
+      "entryDate": "2025-07-30",
+      "productName": "UX Meetings",
+      "budgetName": "UX DESIGN",
+      "budgetNumber": "-",
+      "taskDescription": "Onboarding meeting part 1",
+      "hoursWorked": "1.00",
+      "weekNumber": 31,
+      "notes": null,
+      "budgetMappingKey": [
+        "ux meetings",
+        "ux design",
+        "-"
       ]
     }
   ]
