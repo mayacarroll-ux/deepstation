@@ -1,25 +1,54 @@
+import crypto from "node:crypto";
+
 import NextAuth from "next-auth";
-import GitHub from "next-auth/providers/github";
+import Credentials from "next-auth/providers/credentials";
 
-import { DrizzleAdapter } from "@auth/drizzle-adapter";
-
-import { database } from "@/db";
 import { serverEnvironment } from "@/lib/config";
-import { protectedHomePath } from "@/lib/constants";
+import {
+  protectedHomePath,
+  singleUserEmail,
+  singleUserId,
+  singleUserName
+} from "@/lib/constants";
 
-const githubProvider =
-  serverEnvironment.AUTH_GITHUB_ID && serverEnvironment.AUTH_GITHUB_SECRET
-    ? [
-        GitHub({
-          clientId: serverEnvironment.AUTH_GITHUB_ID,
-          clientSecret: serverEnvironment.AUTH_GITHUB_SECRET
-        })
-      ]
-    : [];
+function doPasswordsMatch(submittedPassword: string, configuredPassword: string) {
+  const submittedPasswordBuffer = Buffer.from(submittedPassword);
+  const configuredPasswordBuffer = Buffer.from(configuredPassword);
+
+  if (submittedPasswordBuffer.length !== configuredPasswordBuffer.length) {
+    return false;
+  }
+
+  return crypto.timingSafeEqual(submittedPasswordBuffer, configuredPasswordBuffer);
+}
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: database ? DrizzleAdapter(database) : undefined,
-  providers: githubProvider,
+  providers: [
+    Credentials({
+      credentials: {
+        password: { label: "Password", type: "password" }
+      },
+      authorize(credentials) {
+        const configuredPassword = serverEnvironment.APP_PASSWORD;
+        const submittedPassword =
+          typeof credentials?.password === "string" ? credentials.password : "";
+
+        if (!configuredPassword) {
+          return null;
+        }
+
+        if (!doPasswordsMatch(submittedPassword, configuredPassword)) {
+          return null;
+        }
+
+        return {
+          id: singleUserId,
+          name: singleUserName,
+          email: singleUserEmail
+        };
+      }
+    })
+  ],
   secret:
     serverEnvironment.AUTH_SECRET ??
     (process.env.NODE_ENV === "development"

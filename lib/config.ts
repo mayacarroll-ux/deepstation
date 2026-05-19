@@ -2,8 +2,7 @@ import { z } from "zod";
 
 const serverEnvironmentSchema = z.object({
   AUTH_SECRET: z.string().optional(),
-  AUTH_GITHUB_ID: z.string().optional(),
-  AUTH_GITHUB_SECRET: z.string().optional(),
+  APP_PASSWORD: z.string().optional(),
   DATABASE_URL: z.string().optional(),
   OPENAI_API_KEY: z.string().optional()
 });
@@ -20,8 +19,7 @@ export function assertProductionServerEnvironment() {
   const missingEnvironmentVariables = [
     ["DATABASE_URL", serverEnvironment.DATABASE_URL],
     ["AUTH_SECRET", serverEnvironment.AUTH_SECRET],
-    ["AUTH_GITHUB_ID", serverEnvironment.AUTH_GITHUB_ID],
-    ["AUTH_GITHUB_SECRET", serverEnvironment.AUTH_GITHUB_SECRET]
+    ["APP_PASSWORD", serverEnvironment.APP_PASSWORD]
   ]
     .filter(([, environmentVariableValue]) => !environmentVariableValue)
     .map(([environmentVariableName]) => environmentVariableName);

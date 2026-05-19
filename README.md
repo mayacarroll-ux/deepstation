@@ -18,7 +18,8 @@ budget-key mappings, persistent time entries, and weekly billing summaries.
    ```
 
 3. Configure `DATABASE_URL`. `OPENAI_API_KEY` is only needed for the AI chat
-   endpoint. Auth variables are required for production deployments.
+   endpoint. `AUTH_SECRET` and `APP_PASSWORD` are required for production
+   deployments.
 
 4. Run database migrations after editing the schema:
 
@@ -47,14 +48,14 @@ The importer intentionally requires an explicit workbook path.
 ## Authentication
 
 Local development can run against the JSON workbook fallback with the fixed
-owner id, `single-user`. Production requires Auth.js with GitHub OAuth and scopes
-data to the signed-in Auth.js user id.
+owner id, `single-user`. Production uses Auth.js Credentials with one deployment
+password stored in `APP_PASSWORD`; data remains scoped to `single-user`.
 
 ## Vercel + Neon deployment
 
 1. Create a Neon PostgreSQL database.
-2. Add `DATABASE_URL`, `AUTH_SECRET`, `AUTH_GITHUB_ID`, and
-   `AUTH_GITHUB_SECRET` to Vercel project environment variables.
+2. Add `DATABASE_URL`, `AUTH_SECRET`, and `APP_PASSWORD` to Vercel project
+   environment variables.
 3. Optional: add `OPENAI_API_KEY` only if using `/api/chat`.
 4. Run migrations against Neon:
 

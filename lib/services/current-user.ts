@@ -5,8 +5,7 @@ import { auth } from "@/auth";
 import { database } from "@/db";
 import { users } from "@/db/schema";
 import { assertProductionServerEnvironment, isProduction } from "@/lib/config";
-
-export const singleUserId = "single-user";
+import { singleUserEmail, singleUserId, singleUserName } from "@/lib/constants";
 
 export async function getCurrentWorkbookOwnerId() {
   if (!isProduction) {
@@ -21,7 +20,7 @@ export async function getCurrentWorkbookOwnerId() {
     redirect("/login");
   }
 
-  return session.user.id;
+  return singleUserId;
 }
 
 export async function requireCurrentWorkbookOwnerId() {
@@ -35,10 +34,6 @@ export async function requireCurrentWorkbookOwnerId() {
 }
 
 export async function ensureCurrentUserExists() {
-  if (isProduction) {
-    return;
-  }
-
   await ensureSingleUserExists();
 }
 
@@ -59,7 +54,7 @@ export async function ensureSingleUserExists() {
 
   await database.insert(users).values({
     id: singleUserId,
-    name: "Maya Carroll",
-    email: "single-user@deepstation.local"
+    name: singleUserName,
+    email: singleUserEmail
   });
 }
