@@ -27,7 +27,9 @@ export default async function DashboardPage() {
             Current week totals and the latest workbook entries.
           </p>
         </div>
-        <ButtonLink href="/time-entries/new">New time entry</ButtonLink>
+        <ButtonLink className="text-neutral-950" href="/time-entries/new">
+          New time entry
+        </ButtonLink>
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">
