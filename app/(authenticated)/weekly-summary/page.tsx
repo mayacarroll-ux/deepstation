@@ -1,6 +1,7 @@
 import { WeeklySummaryCopy } from "@/components/weekly-summary/weekly-summary-copy";
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
-import { getDashboardStats, getWeeklySummary } from "@/lib/services/time-tracking";
+import { getDashboardStats, getWeeklySummaryForYear } from "@/lib/services/time-tracking";
+import { getIsoWeekYear, getTodayInputValue } from "@/lib/utils/dates";
 import { formatBillingSummaryLine, formatHours } from "@/lib/utils/format";
 
 type WeeklySummaryPageProps = {
@@ -14,13 +15,26 @@ function getRequestedWeekNumber(searchParams: Record<string, string | string[] |
   return Number.isInteger(weekNumber) && weekNumber >= 1 && weekNumber <= 53 ? weekNumber : null;
 }
 
+function getRequestedWeekYear(searchParams: Record<string, string | string[] | undefined>) {
+  const yearValue = searchParams.year;
+  const weekYear = Number(Array.isArray(yearValue) ? yearValue[0] : yearValue);
+
+  return Number.isInteger(weekYear) && weekYear >= 2000 && weekYear <= 2100 ? weekYear : null;
+}
+
 export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryPageProps) {
   const resolvedSearchParams = await searchParams;
   const ownerId = await getCurrentWorkbookOwnerId();
   const requestedWeekNumber = getRequestedWeekNumber(resolvedSearchParams);
+  const requestedWeekYear = getRequestedWeekYear(resolvedSearchParams);
   const dashboardStats = requestedWeekNumber ? null : await getDashboardStats(ownerId);
   const selectedWeekNumber = requestedWeekNumber ?? dashboardStats?.currentWeekNumber ?? 1;
-  const weeklySummary = await getWeeklySummary(ownerId, selectedWeekNumber);
+  const selectedWeekYear = requestedWeekYear ?? getIsoWeekYear(getTodayInputValue());
+  const weeklySummary = await getWeeklySummaryForYear(
+    ownerId,
+    selectedWeekNumber,
+    selectedWeekYear
+  );
   const summaryText = weeklySummary.groupedHours
     .map((groupedHour) =>
       formatBillingSummaryLine(groupedHour.totalHours, groupedHour.budgetName)
@@ -39,6 +53,18 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
       <div className="grid gap-6 lg:grid-cols-[0.7fr_1.3fr]">
         <section className="border border-[var(--border)] bg-[var(--panel)] p-6">
           <form className="grid gap-4">
+            <label className="grid gap-2 text-sm font-semibold">
+              Year
+              <input
+                className="h-11 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
+                defaultValue={selectedWeekYear}
+                max="2100"
+                min="2000"
+                name="year"
+                required
+                type="number"
+              />
+            </label>
             <label className="grid gap-2 text-sm font-semibold">
               Week Number
               <input
@@ -71,7 +97,7 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
             <div>
               <h3 className="text-xl font-semibold">Ready to send</h3>
               <p className="mt-2 text-sm text-[var(--muted)]">
-                Week {selectedWeekNumber}, grouped by Budget Name / project.
+                Week {selectedWeekNumber}, {selectedWeekYear}, grouped by Budget Name / project.
               </p>
             </div>
             <WeeklySummaryCopy summaryText={summaryText} weekNumber={selectedWeekNumber} />

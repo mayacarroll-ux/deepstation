@@ -16,3 +16,13 @@ export function getIsoWeekNumber(dateInputValue: string) {
 
   return weekNumber;
 }
+
+export function getIsoWeekYear(dateInputValue: string) {
+  const date = new Date(`${dateInputValue}T00:00:00`);
+  const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const dayNumber = utcDate.getUTCDay() || 7;
+
+  utcDate.setUTCDate(utcDate.getUTCDate() + 4 - dayNumber);
+
+  return utcDate.getUTCFullYear();
+}

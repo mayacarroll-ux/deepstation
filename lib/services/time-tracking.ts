@@ -6,7 +6,7 @@ import { z } from "zod";
 import { database } from "@/db";
 import { budgetMappings, timeEntries } from "@/db/schema";
 import { isProduction } from "@/lib/config";
-import { getIsoWeekNumber, getTodayInputValue } from "@/lib/utils/dates";
+import { getIsoWeekNumber, getIsoWeekYear, getTodayInputValue } from "@/lib/utils/dates";
 
 export const budgetMappingFormSchema = z.object({
   productName: z.string().trim().min(1, "Product Name is required."),
@@ -60,6 +60,7 @@ type ImportedWorkbookData = {
 
 export type TimeEntryFilters = {
   weekNumber?: number;
+  weekYear?: number;
   productName?: string;
   budgetName?: string;
   budgetNumber?: string;
@@ -151,6 +152,10 @@ async function listFallbackTimeEntries(filters: TimeEntryFilters = {}) {
     }))
     .filter((timeEntry) => {
       if (filters.weekNumber && timeEntry.weekNumber !== filters.weekNumber) {
+        return false;
+      }
+
+      if (filters.weekYear && getIsoWeekYear(timeEntry.entryDate) !== filters.weekYear) {
         return false;
       }
 
@@ -439,12 +444,20 @@ export async function getDashboardStats(ownerId: string) {
 }
 
 export async function getWeeklySummary(ownerId: string, weekNumber: number) {
+  return getWeeklySummaryForYear(ownerId, weekNumber, getIsoWeekYear(getTodayInputValue()));
+}
+
+export async function getWeeklySummaryForYear(
+  ownerId: string,
+  weekNumber: number,
+  weekYear: number
+) {
   if (!database) {
     if (isProduction) {
       throw new Error("DATABASE_URL is required to load weekly summaries in production.");
     }
 
-    const weeklyTimeEntries = await listFallbackTimeEntries({ weekNumber });
+    const weeklyTimeEntries = await listFallbackTimeEntries({ weekNumber, weekYear });
     const groupedHoursByBudgetName = new Map<string, number>();
 
     for (const timeEntry of weeklyTimeEntries) {
@@ -478,7 +491,13 @@ export async function getWeeklySummary(ownerId: string, weekNumber: number) {
       totalHours: sql<string>`sum(${timeEntries.hoursWorked})`
     })
     .from(timeEntries)
-    .where(and(eq(timeEntries.ownerId, ownerId), eq(timeEntries.weekNumber, weekNumber)))
+    .where(
+      and(
+        eq(timeEntries.ownerId, ownerId),
+        eq(timeEntries.weekNumber, weekNumber),
+        sql`extract(isoyear from ${timeEntries.entryDate}) = ${weekYear}`
+      )
+    )
     .groupBy(sql`upper(trim(${timeEntries.budgetName}))`)
     .orderBy(sql`upper(trim(${timeEntries.budgetName}))`);
 
