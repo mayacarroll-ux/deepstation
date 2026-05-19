@@ -8,7 +8,7 @@ const buttonBaseClassName =
 
 const buttonVariantClassNames = {
   primary:
-    "border-[var(--accent)] bg-[var(--accent)] text-[var(--accent-foreground)] hover:bg-[var(--accent-hover)]",
+    "border-[var(--accent)] bg-[var(--accent)] !text-neutral-950 hover:bg-[var(--accent-hover)]",
   secondary:
     "border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)] hover:bg-[var(--surface-muted)]"
 };

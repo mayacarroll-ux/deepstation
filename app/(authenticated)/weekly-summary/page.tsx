@@ -78,7 +78,7 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
               />
             </label>
             <button
-              className="h-11 border border-[var(--accent)] bg-[var(--accent)] px-5 text-sm font-semibold text-[var(--accent-foreground)] transition-colors hover:bg-[var(--accent-hover)]"
+              className="h-11 border border-[var(--accent)] bg-[var(--accent)] px-5 text-sm font-semibold !text-neutral-950 transition-colors hover:bg-[var(--accent-hover)]"
               type="submit"
             >
               View week
