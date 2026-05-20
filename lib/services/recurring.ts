@@ -34,6 +34,7 @@ export type RecurringTemplateRecord = typeof recurringTimeEntryTemplates.$inferS
 export type RecurringApplyResult = {
   attemptedCount: number;
   insertedCount: number;
+  skippedCount: number;
   selectedWeekNumber: number;
   selectedWeekYear: number;
 };
@@ -294,6 +295,7 @@ export async function applyRecurringTemplates(
     return {
       attemptedCount: 0,
       insertedCount: 0,
+      skippedCount: 0,
       selectedWeekNumber,
       selectedWeekYear
     };
@@ -310,6 +312,7 @@ export async function applyRecurringTemplates(
   return {
     attemptedCount: candidateTimeEntryRows.length,
     insertedCount: insertedRows.length,
+    skippedCount: candidateTimeEntryRows.length - insertedRows.length,
     selectedWeekNumber,
     selectedWeekYear
   };

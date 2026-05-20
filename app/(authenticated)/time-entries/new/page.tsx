@@ -13,7 +13,8 @@ export default async function NewTimeEntryPage() {
       <div className="mb-6">
         <h2 className="text-2xl font-semibold">New time entry</h2>
         <p className="mt-2 text-[var(--muted)]">
-          Add a workbook row. Product Name can auto-fill budget fields from the budget key.
+          Add a workbook row. Product Name can auto-fill budget fields from the budget key, and
+          optional Start Time / End Time fields can auto-calculate Hours Worked.
         </p>
       </div>
       <TimeEntryForm

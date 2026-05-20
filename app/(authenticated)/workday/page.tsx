@@ -196,11 +196,12 @@ export default async function WorkdayPage({ searchParams }: WorkdayPageProps) {
 
               {day.entries.length > 0 ? (
                 <div className="mt-5 overflow-x-auto">
-                  <table className="w-full min-w-[720px] border-collapse text-left text-sm">
+                  <table className="w-full min-w-[840px] border-collapse text-left text-sm">
                     <thead className="border-b border-[var(--border)] bg-[var(--surface-muted)]">
                       <tr>
                         <th className="px-4 py-3">Project</th>
                         <th className="px-4 py-3">Task</th>
+                        <th className="px-4 py-3">Time</th>
                         <th className="px-4 py-3">Budget #</th>
                         <th className="px-4 py-3 text-right">Hours</th>
                       </tr>
@@ -213,6 +214,11 @@ export default async function WorkdayPage({ searchParams }: WorkdayPageProps) {
                         >
                           <td className="px-4 py-3 font-semibold">{timeEntry.productName}</td>
                           <td className="px-4 py-3">{timeEntry.taskDescription}</td>
+                          <td className="px-4 py-3 text-[var(--muted)]">
+                            {timeEntry.startTime && timeEntry.endTime
+                              ? `${timeEntry.startTime} - ${timeEntry.endTime}`
+                              : "—"}
+                          </td>
                           <td className="px-4 py-3 text-[var(--muted)]">
                             {timeEntry.budgetNumber}
                           </td>

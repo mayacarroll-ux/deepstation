@@ -5,6 +5,7 @@ type WeekSelectorProps = {
   actionLabel: string;
   defaultWeekNumber: number;
   defaultWeekYear: number;
+  hiddenFields?: Record<string, string>;
   formAction?: string | ((formData: FormData) => Promise<void>);
   onSubmitButtonVariant?: "primary" | "secondary";
 };
@@ -13,6 +14,7 @@ export function WeekSelector({
   actionLabel,
   defaultWeekNumber,
   defaultWeekYear,
+  hiddenFields,
   formAction,
   onSubmitButtonVariant = "primary"
 }: WeekSelectorProps) {
@@ -23,6 +25,11 @@ export function WeekSelector({
       action={formAction}
       className="grid gap-3 border border-[var(--border)] bg-[var(--panel)] p-4 sm:grid-cols-[8rem_8rem_auto] sm:items-start"
     >
+      {hiddenFields
+        ? Object.entries(hiddenFields).map(([fieldName, fieldValue]) => (
+            <input key={fieldName} name={fieldName} type="hidden" value={fieldValue} />
+          ))
+        : null}
       <label className="grid gap-2 text-sm font-semibold">
         <span className="min-h-5">Year</span>
         <input

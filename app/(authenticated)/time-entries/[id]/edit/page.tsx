@@ -29,7 +29,8 @@ export default async function EditTimeEntryPage({ params }: EditTimeEntryPagePro
       <div className="mb-6">
         <h2 className="text-2xl font-semibold">Edit time entry</h2>
         <p className="mt-2 text-[var(--muted)]">
-          Update the saved workbook row.
+          Update the saved workbook row. Optional Start Time / End Time values can still drive
+          Hours Worked.
         </p>
       </div>
       <TimeEntryForm

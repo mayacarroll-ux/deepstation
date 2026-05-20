@@ -6,6 +6,7 @@ import { recurringDayOptions } from "@/lib/services/recurring";
 
 type RecurringTemplateTableProps = {
   recurringTemplates: RecurringTemplateRecord[];
+  basePath: string;
   toggleActiveAction: (templateId: string, formData: FormData) => Promise<void>;
 };
 
@@ -15,6 +16,7 @@ function getRecurringDayLabel(dayOfWeek: number) {
 
 export function RecurringTemplateTable({
   recurringTemplates,
+  basePath,
   toggleActiveAction
 }: RecurringTemplateTableProps) {
   if (recurringTemplates.length === 0) {
@@ -68,11 +70,16 @@ export function RecurringTemplateTable({
                 <div className="flex justify-end gap-2">
                   <Link
                     className="px-3 py-2 font-semibold hover:underline"
-                    href={`/recurring?edit=${recurringTemplate.id}`}
+                    href={`${basePath}?recurringEdit=${recurringTemplate.id}`}
                   >
                     Edit
                   </Link>
                   <form action={toggleActiveAction.bind(null, recurringTemplate.id)}>
+                    <input
+                      name="returnTo"
+                      type="hidden"
+                      value={basePath}
+                    />
                     <input
                       name="isActive"
                       type="hidden"

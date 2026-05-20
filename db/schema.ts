@@ -127,6 +127,8 @@ export const timeEntries = pgTable("time_entries", {
     }
   ),
   entryDate: date("entry_date", { mode: "string" }).notNull(),
+  startTime: text("start_time"),
+  endTime: text("end_time"),
   productName: text("product_name").notNull(),
   budgetName: text("budget_name").notNull(),
   budgetNumber: text("budget_number").notNull(),

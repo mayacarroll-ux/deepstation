@@ -18,6 +18,18 @@ export const budgetMappingFormSchema = z.object({
 export const timeEntryFormSchema = z.object({
   budgetMappingId: z.string().uuid().optional().or(z.literal("")),
   entryDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date is required."),
+  startTime: z
+    .string()
+    .trim()
+    .regex(/^(?:[01]\d|2[0-3]):[0-5]\d$/, "Start Time must use 24-hour HH:MM format.")
+    .optional()
+    .or(z.literal("")),
+  endTime: z
+    .string()
+    .trim()
+    .regex(/^(?:[01]\d|2[0-3]):[0-5]\d$/, "End Time must use 24-hour HH:MM format.")
+    .optional()
+    .or(z.literal("")),
   productName: z.string().trim().min(1, "Product Name is required."),
   budgetName: z.string().trim().min(1, "Budget Name is required."),
   budgetNumber: z.string().trim().min(1, "Budget # is required."),
@@ -164,6 +176,8 @@ async function listFallbackTimeEntries(filters: TimeEntryFilters = {}) {
         : null,
       recurringTemplateId: null,
       entryDate: timeEntry.entryDate,
+      startTime: null,
+      endTime: null,
       productName: timeEntry.productName,
       budgetName: timeEntry.budgetName,
       budgetNumber: timeEntry.budgetNumber,
@@ -232,6 +246,8 @@ export function parseTimeEntryFormData(formData: FormData) {
   const parsedTimeEntry = timeEntryFormSchema.parse({
     budgetMappingId: formData.get("budgetMappingId"),
     entryDate: formData.get("entryDate"),
+    startTime: formData.get("startTime") ?? "",
+    endTime: formData.get("endTime") ?? "",
     productName: formData.get("productName"),
     budgetName: formData.get("budgetName"),
     budgetNumber: formData.get("budgetNumber"),
@@ -244,6 +260,8 @@ export function parseTimeEntryFormData(formData: FormData) {
   return {
     ...parsedTimeEntry,
     budgetMappingId: parsedTimeEntry.budgetMappingId || null,
+    startTime: parsedTimeEntry.startTime || null,
+    endTime: parsedTimeEntry.endTime || null,
     hoursWorked: parsedTimeEntry.hoursWorked.toFixed(2),
     notes: parsedTimeEntry.notes || null
   };
@@ -406,6 +424,8 @@ export async function createTimeEntry(ownerId: string, formData: FormData) {
     budgetMappingId: parsedTimeEntry.budgetMappingId,
     recurringTemplateId: null,
     entryDate: parsedTimeEntry.entryDate,
+    startTime: parsedTimeEntry.startTime,
+    endTime: parsedTimeEntry.endTime,
     productName: parsedTimeEntry.productName,
     budgetName: parsedTimeEntry.budgetName,
     budgetNumber: parsedTimeEntry.budgetNumber,
@@ -425,6 +445,8 @@ export async function updateTimeEntry(ownerId: string, timeEntryId: string, form
     .set({
       budgetMappingId: parsedTimeEntry.budgetMappingId,
       entryDate: parsedTimeEntry.entryDate,
+      startTime: parsedTimeEntry.startTime,
+      endTime: parsedTimeEntry.endTime,
       productName: parsedTimeEntry.productName,
       budgetName: parsedTimeEntry.budgetName,
       budgetNumber: parsedTimeEntry.budgetNumber,

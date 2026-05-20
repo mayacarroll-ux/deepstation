@@ -1,7 +1,12 @@
-import { ButtonLink } from "@/components/ui/button";
+import { RecurringWorkflow } from "@/components/recurring/recurring-workflow";
 import { TimeEntryFilters } from "@/components/time-entries/time-entry-filters";
 import { TimeEntryTable } from "@/components/time-entries/time-entry-table";
+import { ButtonLink } from "@/components/ui/button";
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
+import {
+  getRecurringTemplate,
+  listRecurringTemplates
+} from "@/lib/services/recurring";
 import {
   listBudgetMappings,
   listTimeEntries,
@@ -9,8 +14,20 @@ import {
   type TimeEntryFilters as TimeEntryFilterValues,
   type TimeEntryRecord
 } from "@/lib/services/time-tracking";
+import {
+  formatWeekLabel,
+  getIsoWeekNumber,
+  getIsoWeekYear,
+  getTodayInputValue
+} from "@/lib/utils/dates";
 
 import { deleteTimeEntryAction } from "./actions";
+import {
+  applyRecurringTemplatesAction,
+  createRecurringTemplateAction,
+  toggleRecurringTemplateActiveAction,
+  updateRecurringTemplateAction
+} from "../recurring/actions";
 
 type TimeEntriesPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -64,16 +81,64 @@ function getFilterOptions(
   };
 }
 
+function getRecurringTemplateId(searchParams: Record<string, string | string[] | undefined>) {
+  const recurringEditValue = getSearchParamValue(searchParams, "recurringEdit");
+
+  return recurringEditValue || null;
+}
+
+function getRecurringStatusMessage(searchParams: Record<string, string | string[] | undefined>) {
+  const appliedValue = Number(getSearchParamValue(searchParams, "recurringAdded"));
+  const skippedValue = Number(getSearchParamValue(searchParams, "recurringSkipped"));
+  const weekValue = Number(getSearchParamValue(searchParams, "recurringWeek"));
+  const yearValue = Number(getSearchParamValue(searchParams, "recurringYear"));
+
+  if (
+    !Number.isInteger(appliedValue) ||
+    !Number.isInteger(skippedValue) ||
+    !Number.isInteger(weekValue) ||
+    !Number.isInteger(yearValue)
+  ) {
+    return null;
+  }
+
+  const selectedWeekLabel = formatWeekLabel(weekValue, yearValue);
+  const appliedSummary =
+    appliedValue > 0
+      ? `Added ${appliedValue} recurring entr${appliedValue === 1 ? "y" : "ies"}`
+      : `No new recurring entries were added`;
+  const skippedSummary =
+    skippedValue > 0
+      ? `, skipped ${skippedValue} duplicate${skippedValue === 1 ? "" : "s"}`
+      : "";
+
+  return `${appliedSummary}${skippedSummary} for ${selectedWeekLabel}.`;
+}
+
 export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageProps) {
   const resolvedSearchParams = await searchParams;
   const ownerId = await getCurrentWorkbookOwnerId();
   const filters = getFilters(resolvedSearchParams);
+  const recurringTemplateId = getRecurringTemplateId(resolvedSearchParams);
+  const defaultWeekNumber = getIsoWeekNumber(getTodayInputValue());
+  const defaultWeekYear = getIsoWeekYear(getTodayInputValue());
+  const requestedRecurringWeekNumber = Number(
+    getSearchParamValue(resolvedSearchParams, "recurringWeek")
+  );
+  const requestedRecurringWeekYear = Number(
+    getSearchParamValue(resolvedSearchParams, "recurringYear")
+  );
   const [timeEntryRecords, allTimeEntryRecords, budgetMappingRecords] = await Promise.all([
     listTimeEntries(ownerId, filters),
     listTimeEntries(ownerId),
     listBudgetMappings(ownerId)
   ]);
+  const [recurringTemplateRecords, selectedRecurringTemplate] = await Promise.all([
+    listRecurringTemplates(ownerId),
+    recurringTemplateId ? getRecurringTemplate(ownerId, recurringTemplateId) : Promise.resolve(null)
+  ]);
   const filterOptions = getFilterOptions(budgetMappingRecords, allTimeEntryRecords);
+  const recurringStatusMessage = getRecurringStatusMessage(resolvedSearchParams);
 
   return (
     <section className="py-8">
@@ -87,6 +152,30 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
         <ButtonLink href="/time-entries/new">New time entry</ButtonLink>
       </div>
       <div className="grid gap-6">
+        <RecurringWorkflow
+          applyRecurringTemplatesAction={applyRecurringTemplatesAction}
+          basePath="/time-entries"
+          createRecurringTemplateAction={createRecurringTemplateAction}
+          defaultWeekNumber={
+            Number.isInteger(requestedRecurringWeekNumber) &&
+            requestedRecurringWeekNumber >= 1 &&
+            requestedRecurringWeekNumber <= 53
+              ? requestedRecurringWeekNumber
+              : defaultWeekNumber
+          }
+          defaultWeekYear={
+            Number.isInteger(requestedRecurringWeekYear) &&
+            requestedRecurringWeekYear >= 2000 &&
+            requestedRecurringWeekYear <= 2100
+              ? requestedRecurringWeekYear
+              : defaultWeekYear
+          }
+          recurringTemplates={recurringTemplateRecords}
+          selectedRecurringTemplate={selectedRecurringTemplate}
+          statusMessage={recurringStatusMessage}
+          toggleRecurringTemplateActiveAction={toggleRecurringTemplateActiveAction}
+          updateRecurringTemplateAction={updateRecurringTemplateAction}
+        />
         <TimeEntryFilters filterOptions={filterOptions} filters={filters} />
         <TimeEntryTable deleteAction={deleteTimeEntryAction} timeEntries={timeEntryRecords} />
       </div>

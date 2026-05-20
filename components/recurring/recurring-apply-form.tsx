@@ -2,12 +2,14 @@ import { WeekSelector } from "@/components/shared/week-selector";
 
 type RecurringApplyFormProps = {
   action: (formData: FormData) => Promise<void>;
+  returnToPath: string;
   defaultWeekNumber: number;
   defaultWeekYear: number;
 };
 
 export function RecurringApplyForm({
   action,
+  returnToPath,
   defaultWeekNumber,
   defaultWeekYear
 }: RecurringApplyFormProps) {
@@ -24,6 +26,7 @@ export function RecurringApplyForm({
         actionLabel="Apply recurring entries"
         defaultWeekNumber={defaultWeekNumber}
         defaultWeekYear={defaultWeekYear}
+        hiddenFields={{ returnTo: returnToPath }}
         formAction={action}
         onSubmitButtonVariant="primary"
       />

@@ -32,38 +32,51 @@ function getSelectedWeekYear(formData: FormData) {
     : new Date().getFullYear();
 }
 
+function getReturnToPath(formData: FormData) {
+  const returnToPath = getSearchParamValue(formData, "returnTo");
+
+  return returnToPath.startsWith("/") ? returnToPath : "/time-entries";
+}
+
 export async function createRecurringTemplateAction(formData: FormData) {
   const ownerId = await getCurrentWorkbookOwnerId();
+  const returnToPath = getReturnToPath(formData);
 
   await ensureCurrentUserExists();
   await createRecurringTemplate(ownerId, formData);
   revalidatePath("/recurring");
-  redirect("/recurring");
+  revalidatePath("/time-entries");
+  redirect(returnToPath);
 }
 
 export async function updateRecurringTemplateAction(templateId: string, formData: FormData) {
   const ownerId = await getCurrentWorkbookOwnerId();
+  const returnToPath = getReturnToPath(formData);
 
   await ensureCurrentUserExists();
   await updateRecurringTemplate(ownerId, templateId, formData);
   revalidatePath("/recurring");
-  redirect("/recurring");
+  revalidatePath("/time-entries");
+  redirect(returnToPath);
 }
 
 export async function toggleRecurringTemplateActiveAction(templateId: string, formData: FormData) {
   const ownerId = await getCurrentWorkbookOwnerId();
   const isActive = formData.get("isActive") === "true";
+  const returnToPath = getReturnToPath(formData);
 
   await ensureCurrentUserExists();
   await setRecurringTemplateActive(ownerId, templateId, isActive);
   revalidatePath("/recurring");
-  redirect("/recurring");
+  revalidatePath("/time-entries");
+  redirect(returnToPath);
 }
 
 export async function applyRecurringTemplatesAction(formData: FormData) {
   const ownerId = await getCurrentWorkbookOwnerId();
   const selectedWeekNumber = getSelectedWeekNumber(formData);
   const selectedWeekYear = getSelectedWeekYear(formData);
+  const returnToPath = getReturnToPath(formData);
 
   await ensureCurrentUserExists();
   const applyResult = await applyRecurringTemplates(ownerId, selectedWeekNumber, selectedWeekYear);
@@ -73,6 +86,6 @@ export async function applyRecurringTemplatesAction(formData: FormData) {
   revalidatePath("/workday");
   revalidatePath("/recurring");
   redirect(
-    `/recurring?week=${applyResult.selectedWeekNumber}&year=${applyResult.selectedWeekYear}&applied=${applyResult.insertedCount}`
+    `${returnToPath}?recurringWeek=${applyResult.selectedWeekNumber}&recurringYear=${applyResult.selectedWeekYear}&recurringAdded=${applyResult.insertedCount}&recurringSkipped=${applyResult.skippedCount}`
   );
 }

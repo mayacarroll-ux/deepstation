@@ -6,18 +6,23 @@ import { recurringDayOptions } from "@/lib/services/recurring";
 
 type RecurringTemplateFormProps = {
   action: (formData: FormData) => Promise<void>;
+  returnToPath: string;
+  cancelHref: string;
   recurringTemplate?: RecurringTemplateRecord;
   submitLabel: string;
 };
 
 export function RecurringTemplateForm({
   action,
+  returnToPath,
+  cancelHref,
   recurringTemplate,
   submitLabel
 }: RecurringTemplateFormProps) {
   return (
     <form action={action} className="grid gap-5 border border-[var(--border)] bg-[var(--panel)] p-6">
       <input name="templateId" type="hidden" value={recurringTemplate?.id ?? ""} />
+      <input name="returnTo" type="hidden" value={returnToPath} />
 
       <div className="grid gap-4 md:grid-cols-3">
         <label className="grid gap-2 text-sm font-semibold md:col-span-3">
@@ -119,7 +124,7 @@ export function RecurringTemplateForm({
         <div className="flex items-center gap-3">
           <Button type="submit">{submitLabel}</Button>
           {recurringTemplate ? (
-            <Link className="text-sm font-semibold text-[var(--muted)] hover:underline" href="/recurring">
+            <Link className="text-sm font-semibold text-[var(--muted)] hover:underline" href={cancelHref}>
               Cancel edit
             </Link>
           ) : null}

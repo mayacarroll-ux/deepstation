@@ -3,7 +3,11 @@ import { and, eq, gte, lte } from "drizzle-orm";
 import { database } from "@/db";
 import { workdayDayStatuses, workdayWeekStatuses } from "@/db/schema";
 import { isProduction } from "@/lib/config";
-import { formatHours, formatHourUnit } from "@/lib/utils/format";
+import {
+  formatHours,
+  formatHourUnit,
+  formatTimeRange
+} from "@/lib/utils/format";
 import { getIsoWeekDateRange } from "@/lib/utils/dates";
 
 import { listTimeEntries, requireDatabase, type TimeEntryRecord } from "./time-tracking";
@@ -45,8 +49,13 @@ function buildWorkdayComment(entries: TimeEntryRecord[]) {
     .map((timeEntry) => {
       const hoursWorked = Number(timeEntry.hoursWorked);
       const taskDetail = `${timeEntry.productName}: ${timeEntry.taskDescription}`;
+      const formattedHours = `${formatHours(hoursWorked)} ${formatHourUnit(hoursWorked)}`;
 
-      return `${taskDetail} (${formatHours(hoursWorked)} ${formatHourUnit(hoursWorked)})`;
+      if (timeEntry.startTime && timeEntry.endTime) {
+        return `${taskDetail} (${formatTimeRange(timeEntry.startTime, timeEntry.endTime)}, ${formattedHours})`;
+      }
+
+      return `${taskDetail} (${formattedHours})`;
     })
     .join("; ");
 }

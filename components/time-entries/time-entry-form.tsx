@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import type {
@@ -13,6 +13,11 @@ import {
   getIsoWeekYear,
   getTodayInputValue
 } from "@/lib/utils/dates";
+import {
+  calculateHoursFromTimeRange,
+  formatHours,
+  formatHourUnit
+} from "@/lib/utils/format";
 
 type TimeEntryFormProps = {
   action: (formData: FormData) => Promise<void>;
@@ -29,10 +34,14 @@ export function TimeEntryForm({
 }: TimeEntryFormProps) {
   const initialEntryDate = timeEntry?.entryDate ?? getTodayInputValue();
   const [entryDate, setEntryDate] = useState(initialEntryDate);
+  const [startTime, setStartTime] = useState(timeEntry?.startTime ?? "");
+  const [endTime, setEndTime] = useState(timeEntry?.endTime ?? "");
   const [productName, setProductName] = useState(timeEntry?.productName ?? "");
   const [budgetName, setBudgetName] = useState(timeEntry?.budgetName ?? "");
   const [budgetNumber, setBudgetNumber] = useState(timeEntry?.budgetNumber ?? "");
   const [budgetMappingId, setBudgetMappingId] = useState(timeEntry?.budgetMappingId ?? "");
+  const [hoursWorked, setHoursWorked] = useState(String(timeEntry?.hoursWorked ?? ""));
+  const [hoursWorkedManuallyEdited, setHoursWorkedManuallyEdited] = useState(false);
   const [weekNumber, setWeekNumber] = useState(
     String(timeEntry?.weekNumber ?? getIsoWeekNumber(initialEntryDate))
   );
@@ -66,6 +75,21 @@ export function TimeEntryForm({
       ),
     [budgetMappings, productName]
   );
+
+  const calculatedHoursWorked = useMemo(
+    () => calculateHoursFromTimeRange(startTime, endTime),
+    [endTime, startTime]
+  );
+
+  const durationHint = calculatedHoursWorked
+    ? `${formatHours(calculatedHoursWorked)} ${formatHourUnit(calculatedHoursWorked)}`
+    : null;
+
+  useEffect(() => {
+    if (calculatedHoursWorked !== null && !hoursWorkedManuallyEdited) {
+      setHoursWorked(String(calculatedHoursWorked));
+    }
+  }, [calculatedHoursWorked, hoursWorkedManuallyEdited]);
 
   function applyProductName(nextProductName: string) {
     setProductName(nextProductName);
@@ -181,6 +205,60 @@ export function TimeEntryForm({
 
       <div className="grid gap-4 md:grid-cols-3">
         <label className="grid gap-2 text-sm font-semibold">
+          Start Time
+          <input
+            className="h-11 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
+            name="startTime"
+            onChange={(event) => setStartTime(event.target.value)}
+            type="time"
+            value={startTime}
+          />
+          <span className="text-xs font-normal text-[var(--muted)]">
+            Optional. Use 24-hour time like 09:00.
+          </span>
+        </label>
+        <label className="grid gap-2 text-sm font-semibold">
+          End Time
+          <input
+            className="h-11 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
+            name="endTime"
+            onChange={(event) => setEndTime(event.target.value)}
+            type="time"
+            value={endTime}
+          />
+          <span className="text-xs font-normal text-[var(--muted)]">
+            Optional. Fill both fields to auto-calculate hours.
+          </span>
+        </label>
+        <label className="grid gap-2 text-sm font-semibold">
+          Hours Worked
+          <input
+            className="h-11 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
+            max="999.99"
+            min="0.01"
+            name="hoursWorked"
+            onChange={(event) => {
+              setHoursWorked(event.target.value);
+              setHoursWorkedManuallyEdited(true);
+            }}
+            required
+            step="0.01"
+            type="number"
+            value={hoursWorked}
+          />
+          <span className="text-xs font-normal text-[var(--muted)]">
+            Decimal hours: 0.25 = 15 minutes, 0.5 = 30 minutes, 0.75 = 45 minutes, 1.0 = 1 hour.
+          </span>
+          {durationHint ? (
+            <span className="text-xs font-normal text-[var(--muted)]">
+              Calculated duration: {durationHint}
+            </span>
+          ) : null}
+        </label>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2">
+        <label className="grid gap-2 text-sm font-semibold">
           Budget Name
           <input
             className="h-11 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
@@ -198,18 +276,6 @@ export function TimeEntryForm({
             onChange={(event) => setBudgetNumber(event.target.value)}
             required
             value={budgetNumber}
-          />
-        </label>
-        <label className="grid gap-2 text-sm font-semibold">
-          Hours Worked
-          <input
-            className="h-11 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
-            defaultValue={timeEntry?.hoursWorked ?? ""}
-            min="0.01"
-            name="hoursWorked"
-            required
-            step="0.01"
-            type="number"
           />
         </label>
       </div>
