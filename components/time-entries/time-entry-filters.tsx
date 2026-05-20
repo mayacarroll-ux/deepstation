@@ -7,7 +7,7 @@ type TimeEntryFiltersProps = {
 
 export function TimeEntryFilters({ filters }: TimeEntryFiltersProps) {
   return (
-    <form className="grid gap-4 border border-[var(--border)] bg-[var(--panel)] p-5 md:grid-cols-6">
+    <form className="grid gap-4 border border-[var(--border)] bg-[var(--panel)] p-5 sm:grid-cols-2 lg:grid-cols-[minmax(9rem,0.8fr)_repeat(3,minmax(12rem,1fr))_repeat(2,minmax(10rem,0.9fr))_8rem]">
       <label className="grid gap-2 text-sm font-semibold">
         Week number
         <input
@@ -25,7 +25,7 @@ export function TimeEntryFilters({ filters }: TimeEntryFiltersProps) {
       <label className="grid gap-2 text-sm font-semibold">
         Product
         <input
-          className="h-10 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
+          className="h-10 min-w-0 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
           defaultValue={filters.productName ?? ""}
           name="product"
         />
@@ -33,7 +33,7 @@ export function TimeEntryFilters({ filters }: TimeEntryFiltersProps) {
       <label className="grid gap-2 text-sm font-semibold">
         Budget Name
         <input
-          className="h-10 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
+          className="h-10 min-w-0 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
           defaultValue={filters.budgetName ?? ""}
           name="budget"
         />
@@ -41,7 +41,7 @@ export function TimeEntryFilters({ filters }: TimeEntryFiltersProps) {
       <label className="grid gap-2 text-sm font-semibold">
         Budget #
         <input
-          className="h-10 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
+          className="h-10 min-w-0 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
           defaultValue={filters.budgetNumber ?? ""}
           name="budgetNumber"
         />
@@ -57,18 +57,18 @@ export function TimeEntryFilters({ filters }: TimeEntryFiltersProps) {
       </label>
       <div className="grid gap-2 text-sm font-semibold">
         <label htmlFor="to">To</label>
-        <div className="flex gap-2">
-          <input
-            className="h-10 min-w-0 flex-1 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
-            defaultValue={filters.endDate ?? ""}
-            id="to"
-            name="to"
-            type="date"
-          />
-          <Button className="h-10 px-4" type="submit">
-            Filter
-          </Button>
-        </div>
+        <input
+          className="h-10 min-w-0 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
+          defaultValue={filters.endDate ?? ""}
+          id="to"
+          name="to"
+          type="date"
+        />
+      </div>
+      <div className="grid items-end">
+        <Button className="h-10 w-full min-w-28 px-4 !text-neutral-950" type="submit">
+          Filter
+        </Button>
       </div>
     </form>
   );
