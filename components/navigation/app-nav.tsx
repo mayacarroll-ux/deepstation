@@ -4,7 +4,8 @@ const navigationItems = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/time-entries", label: "Time entries" },
   { href: "/budget-key", label: "Budget key" },
-  { href: "/weekly-summary", label: "Weekly summary" }
+  { href: "/weekly-summary", label: "Weekly summary" },
+  { href: "/workday", label: "Workday" }
 ];
 
 export function AppNav() {

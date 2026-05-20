@@ -21,6 +21,7 @@ export async function createTimeEntryAction(formData: FormData) {
   revalidatePath("/dashboard");
   revalidatePath("/time-entries");
   revalidatePath("/weekly-summary");
+  revalidatePath("/workday");
   redirect("/time-entries");
 }
 
@@ -32,6 +33,7 @@ export async function updateTimeEntryAction(timeEntryId: string, formData: FormD
   revalidatePath("/dashboard");
   revalidatePath("/time-entries");
   revalidatePath("/weekly-summary");
+  revalidatePath("/workday");
   redirect("/time-entries");
 }
 
@@ -43,4 +45,5 @@ export async function deleteTimeEntryAction(timeEntryId: string) {
   revalidatePath("/dashboard");
   revalidatePath("/time-entries");
   revalidatePath("/weekly-summary");
+  revalidatePath("/workday");
 }

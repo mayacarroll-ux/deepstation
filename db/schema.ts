@@ -131,3 +131,47 @@ export const timeEntries = pgTable("time_entries", {
   createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull()
 });
+
+export const workdayDayStatuses = pgTable(
+  "workday_day_statuses",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    ownerId: text("owner_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    entryDate: date("entry_date", { mode: "string" }).notNull(),
+    isEntered: boolean("is_entered").default(false).notNull(),
+    enteredAt: timestamp("entered_at", { mode: "date" }),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull()
+  },
+  (workdayDayStatusTable) => [
+    uniqueIndex("workday_day_status_owner_date_unique").on(
+      workdayDayStatusTable.ownerId,
+      workdayDayStatusTable.entryDate
+    )
+  ]
+);
+
+export const workdayWeekStatuses = pgTable(
+  "workday_week_statuses",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    ownerId: text("owner_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    weekYear: integer("week_year").notNull(),
+    weekNumber: integer("week_number").notNull(),
+    isEntered: boolean("is_entered").default(false).notNull(),
+    enteredAt: timestamp("entered_at", { mode: "date" }),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull()
+  },
+  (workdayWeekStatusTable) => [
+    uniqueIndex("workday_week_status_owner_week_unique").on(
+      workdayWeekStatusTable.ownerId,
+      workdayWeekStatusTable.weekYear,
+      workdayWeekStatusTable.weekNumber
+    )
+  ]
+);
