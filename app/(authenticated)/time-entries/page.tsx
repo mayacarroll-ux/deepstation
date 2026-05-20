@@ -2,7 +2,13 @@ import { ButtonLink } from "@/components/ui/button";
 import { TimeEntryFilters } from "@/components/time-entries/time-entry-filters";
 import { TimeEntryTable } from "@/components/time-entries/time-entry-table";
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
-import { listTimeEntries, type TimeEntryFilters as TimeEntryFilterValues } from "@/lib/services/time-tracking";
+import {
+  listBudgetMappings,
+  listTimeEntries,
+  type BudgetMappingRecord,
+  type TimeEntryFilters as TimeEntryFilterValues,
+  type TimeEntryRecord
+} from "@/lib/services/time-tracking";
 
 import { deleteTimeEntryAction } from "./actions";
 
@@ -32,11 +38,42 @@ function getFilters(searchParams: Record<string, string | string[] | undefined>)
   } satisfies TimeEntryFilterValues;
 }
 
+function getSortedUniqueValues(values: string[]) {
+  return Array.from(
+    new Set(values.map((value) => value.trim()).filter((value) => value.length > 0))
+  ).sort((firstValue, secondValue) => firstValue.localeCompare(secondValue));
+}
+
+function getFilterOptions(
+  budgetMappingRecords: BudgetMappingRecord[],
+  allTimeEntryRecords: TimeEntryRecord[]
+) {
+  return {
+    productNames: getSortedUniqueValues([
+      ...budgetMappingRecords.map((budgetMapping) => budgetMapping.productName),
+      ...allTimeEntryRecords.map((timeEntry) => timeEntry.productName)
+    ]),
+    budgetNames: getSortedUniqueValues([
+      ...budgetMappingRecords.map((budgetMapping) => budgetMapping.budgetName),
+      ...allTimeEntryRecords.map((timeEntry) => timeEntry.budgetName)
+    ]),
+    budgetNumbers: getSortedUniqueValues([
+      ...budgetMappingRecords.map((budgetMapping) => budgetMapping.budgetNumber),
+      ...allTimeEntryRecords.map((timeEntry) => timeEntry.budgetNumber)
+    ])
+  };
+}
+
 export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageProps) {
   const resolvedSearchParams = await searchParams;
   const ownerId = await getCurrentWorkbookOwnerId();
   const filters = getFilters(resolvedSearchParams);
-  const timeEntryRecords = await listTimeEntries(ownerId, filters);
+  const [timeEntryRecords, allTimeEntryRecords, budgetMappingRecords] = await Promise.all([
+    listTimeEntries(ownerId, filters),
+    listTimeEntries(ownerId),
+    listBudgetMappings(ownerId)
+  ]);
+  const filterOptions = getFilterOptions(budgetMappingRecords, allTimeEntryRecords);
 
   return (
     <section className="py-8">
@@ -50,7 +87,7 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
         <ButtonLink href="/time-entries/new">New time entry</ButtonLink>
       </div>
       <div className="grid gap-6">
-        <TimeEntryFilters filters={filters} />
+        <TimeEntryFilters filterOptions={filterOptions} filters={filters} />
         <TimeEntryTable deleteAction={deleteTimeEntryAction} timeEntries={timeEntryRecords} />
       </div>
     </section>

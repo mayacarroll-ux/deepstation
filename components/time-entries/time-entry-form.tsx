@@ -41,11 +41,21 @@ export function TimeEntryForm({
     Number.isInteger(parsedWeekNumber) && parsedWeekNumber >= 1 && parsedWeekNumber <= 53
       ? formatWeekLabel(parsedWeekNumber, getIsoWeekYear(entryDate))
       : null;
+  const currentProductName = timeEntry?.productName ?? "";
 
   const productNames = useMemo(
     () =>
-      Array.from(new Set(budgetMappings.map((budgetMapping) => budgetMapping.productName))).sort(),
-    [budgetMappings]
+      Array.from(
+        new Set(
+          [
+            ...budgetMappings.map((budgetMapping) => budgetMapping.productName),
+            currentProductName
+          ].filter((availableProductName) => availableProductName.trim().length > 0)
+        )
+      ).sort((firstProductName, secondProductName) =>
+        firstProductName.localeCompare(secondProductName)
+      ),
+    [budgetMappings, currentProductName]
   );
 
   const matchingBudgetMappings = useMemo(
@@ -99,11 +109,6 @@ export function TimeEntryForm({
   return (
     <form action={action} className="grid gap-5 border border-[var(--border)] bg-[var(--panel)] p-6">
       <input name="budgetMappingId" type="hidden" value={budgetMappingId} />
-      <datalist id="product-name-options">
-        {productNames.map((availableProductName) => (
-          <option key={availableProductName} value={availableProductName} />
-        ))}
-      </datalist>
 
       <div className="grid gap-4 md:grid-cols-3">
         <label className="grid gap-2 text-sm font-semibold">
@@ -119,14 +124,23 @@ export function TimeEntryForm({
         </label>
         <label className="grid gap-2 text-sm font-semibold">
           Product Name
-          <input
+          <select
             className="h-11 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
-            list="product-name-options"
             name="productName"
             onChange={(event) => applyProductName(event.target.value)}
             required
             value={productName}
-          />
+          >
+            <option value="">Choose a product</option>
+            {productNames.map((availableProductName) => (
+              <option key={availableProductName} value={availableProductName}>
+                {availableProductName}
+              </option>
+            ))}
+          </select>
+          <span className="text-xs font-normal text-[var(--muted)]">
+            Add new products on the Budget key page.
+          </span>
         </label>
         <label className="grid gap-2 text-sm font-semibold">
           Week Number
