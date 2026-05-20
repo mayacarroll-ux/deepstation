@@ -89,9 +89,14 @@ function normalizeProductName(productName: string) {
 }
 
 export function getAccountantProjectName(productName: string, budgetName: string) {
-  return (
-    accountantProjectNamesByProductName.get(normalizeProductName(productName)) ?? budgetName.trim()
-  );
+  const normalizedProductName = normalizeProductName(productName);
+  const normalizedBudgetName = normalizeProductName(budgetName);
+
+  if (normalizedProductName.includes("ibas") || normalizedBudgetName.includes("ibas")) {
+    return "IBAS-Y2-CD11.1";
+  }
+
+  return accountantProjectNamesByProductName.get(normalizedProductName) ?? budgetName.trim();
 }
 
 async function readImportedWorkbookData() {
