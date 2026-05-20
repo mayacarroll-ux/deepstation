@@ -13,6 +13,7 @@ type WeeklySummaryEmailSectionProps = {
   selectedWeekNumber: number;
   selectedWeekYear: number;
   statusMessage: string | null;
+  statusDetail: string | null;
   subject: string;
 };
 
@@ -40,6 +41,7 @@ export function WeeklySummaryEmailSection({
   selectedWeekNumber,
   selectedWeekYear,
   statusMessage,
+  statusDetail,
   subject
 }: WeeklySummaryEmailSectionProps) {
   const hasConfiguredRecipients = Boolean(
@@ -63,7 +65,10 @@ export function WeeklySummaryEmailSection({
 
       {statusMessage ? (
         <div className="border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--foreground)]">
-          {statusMessage}
+          <p>{statusMessage}</p>
+          {statusDetail ? (
+            <p className="mt-1 text-xs text-[var(--muted)]">{statusDetail}</p>
+          ) : null}
         </div>
       ) : null}
 
@@ -127,6 +132,20 @@ export function WeeklySummaryEmailSection({
                 <p>Last sent</p>
                 <p className="font-semibold text-[var(--foreground)]">
                   {formatLastSentAt(emailStatus.lastSentAt)}
+                </p>
+                {emailStatus.lastMessageId ? (
+                  <p className="mt-1">
+                    Message ID{" "}
+                    <span className="font-semibold text-[var(--foreground)]">
+                      {emailStatus.lastMessageId}
+                    </span>
+                  </p>
+                ) : null}
+                <p className="mt-1">
+                  Mode{" "}
+                  <span className="font-semibold text-[var(--foreground)]">
+                    {emailStatus.lastSendMode}
+                  </span>
                 </p>
               </div>
             ) : null}

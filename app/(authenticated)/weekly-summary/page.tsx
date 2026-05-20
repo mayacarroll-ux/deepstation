@@ -39,6 +39,12 @@ function getEmailStatus(searchParams: Record<string, string | string[] | undefin
   return Array.isArray(emailStatusValue) ? emailStatusValue[0] : emailStatusValue;
 }
 
+function getEmailError(searchParams: Record<string, string | string[] | undefined>) {
+  const emailErrorValue = searchParams.emailError;
+
+  return Array.isArray(emailErrorValue) ? emailErrorValue[0] : emailErrorValue;
+}
+
 export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryPageProps) {
   const resolvedSearchParams = await searchParams;
   const ownerId = await getCurrentWorkbookOwnerId();
@@ -66,6 +72,7 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
     weeklySummary.totalHours
   );
   const emailStatusValue = getEmailStatus(resolvedSearchParams);
+  const emailErrorValue = getEmailError(resolvedSearchParams);
   const emailStatusMessage =
     emailStatusValue === "settings-saved"
       ? "Email recipients saved."
@@ -75,7 +82,7 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
           ? "This week was already emailed. Check the resend confirmation box and try again."
           : emailStatusValue === "settings-error"
             ? "Could not save email recipients."
-            : emailStatusValue === "send-error"
+          : emailStatusValue === "send-error"
               ? "Could not send weekly summary email."
               : null;
 
@@ -156,6 +163,7 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
           selectedWeekNumber={selectedWeekNumber}
           selectedWeekYear={selectedWeekYear}
           statusMessage={emailStatusMessage}
+          statusDetail={emailErrorValue ?? null}
           subject={selectedWeekEmailSubject}
         />
       </div>

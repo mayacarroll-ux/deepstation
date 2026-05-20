@@ -35,6 +35,19 @@ function redirectBack(weekNumber: number, weekYear: number, emailStatus: string)
   redirect(`/weekly-summary?week=${weekNumber}&year=${weekYear}&emailStatus=${emailStatus}`);
 }
 
+function redirectBackWithError(
+  weekNumber: number,
+  weekYear: number,
+  emailStatus: string,
+  errorMessage: string
+) {
+  redirect(
+    `/weekly-summary?week=${weekNumber}&year=${weekYear}&emailStatus=${emailStatus}&emailError=${encodeURIComponent(
+      errorMessage
+    )}`
+  );
+}
+
 export async function saveWeeklySummaryEmailSettingsAction(formData: FormData) {
   const ownerId = await getCurrentWorkbookOwnerId();
   const weekNumber = getSelectedWeekNumber(formData);
@@ -44,8 +57,9 @@ export async function saveWeeklySummaryEmailSettingsAction(formData: FormData) {
 
   try {
     await saveWeeklySummaryEmailSettings(ownerId, formData);
-  } catch {
-    redirectBack(weekNumber, weekYear, "settings-error");
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : "Could not save email recipients.";
+    redirectBackWithError(weekNumber, weekYear, "settings-error", errorMessage);
   }
 
   revalidatePath("/weekly-summary");
@@ -64,8 +78,10 @@ export async function sendWeeklySummaryEmailAction(formData: FormData) {
 
   try {
     sendResult = await sendWeeklySummaryEmail(ownerId, weekNumber, weekYear, allowResend);
-  } catch {
-    redirectBack(weekNumber, weekYear, "send-error");
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : "Could not send weekly summary email.";
+    redirectBackWithError(weekNumber, weekYear, "send-error", errorMessage);
   }
 
   revalidatePath("/weekly-summary");

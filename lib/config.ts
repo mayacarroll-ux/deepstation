@@ -6,6 +6,7 @@ const serverEnvironmentSchema = z.object({
   DATABASE_URL: z.string().optional(),
   OPENAI_API_KEY: z.string().optional(),
   RESEND_API_KEY: z.string().optional(),
+  EMAIL_FROM: z.string().optional(),
   RESEND_FROM_EMAIL: z.string().optional(),
   WEEKLY_SUMMARY_AUTOMATION_ENABLED: z.string().optional()
 });

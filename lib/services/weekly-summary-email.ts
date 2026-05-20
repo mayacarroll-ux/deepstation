@@ -95,10 +95,12 @@ function getResendClient() {
 }
 
 function getResendFromEmail() {
-  const fromEmail = serverEnvironment.RESEND_FROM_EMAIL;
+  const fromEmail = serverEnvironment.EMAIL_FROM ?? serverEnvironment.RESEND_FROM_EMAIL;
 
   if (!fromEmail) {
-    throw new Error("RESEND_FROM_EMAIL is required to send weekly summary emails.");
+    throw new Error(
+      "Set EMAIL_FROM or RESEND_FROM_EMAIL to a verified Resend sender before sending weekly summary emails."
+    );
   }
 
   return fromEmail;
@@ -276,7 +278,18 @@ export async function sendWeeklySummaryEmail(
   });
 
   if (error) {
-    throw new Error("Failed to send weekly summary email.");
+    console.error("Weekly summary email send failed.", {
+      weekYear,
+      weekNumber,
+      recipientCount: toRecipients.length + ccRecipients.length,
+      resendErrorName: error.name,
+      resendStatusCode: error.statusCode,
+      resendErrorMessage: error.message
+    });
+
+    throw new Error(
+      `Resend rejected the weekly summary email: ${error.message}`
+    );
   }
 
   const now = new Date();
