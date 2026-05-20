@@ -58,7 +58,7 @@ export function WeeklyHoursPieChart({
   let accumulatedAngle = 0;
 
   return (
-    <section className="mt-8 border border-[var(--border)] bg-[var(--panel-elevated)] p-6">
+    <section className="mt-6 border border-[var(--border)] bg-[var(--panel-elevated)] p-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h3 className="text-xl font-semibold">Weekly project mix</h3>
@@ -79,8 +79,8 @@ export function WeeklyHoursPieChart({
           No time entries for this week yet.
         </div>
       ) : (
-        <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(220px,0.6fr)_1fr] lg:items-center">
-          <div className="mx-auto w-full max-w-xs">
+        <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(280px,0.85fr)_minmax(0,1fr)] lg:items-center">
+          <div className="mx-auto w-full max-w-[18rem] lg:max-w-[20rem]">
             <svg
               aria-label={`Project hours pie chart for week ${weekNumber}, ${weekYear}`}
               className="h-auto w-full"
@@ -124,10 +124,10 @@ export function WeeklyHoursPieChart({
             </svg>
           </div>
 
-          <div className="grid gap-3">
+          <div className="grid gap-2.5">
             {chartSegments.map((chartSegment) => (
               <div
-                className="grid gap-3 border border-[var(--border)] bg-[var(--surface)] p-3 sm:grid-cols-[1fr_auto_auto] sm:items-center"
+                className="grid gap-3 border border-[var(--border)] bg-[var(--surface)] p-3 sm:grid-cols-[minmax(0,1fr)_auto_auto] sm:items-center"
                 key={chartSegment.budgetName}
               >
                 <div className="flex min-w-0 items-center gap-3">

@@ -104,7 +104,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-3 lg:gap-5">
         <article className="border border-[var(--border)] bg-[var(--panel)] p-5">
           <p className="text-sm text-[var(--muted)]">Selected week</p>
           <p className="mt-3 text-2xl font-semibold">{selectedWeekLabel}</p>
@@ -131,7 +131,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
         weekYear={selectedWeekYear}
       />
 
-      <section className="mt-8 border border-[var(--border)] bg-[var(--panel)] p-6">
+      <section className="mt-6 border border-[var(--border)] bg-[var(--panel)] p-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <h3 className="text-xl font-semibold">Selected week entries</h3>
