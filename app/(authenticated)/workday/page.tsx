@@ -115,6 +115,12 @@ export default async function WorkdayPage({ searchParams }: WorkdayPageProps) {
                 Workday time type:{" "}
                 <span className="font-semibold text-[var(--foreground)]">{workdayTimeType}</span>
               </p>
+              {!workdayWeek.statusStorageReady ? (
+                <p className="mt-3 max-w-2xl text-sm text-[var(--warning)]">
+                  Workday status tables are not available yet. The week still renders, but marked
+                  entered controls stay read-only until the Neon migration is applied.
+                </p>
+              ) : null}
             </div>
             <div className="text-left sm:text-right">
               <p className="text-sm text-[var(--muted)]">Weekly total</p>
@@ -141,18 +147,20 @@ export default async function WorkdayPage({ searchParams }: WorkdayPageProps) {
                 ? " Week is marked entered, but some days with hours are not."
                 : ""}
             </p>
-            <form action={setWorkdayWeekEnteredAction}>
-              <input name="weekNumber" type="hidden" value={workdayWeek.weekNumber} />
-              <input name="weekYear" type="hidden" value={workdayWeek.weekYear} />
-              <input
-                name="isEntered"
-                type="hidden"
-                value={workdayWeek.isEntered ? "false" : "true"}
-              />
-              <Button type="submit" variant={workdayWeek.isEntered ? "secondary" : "primary"}>
-                {workdayWeek.isEntered ? "Unmark week" : "Mark week entered"}
-              </Button>
-            </form>
+            {workdayWeek.statusStorageReady ? (
+              <form action={setWorkdayWeekEnteredAction}>
+                <input name="weekNumber" type="hidden" value={workdayWeek.weekNumber} />
+                <input name="weekYear" type="hidden" value={workdayWeek.weekYear} />
+                <input
+                  name="isEntered"
+                  type="hidden"
+                  value={workdayWeek.isEntered ? "false" : "true"}
+                />
+                <Button type="submit" variant={workdayWeek.isEntered ? "secondary" : "primary"}>
+                  {workdayWeek.isEntered ? "Unmark week" : "Mark week entered"}
+                </Button>
+              </form>
+            ) : null}
           </div>
         </section>
 
@@ -170,17 +178,19 @@ export default async function WorkdayPage({ searchParams }: WorkdayPageProps) {
                 </div>
                 <div className="flex flex-wrap gap-2">
                   <WorkdayCopyButton commentText={day.commentText} />
-                  <form action={setWorkdayDayEnteredAction}>
-                    <input name="entryDate" type="hidden" value={day.date} />
-                    <input
-                      name="isEntered"
-                      type="hidden"
-                      value={day.isEntered ? "false" : "true"}
-                    />
-                    <Button type="submit" variant={day.isEntered ? "secondary" : "primary"}>
-                      {day.isEntered ? "Unmark day" : "Mark entered"}
-                    </Button>
-                  </form>
+                  {workdayWeek.statusStorageReady ? (
+                    <form action={setWorkdayDayEnteredAction}>
+                      <input name="entryDate" type="hidden" value={day.date} />
+                      <input
+                        name="isEntered"
+                        type="hidden"
+                        value={day.isEntered ? "false" : "true"}
+                      />
+                      <Button type="submit" variant={day.isEntered ? "secondary" : "primary"}>
+                        {day.isEntered ? "Unmark day" : "Mark entered"}
+                      </Button>
+                    </form>
+                  ) : null}
                 </div>
               </div>
 

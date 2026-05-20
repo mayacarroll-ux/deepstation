@@ -25,6 +25,7 @@ export type WorkdayWeek = {
   days: WorkdayDay[];
   totalHours: number;
   isEntered: boolean;
+  statusStorageReady: boolean;
 };
 
 function getWeekDates(weekNumber: number, weekYear: number) {
@@ -101,14 +102,22 @@ export async function getWorkdayWeek(
   weekYear: number
 ): Promise<WorkdayWeek> {
   const weekDateRange = getIsoWeekDateRange(weekNumber, weekYear);
-  const [weekTimeEntries, dayStatuses, weekStatus] = await Promise.all([
-    listTimeEntries(ownerId, {
-      startDate: weekDateRange.startDate,
-      endDate: weekDateRange.endDate
-    }),
-    listDayStatuses(ownerId, weekDateRange.startDate, weekDateRange.endDate),
-    getWeekStatus(ownerId, weekNumber, weekYear)
-  ]);
+  const weekTimeEntries = await listTimeEntries(ownerId, {
+    startDate: weekDateRange.startDate,
+    endDate: weekDateRange.endDate
+  });
+  let dayStatuses: Awaited<ReturnType<typeof listDayStatuses>> = [];
+  let weekStatus: Awaited<ReturnType<typeof getWeekStatus>> = null;
+  let statusStorageReady = true;
+
+  try {
+    [dayStatuses, weekStatus] = await Promise.all([
+      listDayStatuses(ownerId, weekDateRange.startDate, weekDateRange.endDate),
+      getWeekStatus(ownerId, weekNumber, weekYear)
+    ]);
+  } catch {
+    statusStorageReady = false;
+  }
   const dayStatusesByDate = new Map(
     dayStatuses.map((dayStatus) => [dayStatus.entryDate, dayStatus])
   );
@@ -141,7 +150,8 @@ export async function getWorkdayWeek(
     weekLabel: `Week ${weekNumber} · ${weekDateRange.label}`,
     days,
     totalHours: days.reduce((currentTotalHours, day) => currentTotalHours + day.totalHours, 0),
-    isEntered: weekStatus?.isEntered ?? false
+    isEntered: weekStatus?.isEntered ?? false,
+    statusStorageReady
   };
 }
 
