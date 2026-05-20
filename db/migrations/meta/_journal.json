@@ -15,6 +15,13 @@
       "when": 1779236332357,
       "tag": "0001_rich_redwing",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1779311860709,
+      "tag": "0002_great_darwin",
+      "breakpoints": true
     }
   ]
 }

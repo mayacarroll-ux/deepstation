@@ -162,6 +162,7 @@ async function listFallbackTimeEntries(filters: TimeEntryFilters = {}) {
       budgetMappingId: timeEntry.budgetMappingKey
         ? budgetMappingIdsByKey.get(timeEntry.budgetMappingKey.join("\u0000")) ?? null
         : null,
+      recurringTemplateId: null,
       entryDate: timeEntry.entryDate,
       productName: timeEntry.productName,
       budgetName: timeEntry.budgetName,
@@ -403,6 +404,7 @@ export async function createTimeEntry(ownerId: string, formData: FormData) {
   await writableDatabase.insert(timeEntries).values({
     ownerId,
     budgetMappingId: parsedTimeEntry.budgetMappingId,
+    recurringTemplateId: null,
     entryDate: parsedTimeEntry.entryDate,
     productName: parsedTimeEntry.productName,
     budgetName: parsedTimeEntry.budgetName,

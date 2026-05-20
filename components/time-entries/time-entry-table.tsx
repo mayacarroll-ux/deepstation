@@ -21,7 +21,7 @@ export function TimeEntryTable({ deleteAction, timeEntries }: TimeEntryTableProp
 
   return (
     <div className="overflow-x-auto border border-[var(--border)] bg-[var(--panel)]">
-      <table className="w-full min-w-[1080px] border-collapse text-left text-sm">
+      <table className="w-full min-w-[1160px] border-collapse text-left text-sm">
         <thead className="border-b border-[var(--border)] bg-[var(--surface-muted)] text-[var(--foreground)]">
           <tr>
             <th className="px-4 py-3">Date</th>
@@ -31,6 +31,7 @@ export function TimeEntryTable({ deleteAction, timeEntries }: TimeEntryTableProp
             <th className="px-4 py-3">Task Description</th>
             <th className="px-4 py-3">Hours</th>
             <th className="px-4 py-3">Week</th>
+            <th className="px-4 py-3">Source</th>
             <th className="px-4 py-3">Notes</th>
             <th className="px-4 py-3 text-right">Actions</th>
           </tr>
@@ -48,6 +49,15 @@ export function TimeEntryTable({ deleteAction, timeEntries }: TimeEntryTableProp
               </td>
               <td className="px-4 py-3">
                 {formatWeekLabel(timeEntry.weekNumber, getIsoWeekYear(timeEntry.entryDate))}
+              </td>
+              <td className="px-4 py-3">
+                {timeEntry.recurringTemplateId ? (
+                  <span className="rounded-full border border-[var(--accent)] px-2 py-1 text-xs font-semibold text-[var(--accent)]">
+                    Recurring
+                  </span>
+                ) : (
+                  <span className="text-xs font-semibold text-[var(--muted)]">Manual</span>
+                )}
               </td>
               <td className="px-4 py-3 text-[var(--muted)]">{timeEntry.notes}</td>
               <td className="px-4 py-3">

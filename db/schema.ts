@@ -120,6 +120,12 @@ export const timeEntries = pgTable("time_entries", {
   budgetMappingId: uuid("budget_mapping_id").references(() => budgetMappings.id, {
     onDelete: "set null"
   }),
+  recurringTemplateId: uuid("recurring_template_id").references(
+    () => recurringTimeEntryTemplates.id,
+    {
+      onDelete: "set null"
+    }
+  ),
   entryDate: date("entry_date", { mode: "string" }).notNull(),
   productName: text("product_name").notNull(),
   budgetName: text("budget_name").notNull(),
@@ -130,7 +136,35 @@ export const timeEntries = pgTable("time_entries", {
   notes: text("notes"),
   createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull()
-});
+}, (timeEntryTable) => [
+  uniqueIndex("time_entry_owner_recurring_date_unique").on(
+    timeEntryTable.ownerId,
+    timeEntryTable.recurringTemplateId,
+    timeEntryTable.entryDate
+  )
+]);
+
+export const recurringTimeEntryTemplates = pgTable(
+  "recurring_time_entry_templates",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    ownerId: text("owner_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    taskDescription: text("task_description").notNull(),
+    productName: text("product_name").notNull(),
+    budgetName: text("budget_name").notNull(),
+    budgetNumber: text("budget_number").notNull(),
+    dayOfWeek: integer("day_of_week").notNull(),
+    hoursWorked: numeric("hours_worked", { precision: 5, scale: 2 }).notNull(),
+    notes: text("notes"),
+    startDate: date("start_date", { mode: "string" }).notNull(),
+    endDate: date("end_date", { mode: "string" }),
+    isActive: boolean("is_active").default(true).notNull(),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull()
+  }
+);
 
 export const workdayDayStatuses = pgTable(
   "workday_day_statuses",
