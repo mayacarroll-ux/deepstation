@@ -68,7 +68,7 @@ export type TimeEntryFilters = {
   endDate?: string;
 };
 
-const billingProjectNamesByProductName = new Map([
+const accountantProjectNamesByProductName = new Map([
   ["bizquest nationa exp", "Zurich Middle School"],
   ["h2c jani", "Zurich Hs Courses-Custom"],
   ["h2c maritime", "IBAS-Y2-CD11.1"],
@@ -84,8 +84,14 @@ export function requireDatabase() {
   return database;
 }
 
-function getBillingProjectName(productName: string, budgetName: string) {
-  return billingProjectNamesByProductName.get(productName.trim().toLowerCase()) ?? budgetName.trim();
+function normalizeProductName(productName: string) {
+  return productName.trim().replace(/\s+/g, " ").toLowerCase();
+}
+
+export function getAccountantProjectName(productName: string, budgetName: string) {
+  return (
+    accountantProjectNamesByProductName.get(normalizeProductName(productName)) ?? budgetName.trim()
+  );
 }
 
 async function readImportedWorkbookData() {
@@ -486,7 +492,7 @@ export async function getWeeklySummaryForYear(
     const groupedHoursByProjectName = new Map<string, number>();
 
     for (const timeEntry of weeklyTimeEntries) {
-      const projectName = getBillingProjectName(timeEntry.productName, timeEntry.budgetName);
+      const projectName = getAccountantProjectName(timeEntry.productName, timeEntry.budgetName);
 
       groupedHoursByProjectName.set(
         projectName,
@@ -529,7 +535,7 @@ export async function getWeeklySummaryForYear(
   const groupedHoursByProjectName = new Map<string, number>();
 
   for (const groupedHour of groupedHours) {
-    const projectName = getBillingProjectName(groupedHour.productName, groupedHour.budgetName);
+    const projectName = getAccountantProjectName(groupedHour.productName, groupedHour.budgetName);
 
     groupedHoursByProjectName.set(
       projectName,
