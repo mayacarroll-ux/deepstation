@@ -1,5 +1,6 @@
 import { WeeklyHoursPieChart } from "@/components/dashboard/weekly-hours-pie-chart";
 import { ButtonLink } from "@/components/ui/button";
+import { WeekSelector } from "@/components/shared/week-selector";
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
 import {
   getDashboardStats,
@@ -65,39 +66,11 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
           </p>
         </div>
         <div className="grid gap-3">
-          <form className="grid gap-3 border border-[var(--border)] bg-[var(--panel)] p-4 sm:grid-cols-[8rem_8rem_auto] sm:items-end">
-            <label className="grid gap-2 text-sm font-semibold">
-              Year
-              <input
-                className="h-11 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
-                defaultValue={selectedWeekYear}
-                max="2100"
-                min="2000"
-                name="year"
-                required
-                type="number"
-              />
-            </label>
-            <label className="grid gap-2 text-sm font-semibold">
-              Week Number
-              <input
-                className="h-11 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
-                defaultValue={selectedWeekNumber}
-                max="53"
-                min="1"
-                name="week"
-                required
-                type="number"
-              />
-              <span className="text-xs font-normal text-[var(--muted)]">{selectedWeekLabel}</span>
-            </label>
-            <button
-              className="h-11 border border-[var(--accent)] bg-[var(--accent)] px-5 text-sm font-semibold !text-neutral-950 transition-colors hover:bg-[var(--accent-hover)]"
-              type="submit"
-            >
-              View week
-            </button>
-          </form>
+          <WeekSelector
+            actionLabel="View week"
+            defaultWeekNumber={selectedWeekNumber}
+            defaultWeekYear={selectedWeekYear}
+          />
           <ButtonLink className="justify-self-end text-neutral-950" href="/time-entries/new">
             New time entry
           </ButtonLink>
