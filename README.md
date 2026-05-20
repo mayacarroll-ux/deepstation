@@ -18,8 +18,10 @@ budget-key mappings, persistent time entries, and weekly billing summaries.
    ```
 
 3. Configure `DATABASE_URL`. `OPENAI_API_KEY` is only needed for the AI chat
-   endpoint. `AUTH_SECRET` and `APP_PASSWORD` are required for production
-   deployments.
+   endpoint. `RESEND_API_KEY` and `RESEND_FROM_EMAIL` are required for weekly
+   summary email sending. `AUTH_SECRET` and `APP_PASSWORD` are required for
+   production deployments. Keep `WEEKLY_SUMMARY_AUTOMATION_ENABLED=false`
+   until you intentionally add scheduled email sending.
 
 4. Run database migrations after editing the schema:
 
@@ -56,20 +58,24 @@ password stored in `APP_PASSWORD`; data remains scoped to `single-user`.
 1. Create a Neon PostgreSQL database.
 2. Add `DATABASE_URL`, `AUTH_SECRET`, and `APP_PASSWORD` to Vercel project
    environment variables.
-3. Optional: add `OPENAI_API_KEY` only if using `/api/chat`.
-4. Run migrations against Neon:
+3. Add `RESEND_API_KEY` and `RESEND_FROM_EMAIL` if you want weekly summary
+   email sending in production.
+4. Keep `WEEKLY_SUMMARY_AUTOMATION_ENABLED=false` until you intentionally add
+   scheduled email sending.
+5. Optional: add `OPENAI_API_KEY` only if using `/api/chat`.
+6. Run migrations against Neon:
 
    ```bash
    DATABASE_URL="postgres://..." npm run db:migrate
    ```
 
-5. Import the workbook into Neon:
+7. Import the workbook into Neon:
 
    ```bash
    DATABASE_URL="postgres://..." npm run import:workbook -- /path/to/workbook.xlsx
    ```
 
-6. Deploy to Vercel with `npm run build`.
+8. Deploy to Vercel with `npm run build`.
 
 In production, `DATABASE_URL` is required and the local JSON workbook fallback is
 disabled. Missing production auth or database variables fail closed at request

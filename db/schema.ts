@@ -146,6 +146,53 @@ export const timeEntries = pgTable("time_entries", {
   )
 ]);
 
+export const weeklySummaryEmailSettings = pgTable(
+  "weekly_summary_email_settings",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    ownerId: text("owner_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    managerEmail: text("manager_email").notNull(),
+    accountingEmails: text("accounting_emails").array().default([]).notNull(),
+    ccEmails: text("cc_emails").array().default([]).notNull(),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull()
+  },
+  (weeklySummaryEmailSettingsTable) => [
+    uniqueIndex("weekly_summary_email_settings_owner_unique").on(
+      weeklySummaryEmailSettingsTable.ownerId
+    )
+  ]
+);
+
+export const weeklySummaryEmailStatuses = pgTable(
+  "weekly_summary_email_statuses",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    ownerId: text("owner_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    weekYear: integer("week_year").notNull(),
+    weekNumber: integer("week_number").notNull(),
+    lastSentAt: timestamp("last_sent_at", { mode: "date" }).notNull(),
+    lastMessageId: text("last_message_id"),
+    lastSendMode: text("last_send_mode").notNull(),
+    toRecipients: text("to_recipients").array().default([]).notNull(),
+    ccRecipients: text("cc_recipients").array().default([]).notNull(),
+    sendCount: integer("send_count").default(1).notNull(),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull()
+  },
+  (weeklySummaryEmailStatusTable) => [
+    uniqueIndex("weekly_summary_email_status_owner_week_unique").on(
+      weeklySummaryEmailStatusTable.ownerId,
+      weeklySummaryEmailStatusTable.weekYear,
+      weeklySummaryEmailStatusTable.weekNumber
+    )
+  ]
+);
+
 export const recurringTimeEntryTemplates = pgTable(
   "recurring_time_entry_templates",
   {

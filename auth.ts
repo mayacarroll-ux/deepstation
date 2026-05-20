@@ -82,7 +82,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         request.nextUrl.pathname.startsWith(protectedHomePath) ||
         request.nextUrl.pathname.startsWith("/time-entries") ||
         request.nextUrl.pathname.startsWith("/budget-key") ||
-        request.nextUrl.pathname.startsWith("/weekly-summary");
+        request.nextUrl.pathname.startsWith("/weekly-summary") ||
+        request.nextUrl.pathname.startsWith("/recurring");
 
       if (isProtectedRoute) {
         return isAuthenticated;

@@ -1,8 +1,19 @@
+import { WeeklySummaryEmailSection } from "@/components/weekly-summary/weekly-summary-email-section";
 import { WeeklySummaryCopy } from "@/components/weekly-summary/weekly-summary-copy";
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
 import { getDashboardStats, getWeeklySummaryForYear } from "@/lib/services/time-tracking";
+import {
+  buildWeeklySummaryEmailSubject,
+  getWeeklySummaryEmailSettings,
+  getWeeklySummaryEmailStatus
+} from "@/lib/services/weekly-summary-email";
 import { formatWeekLabel, getIsoWeekYear, getTodayInputValue } from "@/lib/utils/dates";
 import { formatBillingSummaryText, formatHours } from "@/lib/utils/format";
+
+import {
+  saveWeeklySummaryEmailSettingsAction,
+  sendWeeklySummaryEmailAction
+} from "./actions";
 
 type WeeklySummaryPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -22,6 +33,12 @@ function getRequestedWeekYear(searchParams: Record<string, string | string[] | u
   return Number.isInteger(weekYear) && weekYear >= 2000 && weekYear <= 2100 ? weekYear : null;
 }
 
+function getEmailStatus(searchParams: Record<string, string | string[] | undefined>) {
+  const emailStatusValue = searchParams.emailStatus;
+
+  return Array.isArray(emailStatusValue) ? emailStatusValue[0] : emailStatusValue;
+}
+
 export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryPageProps) {
   const resolvedSearchParams = await searchParams;
   const ownerId = await getCurrentWorkbookOwnerId();
@@ -35,11 +52,32 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
     selectedWeekNumber,
     selectedWeekYear
   );
+  const [emailSettings, emailStatus] = await Promise.all([
+    getWeeklySummaryEmailSettings(ownerId),
+    getWeeklySummaryEmailStatus(ownerId, selectedWeekYear, selectedWeekNumber)
+  ]);
   const selectedWeekLabel = formatWeekLabel(selectedWeekNumber, selectedWeekYear);
+  const selectedWeekEmailSubject = buildWeeklySummaryEmailSubject(
+    selectedWeekNumber,
+    selectedWeekYear
+  );
   const summaryText = formatBillingSummaryText(
     weeklySummary.groupedHours,
     weeklySummary.totalHours
   );
+  const emailStatusValue = getEmailStatus(resolvedSearchParams);
+  const emailStatusMessage =
+    emailStatusValue === "settings-saved"
+      ? "Email recipients saved."
+      : emailStatusValue === "sent"
+        ? "Weekly summary email sent."
+        : emailStatusValue === "needs-confirmation"
+          ? "This week was already emailed. Check the resend confirmation box and try again."
+          : emailStatusValue === "settings-error"
+            ? "Could not save email recipients."
+            : emailStatusValue === "send-error"
+              ? "Could not send weekly summary email."
+              : null;
 
   return (
     <section className="py-8">
@@ -106,6 +144,20 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
             {summaryText || "No billable summary lines for this week."}
           </pre>
         </section>
+      </div>
+
+      <div className="mt-6">
+        <WeeklySummaryEmailSection
+          bodyText={summaryText}
+          emailSettings={emailSettings}
+          emailStatus={emailStatus}
+          onSaveSettingsAction={saveWeeklySummaryEmailSettingsAction}
+          onSendEmailAction={sendWeeklySummaryEmailAction}
+          selectedWeekNumber={selectedWeekNumber}
+          selectedWeekYear={selectedWeekYear}
+          statusMessage={emailStatusMessage}
+          subject={selectedWeekEmailSubject}
+        />
       </div>
     </section>
   );

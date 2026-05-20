@@ -4,7 +4,10 @@ const serverEnvironmentSchema = z.object({
   AUTH_SECRET: z.string().optional(),
   APP_PASSWORD: z.string().optional(),
   DATABASE_URL: z.string().optional(),
-  OPENAI_API_KEY: z.string().optional()
+  OPENAI_API_KEY: z.string().optional(),
+  RESEND_API_KEY: z.string().optional(),
+  RESEND_FROM_EMAIL: z.string().optional(),
+  WEEKLY_SUMMARY_AUTOMATION_ENABLED: z.string().optional()
 });
 
 export const serverEnvironment = serverEnvironmentSchema.parse(process.env);
