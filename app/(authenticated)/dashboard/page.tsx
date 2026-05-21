@@ -1,13 +1,13 @@
 import { WeeklyHoursPieChart } from "@/components/dashboard/weekly-hours-pie-chart";
-import { ButtonLink } from "@/components/ui/button";
+import { WeekEntriesReveal } from "@/components/dashboard/week-entries-reveal";
 import { WeekSelector } from "@/components/shared/week-selector";
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
 import {
   getDashboardStats,
+  listTimeEntries,
   getWeeklySummaryForYear
 } from "@/lib/services/time-tracking";
 import { formatWeekLabel } from "@/lib/utils/dates";
-import { formatHours } from "@/lib/utils/format";
 
 type DashboardPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -49,26 +49,30 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
     selectedWeekNumber,
     selectedWeekYear
   );
+  const selectedWeekTimeEntries = await listTimeEntries(ownerId, {
+    weekNumber: selectedWeekNumber,
+    weekYear: selectedWeekYear
+  });
   const selectedWeekLabel = formatWeekLabel(selectedWeekNumber, selectedWeekYear);
+  const serializedSelectedWeekEntries = selectedWeekTimeEntries.map((timeEntry) => ({
+    id: timeEntry.id,
+    entryDate: timeEntry.entryDate,
+    taskDescription: timeEntry.taskDescription,
+    productName: timeEntry.productName,
+    budgetName: timeEntry.budgetName,
+    budgetNumber: timeEntry.budgetNumber,
+    hoursWorked: timeEntry.hoursWorked,
+    notes: timeEntry.notes
+  }));
 
   return (
     <section className="py-8">
-      <div className="mb-6 flex flex-wrap items-start justify-end gap-3">
+      <div className="mb-6 flex flex-wrap items-start justify-start gap-3">
         <WeekSelector
           actionLabel="View week"
           defaultWeekNumber={selectedWeekNumber}
           defaultWeekYear={selectedWeekYear}
         />
-      </div>
-
-      <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
-        <article className="border border-[var(--border)] bg-[var(--panel)] p-5">
-          <p className="text-sm text-[var(--muted)]">Weekly total</p>
-          <p className="mt-3 text-3xl font-semibold">
-            {formatHours(weeklySummary.totalHours)} hrs
-          </p>
-          <p className="mt-1 text-sm text-[var(--muted)]">{selectedWeekLabel}</p>
-        </article>
       </div>
 
       <WeeklyHoursPieChart
@@ -77,12 +81,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
         weekNumber={selectedWeekNumber}
         weekYear={selectedWeekYear}
       />
-
-      <div className="mt-6 flex justify-end">
-        <ButtonLink href="/time-entries" variant="secondary">
-          View time entries
-        </ButtonLink>
-      </div>
+      <WeekEntriesReveal entries={serializedSelectedWeekEntries} weekLabel={selectedWeekLabel} />
     </section>
   );
 }
