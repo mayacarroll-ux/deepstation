@@ -1,5 +1,10 @@
+import Link from "next/link";
+import { faCopy, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { WeeklySummaryEmailSection } from "@/components/weekly-summary/weekly-summary-email-section";
 import { WeeklySummaryCopy } from "@/components/weekly-summary/weekly-summary-copy";
+import { WeekSelector } from "@/components/shared/week-selector";
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
 import { getDashboardStats, getWeeklySummaryForYear } from "@/lib/services/time-tracking";
 import {
@@ -18,6 +23,8 @@ import {
 type WeeklySummaryPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
+
+type WeeklySummaryView = "copy" | "email";
 
 function getRequestedWeekNumber(searchParams: Record<string, string | string[] | undefined>) {
   const weekValue = searchParams.week;
@@ -45,6 +52,52 @@ function getEmailError(searchParams: Record<string, string | string[] | undefine
   return Array.isArray(emailErrorValue) ? emailErrorValue[0] : emailErrorValue;
 }
 
+function getSelectedView(searchParams: Record<string, string | string[] | undefined>): WeeklySummaryView {
+  const viewValue = searchParams.view;
+  const selectedView = Array.isArray(viewValue) ? viewValue[0] : viewValue;
+
+  return selectedView === "email" ? "email" : "copy";
+}
+
+function buildWeeklySummaryHref(
+  searchParams: Record<string, string | string[] | undefined>,
+  overrides: Record<string, string | undefined>
+) {
+  const queryParameters = new URLSearchParams();
+
+  for (const [key, value] of Object.entries(searchParams)) {
+    if (key === "view") {
+      continue;
+    }
+
+    if (Array.isArray(value)) {
+      value.forEach((queryValue) => {
+        if (queryValue) {
+          queryParameters.append(key, queryValue);
+        }
+      });
+      continue;
+    }
+
+    if (value) {
+      queryParameters.set(key, value);
+    }
+  }
+
+  for (const [key, value] of Object.entries(overrides)) {
+    if (value === undefined) {
+      queryParameters.delete(key);
+      continue;
+    }
+
+    queryParameters.set(key, value);
+  }
+
+  const queryString = queryParameters.toString();
+
+  return queryString ? `/weekly-summary?${queryString}` : "/weekly-summary";
+}
+
 export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryPageProps) {
   const resolvedSearchParams = await searchParams;
   const ownerId = await getCurrentWorkbookOwnerId();
@@ -63,6 +116,7 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
     getWeeklySummaryEmailStatus(ownerId, selectedWeekYear, selectedWeekNumber)
   ]);
   const selectedWeekLabel = formatWeekLabel(selectedWeekNumber, selectedWeekYear);
+  const selectedView = getSelectedView(resolvedSearchParams);
   const selectedWeekEmailSubject = buildWeeklySummaryEmailSubject(
     selectedWeekNumber,
     selectedWeekYear
@@ -91,69 +145,77 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
       <div className="mb-6">
         <h2 className="text-2xl font-semibold">Weekly billing summary</h2>
         <p className="mt-2 text-[var(--muted)]">
-          Select a week and copy a clean billing summary grouped by accounting project name.
+          Select a week and switch between copy/export and email workflows.
         </p>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[0.72fr_1.28fr]">
-        <section className="border border-[var(--border)] bg-[var(--panel)] p-6">
-          <form className="grid gap-4">
-            <label className="grid gap-2 text-sm font-semibold">
-              Year
-              <input
-                className="h-11 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
-                defaultValue={selectedWeekYear}
-                max="2100"
-                min="2000"
-                name="year"
-                required
-                type="number"
-              />
-            </label>
-            <label className="grid gap-2 text-sm font-semibold">
-              Week Number
-              <input
-                className="h-11 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
-                defaultValue={selectedWeekNumber}
-                max="53"
-                min="1"
-                name="week"
-                required
-                type="number"
-              />
-            </label>
-            <button
-              className="h-11 border border-[var(--accent)] bg-[var(--accent)] px-5 text-sm font-semibold !text-neutral-950 transition-colors hover:bg-[var(--accent-hover)]"
-              type="submit"
-            >
-              View week
-            </button>
-          </form>
-          <div className="mt-6 border-t border-[var(--border)] bg-[var(--surface)] p-5">
-            <p className="text-sm text-[var(--muted)]">Total hours</p>
-            <p className="mt-2 text-4xl font-semibold text-[var(--accent)]">
-              {formatHours(weeklySummary.totalHours)} hrs
-            </p>
-          </div>
-        </section>
-
-        <section className="border border-[var(--border)] bg-[var(--panel-elevated)] p-6">
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <div>
-              <h3 className="text-xl font-semibold">Ready to send</h3>
-              <p className="mt-2 text-sm text-[var(--muted)]">
-                {selectedWeekLabel}, formatted for billing copy/export.
-              </p>
-            </div>
-            <WeeklySummaryCopy summaryText={summaryText} weekNumber={selectedWeekNumber} />
-          </div>
-          <pre className="mt-5 min-h-40 whitespace-pre-wrap border border-[var(--border)] bg-[var(--surface)] p-4 font-mono text-sm leading-7 text-[var(--foreground)]">
-            {summaryText || "No billable summary lines for this week."}
-          </pre>
-        </section>
+      <div className="mb-6 grid gap-4 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-start">
+        <WeekSelector
+          actionLabel="View week"
+          defaultWeekNumber={selectedWeekNumber}
+          defaultWeekYear={selectedWeekYear}
+          hiddenFields={{ view: selectedView }}
+        />
+        <div className="grid gap-2 rounded-md border border-[var(--border)] bg-[var(--panel)] p-1 sm:grid-cols-2">
+          <Link
+            aria-current={selectedView === "copy" ? "page" : undefined}
+            className={
+              selectedView === "copy"
+                ? "border border-[var(--accent)] bg-[var(--accent)] px-4 py-3 text-sm font-semibold !text-neutral-950 shadow-[0_0_0_1px_var(--accent)]"
+                : "border border-transparent bg-[var(--surface)] px-4 py-3 text-sm font-semibold text-[var(--foreground)] transition-colors hover:border-[var(--accent)] hover:bg-[var(--surface-muted)]"
+            }
+            href={buildWeeklySummaryHref(resolvedSearchParams, { view: "copy" })}
+          >
+            <span className="flex items-center gap-2">
+              <FontAwesomeIcon className="h-3.5 w-3.5" icon={faCopy} />
+              <span>Copy / export</span>
+            </span>
+          </Link>
+          <Link
+            aria-current={selectedView === "email" ? "page" : undefined}
+            className={
+              selectedView === "email"
+                ? "border border-[var(--accent)] bg-[var(--accent)] px-4 py-3 text-sm font-semibold !text-neutral-950 shadow-[0_0_0_1px_var(--accent)]"
+                : "border border-transparent bg-[var(--surface)] px-4 py-3 text-sm font-semibold text-[var(--foreground)] transition-colors hover:border-[var(--accent)] hover:bg-[var(--surface-muted)]"
+            }
+            href={buildWeeklySummaryHref(resolvedSearchParams, { view: "email" })}
+          >
+            <span className="flex items-center gap-2">
+              <FontAwesomeIcon className="h-3.5 w-3.5" icon={faEnvelope} />
+              <span>Email</span>
+            </span>
+          </Link>
+        </div>
       </div>
 
-      <div className="mt-6">
+      {selectedView === "copy" ? (
+        <div className="grid gap-6 lg:grid-cols-[0.72fr_1.28fr]">
+          <section className="border border-[var(--border)] bg-[var(--panel)] p-6">
+            <div className="border-t border-[var(--border)] bg-[var(--surface)] p-5">
+              <p className="text-sm text-[var(--muted)]">Total hours</p>
+              <p className="mt-2 text-4xl font-semibold text-[var(--accent)]">
+                {formatHours(weeklySummary.totalHours)} hrs
+              </p>
+              <p className="mt-2 text-sm text-[var(--muted)]">{selectedWeekLabel}</p>
+            </div>
+          </section>
+
+          <section className="border border-[var(--border)] bg-[var(--panel-elevated)] p-6">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <h3 className="text-xl font-semibold">Ready to send</h3>
+                <p className="mt-2 text-sm text-[var(--muted)]">
+                  {selectedWeekLabel}, formatted for billing copy/export.
+                </p>
+              </div>
+              <WeeklySummaryCopy summaryText={summaryText} weekNumber={selectedWeekNumber} />
+            </div>
+            <pre className="mt-5 min-h-40 whitespace-pre-wrap border border-[var(--border)] bg-[var(--surface)] p-4 font-mono text-sm leading-7 text-[var(--foreground)]">
+              {summaryText || "No billable summary lines for this week."}
+            </pre>
+          </section>
+        </div>
+      ) : (
         <WeeklySummaryEmailSection
           bodyText={summaryText}
           emailSettings={emailSettings}
@@ -166,7 +228,7 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
           statusDetail={emailErrorValue ?? null}
           subject={selectedWeekEmailSubject}
         />
-      </div>
+      )}
     </section>
   );
 }
