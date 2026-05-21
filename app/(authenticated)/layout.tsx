@@ -3,6 +3,9 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { AppNav } from "@/components/navigation/app-nav";
 import { isProduction } from "@/lib/config";
+import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
+import { getLifetimeHours } from "@/lib/services/time-tracking";
+import { formatHours } from "@/lib/utils/format";
 
 export default async function AuthenticatedLayout({
   children
@@ -17,6 +20,9 @@ export default async function AuthenticatedLayout({
     }
   }
 
+  const ownerId = await getCurrentWorkbookOwnerId();
+  const lifetimeHours = await getLifetimeHours(ownerId);
+
   return (
     <main className="min-h-screen bg-[var(--background)] px-6 py-6 text-[var(--foreground)]">
       <div className="mx-auto max-w-7xl">
@@ -26,7 +32,9 @@ export default async function AuthenticatedLayout({
               <p className="text-sm text-[var(--muted)]">Maya Carroll</p>
               <h1 className="text-3xl font-semibold">Time tracking</h1>
             </div>
-            <p className="text-sm font-semibold text-[var(--muted)]">Junior Achievement</p>
+            <p className="text-sm font-semibold text-[var(--muted)]">
+              Junior Achievement · {formatHours(lifetimeHours)} hrs
+            </p>
           </div>
           <AppNav />
         </header>
