@@ -10,6 +10,58 @@ type TimeEntryTableProps = {
   timeEntries: TimeEntryRecord[];
 };
 
+type WeeklyTimeEntryGroup = {
+  weekYear: number;
+  weekNumber: number;
+  entries: TimeEntryRecord[];
+  totalHours: number;
+};
+
+function groupTimeEntriesByWeek(timeEntries: TimeEntryRecord[]) {
+  const weeklyGroupsByKey = new Map<string, WeeklyTimeEntryGroup>();
+
+  for (const timeEntry of timeEntries) {
+    const weekYear = getIsoWeekYear(timeEntry.entryDate);
+    const weekNumber = timeEntry.weekNumber;
+    const weekKey = `${weekYear}-${String(weekNumber).padStart(2, "0")}`;
+    const existingGroup = weeklyGroupsByKey.get(weekKey);
+    const hoursWorked = Number(timeEntry.hoursWorked);
+
+    if (existingGroup) {
+      existingGroup.entries.push(timeEntry);
+      existingGroup.totalHours += hoursWorked;
+      continue;
+    }
+
+    weeklyGroupsByKey.set(weekKey, {
+      weekYear,
+      weekNumber,
+      entries: [timeEntry],
+      totalHours: hoursWorked
+    });
+  }
+
+  return Array.from(weeklyGroupsByKey.values()).sort((firstGroup, secondGroup) => {
+    if (firstGroup.weekYear !== secondGroup.weekYear) {
+      return secondGroup.weekYear - firstGroup.weekYear;
+    }
+
+    return secondGroup.weekNumber - firstGroup.weekNumber;
+  });
+}
+
+function sortEntriesWithinWeek(entries: TimeEntryRecord[]) {
+  return [...entries].sort((firstEntry, secondEntry) => {
+    const dateComparison = secondEntry.entryDate.localeCompare(firstEntry.entryDate);
+
+    if (dateComparison !== 0) {
+      return dateComparison;
+    }
+
+    return secondEntry.createdAt.getTime() - firstEntry.createdAt.getTime();
+  });
+}
+
 export function TimeEntryTable({ deleteAction, timeEntries }: TimeEntryTableProps) {
   if (timeEntries.length === 0) {
     return (
@@ -19,66 +71,96 @@ export function TimeEntryTable({ deleteAction, timeEntries }: TimeEntryTableProp
     );
   }
 
+  const weeklyGroups = groupTimeEntriesByWeek(timeEntries);
+
   return (
-    <div className="overflow-x-auto border border-[var(--border)] bg-[var(--panel)]">
-      <table className="w-full min-w-[1160px] border-collapse text-left text-sm">
-        <thead className="border-b border-[var(--border)] bg-[var(--surface-muted)] text-[var(--foreground)]">
-          <tr>
-            <th className="px-4 py-3">Date</th>
-            <th className="px-4 py-3">Product Name</th>
-            <th className="px-4 py-3">Budget Name</th>
-            <th className="px-4 py-3">Budget #</th>
-            <th className="px-4 py-3">Task Description</th>
-            <th className="px-4 py-3">Hours</th>
-            <th className="px-4 py-3">Week</th>
-            <th className="px-4 py-3">Source</th>
-            <th className="px-4 py-3">Notes</th>
-            <th className="px-4 py-3 text-right">Actions</th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-[var(--border)]">
-          {timeEntries.map((timeEntry) => (
-            <tr className="transition-colors hover:bg-[var(--surface)]" key={timeEntry.id}>
-              <td className="px-4 py-3">{timeEntry.entryDate}</td>
-              <td className="px-4 py-3 font-semibold">{timeEntry.productName}</td>
-              <td className="px-4 py-3">{timeEntry.budgetName}</td>
-              <td className="px-4 py-3">{timeEntry.budgetNumber}</td>
-              <td className="px-4 py-3">{timeEntry.taskDescription}</td>
-              <td className="px-4 py-3 tabular-nums">
-                {formatHours(Number(timeEntry.hoursWorked))}
-              </td>
-              <td className="px-4 py-3">
-                {formatWeekLabel(timeEntry.weekNumber, getIsoWeekYear(timeEntry.entryDate))}
-              </td>
-              <td className="px-4 py-3">
-                {timeEntry.recurringTemplateId ? (
-                  <span className="rounded-full border border-[var(--accent)] px-2 py-1 text-xs font-semibold text-[var(--accent)]">
-                    Recurring
-                  </span>
-                ) : (
-                  <span className="text-xs font-semibold text-[var(--muted)]">Manual</span>
-                )}
-              </td>
-              <td className="px-4 py-3 text-[var(--muted)]">{timeEntry.notes}</td>
-              <td className="px-4 py-3">
-                <div className="flex justify-end gap-2">
-                  <Link
-                    className="px-3 py-2 font-semibold hover:underline"
-                    href={`/time-entries/${timeEntry.id}/edit`}
-                  >
-                    Edit
-                  </Link>
-                  <form action={deleteAction.bind(null, timeEntry.id)}>
-                    <Button type="submit" variant="secondary">
-                      Delete
-                    </Button>
-                  </form>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="grid gap-4">
+      {weeklyGroups.map((weeklyGroup) => {
+        const orderedEntries = sortEntriesWithinWeek(weeklyGroup.entries);
+        const weekLabel = formatWeekLabel(weeklyGroup.weekNumber, weeklyGroup.weekYear);
+
+        return (
+          <section
+            className="overflow-hidden border border-[var(--border)] bg-[var(--panel)]"
+            key={`${weeklyGroup.weekYear}-${weeklyGroup.weekNumber}`}
+          >
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border)] bg-[var(--surface-muted)] px-4 py-3">
+              <div>
+                <h3 className="text-sm font-semibold text-[var(--foreground)]">
+                  {weekLabel}
+                </h3>
+                <p className="mt-1 text-xs text-[var(--muted)]">
+                  {orderedEntries.length} {orderedEntries.length === 1 ? "entry" : "entries"} in
+                  this week
+                </p>
+              </div>
+              <p className="text-sm font-semibold tabular-nums text-[var(--foreground)]">
+                {formatHours(weeklyGroup.totalHours)} hrs
+              </p>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[1160px] border-collapse text-left text-sm">
+                <thead className="border-b border-[var(--border)] text-[var(--foreground)]">
+                  <tr>
+                    <th className="px-4 py-3">Date</th>
+                    <th className="px-4 py-3">Product Name</th>
+                    <th className="px-4 py-3">Budget Name</th>
+                    <th className="px-4 py-3">Budget #</th>
+                    <th className="px-4 py-3">Task Description</th>
+                    <th className="px-4 py-3">Hours</th>
+                    <th className="px-4 py-3">Week</th>
+                    <th className="px-4 py-3">Source</th>
+                    <th className="px-4 py-3">Notes</th>
+                    <th className="px-4 py-3 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[var(--border)]">
+                  {orderedEntries.map((timeEntry) => (
+                    <tr className="transition-colors hover:bg-[var(--surface)]" key={timeEntry.id}>
+                      <td className="px-4 py-3">{timeEntry.entryDate}</td>
+                      <td className="px-4 py-3 font-semibold">{timeEntry.productName}</td>
+                      <td className="px-4 py-3">{timeEntry.budgetName}</td>
+                      <td className="px-4 py-3">{timeEntry.budgetNumber}</td>
+                      <td className="px-4 py-3">{timeEntry.taskDescription}</td>
+                      <td className="px-4 py-3 tabular-nums">
+                        {formatHours(Number(timeEntry.hoursWorked))}
+                      </td>
+                      <td className="px-4 py-3">
+                        {formatWeekLabel(timeEntry.weekNumber, getIsoWeekYear(timeEntry.entryDate))}
+                      </td>
+                      <td className="px-4 py-3">
+                        {timeEntry.recurringTemplateId ? (
+                          <span className="rounded-full border border-[var(--accent)] px-2 py-1 text-xs font-semibold text-[var(--accent)]">
+                            Recurring
+                          </span>
+                        ) : (
+                          <span className="text-xs font-semibold text-[var(--muted)]">Manual</span>
+                        )}
+                      </td>
+                      <td className="px-4 py-3 text-[var(--muted)]">{timeEntry.notes}</td>
+                      <td className="px-4 py-3">
+                        <div className="flex justify-end gap-2">
+                          <Link
+                            className="px-3 py-2 font-semibold hover:underline"
+                            href={`/time-entries/${timeEntry.id}/edit`}
+                          >
+                            Edit
+                          </Link>
+                          <form action={deleteAction.bind(null, timeEntry.id)}>
+                            <Button type="submit" variant="secondary">
+                              Delete
+                            </Button>
+                          </form>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        );
+      })}
     </div>
   );
 }
