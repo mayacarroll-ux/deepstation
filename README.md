@@ -20,8 +20,9 @@ budget-key mappings, persistent time entries, and weekly billing summaries.
 3. Configure `DATABASE_URL`. `OPENAI_API_KEY` is only needed for the AI chat
    endpoint. `RESEND_API_KEY` is required for weekly summary email sending.
    Set `EMAIL_FROM` or `RESEND_FROM_EMAIL` to a verified Resend sender address
-   for the weekly summary email feature. `AUTH_SECRET` and `APP_PASSWORD` are
-   required for production deployments. Keep
+   for the weekly summary email feature. `CRON_SECRET` is required before you
+   turn on scheduled weekly summary sending. `AUTH_SECRET` and `APP_PASSWORD`
+   are required for production deployments. Keep
    `WEEKLY_SUMMARY_AUTOMATION_ENABLED=false` until you intentionally add
    scheduled email sending.
 
@@ -63,22 +64,27 @@ password stored in `APP_PASSWORD`; data remains scoped to `single-user`.
 3. Add `RESEND_API_KEY` and `EMAIL_FROM` or `RESEND_FROM_EMAIL` if you want
    weekly summary email sending in production. The sender address must be
    verified in Resend.
-4. Keep `WEEKLY_SUMMARY_AUTOMATION_ENABLED=false` until you intentionally add
+4. Add `CRON_SECRET` before enabling scheduled weekly summary sending.
+5. Keep `WEEKLY_SUMMARY_AUTOMATION_ENABLED=false` until you intentionally add
    scheduled email sending.
-5. Optional: add `OPENAI_API_KEY` only if using `/api/chat`.
-6. Run migrations against Neon:
+6. Optional: add `OPENAI_API_KEY` only if using `/api/chat`.
+7. Run migrations against Neon:
 
    ```bash
    DATABASE_URL="postgres://..." npm run db:migrate
    ```
 
-7. Import the workbook into Neon:
+8. Import the workbook into Neon:
 
    ```bash
    DATABASE_URL="postgres://..." npm run import:workbook -- /path/to/workbook.xlsx
    ```
 
-8. Deploy to Vercel with `npm run build`.
+9. Add the Vercel cron schedule in `vercel.json`. Vercel cron uses UTC, so the
+   app schedules Friday runs at `21:00` and `22:00` UTC and the endpoint only
+   sends when the current time in `America/New_York` is Friday at 5 PM. That
+   keeps the send aligned with 5 PM Eastern across daylight saving changes.
+10. Deploy to Vercel with `npm run build`.
 
 In production, `DATABASE_URL` is required and the local JSON workbook fallback is
 disabled. Missing production auth or database variables fail closed at request

@@ -108,6 +108,9 @@ export function WeeklySummaryEmailSection({
               defaultValue={emailSettings?.ccEmails.join("\n") ?? ""}
               name="ccEmails"
             />
+            <span className="text-xs font-normal text-[var(--muted)]">
+              maya.carroll@ja.org is included automatically.
+            </span>
           </label>
           <div className="flex items-center gap-3">
             <Button type="submit" variant="secondary">

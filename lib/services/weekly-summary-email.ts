@@ -8,7 +8,10 @@ import {
   weeklySummaryEmailStatuses
 } from "@/db/schema";
 import { isProduction, serverEnvironment } from "@/lib/config";
-import { singleUserName } from "@/lib/constants";
+import {
+  singleUserName,
+  weeklySummaryDefaultCcEmail
+} from "@/lib/constants";
 import { getIsoWeekDateRange } from "@/lib/utils/dates";
 import { formatBillingSummaryText } from "@/lib/utils/format";
 
@@ -41,6 +44,8 @@ export type WeeklySummaryEmailSendResult = {
   messageId: string | null;
   recipientCount: number;
 };
+
+export type WeeklySummaryEmailSendMode = "manual" | "resend" | "auto";
 
 function parseEmailList(rawEmails: string | null | undefined) {
   return String(rawEmails ?? "")
@@ -82,6 +87,14 @@ function normalizeSendMode(sendMode: string) {
 
 function toRecipientSnapshot(recipients: string[]) {
   return recipients.map((recipient) => recipient.trim().toLowerCase());
+}
+
+function getDefaultWeeklySummaryCcRecipients() {
+  return [weeklySummaryDefaultCcEmail];
+}
+
+function getEffectiveCcRecipients(rawCcRecipients: string[]) {
+  return dedupeEmails([...rawCcRecipients, ...getDefaultWeeklySummaryCcRecipients()]);
 }
 
 function getResendClient() {
@@ -178,7 +191,7 @@ export async function saveWeeklySummaryEmailSettings(
     ccEmails: formData.get("ccEmails")
   });
   const accountingEmails = dedupeEmails(parseEmailList(parsedSettings.accountingEmails));
-  const ccEmails = dedupeEmails(parseEmailList(parsedSettings.ccEmails));
+  const ccEmails = getEffectiveCcRecipients(parseEmailList(parsedSettings.ccEmails));
   const validatedAccountingEmails = emailListSchema.parse(accountingEmails);
   const validatedCcEmails = emailListSchema.parse(ccEmails);
 
@@ -215,7 +228,7 @@ export async function buildWeeklySummaryEmailPreview(
   const settings = await getWeeklySummaryEmailSettings(ownerId);
   const managerEmail = settings?.managerEmail ?? "";
   const accountingEmails = settings?.accountingEmails ?? [];
-  const ccEmails = settings?.ccEmails ?? [];
+  const ccEmails = getEffectiveCcRecipients(settings?.ccEmails ?? []);
   const toRecipients = dedupeEmails([managerEmail, ...accountingEmails].filter(Boolean));
   const ccRecipients = dedupeEmails(ccEmails).filter(
     (email) => !toRecipients.includes(email)
@@ -233,7 +246,8 @@ export async function sendWeeklySummaryEmail(
   ownerId: string,
   weekNumber: number,
   weekYear: number,
-  allowResend: boolean
+  allowResend: boolean,
+  sendMode: WeeklySummaryEmailSendMode = "manual"
 ): Promise<WeeklySummaryEmailSendResult> {
   const writableDatabase = requireDatabase();
   const weeklySummary = await getWeeklySummaryForYear(ownerId, weekNumber, weekYear);
@@ -261,7 +275,7 @@ export async function sendWeeklySummaryEmail(
   }
 
   const toRecipients = dedupeEmails([settings.managerEmail, ...settings.accountingEmails]);
-  const ccRecipients = dedupeEmails(settings.ccEmails).filter(
+  const ccRecipients = getEffectiveCcRecipients(settings.ccEmails).filter(
     (email) => !toRecipients.includes(email)
   );
   const summaryText = formatBillingSummaryText(weeklySummary.groupedHours, weeklySummary.totalHours);
@@ -301,7 +315,7 @@ export async function sendWeeklySummaryEmail(
       weekNumber,
       lastSentAt: now,
       lastMessageId: data?.id ?? null,
-      lastSendMode: normalizeSendMode(existingStatus ? "resend" : "manual"),
+      lastSendMode: normalizeSendMode(existingStatus ? "resend" : sendMode),
       toRecipients: toRecipientSnapshot(toRecipients),
       ccRecipients: toRecipientSnapshot(ccRecipients),
       sendCount: existingStatus ? existingStatus.sendCount + 1 : 1,
@@ -316,7 +330,7 @@ export async function sendWeeklySummaryEmail(
       set: {
         lastSentAt: now,
         lastMessageId: data?.id ?? null,
-        lastSendMode: normalizeSendMode(existingStatus ? "resend" : "manual"),
+        lastSendMode: normalizeSendMode(existingStatus ? "resend" : sendMode),
         toRecipients: toRecipientSnapshot(toRecipients),
         ccRecipients: toRecipientSnapshot(ccRecipients),
         sendCount: existingStatus ? existingStatus.sendCount + 1 : 1,

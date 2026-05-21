@@ -8,6 +8,7 @@ const serverEnvironmentSchema = z.object({
   RESEND_API_KEY: z.string().optional(),
   EMAIL_FROM: z.string().optional(),
   RESEND_FROM_EMAIL: z.string().optional(),
+  CRON_SECRET: z.string().optional(),
   WEEKLY_SUMMARY_AUTOMATION_ENABLED: z.string().optional()
 });
 
