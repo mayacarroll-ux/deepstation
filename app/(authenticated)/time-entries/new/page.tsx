@@ -1,4 +1,4 @@
-import { TimeEntryForm } from "@/components/time-entries/time-entry-form";
+import { NewTimeEntryDialog } from "@/components/time-entries/new-time-entry-dialog";
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
 import { listBudgetMappings } from "@/lib/services/time-tracking";
 
@@ -10,17 +10,12 @@ export default async function NewTimeEntryPage() {
 
   return (
     <section className="py-8">
-      <div className="mb-6">
-        <h2 className="text-2xl font-semibold">New time entry</h2>
-        <p className="mt-2 text-[var(--muted)]">
-          Add a workbook row. Product Name can auto-fill budget fields from the budget key, and
-          optional Start Time / End Time fields can auto-calculate Hours Worked.
-        </p>
-      </div>
-      <TimeEntryForm
+      <NewTimeEntryDialog
         action={createTimeEntryAction}
         budgetMappings={budgetMappingRecords}
-        submitLabel="Save time entry"
+        defaultOpen
+        returnToPath="/time-entries"
+        showTrigger={false}
       />
     </section>
   );

@@ -13,6 +13,7 @@ import { useActionState, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
+import { RepeatWeeklyFields } from "@/components/time-entries/repeat-weekly-fields";
 import {
   Dialog,
   DialogContent,
@@ -24,7 +25,7 @@ import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import type { BudgetMappingRecord } from "@/lib/services/time-tracking";
-import { getIsoWeekNumber, getTodayInputValue } from "@/lib/utils/dates";
+import { getIsoDayOfWeek, getIsoWeekNumber, getTodayInputValue } from "@/lib/utils/dates";
 import { formatHours, formatHourUnit, formatTimeInput } from "@/lib/utils/format";
 
 import type { QuickTimerSaveState } from "@/app/(authenticated)/time-entries/actions";
@@ -38,6 +39,10 @@ type QuickTimerDraft = {
   budgetNumber: string;
   taskDescription: string;
   notes: string;
+  repeatWeekly: boolean;
+  recurringDayOfWeek: string;
+  recurringStartDate: string;
+  recurringEndDate: string;
 };
 
 type QuickTimerState =
@@ -146,7 +151,19 @@ function readStoredQuickTimerState(): QuickTimerStoredState {
         typeof parsedState.draft.taskDescription === "string" &&
         typeof parsedState.draft.notes === "string"
       ) {
-        return parsedState;
+        return {
+          ...parsedState,
+          draft: {
+            ...getDefaultDraft(parsedState.entryDate),
+            ...parsedState.draft,
+            repeatWeekly: parsedState.draft.repeatWeekly ?? false,
+            recurringDayOfWeek:
+              parsedState.draft.recurringDayOfWeek ?? String(getIsoDayOfWeek(parsedState.entryDate)),
+            recurringStartDate:
+              parsedState.draft.recurringStartDate ?? parsedState.entryDate,
+            recurringEndDate: parsedState.draft.recurringEndDate ?? ""
+          }
+        };
       }
 
       return { mode: "idle" };
@@ -191,14 +208,18 @@ function getQuarterHourHours(startedAtIso: string, stoppedAtIso: string) {
   );
 }
 
-function getDefaultDraft(): QuickTimerDraft {
+function getDefaultDraft(entryDate: string): QuickTimerDraft {
   return {
     budgetMappingId: "",
     productName: "",
     budgetName: "",
     budgetNumber: "",
     taskDescription: "",
-    notes: ""
+    notes: "",
+    repeatWeekly: false,
+    recurringDayOfWeek: String(getIsoDayOfWeek(entryDate)),
+    recurringStartDate: entryDate,
+    recurringEndDate: ""
   };
 }
 
@@ -209,6 +230,7 @@ export function HeaderQuickTimer({ budgetMappings, saveAction }: HeaderQuickTime
   const [isDiscardConfirmOpen, setIsDiscardConfirmOpen] = useState(false);
   const [currentTimeMs, setCurrentTimeMs] = useState(Date.now());
   const [currentSessionSubmitCount, setCurrentSessionSubmitCount] = useState(0);
+  const [saveNotice, setSaveNotice] = useState<string | null>(null);
   const [saveState, formAction, isPending] = useActionState(saveAction, { status: "idle" });
 
   const productNames = useMemo(() => getProductNames(budgetMappings), [budgetMappings]);
@@ -276,13 +298,32 @@ export function HeaderQuickTimer({ budgetMappings, saveAction }: HeaderQuickTime
       return;
     }
 
+    if (saveState.message) {
+      setSaveNotice(saveState.message);
+      const timeoutId = window.setTimeout(() => setSaveNotice(null), 4500);
+
+      setTimerState({ mode: "idle" });
+      setIsFinishModalOpen(false);
+      setIsDiscardConfirmOpen(false);
+      router.refresh();
+
+      return () => window.clearTimeout(timeoutId);
+    }
+
     setTimerState({ mode: "idle" });
     setIsFinishModalOpen(false);
     setIsDiscardConfirmOpen(false);
     router.refresh();
-  }, [router, saveState.status]);
+  }, [router, saveState.message, saveState.status]);
+
+  useEffect(() => {
+    if (saveState.status === "error") {
+      setSaveNotice(null);
+    }
+  }, [saveState.status]);
 
   function handleStartTimer() {
+    setSaveNotice(null);
     const startedAt = new Date();
 
     setTimerState({
@@ -307,7 +348,7 @@ export function HeaderQuickTimer({ budgetMappings, saveAction }: HeaderQuickTime
       startedAtIso: timerState.startedAtIso,
       stoppedAtIso: stoppedAt.toISOString(),
       endTime: getCurrentTimeInputValue(stoppedAt),
-      draft: getDefaultDraft()
+      draft: getDefaultDraft(timerState.entryDate)
     });
     setCurrentSessionSubmitCount(0);
     setIsFinishModalOpen(true);
@@ -329,6 +370,24 @@ export function HeaderQuickTimer({ budgetMappings, saveAction }: HeaderQuickTime
       draft: {
         ...timerState.draft,
         [fieldName]: value
+      }
+    });
+  }
+
+  function toggleRepeatWeekly(nextEnabled: boolean) {
+    if (timerState.mode !== "pending") {
+      return;
+    }
+
+    setTimerState({
+      ...timerState,
+      draft: {
+        ...timerState.draft,
+        repeatWeekly: nextEnabled,
+        recurringDayOfWeek: nextEnabled
+          ? String(getIsoDayOfWeek(timerState.entryDate))
+          : timerState.draft.recurringDayOfWeek,
+        recurringStartDate: nextEnabled ? timerState.entryDate : timerState.draft.recurringStartDate
       }
     });
   }
@@ -398,6 +457,7 @@ export function HeaderQuickTimer({ budgetMappings, saveAction }: HeaderQuickTime
     setIsFinishModalOpen(false);
     setIsDiscardConfirmOpen(false);
     setCurrentSessionSubmitCount(0);
+    setSaveNotice(null);
     window.localStorage.removeItem(quickTimerStorageKey);
   }
 
@@ -462,6 +522,10 @@ export function HeaderQuickTimer({ budgetMappings, saveAction }: HeaderQuickTime
           </>
         )}
       </div>
+
+      {saveNotice ? (
+        <p className="mt-2 text-xs font-semibold text-[var(--accent)]">{saveNotice}</p>
+      ) : null}
 
       <Dialog onOpenChange={setIsFinishModalOpen} open={isFinishModalOpen}>
         <DialogContent className="max-w-2xl max-h-[calc(100vh-2rem)] overflow-y-auto">
@@ -635,6 +699,23 @@ export function HeaderQuickTimer({ budgetMappings, saveAction }: HeaderQuickTime
                 />
               </label>
             </div>
+
+            {timerState.mode === "pending" ? (
+              <RepeatWeeklyFields
+                dayOfWeek={timerState.draft.recurringDayOfWeek}
+                enabled={timerState.draft.repeatWeekly}
+                endDate={timerState.draft.recurringEndDate}
+                onDayOfWeekChange={(nextDayOfWeek) =>
+                  updateDraftField("recurringDayOfWeek", nextDayOfWeek)
+                }
+                onEnabledChange={toggleRepeatWeekly}
+                onEndDateChange={(nextEndDate) => updateDraftField("recurringEndDate", nextEndDate)}
+                onStartDateChange={(nextStartDate) =>
+                  updateDraftField("recurringStartDate", nextStartDate)
+                }
+                startDate={timerState.draft.recurringStartDate}
+              />
+            ) : null}
 
             {currentSessionSubmitCount > 0 && saveState.status === "error" ? (
               <p className="text-sm text-[var(--warning)]">{saveState.message ?? "Could not save time entry."}</p>

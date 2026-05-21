@@ -492,7 +492,9 @@ export async function createTimeEntry(ownerId: string, formData: FormData) {
   const writableDatabase = requireDatabase();
   const parsedTimeEntry = parseTimeEntryFormData(formData);
 
-  await writableDatabase.insert(timeEntries).values({
+  const [createdTimeEntry] = await writableDatabase
+    .insert(timeEntries)
+    .values({
     ownerId,
     allocationBatchId: null,
     budgetMappingId: parsedTimeEntry.budgetMappingId,
@@ -507,7 +509,14 @@ export async function createTimeEntry(ownerId: string, formData: FormData) {
     hoursWorked: parsedTimeEntry.hoursWorked,
     weekNumber: parsedTimeEntry.weekNumber,
     notes: parsedTimeEntry.notes
-  });
+    })
+    .returning();
+
+  if (!createdTimeEntry) {
+    throw new Error("Time entry could not be created.");
+  }
+
+  return createdTimeEntry;
 }
 
 export async function updateTimeEntry(ownerId: string, timeEntryId: string, formData: FormData) {

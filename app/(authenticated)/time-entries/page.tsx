@@ -1,15 +1,14 @@
 import { CurrentWeekTimesheetDrawer } from "@/components/time-entries/current-week-timesheet-drawer";
+import { NewTimeEntryDialog } from "@/components/time-entries/new-time-entry-dialog";
 import { TimeEntryWeekSelector } from "@/components/time-entries/time-entry-week-selector";
-import { RecurringWorkflow } from "@/components/recurring/recurring-workflow";
 import { WeeklyAllocationSection } from "@/components/time-entries/weekly-allocation-section";
 import { TimeEntryFilters } from "@/components/time-entries/time-entry-filters";
 import { TimeEntryTable } from "@/components/time-entries/time-entry-table";
-import { ButtonLink } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Toast } from "@/components/ui/toast";
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
-import { getRecurringTemplate, listRecurringTemplates } from "@/lib/services/recurring";
 import { getCurrentWeekTimesheetPreview } from "@/lib/services/current-week-timesheet";
+import { listRecurringTemplates } from "@/lib/services/recurring";
 import { getWeeklyAllocationPreview } from "@/lib/services/weekly-allocation";
 import {
   listBudgetMappings,
@@ -28,16 +27,11 @@ import { formatHours } from "@/lib/utils/format";
 
 import {
   generateCurrentWeekTimesheetAction,
+  createTimeEntryAction,
   createWeeklyAllocationEntriesAction,
   deleteTimeEntryAction,
   makeRecurringTemplateAction
 } from "./actions";
-import {
-  applyRecurringTemplatesAction,
-  createRecurringTemplateAction,
-  toggleRecurringTemplateActiveAction,
-  updateRecurringTemplateAction
-} from "../recurring/actions";
 
 type TimeEntriesPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -196,6 +190,7 @@ function buildTimeEntriesQueryParameters(
     "allocationSkipped",
     "allocationWeek",
     "allocationYear",
+    "timeEntryMessage",
     "currentWeekTimesheetStatus",
     "currentWeekTimesheetMessage",
     "currentWeekRecurringAdded",
@@ -315,40 +310,6 @@ function getWeekOptions(timeEntryRecords: TimeEntryRecord[]) {
   });
 }
 
-function getRecurringTemplateId(searchParams: Record<string, string | string[] | undefined>) {
-  const recurringEditValue = getSearchParamValue(searchParams, "recurringEdit");
-
-  return recurringEditValue || null;
-}
-
-function getRecurringStatusMessage(searchParams: Record<string, string | string[] | undefined>) {
-  const appliedValue = Number(getSearchParamValue(searchParams, "recurringAdded"));
-  const skippedValue = Number(getSearchParamValue(searchParams, "recurringSkipped"));
-  const weekValue = Number(getSearchParamValue(searchParams, "recurringWeek"));
-  const yearValue = Number(getSearchParamValue(searchParams, "recurringYear"));
-
-  if (
-    !Number.isInteger(appliedValue) ||
-    !Number.isInteger(skippedValue) ||
-    !Number.isInteger(weekValue) ||
-    !Number.isInteger(yearValue)
-  ) {
-    return null;
-  }
-
-  const selectedWeekLabel = formatWeekLabel(weekValue, yearValue);
-  const appliedSummary =
-    appliedValue > 0
-      ? `Added ${appliedValue} recurring entr${appliedValue === 1 ? "y" : "ies"}`
-      : `No new recurring entries were added`;
-  const skippedSummary =
-    skippedValue > 0
-      ? `, skipped ${skippedValue} duplicate${skippedValue === 1 ? "" : "s"}`
-      : "";
-
-  return `${appliedSummary}${skippedSummary} for ${selectedWeekLabel}.`;
-}
-
 function getMakeRecurringStatusMessage(
   searchParams: Record<string, string | string[] | undefined>
 ) {
@@ -362,6 +323,10 @@ function getMakeRecurringStatusMessage(
     return "This time entry is already linked to a recurring template.";
   }
 
+  if (statusValue === "duplicate") {
+    return "A recurring template with the same product, task, day, and start date already exists.";
+  }
+
   return null;
 }
 
@@ -373,6 +338,10 @@ function getDeleteStatusMessage(searchParams: Record<string, string | string[] |
   }
 
   return null;
+}
+
+function getTimeEntryMessage(searchParams: Record<string, string | string[] | undefined>) {
+  return getSearchParamValue(searchParams, "timeEntryMessage") || null;
 }
 
 function getAllocationStatusMessage(
@@ -515,33 +484,14 @@ function buildAllocationHiddenFields(
   return hiddenFields;
 }
 
-function getNextIsoWeekNumberAndYear() {
-  const nextWeekDate = new Date(`${getTodayInputValue()}T00:00:00.000Z`);
-  nextWeekDate.setUTCDate(nextWeekDate.getUTCDate() + 7);
-  const nextWeekInputValue = nextWeekDate.toISOString().slice(0, 10);
-
-  return {
-    weekNumber: getIsoWeekNumber(nextWeekInputValue),
-    weekYear: getIsoWeekYear(nextWeekInputValue)
-  };
-}
-
 export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageProps) {
   const resolvedSearchParams = await searchParams;
   const ownerId = await getCurrentWorkbookOwnerId();
   const filters = getFilters(resolvedSearchParams);
   const historyMode = getHistoryMode(resolvedSearchParams);
-  const recurringTemplateId = getRecurringTemplateId(resolvedSearchParams);
   const defaultWeekNumber = getIsoWeekNumber(getTodayInputValue());
   const defaultWeekYear = getIsoWeekYear(getTodayInputValue());
   const allocationHiddenFields = buildAllocationHiddenFields(resolvedSearchParams);
-  const nextWeek = getNextIsoWeekNumberAndYear();
-  const requestedRecurringWeekNumber = Number(
-    getSearchParamValue(resolvedSearchParams, "recurringWeek")
-  );
-  const requestedRecurringWeekYear = Number(
-    getSearchParamValue(resolvedSearchParams, "recurringYear")
-  );
   const [allTimeEntryRecords, budgetMappingRecords] = await Promise.all([
     listTimeEntries(ownerId),
     listBudgetMappings(ownerId)
@@ -590,22 +540,20 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
   const timeEntryRecordsPromise = historyMode
     ? listTimeEntries(ownerId, filters)
     : selectedWeekTimeEntryRecordsPromise;
-  const [selectedWeekTimeEntryRecords, timeEntryRecords, recurringTemplateRecords, selectedRecurringTemplate, allocationPreview] =
-    await Promise.all([
-      selectedWeekTimeEntryRecordsPromise,
-      timeEntryRecordsPromise,
-      listRecurringTemplates(ownerId),
-      recurringTemplateId ? getRecurringTemplate(ownerId, recurringTemplateId) : Promise.resolve(null),
-      getWeeklyAllocationPreview(ownerId, allocationWeekNumber, allocationWeekYear)
-    ]);
+  const [selectedWeekTimeEntryRecords, timeEntryRecords, recurringTemplateRecords, allocationPreview] = await Promise.all([
+    selectedWeekTimeEntryRecordsPromise,
+    timeEntryRecordsPromise,
+    listRecurringTemplates(ownerId),
+    getWeeklyAllocationPreview(ownerId, allocationWeekNumber, allocationWeekYear)
+  ]);
   const filterOptions = getFilterOptions(budgetMappingRecords, allTimeEntryRecords);
-  const recurringStatusMessage = getRecurringStatusMessage(resolvedSearchParams);
   const allocationStatusMessage = getAllocationStatusMessage(resolvedSearchParams);
   const currentWeekTimesheetStatusMessage = getCurrentWeekTimesheetStatusMessage(
     resolvedSearchParams
   );
   const makeRecurringStatusMessage = getMakeRecurringStatusMessage(resolvedSearchParams);
   const deleteStatusMessage = getDeleteStatusMessage(resolvedSearchParams);
+  const timeEntryMessage = getTimeEntryMessage(resolvedSearchParams);
   const allocationWeekLabel = formatWeekLabel(allocationWeekNumber, allocationWeekYear);
   const selectedWeekLabel = formatWeekLabel(selectedWeek.weekNumber, selectedWeek.weekYear);
   const selectedWeekTotalHours = selectedWeekTimeEntryRecords.reduce(
@@ -636,7 +584,11 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
             returnToPath={selectedWeekReturnToPath}
             statusMessage={currentWeekTimesheetStatusMessage}
           />
-          <ButtonLink href="/time-entries/new">New time entry</ButtonLink>
+          <NewTimeEntryDialog
+            action={createTimeEntryAction}
+            budgetMappings={budgetMappingRecords}
+            returnToPath="/time-entries"
+          />
         </div>
       </div>
       <div className="mb-6 grid gap-4">
@@ -669,6 +621,7 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
         </Card>
       </div>
       {deleteStatusMessage ? <Toast clearQueryParam="deleteStatus" message={deleteStatusMessage} /> : null}
+      {timeEntryMessage ? <Toast clearQueryParam="timeEntryMessage" message={timeEntryMessage} /> : null}
       <div className="grid gap-6">
         <div className="grid min-w-0 gap-6">
           <TimeEntryFilters
@@ -676,7 +629,7 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
             filters={filters}
             hiddenFields={filterHiddenFields}
           />
-            <TimeEntryTable
+          <TimeEntryTable
             deleteAction={deleteTimeEntryAction}
             makeRecurringAction={makeRecurringTemplateAction}
             recurringTemplateSourceTimeEntryIds={recurringTemplateSourceTimeEntryIds}
@@ -688,32 +641,6 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
               {makeRecurringStatusMessage}
             </div>
           ) : null}
-          <RecurringWorkflow
-            applyRecurringTemplatesAction={applyRecurringTemplatesAction}
-            basePath="/time-entries"
-            createRecurringTemplateAction={createRecurringTemplateAction}
-            defaultWeekNumber={
-              Number.isInteger(requestedRecurringWeekNumber) &&
-              requestedRecurringWeekNumber >= 1 &&
-              requestedRecurringWeekNumber <= 53
-                ? requestedRecurringWeekNumber
-                : defaultWeekNumber
-            }
-            defaultWeekYear={
-              Number.isInteger(requestedRecurringWeekYear) &&
-              requestedRecurringWeekYear >= 2000 &&
-              requestedRecurringWeekYear <= 2100
-                ? requestedRecurringWeekYear
-                : defaultWeekYear
-            }
-            recurringTemplates={recurringTemplateRecords}
-            selectedRecurringTemplate={selectedRecurringTemplate}
-            statusMessage={recurringStatusMessage}
-            toggleRecurringTemplateActiveAction={toggleRecurringTemplateActiveAction}
-            updateRecurringTemplateAction={updateRecurringTemplateAction}
-            nextWeekNumber={nextWeek.weekNumber}
-            nextWeekYear={nextWeek.weekYear}
-          />
           <WeeklyAllocationSection
             action={createWeeklyAllocationEntriesAction}
             allocationHiddenFields={allocationHiddenFields}

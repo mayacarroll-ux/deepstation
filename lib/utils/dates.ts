@@ -27,6 +27,14 @@ export function getIsoWeekYear(dateInputValue: string) {
   return utcDate.getUTCFullYear();
 }
 
+export function getIsoDayOfWeek(dateInputValue: string) {
+  const date = new Date(`${dateInputValue}T00:00:00`);
+  const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const dayNumber = utcDate.getUTCDay();
+
+  return dayNumber === 0 ? 7 : dayNumber;
+}
+
 function formatWeekRangeDate(date: Date) {
   return new Intl.DateTimeFormat("en-US", {
     month: "short",

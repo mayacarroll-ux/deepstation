@@ -9,7 +9,8 @@ import {
 } from "@/lib/services/current-user";
 import {
   applyRecurringTemplates,
-  createRecurringTemplateFromTimeEntry
+  createRecurringTemplateFromTimeEntry,
+  createRecurringTemplateFromTimeEntryDetails
 } from "@/lib/services/recurring";
 import { createWeeklyAllocationEntries } from "@/lib/services/weekly-allocation";
 import {
@@ -17,23 +18,97 @@ import {
   deleteTimeEntry,
   updateTimeEntry
 } from "@/lib/services/time-tracking";
-import { getIsoWeekNumber, getIsoWeekYear, getTodayInputValue } from "@/lib/utils/dates";
+import {
+  getIsoDayOfWeek,
+  getIsoWeekNumber,
+  getIsoWeekYear,
+  getTodayInputValue
+} from "@/lib/utils/dates";
 
 export type QuickTimerSaveState = {
   status: "idle" | "error" | "success";
   message?: string;
 };
 
+async function saveTimeEntryWithOptionalRecurringTemplate(
+  ownerId: string,
+  formData: FormData
+) {
+  const createdTimeEntry = await createTimeEntry(ownerId, formData);
+  const repeatWeekly = String(formData.get("repeatWeekly")) === "on";
+
+  if (!repeatWeekly) {
+    return {
+      createdTimeEntry,
+      recurringTemplateResult: null
+    };
+  }
+
+  const selectedRecurringDayOfWeek = Number(formData.get("recurringDayOfWeek"));
+  const recurringDayOfWeek =
+    Number.isInteger(selectedRecurringDayOfWeek) &&
+    selectedRecurringDayOfWeek >= 1 &&
+    selectedRecurringDayOfWeek <= 7
+      ? selectedRecurringDayOfWeek
+      : getIsoDayOfWeek(createdTimeEntry.entryDate);
+  const recurringStartDateValue = String(formData.get("recurringStartDate") ?? "").trim();
+  const recurringStartDate = recurringStartDateValue.length > 0
+    ? recurringStartDateValue
+    : createdTimeEntry.entryDate;
+  const recurringEndDateValue = String(formData.get("recurringEndDate") ?? "").trim();
+  const recurringTemplateResult = await createRecurringTemplateFromTimeEntryDetails(ownerId, {
+    sourceTimeEntryId: createdTimeEntry.id,
+    taskDescription: createdTimeEntry.taskDescription,
+    productName: createdTimeEntry.productName,
+    budgetName: createdTimeEntry.budgetName,
+    budgetNumber: createdTimeEntry.budgetNumber,
+    dayOfWeek: recurringDayOfWeek,
+    hoursWorked: Number(createdTimeEntry.hoursWorked),
+    notes: createdTimeEntry.notes,
+    startDate: recurringStartDate,
+    endDate: recurringEndDateValue.length > 0 ? recurringEndDateValue : null,
+    isActive: true
+  });
+
+  return {
+    createdTimeEntry,
+    recurringTemplateResult
+  };
+}
+
+function getTimeEntrySaveMessage(
+  recurringTemplateResult: Awaited<
+    ReturnType<typeof saveTimeEntryWithOptionalRecurringTemplate>
+  >["recurringTemplateResult"]
+) {
+  if (!recurringTemplateResult) {
+    return "Time entry saved.";
+  }
+
+  if (recurringTemplateResult.duplicate) {
+    return "Time entry saved. Recurring template already exists, so no duplicate template was created.";
+  }
+
+  if (recurringTemplateResult.created) {
+    return "Time entry saved and recurring template created.";
+  }
+
+  return "Time entry saved.";
+}
+
 export async function createTimeEntryAction(formData: FormData) {
   const ownerId = await getCurrentWorkbookOwnerId();
+  const returnToPath = String(formData.get("returnTo") ?? "/time-entries");
 
   await ensureCurrentUserExists();
-  await createTimeEntry(ownerId, formData);
+  const result = await saveTimeEntryWithOptionalRecurringTemplate(ownerId, formData);
   revalidatePath("/dashboard");
   revalidatePath("/time-entries");
   revalidatePath("/weekly-summary");
   revalidatePath("/workday");
-  redirect("/time-entries");
+  redirectBackWithQueryParameters(returnToPath, {
+    timeEntryMessage: getTimeEntrySaveMessage(result.recurringTemplateResult)
+  });
 }
 
 export async function createQuickTimerTimeEntryAction(
@@ -44,13 +119,19 @@ export async function createQuickTimerTimeEntryAction(
 
   try {
     await ensureCurrentUserExists();
-    await createTimeEntry(ownerId, formData);
+    const result = await saveTimeEntryWithOptionalRecurringTemplate(ownerId, formData);
     revalidatePath("/dashboard");
     revalidatePath("/time-entries");
     revalidatePath("/weekly-summary");
     revalidatePath("/workday");
 
-    return { status: "success" };
+    return {
+      status: "success",
+      message:
+        result.recurringTemplateResult?.duplicate || result.recurringTemplateResult?.created
+          ? getTimeEntrySaveMessage(result.recurringTemplateResult)
+          : undefined
+    };
   } catch (error) {
     return {
       status: "error",
@@ -158,7 +239,7 @@ export async function makeRecurringTemplateAction(timeEntryId: string, formData:
   redirectBackWithStatus(
     returnToPath,
     "recurringTemplateStatus",
-    result.created ? "created" : "existing"
+    result.duplicate ? "duplicate" : result.created ? "created" : "existing"
   );
 }
 

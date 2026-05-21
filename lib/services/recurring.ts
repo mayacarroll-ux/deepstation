@@ -1,10 +1,10 @@
-import { and, asc, desc, eq } from "drizzle-orm";
+import { and, asc, desc, eq, sql } from "drizzle-orm";
 import { z } from "zod";
 
 import { database } from "@/db";
 import { recurringTimeEntryTemplates, timeEntries } from "@/db/schema";
 import { isProduction } from "@/lib/config";
-import { getIsoWeekDateRange } from "@/lib/utils/dates";
+import { getIsoDayOfWeek, getIsoWeekDateRange } from "@/lib/utils/dates";
 
 import {
   getTimeEntry,
@@ -71,7 +71,22 @@ export type RecurringApplyPreview = {
 
 export type RecurringTemplateCreationResult = {
   created: boolean;
+  duplicate: boolean;
   templateId: string;
+};
+
+export type RecurringTemplateSourceInput = {
+  sourceTimeEntryId?: string | null;
+  taskDescription: string;
+  productName: string;
+  budgetName: string;
+  budgetNumber: string;
+  dayOfWeek: number;
+  hoursWorked: number | string;
+  notes?: string | null;
+  startDate: string;
+  endDate?: string | null;
+  isActive?: boolean;
 };
 
 const isoDayNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -83,6 +98,24 @@ export const recurringDayOptions = isoDayNames.map((dayName, index) => ({
 
 function normalizeTemplateKey(value: string) {
   return value.trim().replace(/\s+/g, " ").toLowerCase();
+}
+
+function buildRecurringTemplateDuplicateKey(
+  productName: string,
+  taskDescription: string,
+  dayOfWeek: number,
+  startDate: string
+) {
+  return [
+    normalizeTemplateKey(productName),
+    normalizeTemplateKey(taskDescription),
+    String(dayOfWeek),
+    startDate
+  ].join("\u0000");
+}
+
+function normalizeRecurringTemplateHours(hoursWorked: number | string) {
+  return Number(hoursWorked).toFixed(2);
 }
 
 function getWeekDateForDayOfWeek(weekNumber: number, weekYear: number, dayOfWeek: number) {
@@ -105,10 +138,32 @@ function buildBudgetMappingKey(
   ].join("\u0000");
 }
 
-function getIsoDayOfWeek(entryDate: string) {
-  const dayNumber = new Date(`${entryDate}T00:00:00.000Z`).getUTCDay();
+async function findRecurringTemplateDuplicate(
+  ownerId: string,
+  input: Pick<
+    RecurringTemplateSourceInput,
+    "productName" | "taskDescription" | "dayOfWeek" | "startDate"
+  >
+) {
+  const writableDatabase = requireDatabase();
+  const normalizedProductName = normalizeTemplateKey(input.productName);
+  const normalizedTaskDescription = normalizeTemplateKey(input.taskDescription);
 
-  return dayNumber === 0 ? 7 : dayNumber;
+  const [existingRecurringTemplate] = await writableDatabase
+    .select({ id: recurringTimeEntryTemplates.id })
+    .from(recurringTimeEntryTemplates)
+    .where(
+      and(
+        eq(recurringTimeEntryTemplates.ownerId, ownerId),
+        sql`lower(trim(${recurringTimeEntryTemplates.productName})) = ${normalizedProductName}`,
+        sql`lower(trim(${recurringTimeEntryTemplates.taskDescription})) = ${normalizedTaskDescription}`,
+        eq(recurringTimeEntryTemplates.dayOfWeek, input.dayOfWeek),
+        eq(recurringTimeEntryTemplates.startDate, input.startDate)
+      )
+    )
+    .limit(1);
+
+  return existingRecurringTemplate ?? null;
 }
 
 export async function listRecurringTemplates(ownerId: string) {
@@ -235,11 +290,82 @@ export async function updateRecurringTemplate(
     );
 }
 
+export async function createRecurringTemplateFromTimeEntryDetails(
+  ownerId: string,
+  sourceTimeEntry: RecurringTemplateSourceInput
+): Promise<RecurringTemplateCreationResult> {
+  const writableDatabase = requireDatabase();
+  const duplicateRecurringTemplate = await findRecurringTemplateDuplicate(ownerId, sourceTimeEntry);
+
+  if (duplicateRecurringTemplate) {
+    return {
+      created: false,
+      duplicate: true,
+      templateId: duplicateRecurringTemplate.id
+    };
+  }
+
+  const [createdTemplate] = await writableDatabase
+    .insert(recurringTimeEntryTemplates)
+    .values({
+      ownerId,
+      sourceTimeEntryId: sourceTimeEntry.sourceTimeEntryId ?? null,
+      taskDescription: sourceTimeEntry.taskDescription,
+      productName: sourceTimeEntry.productName,
+      budgetName: sourceTimeEntry.budgetName,
+      budgetNumber: sourceTimeEntry.budgetNumber,
+      dayOfWeek: sourceTimeEntry.dayOfWeek,
+      hoursWorked: normalizeRecurringTemplateHours(sourceTimeEntry.hoursWorked),
+      notes: sourceTimeEntry.notes || null,
+      startDate: sourceTimeEntry.startDate,
+      endDate: sourceTimeEntry.endDate || null,
+      isActive: sourceTimeEntry.isActive ?? true
+    })
+    .onConflictDoNothing({
+      target: [recurringTimeEntryTemplates.ownerId, recurringTimeEntryTemplates.sourceTimeEntryId]
+    })
+    .returning({ id: recurringTimeEntryTemplates.id });
+
+  if (createdTemplate) {
+    return {
+      created: true,
+      duplicate: false,
+      templateId: createdTemplate.id
+    };
+  }
+
+  if (sourceTimeEntry.sourceTimeEntryId) {
+    const existingRecurringTemplate = await getRecurringTemplateBySourceTimeEntryId(
+      ownerId,
+      sourceTimeEntry.sourceTimeEntryId
+    );
+
+    if (existingRecurringTemplate) {
+      return {
+        created: false,
+        duplicate: false,
+        templateId: existingRecurringTemplate.id
+      };
+    }
+  }
+
+  const matchingRecurringTemplate = await findRecurringTemplateDuplicate(ownerId, sourceTimeEntry);
+
+  if (matchingRecurringTemplate) {
+    return {
+      created: false,
+      duplicate: true,
+      templateId: matchingRecurringTemplate.id
+    };
+  }
+
+  throw new Error("Recurring template could not be created.");
+}
+
 export async function createRecurringTemplateFromTimeEntry(
   ownerId: string,
   timeEntryId: string
 ): Promise<RecurringTemplateCreationResult> {
-  const writableDatabase = requireDatabase();
   const timeEntry = await getTimeEntry(ownerId, timeEntryId);
 
   if (!timeEntry) {
@@ -251,48 +377,24 @@ export async function createRecurringTemplateFromTimeEntry(
   if (existingTemplate) {
     return {
       created: false,
+      duplicate: false,
       templateId: existingTemplate.id
     };
   }
 
-  const [createdTemplate] = await writableDatabase
-    .insert(recurringTimeEntryTemplates)
-    .values({
-      ownerId,
-      sourceTimeEntryId: timeEntryId,
-      taskDescription: timeEntry.taskDescription,
-      productName: timeEntry.productName,
-      budgetName: timeEntry.budgetName,
-      budgetNumber: timeEntry.budgetNumber,
-      dayOfWeek: getIsoDayOfWeek(timeEntry.entryDate),
-      hoursWorked: Number(timeEntry.hoursWorked).toFixed(2),
-      notes: timeEntry.notes || null,
-      startDate: timeEntry.entryDate,
-      endDate: null,
-      isActive: true
-    })
-    .onConflictDoNothing({
-      target: [recurringTimeEntryTemplates.ownerId, recurringTimeEntryTemplates.sourceTimeEntryId]
-    })
-    .returning({ id: recurringTimeEntryTemplates.id });
-
-  if (createdTemplate) {
-    return {
-      created: true,
-      templateId: createdTemplate.id
-    };
-  }
-
-  const existingRecurringTemplate = await getRecurringTemplateBySourceTimeEntryId(ownerId, timeEntryId);
-
-  if (!existingRecurringTemplate) {
-    throw new Error("Recurring template could not be created.");
-  }
-
-  return {
-    created: false,
-    templateId: existingRecurringTemplate.id
-  };
+  return createRecurringTemplateFromTimeEntryDetails(ownerId, {
+    sourceTimeEntryId: timeEntryId,
+    taskDescription: timeEntry.taskDescription,
+    productName: timeEntry.productName,
+    budgetName: timeEntry.budgetName,
+    budgetNumber: timeEntry.budgetNumber,
+    dayOfWeek: getIsoDayOfWeek(timeEntry.entryDate),
+    hoursWorked: Number(timeEntry.hoursWorked),
+    notes: timeEntry.notes,
+    startDate: timeEntry.entryDate,
+    endDate: null,
+    isActive: true
+  });
 }
 
 export async function setRecurringTemplateActive(
