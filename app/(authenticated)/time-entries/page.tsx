@@ -1,4 +1,4 @@
-import { CurrentWeekTimesheetGenerator } from "@/components/time-entries/current-week-timesheet-generator";
+import { CurrentWeekTimesheetDrawer } from "@/components/time-entries/current-week-timesheet-drawer";
 import { RecurringWorkflow } from "@/components/recurring/recurring-workflow";
 import { WeeklyAllocationSection } from "@/components/time-entries/weekly-allocation-section";
 import { TimeEntryFilters } from "@/components/time-entries/time-entry-filters";
@@ -406,9 +406,17 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
             Search, edit, and delete the rows that replace the spreadsheet.
           </p>
         </div>
-        <ButtonLink href="/time-entries/new">New time entry</ButtonLink>
+        <div className="flex flex-wrap items-center gap-3">
+          <CurrentWeekTimesheetDrawer
+            action={generateCurrentWeekTimesheetAction}
+            preview={currentWeekTimesheetPreview}
+            returnToPath={returnToPath}
+            statusMessage={currentWeekTimesheetStatusMessage}
+          />
+          <ButtonLink href="/time-entries/new">New time entry</ButtonLink>
+        </div>
       </div>
-      <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_24rem] xl:items-start">
+      <div className="grid gap-6">
         <div className="grid min-w-0 gap-6">
           <TimeEntryFilters filterOptions={filterOptions} filters={filters} />
           <TimeEntryTable
@@ -462,14 +470,6 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
             statusMessage={allocationStatusMessage}
           />
         </div>
-        <aside className="xl:sticky xl:top-6 xl:self-start">
-          <CurrentWeekTimesheetGenerator
-            action={generateCurrentWeekTimesheetAction}
-            preview={currentWeekTimesheetPreview}
-            returnToPath={returnToPath}
-            statusMessage={currentWeekTimesheetStatusMessage}
-          />
-        </aside>
       </div>
     </section>
   );
