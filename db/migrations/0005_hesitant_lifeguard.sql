@@ -1,0 +1,2 @@
+ALTER TABLE "recurring_time_entry_templates" ADD COLUMN "source_time_entry_id" uuid;--> statement-breakpoint
+CREATE UNIQUE INDEX "recurring_template_owner_source_unique" ON "recurring_time_entry_templates" USING btree ("owner_id","source_time_entry_id");

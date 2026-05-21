@@ -6,7 +6,13 @@ import { recurringTimeEntryTemplates, timeEntries } from "@/db/schema";
 import { isProduction } from "@/lib/config";
 import { getIsoWeekDateRange } from "@/lib/utils/dates";
 
-import { listBudgetMappings, requireDatabase, type BudgetMappingRecord, type TimeEntryRecord } from "./time-tracking";
+import {
+  getTimeEntry,
+  listBudgetMappings,
+  requireDatabase,
+  type BudgetMappingRecord,
+  type TimeEntryRecord
+} from "./time-tracking";
 
 export const recurringTemplateFormSchema = z.object({
   templateId: z.string().uuid().optional().or(z.literal("")),
@@ -39,6 +45,11 @@ export type RecurringApplyResult = {
   selectedWeekYear: number;
 };
 
+export type RecurringTemplateCreationResult = {
+  created: boolean;
+  templateId: string;
+};
+
 const isoDayNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
 export const recurringDayOptions = isoDayNames.map((dayName, index) => ({
@@ -68,6 +79,12 @@ function buildBudgetMappingKey(
     normalizeTemplateKey(budgetName),
     normalizeTemplateKey(budgetNumber)
   ].join("\u0000");
+}
+
+function getIsoDayOfWeek(entryDate: string) {
+  const dayNumber = new Date(`${entryDate}T00:00:00.000Z`).getUTCDay();
+
+  return dayNumber === 0 ? 7 : dayNumber;
 }
 
 export async function listRecurringTemplates(ownerId: string) {
@@ -194,6 +211,66 @@ export async function updateRecurringTemplate(
     );
 }
 
+export async function createRecurringTemplateFromTimeEntry(
+  ownerId: string,
+  timeEntryId: string
+): Promise<RecurringTemplateCreationResult> {
+  const writableDatabase = requireDatabase();
+  const timeEntry = await getTimeEntry(ownerId, timeEntryId);
+
+  if (!timeEntry) {
+    throw new Error("Time entry not found.");
+  }
+
+  const existingTemplate = await getRecurringTemplateBySourceTimeEntryId(ownerId, timeEntryId);
+
+  if (existingTemplate) {
+    return {
+      created: false,
+      templateId: existingTemplate.id
+    };
+  }
+
+  const [createdTemplate] = await writableDatabase
+    .insert(recurringTimeEntryTemplates)
+    .values({
+      ownerId,
+      sourceTimeEntryId: timeEntryId,
+      taskDescription: timeEntry.taskDescription,
+      productName: timeEntry.productName,
+      budgetName: timeEntry.budgetName,
+      budgetNumber: timeEntry.budgetNumber,
+      dayOfWeek: getIsoDayOfWeek(timeEntry.entryDate),
+      hoursWorked: Number(timeEntry.hoursWorked).toFixed(2),
+      notes: timeEntry.notes || null,
+      startDate: timeEntry.entryDate,
+      endDate: null,
+      isActive: true
+    })
+    .onConflictDoNothing({
+      target: [recurringTimeEntryTemplates.ownerId, recurringTimeEntryTemplates.sourceTimeEntryId]
+    })
+    .returning({ id: recurringTimeEntryTemplates.id });
+
+  if (createdTemplate) {
+    return {
+      created: true,
+      templateId: createdTemplate.id
+    };
+  }
+
+  const existingRecurringTemplate = await getRecurringTemplateBySourceTimeEntryId(ownerId, timeEntryId);
+
+  if (!existingRecurringTemplate) {
+    throw new Error("Recurring template could not be created.");
+  }
+
+  return {
+    created: false,
+    templateId: existingRecurringTemplate.id
+  };
+}
+
 export async function setRecurringTemplateActive(
   ownerId: string,
   templateId: string,
@@ -316,4 +393,38 @@ export async function applyRecurringTemplates(
     selectedWeekNumber,
     selectedWeekYear
   };
+}
+
+export async function getRecurringTemplateBySourceTimeEntryId(
+  ownerId: string,
+  sourceTimeEntryId: string
+) {
+  if (!database) {
+    if (isProduction) {
+      throw new Error("DATABASE_URL is required to load recurring templates in production.");
+    }
+
+    const fallbackTemplates = await listRecurringTemplates(ownerId);
+
+    return (
+      fallbackTemplates.find(
+        (recurringTemplate) =>
+          recurringTemplate.sourceTimeEntryId === sourceTimeEntryId &&
+          recurringTemplate.ownerId === ownerId
+      ) ?? null
+    );
+  }
+
+  const [recurringTemplate] = await database
+    .select()
+    .from(recurringTimeEntryTemplates)
+    .where(
+      and(
+        eq(recurringTimeEntryTemplates.ownerId, ownerId),
+        eq(recurringTimeEntryTemplates.sourceTimeEntryId, sourceTimeEntryId)
+      )
+    )
+    .limit(1);
+
+  return recurringTemplate ?? null;
 }

@@ -7,6 +7,9 @@ import { formatHours } from "@/lib/utils/format";
 
 type TimeEntryTableProps = {
   deleteAction: (timeEntryId: string) => Promise<void>;
+  makeRecurringAction: (timeEntryId: string, formData: FormData) => Promise<void>;
+  recurringTemplateSourceTimeEntryIds: string[];
+  returnToPath: string;
   timeEntries: TimeEntryRecord[];
 };
 
@@ -62,7 +65,13 @@ function sortEntriesWithinWeek(entries: TimeEntryRecord[]) {
   });
 }
 
-export function TimeEntryTable({ deleteAction, timeEntries }: TimeEntryTableProps) {
+export function TimeEntryTable({
+  deleteAction,
+  makeRecurringAction,
+  recurringTemplateSourceTimeEntryIds,
+  returnToPath,
+  timeEntries
+}: TimeEntryTableProps) {
   if (timeEntries.length === 0) {
     return (
       <div className="border border-[var(--border)] bg-[var(--panel)] p-6 text-[var(--muted)]">
@@ -72,6 +81,7 @@ export function TimeEntryTable({ deleteAction, timeEntries }: TimeEntryTableProp
   }
 
   const weeklyGroups = groupTimeEntriesByWeek(timeEntries);
+  const recurringTemplateSourceTimeEntryIdSet = new Set(recurringTemplateSourceTimeEntryIds);
 
   return (
     <div className="grid gap-4">
@@ -140,6 +150,19 @@ export function TimeEntryTable({ deleteAction, timeEntries }: TimeEntryTableProp
                       <td className="px-4 py-3 text-[var(--muted)]">{timeEntry.notes}</td>
                       <td className="px-4 py-3">
                         <div className="flex justify-end gap-2">
+                          {timeEntry.recurringTemplateId ||
+                          recurringTemplateSourceTimeEntryIdSet.has(timeEntry.id) ? (
+                            <span className="px-3 py-2 text-sm font-semibold text-[var(--accent)]">
+                              Recurring
+                            </span>
+                          ) : (
+                            <form action={makeRecurringAction.bind(null, timeEntry.id)}>
+                              <input name="returnTo" type="hidden" value={returnToPath} />
+                              <Button type="submit" variant="secondary">
+                                Make recurring
+                              </Button>
+                            </form>
+                          )}
                           <Link
                             className="px-3 py-2 font-semibold hover:underline"
                             href={`/time-entries/${timeEntry.id}/edit`}

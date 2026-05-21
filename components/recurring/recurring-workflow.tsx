@@ -11,6 +11,8 @@ type RecurringWorkflowProps = {
   createRecurringTemplateAction: (formData: FormData) => Promise<void>;
   defaultWeekNumber: number;
   defaultWeekYear: number;
+  nextWeekNumber: number;
+  nextWeekYear: number;
   recurringTemplates: RecurringTemplateRecord[];
   selectedRecurringTemplate?: RecurringTemplateRecord | null;
   statusMessage: string | null;
@@ -24,6 +26,8 @@ export function RecurringWorkflow({
   createRecurringTemplateAction,
   defaultWeekNumber,
   defaultWeekYear,
+  nextWeekNumber,
+  nextWeekYear,
   recurringTemplates,
   selectedRecurringTemplate,
   statusMessage,
@@ -68,6 +72,8 @@ export function RecurringWorkflow({
           action={applyRecurringTemplatesAction}
           defaultWeekNumber={defaultWeekNumber}
           defaultWeekYear={defaultWeekYear}
+          nextWeekNumber={nextWeekNumber}
+          nextWeekYear={nextWeekYear}
           returnToPath={basePath}
         />
       </div>

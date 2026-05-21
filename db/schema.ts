@@ -200,6 +200,7 @@ export const recurringTimeEntryTemplates = pgTable(
     ownerId: text("owner_id")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
+    sourceTimeEntryId: uuid("source_time_entry_id"),
     taskDescription: text("task_description").notNull(),
     productName: text("product_name").notNull(),
     budgetName: text("budget_name").notNull(),
@@ -212,7 +213,13 @@ export const recurringTimeEntryTemplates = pgTable(
     isActive: boolean("is_active").default(true).notNull(),
     createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
     updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull()
-  }
+  },
+  (recurringTemplateTable) => [
+    uniqueIndex("recurring_template_owner_source_unique").on(
+      recurringTemplateTable.ownerId,
+      recurringTemplateTable.sourceTimeEntryId
+    )
+  ]
 );
 
 export const workdayDayStatuses = pgTable(

@@ -4,7 +4,12 @@ import {
   getRecurringTemplate,
   listRecurringTemplates
 } from "@/lib/services/recurring";
-import { formatWeekLabel, getIsoWeekNumber, getIsoWeekYear, getTodayInputValue } from "@/lib/utils/dates";
+import {
+  formatWeekLabel,
+  getIsoWeekNumber,
+  getIsoWeekYear,
+  getTodayInputValue
+} from "@/lib/utils/dates";
 
 import {
   applyRecurringTemplatesAction,
@@ -77,6 +82,17 @@ function getSkippedCount(searchParams: Record<string, string | string[] | undefi
   return Number.isInteger(skippedValue) && skippedValue >= 0 ? skippedValue : null;
 }
 
+function getNextIsoWeekNumberAndYear() {
+  const nextWeekDate = new Date(`${getTodayInputValue()}T00:00:00.000Z`);
+  nextWeekDate.setUTCDate(nextWeekDate.getUTCDate() + 7);
+  const nextWeekInputValue = nextWeekDate.toISOString().slice(0, 10);
+
+  return {
+    weekNumber: getIsoWeekNumber(nextWeekInputValue),
+    weekYear: getIsoWeekYear(nextWeekInputValue)
+  };
+}
+
 export default async function RecurringPage({ searchParams }: RecurringPageProps) {
   const resolvedSearchParams = await searchParams;
   const ownerId = await getCurrentWorkbookOwnerId();
@@ -90,6 +106,7 @@ export default async function RecurringPage({ searchParams }: RecurringPageProps
     getRequestedWeekNumber(resolvedSearchParams) ?? getIsoWeekNumber(todayInputValue);
   const selectedWeekYear =
     getRequestedWeekYear(resolvedSearchParams) ?? getIsoWeekYear(todayInputValue);
+  const nextWeek = getNextIsoWeekNumberAndYear();
   const appliedCount = getAppliedCount(resolvedSearchParams);
   const skippedCount = getSkippedCount(resolvedSearchParams);
   const selectedWeekLabel = formatWeekLabel(selectedWeekNumber, selectedWeekYear);
@@ -118,6 +135,8 @@ export default async function RecurringPage({ searchParams }: RecurringPageProps
         createRecurringTemplateAction={createRecurringTemplateAction}
         defaultWeekNumber={selectedWeekNumber}
         defaultWeekYear={selectedWeekYear}
+        nextWeekNumber={nextWeek.weekNumber}
+        nextWeekYear={nextWeek.weekYear}
         recurringTemplates={recurringTemplateRecords}
         selectedRecurringTemplate={selectedRecurringTemplate}
         statusMessage={statusMessage}
