@@ -27,7 +27,12 @@ export function DeleteTimeEntryButton({
 
   return (
     <>
-      <Button className="h-10 px-3" onClick={() => setIsOpen(true)} variant="destructive">
+      <Button
+        className="h-10 px-3"
+        onClick={() => setIsOpen(true)}
+        type="button"
+        variant="destructive"
+      >
         Delete
       </Button>
 
@@ -64,7 +69,7 @@ export function DeleteTimeEntryButton({
           </div>
 
           <div className="flex flex-wrap items-center justify-end gap-3 border-t border-[var(--border)] px-5 py-4">
-            <Button onClick={() => setIsOpen(false)} variant="secondary">
+            <Button onClick={() => setIsOpen(false)} type="button" variant="secondary">
               Cancel
             </Button>
             <form action={deleteAction.bind(null, entry.id)}>
@@ -79,4 +84,3 @@ export function DeleteTimeEntryButton({
     </>
   );
 }
-

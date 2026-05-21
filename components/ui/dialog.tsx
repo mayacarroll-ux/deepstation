@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext } from "react";
+import { useEffect, createContext, useContext } from "react";
 import { createPortal } from "react-dom";
 
 import { cn } from "@/lib/utils/cn";
@@ -39,7 +39,25 @@ export function DialogContent({
 
   const { open, onOpenChange } = dialogContext;
 
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        onOpenChange(false);
+      }
+    }
+
+    if (open) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onOpenChange, open]);
+
   if (typeof document === "undefined") {
+    return null;
+  }
+
+  if (!open) {
     return null;
   }
 
@@ -47,12 +65,8 @@ export function DialogContent({
     <div aria-hidden={!open} className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <button
         aria-label="Close dialog"
-        className={cn(
-          "absolute inset-0 bg-black/60 transition-opacity duration-200",
-          open ? "opacity-100" : "pointer-events-none opacity-0"
-        )}
+        className="absolute inset-0 bg-black/60"
         onClick={() => onOpenChange(false)}
-        tabIndex={open ? 0 : -1}
         type="button"
       />
       <div
@@ -97,4 +111,3 @@ export function DialogDescription({
 }) {
   return <p className={cn("text-sm text-[var(--muted)]", className)}>{children}</p>;
 }
-
