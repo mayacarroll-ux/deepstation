@@ -58,23 +58,15 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
 
   return (
     <section className="py-8">
-      <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <h2 className="text-2xl font-semibold">Dashboard</h2>
-          <p className="mt-2 text-[var(--muted)]">
-            Select a week to update the totals, project mix, and recent entries shown on the page.
-          </p>
-        </div>
-        <div className="grid gap-3">
-          <WeekSelector
-            actionLabel="View week"
-            defaultWeekNumber={selectedWeekNumber}
-            defaultWeekYear={selectedWeekYear}
-          />
-          <ButtonLink className="justify-self-end text-neutral-950" href="/time-entries/new">
-            New time entry
-          </ButtonLink>
-        </div>
+      <div className="mb-6 flex flex-wrap items-end justify-end gap-3">
+        <WeekSelector
+          actionLabel="View week"
+          defaultWeekNumber={selectedWeekNumber}
+          defaultWeekYear={selectedWeekYear}
+        />
+        <ButtonLink className="text-neutral-950" href="/time-entries/new">
+          New time entry
+        </ButtonLink>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 lg:gap-5">
