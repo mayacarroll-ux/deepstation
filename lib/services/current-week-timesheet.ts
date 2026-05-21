@@ -35,6 +35,17 @@ export type CurrentWeekTimesheetPreview = {
   totalPreviewHours: number;
   recurringExistingEntries: RecurringPreviewEntry[];
   recurringPendingEntries: RecurringPreviewEntry[];
+  savedEntries: Array<{
+    id: string;
+    entryDate: string;
+    productName: string;
+    budgetName: string;
+    budgetNumber: string;
+    taskDescription: string;
+    hoursWorked: number;
+    notes: string | null;
+    source: "manual" | "recurring" | "allocation";
+  }>;
   allocationSuggestions: CurrentWeekAllocationSuggestion[];
   manualSourceRows: Array<{
     id: string;
@@ -95,6 +106,18 @@ function buildManualSourceRows(timeEntries: TimeEntryRecord[]) {
   return Array.from(uniqueRowsByKey.values());
 }
 
+function getSavedEntrySource(timeEntry: TimeEntryRecord) {
+  if (timeEntry.allocationBatchId) {
+    return "allocation" as const;
+  }
+
+  if (timeEntry.recurringTemplateId) {
+    return "recurring" as const;
+  }
+
+  return "manual" as const;
+}
+
 function buildFallbackAllocationSuggestions(
   budgetMappings: BudgetMappingRecord[],
   manualSourceRows: Array<{
@@ -150,6 +173,17 @@ export async function getCurrentWeekTimesheetPreview(ownerId: string): Promise<C
     Math.max(0, weeklyTimesheetCapHours - savedHours - recurringPendingHours)
   );
   const manualSourceRows = buildManualSourceRows(timeEntries);
+  const savedEntries = timeEntries.map((timeEntry) => ({
+    id: timeEntry.id,
+    entryDate: timeEntry.entryDate,
+    productName: timeEntry.productName,
+    budgetName: timeEntry.budgetName,
+    budgetNumber: timeEntry.budgetNumber,
+    taskDescription: timeEntry.taskDescription,
+    hoursWorked: Number(timeEntry.hoursWorked),
+    notes: timeEntry.notes,
+    source: getSavedEntrySource(timeEntry)
+  }));
   const allocationSuggestions = buildFallbackAllocationSuggestions(
     budgetMappings,
     manualSourceRows,
@@ -183,6 +217,7 @@ export async function getCurrentWeekTimesheetPreview(ownerId: string): Promise<C
     totalPreviewHours,
     recurringExistingEntries: recurringPreview.existingEntries,
     recurringPendingEntries: recurringPreview.pendingEntries,
+    savedEntries,
     allocationSuggestions,
     manualSourceRows,
     budgetMappings,
