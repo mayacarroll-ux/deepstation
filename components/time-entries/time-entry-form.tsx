@@ -19,7 +19,8 @@ import {
 import {
   calculateHoursFromTimeRange,
   formatHours,
-  formatHourUnit
+  formatHourUnit,
+  formatTimeRange
 } from "@/lib/utils/format";
 
 type TimeEntryFormProps = {
@@ -80,13 +81,23 @@ export function TimeEntryForm({
   );
 
   const calculatedHoursWorked = useMemo(
-    () => calculateHoursFromTimeRange(startTime, endTime),
+    () => {
+      const rawCalculatedHours = calculateHoursFromTimeRange(startTime, endTime);
+
+      return rawCalculatedHours === null ? null : roundToQuarterHour(rawCalculatedHours);
+    },
     [endTime, startTime]
   );
 
+  const calculatedTimeRangeLabel =
+    calculatedHoursWorked !== null ? formatTimeRange(startTime, endTime) : null;
   const durationHint = calculatedHoursWorked
     ? `${formatHours(calculatedHoursWorked)} ${formatHourUnit(calculatedHoursWorked)}`
     : null;
+  const invalidTimeRangeMessage =
+    startTime || endTime
+      ? "Enter a valid time range with End Time after Start Time to auto-calculate hours."
+      : null;
 
   useEffect(() => {
     if (calculatedHoursWorked !== null && !hoursWorkedManuallyEdited) {
@@ -128,10 +139,14 @@ export function TimeEntryForm({
     }
   }
 
-  function applyEntryDate(nextEntryDate: string) {
-    setEntryDate(nextEntryDate);
-    setWeekNumber(String(getIsoWeekNumber(nextEntryDate)));
-  }
+function applyEntryDate(nextEntryDate: string) {
+  setEntryDate(nextEntryDate);
+  setWeekNumber(String(getIsoWeekNumber(nextEntryDate)));
+}
+
+function roundToQuarterHour(hours: number) {
+  return Math.round(hours * 4) / 4;
+}
 
   return (
     <form action={action} className="grid gap-5 border border-[var(--border)] bg-[var(--panel)] p-6">
@@ -207,7 +222,10 @@ export function TimeEntryForm({
           Start Time
           <Input
             name="startTime"
-            onChange={(event) => setStartTime(event.target.value)}
+            onChange={(event) => {
+              setStartTime(event.target.value);
+              setHoursWorkedManuallyEdited(false);
+            }}
             type="time"
             value={startTime}
           />
@@ -219,7 +237,10 @@ export function TimeEntryForm({
           End Time
           <Input
             name="endTime"
-            onChange={(event) => setEndTime(event.target.value)}
+            onChange={(event) => {
+              setEndTime(event.target.value);
+              setHoursWorkedManuallyEdited(false);
+            }}
             type="time"
             value={endTime}
           />
@@ -245,9 +266,19 @@ export function TimeEntryForm({
           <span className="text-xs font-normal text-[var(--muted)]">
             Decimal hours: 0.25 = 15 minutes, 0.5 = 30 minutes, 0.75 = 45 minutes, 1.0 = 1 hour.
           </span>
+          {calculatedTimeRangeLabel ? (
+            <span className="text-xs font-normal text-[var(--muted)]">
+              Calculated from {calculatedTimeRangeLabel}
+            </span>
+          ) : null}
           {durationHint ? (
             <span className="text-xs font-normal text-[var(--muted)]">
               Calculated duration: {durationHint}
+            </span>
+          ) : null}
+          {!calculatedHoursWorked && invalidTimeRangeMessage ? (
+            <span className="text-xs font-normal text-[var(--warning)]">
+              {invalidTimeRangeMessage}
             </span>
           ) : null}
         </label>
