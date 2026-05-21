@@ -59,9 +59,6 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
           defaultWeekNumber={selectedWeekNumber}
           defaultWeekYear={selectedWeekYear}
         />
-        <ButtonLink className="text-neutral-950" href="/time-entries/new">
-          New time entry
-        </ButtonLink>
       </div>
 
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">

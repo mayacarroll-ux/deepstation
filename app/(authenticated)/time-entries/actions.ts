@@ -19,6 +19,11 @@ import {
 } from "@/lib/services/time-tracking";
 import { getIsoWeekNumber, getIsoWeekYear, getTodayInputValue } from "@/lib/utils/dates";
 
+export type QuickTimerSaveState = {
+  status: "idle" | "error" | "success";
+  message?: string;
+};
+
 export async function createTimeEntryAction(formData: FormData) {
   const ownerId = await getCurrentWorkbookOwnerId();
 
@@ -29,6 +34,29 @@ export async function createTimeEntryAction(formData: FormData) {
   revalidatePath("/weekly-summary");
   revalidatePath("/workday");
   redirect("/time-entries");
+}
+
+export async function createQuickTimerTimeEntryAction(
+  _previousState: QuickTimerSaveState,
+  formData: FormData
+): Promise<QuickTimerSaveState> {
+  const ownerId = await getCurrentWorkbookOwnerId();
+
+  try {
+    await ensureCurrentUserExists();
+    await createTimeEntry(ownerId, formData);
+    revalidatePath("/dashboard");
+    revalidatePath("/time-entries");
+    revalidatePath("/weekly-summary");
+    revalidatePath("/workday");
+
+    return { status: "success" };
+  } catch (error) {
+    return {
+      status: "error",
+      message: error instanceof Error ? error.message : "Could not save time entry."
+    };
+  }
 }
 
 export async function updateTimeEntryAction(timeEntryId: string, formData: FormData) {

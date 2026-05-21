@@ -1,12 +1,15 @@
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
+import { HeaderQuickTimer } from "@/components/navigation/header-quick-timer";
 import { AppNav } from "@/components/navigation/app-nav";
 import { SettingsDrawer } from "@/components/navigation/settings-drawer";
 import { isProduction } from "@/lib/config";
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
-import { getLifetimeHours } from "@/lib/services/time-tracking";
+import { getLifetimeHours, listBudgetMappings } from "@/lib/services/time-tracking";
 import { formatHours } from "@/lib/utils/format";
+
+import { createQuickTimerTimeEntryAction } from "./time-entries/actions";
 
 export default async function AuthenticatedLayout({
   children
@@ -22,7 +25,10 @@ export default async function AuthenticatedLayout({
   }
 
   const ownerId = await getCurrentWorkbookOwnerId();
-  const lifetimeHours = await getLifetimeHours(ownerId);
+  const [lifetimeHours, budgetMappingRecords] = await Promise.all([
+    getLifetimeHours(ownerId),
+    listBudgetMappings(ownerId)
+  ]);
 
   return (
     <main className="min-h-screen bg-[var(--background)] px-6 py-6 text-[var(--foreground)]">
@@ -36,9 +42,15 @@ export default async function AuthenticatedLayout({
                 <h1 className="text-3xl font-semibold">Time tracking</h1>
               </div>
             </div>
-            <p className="text-sm font-semibold text-[var(--muted)]">
-              Junior Achievement · {formatHours(lifetimeHours)} hrs
-            </p>
+            <div className="grid justify-items-end gap-3">
+              <p className="text-sm font-semibold text-[var(--muted)]">
+                Junior Achievement · {formatHours(lifetimeHours)} hrs
+              </p>
+              <HeaderQuickTimer
+                budgetMappings={budgetMappingRecords}
+                saveAction={createQuickTimerTimeEntryAction}
+              />
+            </div>
           </div>
           <AppNav />
         </header>
