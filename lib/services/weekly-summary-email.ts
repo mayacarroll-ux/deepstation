@@ -70,7 +70,7 @@ function formatSubjectDateRange(weekNumber: number, weekYear: number) {
 }
 
 export function buildWeeklySummaryEmailSubject(weekNumber: number, weekYear: number) {
-  return `${singleUserName} Weekly Summary - Week ${weekNumber} - ${formatSubjectDateRange(
+  return `${singleUserName} Time tracking - Week ${weekNumber} - ${formatSubjectDateRange(
     weekNumber,
     weekYear
   )}`;

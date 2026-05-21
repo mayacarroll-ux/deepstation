@@ -153,7 +153,7 @@ export function WeeklySummaryEmailSection({
 
           <div className="grid gap-2 text-sm">
             <p>
-              <span className="font-semibold">Subject:</span> {subject}
+              <span className="font-semibold">Email subject:</span> {subject}
             </p>
             <p>
               <span className="font-semibold">To:</span>{" "}
