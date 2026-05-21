@@ -13,26 +13,19 @@ type TimeEntryFiltersProps = {
     budgetNames: string[];
     budgetNumbers: string[];
   };
+  hiddenFields?: Record<string, string>;
 };
 
-export function TimeEntryFilters({ filters, filterOptions }: TimeEntryFiltersProps) {
+export function TimeEntryFilters({ filters, filterOptions, hiddenFields }: TimeEntryFiltersProps) {
   return (
     <form>
       <Card>
-        <CardContent className="grid gap-4 p-5 sm:grid-cols-2 lg:grid-cols-[minmax(9rem,0.8fr)_repeat(3,minmax(12rem,1fr))_repeat(2,minmax(10rem,0.9fr))_8rem]">
-          <label className="grid gap-2 text-sm font-semibold">
-            Week number
-            <Input
-              defaultValue={filters.weekNumber ?? ""}
-              max="53"
-              min="1"
-              name="week"
-              type="number"
-            />
-            <span className="text-xs font-normal text-[var(--muted)]">
-              Date range depends on entry year.
-            </span>
-          </label>
+        <CardContent className="grid gap-4 p-5 sm:grid-cols-2 lg:grid-cols-[repeat(3,minmax(12rem,1fr))_repeat(2,minmax(10rem,0.9fr))_8rem]">
+          {hiddenFields
+            ? Object.entries(hiddenFields).map(([fieldName, fieldValue]) => (
+                <input key={fieldName} name={fieldName} type="hidden" value={fieldValue} />
+              ))
+            : null}
           <label className="grid gap-2 text-sm font-semibold">
             Product
             <Select defaultValue={filters.productName ?? ""} name="product">
@@ -79,7 +72,7 @@ export function TimeEntryFilters({ filters, filterOptions }: TimeEntryFiltersPro
               Filter
             </Button>
           </div>
-          <p className="text-sm font-normal text-[var(--muted)] sm:col-span-2 lg:col-span-7">
+          <p className="text-sm font-normal text-[var(--muted)] sm:col-span-2 lg:col-span-6">
             Dropdown options come from saved entries and Budget key mappings.{" "}
             <Link className="font-semibold text-[var(--accent)] hover:underline" href="/budget-key">
               Manage dropdown options

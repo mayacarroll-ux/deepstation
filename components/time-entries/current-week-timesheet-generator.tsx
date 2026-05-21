@@ -309,7 +309,7 @@ export function CurrentWeekTimesheetGenerator({
         <div className="grid gap-3 border border-[var(--border)] bg-[var(--surface)] p-5">
           <div className="grid gap-2">
             <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">
-              Current week total
+              Selected week total
             </p>
             <p className="text-4xl font-semibold tabular-nums text-[var(--foreground)] sm:text-5xl">
               {formatHours(totalPreviewHours)} hrs

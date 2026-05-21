@@ -1,9 +1,11 @@
 import { CurrentWeekTimesheetDrawer } from "@/components/time-entries/current-week-timesheet-drawer";
+import { TimeEntryWeekSelector } from "@/components/time-entries/time-entry-week-selector";
 import { RecurringWorkflow } from "@/components/recurring/recurring-workflow";
 import { WeeklyAllocationSection } from "@/components/time-entries/weekly-allocation-section";
 import { TimeEntryFilters } from "@/components/time-entries/time-entry-filters";
 import { TimeEntryTable } from "@/components/time-entries/time-entry-table";
 import { ButtonLink } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { Toast } from "@/components/ui/toast";
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
 import { getRecurringTemplate, listRecurringTemplates } from "@/lib/services/recurring";
@@ -22,6 +24,7 @@ import {
   getIsoWeekYear,
   getTodayInputValue
 } from "@/lib/utils/dates";
+import { formatHours } from "@/lib/utils/format";
 
 import {
   generateCurrentWeekTimesheetAction,
@@ -49,11 +52,69 @@ function getSearchParamValue(
   return Array.isArray(value) ? value[0] : value;
 }
 
-function getFilters(searchParams: Record<string, string | string[] | undefined>) {
-  const weekValue = getSearchParamValue(searchParams, "week");
+function buildWeekSelectionValue(weekNumber: number, weekYear: number) {
+  return `${weekYear}-${String(weekNumber).padStart(2, "0")}`;
+}
+
+function parseWeekSelectionValue(weekSelectionValue: string) {
+  const [weekYearValue, weekNumberValue] = weekSelectionValue.split("-");
+  const weekYear = Number(weekYearValue);
+  const weekNumber = Number(weekNumberValue);
+
+  if (
+    !Number.isInteger(weekYear) ||
+    weekYear < 2000 ||
+    weekYear > 2100 ||
+    !Number.isInteger(weekNumber) ||
+    weekNumber < 1 ||
+    weekNumber > 53
+  ) {
+    return null;
+  }
+
+  return { weekNumber, weekYear };
+}
+
+function getSelectedWeekSelection(
+  searchParams: Record<string, string | string[] | undefined>,
+  fallbackWeekNumber: number,
+  fallbackWeekYear: number
+) {
+  const selectedWeekSelectionValue = getSearchParamValue(searchParams, "weekSelection");
+
+  if (selectedWeekSelectionValue) {
+    const parsedWeekSelection = parseWeekSelectionValue(selectedWeekSelectionValue);
+
+    if (parsedWeekSelection) {
+      return parsedWeekSelection;
+    }
+  }
+
+  const legacyWeekValue = Number(getSearchParamValue(searchParams, "week"));
+  const legacyYearValue = Number(getSearchParamValue(searchParams, "year"));
+
+  if (
+    Number.isInteger(legacyWeekValue) &&
+    legacyWeekValue >= 1 &&
+    legacyWeekValue <= 53 &&
+    Number.isInteger(legacyYearValue) &&
+    legacyYearValue >= 2000 &&
+    legacyYearValue <= 2100
+  ) {
+    return {
+      weekNumber: legacyWeekValue,
+      weekYear: legacyYearValue
+    };
+  }
 
   return {
-    weekNumber: weekValue ? Number(weekValue) : undefined,
+    weekNumber: fallbackWeekNumber,
+    weekYear: fallbackWeekYear
+  };
+}
+
+function getFilters(searchParams: Record<string, string | string[] | undefined>) {
+  return {
     productName: getSearchParamValue(searchParams, "product") || undefined,
     budgetName: getSearchParamValue(searchParams, "budget") || undefined,
     budgetNumber: getSearchParamValue(searchParams, "budgetNumber") || undefined,
@@ -62,22 +123,28 @@ function getFilters(searchParams: Record<string, string | string[] | undefined>)
   } satisfies TimeEntryFilterValues;
 }
 
-function getAllocationWeekNumber(searchParams: Record<string, string | string[] | undefined>) {
+function getAllocationWeekNumber(
+  searchParams: Record<string, string | string[] | undefined>,
+  fallbackWeekNumber: number
+) {
   const allocationWeekValue = Number(getSearchParamValue(searchParams, "allocationWeek"));
 
   return Number.isInteger(allocationWeekValue) && allocationWeekValue >= 1 && allocationWeekValue <= 53
     ? allocationWeekValue
-    : getIsoWeekNumber(getTodayInputValue());
+    : fallbackWeekNumber;
 }
 
-function getAllocationWeekYear(searchParams: Record<string, string | string[] | undefined>) {
+function getAllocationWeekYear(
+  searchParams: Record<string, string | string[] | undefined>,
+  fallbackWeekYear: number
+) {
   const allocationWeekYearValue = Number(getSearchParamValue(searchParams, "allocationYear"));
 
   return Number.isInteger(allocationWeekYearValue) &&
     allocationWeekYearValue >= 2000 &&
     allocationWeekYearValue <= 2100
     ? allocationWeekYearValue
-    : getIsoWeekYear(getTodayInputValue());
+    : fallbackWeekYear;
 }
 
 function getSortedUniqueValues(values: string[]) {
@@ -104,6 +171,148 @@ function getFilterOptions(
       ...allTimeEntryRecords.map((timeEntry) => timeEntry.budgetNumber)
     ])
   };
+}
+
+function getHistoryMode(searchParams: Record<string, string | string[] | undefined>) {
+  const historyValue = getSearchParamValue(searchParams, "history");
+
+  return historyValue === "1" || historyValue === "true";
+}
+
+function buildTimeEntriesQueryParameters(
+  searchParams: Record<string, string | string[] | undefined>
+) {
+  const queryParameters = new URLSearchParams();
+  const excludedKeys = new Set([
+    "recurringTemplateStatus",
+    "recurringAdded",
+    "recurringSkipped",
+    "recurringWeek",
+    "recurringYear",
+    "recurringEdit",
+    "allocationStatus",
+    "allocationMessage",
+    "allocationAdded",
+    "allocationSkipped",
+    "allocationWeek",
+    "allocationYear",
+    "currentWeekTimesheetStatus",
+    "currentWeekTimesheetMessage",
+    "currentWeekRecurringAdded",
+    "currentWeekRecurringSkipped",
+    "currentWeekAllocationAdded",
+    "currentWeekAllocationSkipped",
+    "currentWeekWeek",
+    "currentWeekYear",
+    "deleteStatus"
+  ]);
+
+  for (const [key, value] of Object.entries(searchParams)) {
+    if (excludedKeys.has(key)) {
+      continue;
+    }
+
+    if (Array.isArray(value)) {
+      value.forEach((queryValue) => {
+        if (queryValue) {
+          queryParameters.append(key, queryValue);
+        }
+      });
+      continue;
+    }
+
+    if (value) {
+      queryParameters.set(key, value);
+    }
+  }
+
+  return queryParameters;
+}
+
+function buildTimeEntriesHref(
+  searchParams: Record<string, string | string[] | undefined>,
+  overrides: Record<string, string | undefined> = {}
+) {
+  const queryParameters = buildTimeEntriesQueryParameters(searchParams);
+
+  for (const [key, value] of Object.entries(overrides)) {
+    if (value === undefined) {
+      queryParameters.delete(key);
+      continue;
+    }
+
+    queryParameters.set(key, value);
+  }
+
+  const queryString = queryParameters.toString();
+
+  return queryString ? `/time-entries?${queryString}` : "/time-entries";
+}
+
+function buildTimeEntriesHiddenFields(
+  searchParams: Record<string, string | string[] | undefined>,
+  hiddenFieldNames: string[]
+) {
+  const queryParameters = buildTimeEntriesQueryParameters(searchParams);
+  const hiddenFields: Record<string, string> = {};
+
+  for (const hiddenFieldName of hiddenFieldNames) {
+    const hiddenFieldValue = queryParameters.get(hiddenFieldName);
+
+    if (hiddenFieldValue) {
+      hiddenFields[hiddenFieldName] = hiddenFieldValue;
+    }
+  }
+
+  return hiddenFields;
+}
+
+function getWeekOptions(timeEntryRecords: TimeEntryRecord[]) {
+  const currentWeekNumber = getIsoWeekNumber(getTodayInputValue());
+  const currentWeekYear = getIsoWeekYear(getTodayInputValue());
+  const weekOptionsByValue = new Map<
+    string,
+    {
+      label: string;
+      value: string;
+      weekNumber: number;
+      weekYear: number;
+    }
+  >();
+
+  for (const timeEntryRecord of timeEntryRecords) {
+    const weekYear = getIsoWeekYear(timeEntryRecord.entryDate);
+    const weekNumber = timeEntryRecord.weekNumber;
+    const weekSelectionValue = buildWeekSelectionValue(weekNumber, weekYear);
+
+    if (!weekOptionsByValue.has(weekSelectionValue)) {
+      weekOptionsByValue.set(weekSelectionValue, {
+        label: formatWeekLabel(weekNumber, weekYear),
+        value: weekSelectionValue,
+        weekNumber,
+        weekYear
+      });
+    }
+  }
+
+  const currentWeekSelectionValue = buildWeekSelectionValue(currentWeekNumber, currentWeekYear);
+
+  if (!weekOptionsByValue.has(currentWeekSelectionValue)) {
+    weekOptionsByValue.set(currentWeekSelectionValue, {
+      label: formatWeekLabel(currentWeekNumber, currentWeekYear),
+      value: currentWeekSelectionValue,
+      weekNumber: currentWeekNumber,
+      weekYear: currentWeekYear
+    });
+  }
+
+  return Array.from(weekOptionsByValue.values()).sort((firstOption, secondOption) => {
+    if (firstOption.weekYear !== secondOption.weekYear) {
+      return secondOption.weekYear - firstOption.weekYear;
+    }
+
+    return secondOption.weekNumber - firstOption.weekNumber;
+  });
 }
 
 function getRecurringTemplateId(searchParams: Record<string, string | string[] | undefined>) {
@@ -248,7 +457,7 @@ function getCurrentWeekTimesheetStatusMessage(
       : "";
 
   if (statusValue === "duplicate") {
-    return `Current week timesheet already matched this review plan for ${selectedWeekLabel}.`;
+    return `Selected week timesheet already matched this review plan for ${selectedWeekLabel}.`;
   }
 
   if (statusValue === "created") {
@@ -256,54 +465,6 @@ function getCurrentWeekTimesheetStatusMessage(
   }
 
   return null;
-}
-
-function buildReturnToPath(searchParams: Record<string, string | string[] | undefined>) {
-  const queryParameters = new URLSearchParams();
-  const excludedKeys = new Set([
-    "recurringTemplateStatus",
-    "recurringAdded",
-    "recurringSkipped",
-    "recurringWeek",
-    "recurringYear",
-    "recurringEdit",
-    "allocationStatus",
-    "allocationMessage",
-    "allocationAdded",
-    "allocationSkipped",
-    "currentWeekTimesheetStatus",
-    "currentWeekTimesheetMessage",
-    "currentWeekRecurringAdded",
-    "currentWeekRecurringSkipped",
-    "currentWeekAllocationAdded",
-    "currentWeekAllocationSkipped",
-    "currentWeekWeek",
-    "currentWeekYear",
-    "deleteStatus"
-  ]);
-
-  for (const [key, value] of Object.entries(searchParams)) {
-    if (excludedKeys.has(key)) {
-      continue;
-    }
-
-    if (Array.isArray(value)) {
-      value.forEach((queryValue) => {
-        if (queryValue) {
-          queryParameters.append(key, queryValue);
-        }
-      });
-      continue;
-    }
-
-    if (value) {
-      queryParameters.set(key, value);
-    }
-  }
-
-  const queryString = queryParameters.toString();
-
-  return queryString ? `/time-entries?${queryString}` : "/time-entries";
 }
 
 function buildAllocationHiddenFields(
@@ -369,35 +530,74 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
   const resolvedSearchParams = await searchParams;
   const ownerId = await getCurrentWorkbookOwnerId();
   const filters = getFilters(resolvedSearchParams);
+  const historyMode = getHistoryMode(resolvedSearchParams);
   const recurringTemplateId = getRecurringTemplateId(resolvedSearchParams);
-  const returnToPath = buildReturnToPath(resolvedSearchParams);
-  const allocationHiddenFields = buildAllocationHiddenFields(resolvedSearchParams);
   const defaultWeekNumber = getIsoWeekNumber(getTodayInputValue());
   const defaultWeekYear = getIsoWeekYear(getTodayInputValue());
+  const allocationHiddenFields = buildAllocationHiddenFields(resolvedSearchParams);
   const nextWeek = getNextIsoWeekNumberAndYear();
-  const allocationWeekNumber = getAllocationWeekNumber(resolvedSearchParams);
-  const allocationWeekYear = getAllocationWeekYear(resolvedSearchParams);
-  const currentWeekTimesheetPreview = await getCurrentWeekTimesheetPreview(ownerId);
   const requestedRecurringWeekNumber = Number(
     getSearchParamValue(resolvedSearchParams, "recurringWeek")
   );
   const requestedRecurringWeekYear = Number(
     getSearchParamValue(resolvedSearchParams, "recurringYear")
   );
-  const [timeEntryRecords, allTimeEntryRecords, budgetMappingRecords] = await Promise.all([
-    listTimeEntries(ownerId, filters),
+  const [allTimeEntryRecords, budgetMappingRecords] = await Promise.all([
     listTimeEntries(ownerId),
     listBudgetMappings(ownerId)
   ]);
-  const allocationPreview = await getWeeklyAllocationPreview(
-    ownerId,
-    allocationWeekNumber,
-    allocationWeekYear
+  const latestTimeEntryRecord = allTimeEntryRecords[0];
+  const fallbackWeekNumber = latestTimeEntryRecord
+    ? latestTimeEntryRecord.weekNumber
+    : defaultWeekNumber;
+  const fallbackWeekYear = latestTimeEntryRecord
+    ? getIsoWeekYear(latestTimeEntryRecord.entryDate)
+    : defaultWeekYear;
+  const selectedWeek = getSelectedWeekSelection(
+    resolvedSearchParams,
+    fallbackWeekNumber,
+    fallbackWeekYear
   );
-  const [recurringTemplateRecords, selectedRecurringTemplate] = await Promise.all([
-    listRecurringTemplates(ownerId),
-    recurringTemplateId ? getRecurringTemplate(ownerId, recurringTemplateId) : Promise.resolve(null)
-  ]);
+  const selectedWeekSelectionValue = buildWeekSelectionValue(
+    selectedWeek.weekNumber,
+    selectedWeek.weekYear
+  );
+  const weekOptions = getWeekOptions(allTimeEntryRecords);
+  const historyHref = buildTimeEntriesHref(resolvedSearchParams, {
+    history: historyMode ? undefined : "1",
+    weekSelection: selectedWeekSelectionValue
+  });
+  const weekSelectorHiddenFields = {
+    ...buildTimeEntriesHiddenFields(resolvedSearchParams, ["product", "budget", "budgetNumber", "from", "to"]),
+    ...(historyMode ? { history: "1" } : {})
+  };
+  const filterHiddenFields = {
+    ...buildTimeEntriesHiddenFields(resolvedSearchParams, ["history"]),
+    weekSelection: selectedWeekSelectionValue
+  };
+  const allocationWeekNumber = getAllocationWeekNumber(resolvedSearchParams, selectedWeek.weekNumber);
+  const allocationWeekYear = getAllocationWeekYear(resolvedSearchParams, selectedWeek.weekYear);
+  const currentWeekTimesheetPreview = await getCurrentWeekTimesheetPreview(
+    ownerId,
+    selectedWeek.weekNumber,
+    selectedWeek.weekYear
+  );
+  const selectedWeekTimeEntryRecordsPromise = listTimeEntries(ownerId, {
+    ...filters,
+    weekNumber: selectedWeek.weekNumber,
+    weekYear: selectedWeek.weekYear
+  });
+  const timeEntryRecordsPromise = historyMode
+    ? listTimeEntries(ownerId, filters)
+    : selectedWeekTimeEntryRecordsPromise;
+  const [selectedWeekTimeEntryRecords, timeEntryRecords, recurringTemplateRecords, selectedRecurringTemplate, allocationPreview] =
+    await Promise.all([
+      selectedWeekTimeEntryRecordsPromise,
+      timeEntryRecordsPromise,
+      listRecurringTemplates(ownerId),
+      recurringTemplateId ? getRecurringTemplate(ownerId, recurringTemplateId) : Promise.resolve(null),
+      getWeeklyAllocationPreview(ownerId, allocationWeekNumber, allocationWeekYear)
+    ]);
   const filterOptions = getFilterOptions(budgetMappingRecords, allTimeEntryRecords);
   const recurringStatusMessage = getRecurringStatusMessage(resolvedSearchParams);
   const allocationStatusMessage = getAllocationStatusMessage(resolvedSearchParams);
@@ -407,6 +607,15 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
   const makeRecurringStatusMessage = getMakeRecurringStatusMessage(resolvedSearchParams);
   const deleteStatusMessage = getDeleteStatusMessage(resolvedSearchParams);
   const allocationWeekLabel = formatWeekLabel(allocationWeekNumber, allocationWeekYear);
+  const selectedWeekLabel = formatWeekLabel(selectedWeek.weekNumber, selectedWeek.weekYear);
+  const selectedWeekTotalHours = selectedWeekTimeEntryRecords.reduce(
+    (totalHours, timeEntry) => totalHours + Number(timeEntry.hoursWorked),
+    0
+  );
+  const selectedWeekEntryCount = selectedWeekTimeEntryRecords.length;
+  const selectedWeekReturnToPath = buildTimeEntriesHref(resolvedSearchParams, {
+    weekSelection: selectedWeekSelectionValue
+  });
   const recurringTemplateSourceTimeEntryIds = recurringTemplateRecords
     .map((recurringTemplate) => recurringTemplate.sourceTimeEntryId)
     .filter((sourceTimeEntryId): sourceTimeEntryId is string => Boolean(sourceTimeEntryId));
@@ -424,21 +633,54 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
           <CurrentWeekTimesheetDrawer
             action={generateCurrentWeekTimesheetAction}
             preview={currentWeekTimesheetPreview}
-            returnToPath={returnToPath}
+            returnToPath={selectedWeekReturnToPath}
             statusMessage={currentWeekTimesheetStatusMessage}
           />
           <ButtonLink href="/time-entries/new">New time entry</ButtonLink>
         </div>
       </div>
+      <div className="mb-6 grid gap-4">
+        <TimeEntryWeekSelector
+          hiddenFields={weekSelectorHiddenFields}
+          historyHref={historyHref}
+          isHistoryMode={historyMode}
+          selectedWeekValue={selectedWeekSelectionValue}
+          weekOptions={weekOptions}
+        />
+        <Card>
+          <CardContent className="flex flex-wrap items-end justify-between gap-4 p-5">
+            <div className="grid gap-1">
+              <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">
+                Selected week
+              </p>
+              <h3 className="text-lg font-semibold text-[var(--foreground)]">{selectedWeekLabel}</h3>
+              <p className="text-sm text-[var(--muted)]">
+                {selectedWeekEntryCount}{" "}
+                {selectedWeekEntryCount === 1 ? "entry" : "entries"} in view
+              </p>
+            </div>
+            <div className="text-right">
+              <p className="text-3xl font-semibold tabular-nums text-[var(--foreground)]">
+                {formatHours(selectedWeekTotalHours)} hrs
+              </p>
+              <p className="text-xs text-[var(--muted)]">Hours in selected week</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
       {deleteStatusMessage ? <Toast clearQueryParam="deleteStatus" message={deleteStatusMessage} /> : null}
       <div className="grid gap-6">
         <div className="grid min-w-0 gap-6">
-          <TimeEntryFilters filterOptions={filterOptions} filters={filters} />
-          <TimeEntryTable
+          <TimeEntryFilters
+            filterOptions={filterOptions}
+            filters={filters}
+            hiddenFields={filterHiddenFields}
+          />
+            <TimeEntryTable
             deleteAction={deleteTimeEntryAction}
             makeRecurringAction={makeRecurringTemplateAction}
             recurringTemplateSourceTimeEntryIds={recurringTemplateSourceTimeEntryIds}
-            returnToPath={returnToPath}
+            returnToPath={selectedWeekReturnToPath}
             timeEntries={timeEntryRecords}
           />
           {makeRecurringStatusMessage ? (
@@ -478,7 +720,7 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
             budgetMappings={budgetMappingRecords}
             existingHours={allocationPreview.existingHours}
             remainingHours={allocationPreview.remainingHours}
-            returnToPath={buildReturnToPath(resolvedSearchParams)}
+            returnToPath={selectedWeekReturnToPath}
             selectedWeekLabel={allocationWeekLabel}
             selectedWeekNumber={allocationWeekNumber}
             selectedWeekYear={allocationWeekYear}

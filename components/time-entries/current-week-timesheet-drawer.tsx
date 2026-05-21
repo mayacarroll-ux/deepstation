@@ -59,7 +59,7 @@ export function CurrentWeekTimesheetDrawer({
           <div className="flex items-center justify-between gap-3">
             <div className="grid gap-1">
               <SheetTitle className="text-sm uppercase tracking-wide text-[var(--muted)]">
-                Current week
+                Selected week
               </SheetTitle>
               <SheetDescription className="text-sm font-semibold text-[var(--foreground)]">
                 {preview.weekLabel}
@@ -82,4 +82,3 @@ export function CurrentWeekTimesheetDrawer({
     </Sheet>
   );
 }
-

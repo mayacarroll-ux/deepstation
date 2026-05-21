@@ -94,6 +94,27 @@ function getCurrentWeekYearAndNumber() {
   };
 }
 
+function getSelectedWeekYearAndNumber(formData: FormData) {
+  const allocationWeekNumber = Number(formData.get("allocationWeek"));
+  const allocationWeekYear = Number(formData.get("allocationYear"));
+
+  if (
+    Number.isInteger(allocationWeekNumber) &&
+    allocationWeekNumber >= 1 &&
+    allocationWeekNumber <= 53 &&
+    Number.isInteger(allocationWeekYear) &&
+    allocationWeekYear >= 2000 &&
+    allocationWeekYear <= 2100
+  ) {
+    return {
+      weekNumber: allocationWeekNumber,
+      weekYear: allocationWeekYear
+    };
+  }
+
+  return getCurrentWeekYearAndNumber();
+}
+
 export async function makeRecurringTemplateAction(timeEntryId: string, formData: FormData) {
   const ownerId = await getCurrentWorkbookOwnerId();
   const returnToPath = String(formData.get("returnTo") ?? "/time-entries");
@@ -165,7 +186,7 @@ export async function createWeeklyAllocationEntriesAction(formData: FormData) {
 export async function generateCurrentWeekTimesheetAction(formData: FormData) {
   const ownerId = await getCurrentWorkbookOwnerId();
   const returnToPath = String(formData.get("returnTo") ?? "/time-entries");
-  const { weekNumber, weekYear } = getCurrentWeekYearAndNumber();
+  const { weekNumber, weekYear } = getSelectedWeekYearAndNumber(formData);
   const excludedRecurringTemplateIds = JSON.parse(
     String(formData.get("excludedRecurringTemplateIds") ?? "[]")
   ) as string[];

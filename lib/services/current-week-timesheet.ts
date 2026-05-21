@@ -153,16 +153,22 @@ function buildFallbackAllocationSuggestions(
     .filter((row) => row.budgetMappingId.length > 0);
 }
 
-export async function getCurrentWeekTimesheetPreview(ownerId: string): Promise<CurrentWeekTimesheetPreview> {
+export async function getCurrentWeekTimesheetPreview(
+  ownerId: string,
+  selectedWeekNumber?: number,
+  selectedWeekYear?: number
+): Promise<CurrentWeekTimesheetPreview> {
   const currentWeekNumber = getIsoWeekNumber(getTodayInputValue());
   const currentWeekYear = getIsoWeekYear(getTodayInputValue());
+  const previewWeekNumber = selectedWeekNumber ?? currentWeekNumber;
+  const previewWeekYear = selectedWeekYear ?? currentWeekYear;
   const [timeEntries, budgetMappings, recurringPreview] = await Promise.all([
     listTimeEntries(ownerId, {
-      weekNumber: currentWeekNumber,
-      weekYear: currentWeekYear
+      weekNumber: previewWeekNumber,
+      weekYear: previewWeekYear
     }),
     listBudgetMappings(ownerId),
-    getRecurringApplyPreview(ownerId, currentWeekNumber, currentWeekYear)
+    getRecurringApplyPreview(ownerId, previewWeekNumber, previewWeekYear)
   ]);
   const savedHours = toHoursValue(
     timeEntries.reduce((totalHours, timeEntry) => totalHours + Number(timeEntry.hoursWorked), 0)
@@ -195,7 +201,7 @@ export async function getCurrentWeekTimesheetPreview(ownerId: string): Promise<C
   const totalPreviewHours = toHoursValue(
     savedHours + recurringPendingHours + allocationSuggestedHours
   );
-  const { startDate, endDate } = getWeekStartAndEndLabel(currentWeekNumber, currentWeekYear);
+  const { startDate, endDate } = getWeekStartAndEndLabel(previewWeekNumber, previewWeekYear);
   const warningMessage =
     totalPreviewHours === weeklyTimesheetCapHours
       ? null
@@ -204,9 +210,9 @@ export async function getCurrentWeekTimesheetPreview(ownerId: string): Promise<C
         : "The preview is under the 20 hour cap. Add or adjust allocation rows before approving.";
 
   return {
-    weekNumber: currentWeekNumber,
-    weekYear: currentWeekYear,
-    weekLabel: formatWeekLabel(currentWeekNumber, currentWeekYear),
+    weekNumber: previewWeekNumber,
+    weekYear: previewWeekYear,
+    weekLabel: formatWeekLabel(previewWeekNumber, previewWeekYear),
     weekStartDate: startDate,
     weekEndDate: endDate,
     capHours: weeklyTimesheetCapHours,
