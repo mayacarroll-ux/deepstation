@@ -180,6 +180,7 @@ async function listFallbackTimeEntries(filters: TimeEntryFilters = {}) {
     .map((timeEntry) => ({
       id: timeEntry.id,
       ownerId: "single-user",
+      allocationBatchId: null,
       budgetMappingId: timeEntry.budgetMappingKey
         ? budgetMappingIdsByKey.get(timeEntry.budgetMappingKey.join("\u0000")) ?? null
         : null,
@@ -430,6 +431,7 @@ export async function createTimeEntry(ownerId: string, formData: FormData) {
 
   await writableDatabase.insert(timeEntries).values({
     ownerId,
+    allocationBatchId: null,
     budgetMappingId: parsedTimeEntry.budgetMappingId,
     recurringTemplateId: null,
     entryDate: parsedTimeEntry.entryDate,
@@ -466,6 +468,15 @@ export async function updateTimeEntry(ownerId: string, timeEntryId: string, form
       updatedAt: new Date()
     })
     .where(and(eq(timeEntries.ownerId, ownerId), eq(timeEntries.id, timeEntryId)));
+}
+
+export async function getWeekTotalHours(ownerId: string, weekNumber: number, weekYear: number) {
+  const weekTimeEntries = await listTimeEntries(ownerId, { weekNumber, weekYear });
+
+  return weekTimeEntries.reduce(
+    (totalHours, timeEntry) => totalHours + Number(timeEntry.hoursWorked),
+    0
+  );
 }
 
 export async function deleteTimeEntry(ownerId: string, timeEntryId: string) {

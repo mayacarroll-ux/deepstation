@@ -112,11 +112,40 @@ export const budgetMappings = pgTable(
   ]
 );
 
+export const weeklyAllocationBatches = pgTable(
+  "weekly_allocation_batches",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    ownerId: text("owner_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    weekYear: integer("week_year").notNull(),
+    weekNumber: integer("week_number").notNull(),
+    weeklyCapHours: numeric("weekly_cap_hours", { precision: 5, scale: 2 }).notNull(),
+    existingHours: numeric("existing_hours", { precision: 5, scale: 2 }).notNull(),
+    remainingHours: numeric("remaining_hours", { precision: 5, scale: 2 }).notNull(),
+    planHash: text("plan_hash").notNull(),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull()
+  },
+  (weeklyAllocationBatchTable) => [
+    uniqueIndex("weekly_allocation_batch_owner_week_plan_unique").on(
+      weeklyAllocationBatchTable.ownerId,
+      weeklyAllocationBatchTable.weekYear,
+      weeklyAllocationBatchTable.weekNumber,
+      weeklyAllocationBatchTable.planHash
+    )
+  ]
+);
+
 export const timeEntries = pgTable("time_entries", {
   id: uuid("id").defaultRandom().primaryKey(),
   ownerId: text("owner_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
+  allocationBatchId: uuid("allocation_batch_id").references(() => weeklyAllocationBatches.id, {
+    onDelete: "set null"
+  }),
   budgetMappingId: uuid("budget_mapping_id").references(() => budgetMappings.id, {
     onDelete: "set null"
   }),

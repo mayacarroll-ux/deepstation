@@ -5,6 +5,8 @@ type WeekSelectorProps = {
   actionLabel: string;
   defaultWeekNumber: number;
   defaultWeekYear: number;
+  weekFieldName?: string;
+  yearFieldName?: string;
   hiddenFields?: Record<string, string>;
   formAction?: string | ((formData: FormData) => Promise<void>);
   onSubmitButtonVariant?: "primary" | "secondary";
@@ -14,6 +16,8 @@ export function WeekSelector({
   actionLabel,
   defaultWeekNumber,
   defaultWeekYear,
+  weekFieldName = "week",
+  yearFieldName = "year",
   hiddenFields,
   formAction,
   onSubmitButtonVariant = "primary"
@@ -37,7 +41,7 @@ export function WeekSelector({
           defaultValue={defaultWeekYear}
           max="2100"
           min="2000"
-          name="year"
+          name={yearFieldName}
           required
           type="number"
         />
@@ -49,7 +53,7 @@ export function WeekSelector({
           defaultValue={defaultWeekNumber}
           max="53"
           min="1"
-          name="week"
+          name={weekFieldName}
           required
           type="number"
         />

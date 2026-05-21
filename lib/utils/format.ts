@@ -52,6 +52,27 @@ export function formatTimeRange(startTime: string, endTime: string) {
   return `${formatTimeInput(startTime)} - ${formatTimeInput(endTime)}`;
 }
 
+export function roundDownToQuarterHour(hours: number) {
+  return Math.floor(hours * 4) / 4;
+}
+
+export function splitHoursEvenlyAcrossRows(totalHours: number, rowCount: number) {
+  if (rowCount <= 0) {
+    return [];
+  }
+
+  if (rowCount === 1) {
+    return [Math.round(totalHours * 100) / 100];
+  }
+
+  const baseHours = roundDownToQuarterHour(totalHours / rowCount);
+  const hoursByRow = Array.from({ length: rowCount - 1 }, () => baseHours);
+  const allocatedHours = hoursByRow.reduce((currentTotalHours, hours) => currentTotalHours + hours, 0);
+  const remainderHours = Math.max(0, Math.round((totalHours - allocatedHours) * 100) / 100);
+
+  return [...hoursByRow, remainderHours];
+}
+
 export function formatBillingSummaryLine(hours: number, projectName: string) {
   return `${formatHours(hours)} ${formatHourUnit(hours)} – ${projectName}`;
 }

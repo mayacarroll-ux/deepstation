@@ -43,6 +43,13 @@
       "when": 1779324700303,
       "tag": "0005_hesitant_lifeguard",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1779325841414,
+      "tag": "0006_tiny_microchip",
+      "breakpoints": true
     }
   ]
 }

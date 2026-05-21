@@ -1,12 +1,11 @@
 import { RecurringWorkflow } from "@/components/recurring/recurring-workflow";
+import { WeeklyAllocationSection } from "@/components/time-entries/weekly-allocation-section";
 import { TimeEntryFilters } from "@/components/time-entries/time-entry-filters";
 import { TimeEntryTable } from "@/components/time-entries/time-entry-table";
 import { ButtonLink } from "@/components/ui/button";
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
-import {
-  getRecurringTemplate,
-  listRecurringTemplates
-} from "@/lib/services/recurring";
+import { getRecurringTemplate, listRecurringTemplates } from "@/lib/services/recurring";
+import { getWeeklyAllocationPreview } from "@/lib/services/weekly-allocation";
 import {
   listBudgetMappings,
   listTimeEntries,
@@ -21,7 +20,11 @@ import {
   getTodayInputValue
 } from "@/lib/utils/dates";
 
-import { deleteTimeEntryAction, makeRecurringTemplateAction } from "./actions";
+import {
+  createWeeklyAllocationEntriesAction,
+  deleteTimeEntryAction,
+  makeRecurringTemplateAction
+} from "./actions";
 import {
   applyRecurringTemplatesAction,
   createRecurringTemplateAction,
@@ -53,6 +56,24 @@ function getFilters(searchParams: Record<string, string | string[] | undefined>)
     startDate: getSearchParamValue(searchParams, "from") || undefined,
     endDate: getSearchParamValue(searchParams, "to") || undefined
   } satisfies TimeEntryFilterValues;
+}
+
+function getAllocationWeekNumber(searchParams: Record<string, string | string[] | undefined>) {
+  const allocationWeekValue = Number(getSearchParamValue(searchParams, "allocationWeek"));
+
+  return Number.isInteger(allocationWeekValue) && allocationWeekValue >= 1 && allocationWeekValue <= 53
+    ? allocationWeekValue
+    : getIsoWeekNumber(getTodayInputValue());
+}
+
+function getAllocationWeekYear(searchParams: Record<string, string | string[] | undefined>) {
+  const allocationWeekYearValue = Number(getSearchParamValue(searchParams, "allocationYear"));
+
+  return Number.isInteger(allocationWeekYearValue) &&
+    allocationWeekYearValue >= 2000 &&
+    allocationWeekYearValue <= 2100
+    ? allocationWeekYearValue
+    : getIsoWeekYear(getTodayInputValue());
 }
 
 function getSortedUniqueValues(values: string[]) {
@@ -131,11 +152,58 @@ function getMakeRecurringStatusMessage(
   return null;
 }
 
+function getAllocationStatusMessage(
+  searchParams: Record<string, string | string[] | undefined>
+) {
+  const statusValue = getSearchParamValue(searchParams, "allocationStatus");
+  const addedValue = Number(getSearchParamValue(searchParams, "allocationAdded"));
+  const skippedValue = Number(getSearchParamValue(searchParams, "allocationSkipped"));
+  const weekValue = Number(getSearchParamValue(searchParams, "allocationWeek"));
+  const yearValue = Number(getSearchParamValue(searchParams, "allocationYear"));
+
+  if (statusValue === "error") {
+    return getSearchParamValue(searchParams, "allocationMessage") || "Allocation failed.";
+  }
+
+  if (
+    !Number.isInteger(addedValue) ||
+    !Number.isInteger(skippedValue) ||
+    !Number.isInteger(weekValue) ||
+    !Number.isInteger(yearValue)
+  ) {
+    return null;
+  }
+
+  const selectedWeekLabel = formatWeekLabel(weekValue, yearValue);
+
+  if (statusValue === "duplicate") {
+    return `Skipped duplicate allocation plan for ${selectedWeekLabel}.`;
+  }
+
+  if (statusValue === "created") {
+    return `${addedValue} allocation entr${addedValue === 1 ? "y" : "ies"} added for ${selectedWeekLabel}.`;
+  }
+
+  return null;
+}
+
 function buildReturnToPath(searchParams: Record<string, string | string[] | undefined>) {
   const queryParameters = new URLSearchParams();
+  const excludedKeys = new Set([
+    "recurringTemplateStatus",
+    "recurringAdded",
+    "recurringSkipped",
+    "recurringWeek",
+    "recurringYear",
+    "recurringEdit",
+    "allocationStatus",
+    "allocationMessage",
+    "allocationAdded",
+    "allocationSkipped"
+  ]);
 
   for (const [key, value] of Object.entries(searchParams)) {
-    if (key === "recurringTemplateStatus" || key === "recurringAdded" || key === "recurringSkipped" || key === "recurringWeek" || key === "recurringYear" || key === "recurringEdit") {
+    if (excludedKeys.has(key)) {
       continue;
     }
 
@@ -158,6 +226,45 @@ function buildReturnToPath(searchParams: Record<string, string | string[] | unde
   return queryString ? `/time-entries?${queryString}` : "/time-entries";
 }
 
+function buildAllocationHiddenFields(
+  searchParams: Record<string, string | string[] | undefined>
+) {
+  const hiddenFields: Record<string, string> = {};
+  const excludedKeys = new Set([
+    "recurringTemplateStatus",
+    "recurringAdded",
+    "recurringSkipped",
+    "recurringWeek",
+    "recurringYear",
+    "recurringEdit",
+    "allocationWeek",
+    "allocationYear",
+    "allocationStatus",
+    "allocationMessage",
+    "allocationAdded",
+    "allocationSkipped"
+  ]);
+
+  for (const [key, value] of Object.entries(searchParams)) {
+    if (excludedKeys.has(key)) {
+      continue;
+    }
+
+    if (Array.isArray(value)) {
+      if (value[0]) {
+        hiddenFields[key] = value[0];
+      }
+      continue;
+    }
+
+    if (value) {
+      hiddenFields[key] = value;
+    }
+  }
+
+  return hiddenFields;
+}
+
 function getNextIsoWeekNumberAndYear() {
   const nextWeekDate = new Date(`${getTodayInputValue()}T00:00:00.000Z`);
   nextWeekDate.setUTCDate(nextWeekDate.getUTCDate() + 7);
@@ -175,9 +282,12 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
   const filters = getFilters(resolvedSearchParams);
   const recurringTemplateId = getRecurringTemplateId(resolvedSearchParams);
   const returnToPath = buildReturnToPath(resolvedSearchParams);
+  const allocationHiddenFields = buildAllocationHiddenFields(resolvedSearchParams);
   const defaultWeekNumber = getIsoWeekNumber(getTodayInputValue());
   const defaultWeekYear = getIsoWeekYear(getTodayInputValue());
   const nextWeek = getNextIsoWeekNumberAndYear();
+  const allocationWeekNumber = getAllocationWeekNumber(resolvedSearchParams);
+  const allocationWeekYear = getAllocationWeekYear(resolvedSearchParams);
   const requestedRecurringWeekNumber = Number(
     getSearchParamValue(resolvedSearchParams, "recurringWeek")
   );
@@ -189,13 +299,20 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
     listTimeEntries(ownerId),
     listBudgetMappings(ownerId)
   ]);
+  const allocationPreview = await getWeeklyAllocationPreview(
+    ownerId,
+    allocationWeekNumber,
+    allocationWeekYear
+  );
   const [recurringTemplateRecords, selectedRecurringTemplate] = await Promise.all([
     listRecurringTemplates(ownerId),
     recurringTemplateId ? getRecurringTemplate(ownerId, recurringTemplateId) : Promise.resolve(null)
   ]);
   const filterOptions = getFilterOptions(budgetMappingRecords, allTimeEntryRecords);
   const recurringStatusMessage = getRecurringStatusMessage(resolvedSearchParams);
+  const allocationStatusMessage = getAllocationStatusMessage(resolvedSearchParams);
   const makeRecurringStatusMessage = getMakeRecurringStatusMessage(resolvedSearchParams);
+  const allocationWeekLabel = formatWeekLabel(allocationWeekNumber, allocationWeekYear);
   const recurringTemplateSourceTimeEntryIds = recurringTemplateRecords
     .map((recurringTemplate) => recurringTemplate.sourceTimeEntryId)
     .filter((sourceTimeEntryId): sourceTimeEntryId is string => Boolean(sourceTimeEntryId));
@@ -242,6 +359,18 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
           updateRecurringTemplateAction={updateRecurringTemplateAction}
           nextWeekNumber={nextWeek.weekNumber}
           nextWeekYear={nextWeek.weekYear}
+        />
+        <WeeklyAllocationSection
+          action={createWeeklyAllocationEntriesAction}
+          allocationHiddenFields={allocationHiddenFields}
+          budgetMappings={budgetMappingRecords}
+          existingHours={allocationPreview.existingHours}
+          remainingHours={allocationPreview.remainingHours}
+          returnToPath={buildReturnToPath(resolvedSearchParams)}
+          selectedWeekLabel={allocationWeekLabel}
+          selectedWeekNumber={allocationWeekNumber}
+          selectedWeekYear={allocationWeekYear}
+          statusMessage={allocationStatusMessage}
         />
         <TimeEntryFilters filterOptions={filterOptions} filters={filters} />
         <TimeEntryTable

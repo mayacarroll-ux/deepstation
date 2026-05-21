@@ -139,7 +139,11 @@ export function TimeEntryTable({
                         {formatWeekLabel(timeEntry.weekNumber, getIsoWeekYear(timeEntry.entryDate))}
                       </td>
                       <td className="px-4 py-3">
-                        {timeEntry.recurringTemplateId ? (
+                        {timeEntry.allocationBatchId ? (
+                          <span className="rounded-full border border-[var(--accent)] px-2 py-1 text-xs font-semibold text-[var(--accent)]">
+                            Allocation
+                          </span>
+                        ) : timeEntry.recurringTemplateId ? (
                           <span className="rounded-full border border-[var(--accent)] px-2 py-1 text-xs font-semibold text-[var(--accent)]">
                             Recurring
                           </span>
