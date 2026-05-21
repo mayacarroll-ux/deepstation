@@ -7,13 +7,17 @@ import {
   ensureCurrentUserExists,
   getCurrentWorkbookOwnerId
 } from "@/lib/services/current-user";
-import { createRecurringTemplateFromTimeEntry } from "@/lib/services/recurring";
+import {
+  applyRecurringTemplates,
+  createRecurringTemplateFromTimeEntry
+} from "@/lib/services/recurring";
 import { createWeeklyAllocationEntries } from "@/lib/services/weekly-allocation";
 import {
   createTimeEntry,
   deleteTimeEntry,
   updateTimeEntry
 } from "@/lib/services/time-tracking";
+import { getIsoWeekNumber, getIsoWeekYear, getTodayInputValue } from "@/lib/utils/dates";
 
 export async function createTimeEntryAction(formData: FormData) {
   const ownerId = await getCurrentWorkbookOwnerId();
@@ -71,6 +75,15 @@ function redirectBackWithQueryParameters(
   const separator = returnToPath.includes("?") ? "&" : "?";
 
   redirect(`${returnToPath}${separator}${urlSearchParameters.toString()}`);
+}
+
+function getCurrentWeekYearAndNumber() {
+  const todayInputValue = getTodayInputValue();
+
+  return {
+    weekNumber: getIsoWeekNumber(todayInputValue),
+    weekYear: getIsoWeekYear(todayInputValue)
+  };
 }
 
 export async function makeRecurringTemplateAction(timeEntryId: string, formData: FormData) {
@@ -137,6 +150,47 @@ export async function createWeeklyAllocationEntriesAction(formData: FormData) {
       allocationMessage: message,
       allocationWeek: weekNumber,
       allocationYear: weekYear
+    });
+  }
+}
+
+export async function generateCurrentWeekTimesheetAction(formData: FormData) {
+  const ownerId = await getCurrentWorkbookOwnerId();
+  const returnToPath = String(formData.get("returnTo") ?? "/time-entries");
+  const { weekNumber, weekYear } = getCurrentWeekYearAndNumber();
+
+  await ensureCurrentUserExists();
+
+  try {
+    const recurringResult = await applyRecurringTemplates(ownerId, weekNumber, weekYear);
+    const allocationResult = await createWeeklyAllocationEntries(
+      ownerId,
+      weekNumber,
+      weekYear,
+      formData
+    );
+
+    revalidatePath("/dashboard");
+    revalidatePath("/time-entries");
+    revalidatePath("/weekly-summary");
+    revalidatePath("/workday");
+
+    redirectBackWithQueryParameters(returnToPath, {
+      currentWeekTimesheetStatus:
+        recurringResult.insertedCount > 0 || allocationResult.created ? "created" : "duplicate",
+      currentWeekRecurringAdded: recurringResult.insertedCount,
+      currentWeekRecurringSkipped: recurringResult.skippedCount,
+      currentWeekAllocationAdded: allocationResult.insertedCount,
+      currentWeekAllocationSkipped: allocationResult.duplicateBlocked ? 1 : 0,
+      currentWeekWeek: weekNumber,
+      currentWeekYear: weekYear
+    });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Timesheet generation failed.";
+
+    redirectBackWithQueryParameters(returnToPath, {
+      currentWeekTimesheetStatus: "error",
+      currentWeekTimesheetMessage: message
     });
   }
 }

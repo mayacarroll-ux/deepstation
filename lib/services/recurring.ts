@@ -9,6 +9,7 @@ import { getIsoWeekDateRange } from "@/lib/utils/dates";
 import {
   getTimeEntry,
   listBudgetMappings,
+  listTimeEntries,
   requireDatabase,
   type BudgetMappingRecord,
   type TimeEntryRecord
@@ -41,6 +42,29 @@ export type RecurringApplyResult = {
   attemptedCount: number;
   insertedCount: number;
   skippedCount: number;
+  selectedWeekNumber: number;
+  selectedWeekYear: number;
+};
+
+export type RecurringPreviewEntry = {
+  entryDate: string;
+  hoursWorked: number;
+  notes: string | null;
+  productName: string;
+  budgetName: string;
+  budgetNumber: string;
+  taskDescription: string;
+  recurringTemplateId: string;
+  status: "existing" | "pending";
+  timeEntryId: string | null;
+};
+
+export type RecurringApplyPreview = {
+  attemptedCount: number;
+  existingEntries: RecurringPreviewEntry[];
+  pendingEntries: RecurringPreviewEntry[];
+  existingHours: number;
+  pendingHours: number;
   selectedWeekNumber: number;
   selectedWeekYear: number;
 };
@@ -350,6 +374,51 @@ function buildCandidateTimeEntryRows(
   });
 }
 
+function getRecurringPreviewEntries(
+  candidateTimeEntryRows: ReturnType<typeof buildCandidateTimeEntryRows>,
+  savedTimeEntries: TimeEntryRecord[]
+) {
+  const savedEntriesByTemplateKey = new Map(
+    savedTimeEntries
+      .filter((timeEntry) => timeEntry.recurringTemplateId)
+      .map((timeEntry) => [
+        `${timeEntry.recurringTemplateId}\u0000${timeEntry.entryDate}`,
+        timeEntry
+      ])
+  );
+
+  const existingEntries: RecurringPreviewEntry[] = [];
+  const pendingEntries: RecurringPreviewEntry[] = [];
+
+  for (const candidateTimeEntry of candidateTimeEntryRows) {
+    const savedTimeEntry = savedEntriesByTemplateKey.get(
+      `${candidateTimeEntry.recurringTemplateId}\u0000${candidateTimeEntry.entryDate}`
+    );
+
+    const previewEntry = {
+      entryDate: candidateTimeEntry.entryDate,
+      hoursWorked: Number(candidateTimeEntry.hoursWorked),
+      notes: candidateTimeEntry.notes || null,
+      productName: candidateTimeEntry.productName,
+      budgetName: candidateTimeEntry.budgetName,
+      budgetNumber: candidateTimeEntry.budgetNumber,
+      taskDescription: candidateTimeEntry.taskDescription,
+      recurringTemplateId: candidateTimeEntry.recurringTemplateId,
+      status: savedTimeEntry ? ("existing" as const) : ("pending" as const),
+      timeEntryId: savedTimeEntry?.id ?? null
+    };
+
+    if (savedTimeEntry) {
+      existingEntries.push(previewEntry);
+      continue;
+    }
+
+    pendingEntries.push(previewEntry);
+  }
+
+  return { existingEntries, pendingEntries };
+}
+
 export async function applyRecurringTemplates(
   ownerId: string,
   selectedWeekNumber: number,
@@ -390,6 +459,42 @@ export async function applyRecurringTemplates(
     attemptedCount: candidateTimeEntryRows.length,
     insertedCount: insertedRows.length,
     skippedCount: candidateTimeEntryRows.length - insertedRows.length,
+    selectedWeekNumber,
+    selectedWeekYear
+  };
+}
+
+export async function getRecurringApplyPreview(
+  ownerId: string,
+  selectedWeekNumber: number,
+  selectedWeekYear: number
+): Promise<RecurringApplyPreview> {
+  const [templates, budgetMappings, savedTimeEntries] = await Promise.all([
+    listRecurringTemplates(ownerId),
+    listBudgetMappings(ownerId),
+    listTimeEntries(ownerId, {
+      weekNumber: selectedWeekNumber,
+      weekYear: selectedWeekYear
+    })
+  ]);
+  const candidateTimeEntryRows = buildCandidateTimeEntryRows(
+    ownerId,
+    templates,
+    budgetMappings,
+    selectedWeekNumber,
+    selectedWeekYear
+  );
+  const { existingEntries, pendingEntries } = getRecurringPreviewEntries(
+    candidateTimeEntryRows,
+    savedTimeEntries
+  );
+
+  return {
+    attemptedCount: candidateTimeEntryRows.length,
+    existingEntries,
+    pendingEntries,
+    existingHours: existingEntries.reduce((totalHours, entry) => totalHours + entry.hoursWorked, 0),
+    pendingHours: pendingEntries.reduce((totalHours, entry) => totalHours + entry.hoursWorked, 0),
     selectedWeekNumber,
     selectedWeekYear
   };

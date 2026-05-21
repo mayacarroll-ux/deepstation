@@ -1,3 +1,4 @@
+import { CurrentWeekTimesheetGenerator } from "@/components/time-entries/current-week-timesheet-generator";
 import { RecurringWorkflow } from "@/components/recurring/recurring-workflow";
 import { WeeklyAllocationSection } from "@/components/time-entries/weekly-allocation-section";
 import { TimeEntryFilters } from "@/components/time-entries/time-entry-filters";
@@ -5,6 +6,7 @@ import { TimeEntryTable } from "@/components/time-entries/time-entry-table";
 import { ButtonLink } from "@/components/ui/button";
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
 import { getRecurringTemplate, listRecurringTemplates } from "@/lib/services/recurring";
+import { getCurrentWeekTimesheetPreview } from "@/lib/services/current-week-timesheet";
 import { getWeeklyAllocationPreview } from "@/lib/services/weekly-allocation";
 import {
   listBudgetMappings,
@@ -21,6 +23,7 @@ import {
 } from "@/lib/utils/dates";
 
 import {
+  generateCurrentWeekTimesheetAction,
   createWeeklyAllocationEntriesAction,
   deleteTimeEntryAction,
   makeRecurringTemplateAction
@@ -187,6 +190,63 @@ function getAllocationStatusMessage(
   return null;
 }
 
+function getCurrentWeekTimesheetStatusMessage(
+  searchParams: Record<string, string | string[] | undefined>
+) {
+  const statusValue = getSearchParamValue(searchParams, "currentWeekTimesheetStatus");
+  const recurringAddedValue = Number(getSearchParamValue(searchParams, "currentWeekRecurringAdded"));
+  const recurringSkippedValue = Number(
+    getSearchParamValue(searchParams, "currentWeekRecurringSkipped")
+  );
+  const allocationAddedValue = Number(
+    getSearchParamValue(searchParams, "currentWeekAllocationAdded")
+  );
+  const allocationSkippedValue = Number(
+    getSearchParamValue(searchParams, "currentWeekAllocationSkipped")
+  );
+  const weekValue = Number(getSearchParamValue(searchParams, "currentWeekWeek"));
+  const yearValue = Number(getSearchParamValue(searchParams, "currentWeekYear"));
+
+  if (statusValue === "error") {
+    return getSearchParamValue(searchParams, "currentWeekTimesheetMessage") || "Timesheet generation failed.";
+  }
+
+  if (
+    !Number.isInteger(recurringAddedValue) ||
+    !Number.isInteger(recurringSkippedValue) ||
+    !Number.isInteger(allocationAddedValue) ||
+    !Number.isInteger(allocationSkippedValue) ||
+    !Number.isInteger(weekValue) ||
+    !Number.isInteger(yearValue)
+  ) {
+    return null;
+  }
+
+  const selectedWeekLabel = formatWeekLabel(weekValue, yearValue);
+  const recurringSummary = `${recurringAddedValue} recurring entr${
+    recurringAddedValue === 1 ? "y" : "ies"
+  }`;
+  const allocationSummary = `${allocationAddedValue} allocation entr${
+    allocationAddedValue === 1 ? "y" : "ies"
+  }`;
+  const skippedSummary =
+    recurringSkippedValue + allocationSkippedValue > 0
+      ? `, skipped ${recurringSkippedValue + allocationSkippedValue} duplicate${
+          recurringSkippedValue + allocationSkippedValue === 1 ? "" : "s"
+        }`
+      : "";
+
+  if (statusValue === "duplicate") {
+    return `Current week timesheet already matched this review plan for ${selectedWeekLabel}.`;
+  }
+
+  if (statusValue === "created") {
+    return `Generated ${recurringSummary} and ${allocationSummary}${skippedSummary} for ${selectedWeekLabel}.`;
+  }
+
+  return null;
+}
+
 function buildReturnToPath(searchParams: Record<string, string | string[] | undefined>) {
   const queryParameters = new URLSearchParams();
   const excludedKeys = new Set([
@@ -199,7 +259,15 @@ function buildReturnToPath(searchParams: Record<string, string | string[] | unde
     "allocationStatus",
     "allocationMessage",
     "allocationAdded",
-    "allocationSkipped"
+    "allocationSkipped",
+    "currentWeekTimesheetStatus",
+    "currentWeekTimesheetMessage",
+    "currentWeekRecurringAdded",
+    "currentWeekRecurringSkipped",
+    "currentWeekAllocationAdded",
+    "currentWeekAllocationSkipped",
+    "currentWeekWeek",
+    "currentWeekYear"
   ]);
 
   for (const [key, value] of Object.entries(searchParams)) {
@@ -242,7 +310,15 @@ function buildAllocationHiddenFields(
     "allocationStatus",
     "allocationMessage",
     "allocationAdded",
-    "allocationSkipped"
+    "allocationSkipped",
+    "currentWeekTimesheetStatus",
+    "currentWeekTimesheetMessage",
+    "currentWeekRecurringAdded",
+    "currentWeekRecurringSkipped",
+    "currentWeekAllocationAdded",
+    "currentWeekAllocationSkipped",
+    "currentWeekWeek",
+    "currentWeekYear"
   ]);
 
   for (const [key, value] of Object.entries(searchParams)) {
@@ -288,6 +364,7 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
   const nextWeek = getNextIsoWeekNumberAndYear();
   const allocationWeekNumber = getAllocationWeekNumber(resolvedSearchParams);
   const allocationWeekYear = getAllocationWeekYear(resolvedSearchParams);
+  const currentWeekTimesheetPreview = await getCurrentWeekTimesheetPreview(ownerId);
   const requestedRecurringWeekNumber = Number(
     getSearchParamValue(resolvedSearchParams, "recurringWeek")
   );
@@ -311,6 +388,9 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
   const filterOptions = getFilterOptions(budgetMappingRecords, allTimeEntryRecords);
   const recurringStatusMessage = getRecurringStatusMessage(resolvedSearchParams);
   const allocationStatusMessage = getAllocationStatusMessage(resolvedSearchParams);
+  const currentWeekTimesheetStatusMessage = getCurrentWeekTimesheetStatusMessage(
+    resolvedSearchParams
+  );
   const makeRecurringStatusMessage = getMakeRecurringStatusMessage(resolvedSearchParams);
   const allocationWeekLabel = formatWeekLabel(allocationWeekNumber, allocationWeekYear);
   const recurringTemplateSourceTimeEntryIds = recurringTemplateRecords
@@ -329,6 +409,12 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
         <ButtonLink href="/time-entries/new">New time entry</ButtonLink>
       </div>
       <div className="grid gap-6">
+        <CurrentWeekTimesheetGenerator
+          action={generateCurrentWeekTimesheetAction}
+          preview={currentWeekTimesheetPreview}
+          returnToPath={returnToPath}
+          statusMessage={currentWeekTimesheetStatusMessage}
+        />
         {makeRecurringStatusMessage ? (
           <div className="border border-[var(--border)] bg-[var(--panel)] px-4 py-3 text-sm text-[var(--foreground)]">
             {makeRecurringStatusMessage}

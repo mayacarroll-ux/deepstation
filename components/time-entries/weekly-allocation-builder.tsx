@@ -20,10 +20,16 @@ type WeeklyAllocationBuilderProps = {
   budgetMappings: BudgetMappingRecord[];
   defaultEntryDate: string;
   existingHours: number;
+  initialRows?: Array<
+    Pick<AllocationRowDraft, "budgetMappingId" | "taskDescription" | "notes" | "hoursWorked"> & {
+      included?: boolean;
+    }
+  >;
   remainingHours: number;
   returnToPath: string;
   selectedWeekNumber: number;
   selectedWeekYear: number;
+  submitLabel?: string;
 };
 
 function roundToTwoDecimals(hours: number) {
@@ -72,14 +78,28 @@ export function WeeklyAllocationBuilder({
   budgetMappings,
   defaultEntryDate,
   existingHours,
+  initialRows,
   remainingHours,
   returnToPath,
   selectedWeekNumber,
-  selectedWeekYear
+  selectedWeekYear,
+  submitLabel = "Save allocation entries"
 }: WeeklyAllocationBuilderProps) {
   const firstBudgetMappingId = budgetMappings[0]?.id ?? "";
   const [allocationRows, setAllocationRows] = useState<AllocationRowDraft[]>(
-    () => (firstBudgetMappingId ? getInitialRows(firstBudgetMappingId, remainingHours) : [])
+    () =>
+      initialRows && initialRows.length > 0
+        ? initialRows.map((row) => ({
+            id: crypto.randomUUID(),
+            included: row.included ?? true,
+            budgetMappingId: row.budgetMappingId,
+            taskDescription: row.taskDescription,
+            notes: row.notes,
+            hoursWorked: row.hoursWorked
+          }))
+        : firstBudgetMappingId
+          ? getInitialRows(firstBudgetMappingId, remainingHours)
+          : []
   );
   const selectedRows = allocationRows.filter((row) => row.included);
   const selectedRowsTotalHours = roundToTwoDecimals(
@@ -336,7 +356,7 @@ export function WeeklyAllocationBuilder({
             disabled={!canSave}
             type="submit"
           >
-            Save allocation entries
+            {submitLabel}
           </Button>
         </div>
 
