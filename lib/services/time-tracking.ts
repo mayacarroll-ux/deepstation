@@ -111,6 +111,15 @@ export function getAccountantProjectName(productName: string, budgetName: string
   return accountantProjectNamesByProductName.get(normalizedProductName) ?? budgetName.trim();
 }
 
+async function readImportedWorkbookLifetimeHours() {
+  const importedWorkbookData = await readImportedWorkbookData();
+
+  return importedWorkbookData.timeEntries.reduce(
+    (totalHours, timeEntry) => totalHours + Number(timeEntry.hoursWorked),
+    0
+  );
+}
+
 async function readImportedWorkbookData() {
   if (isProduction) {
     throw new Error("JSON workbook fallback is disabled in production. Configure DATABASE_URL.");
@@ -501,6 +510,25 @@ export async function getDashboardStats(ownerId: string) {
     currentWeekTotalHours,
     recentEntries: recentEntries.slice(0, 5)
   };
+}
+
+export async function getLifetimeHours(ownerId: string) {
+  if (!database) {
+    if (isProduction) {
+      throw new Error("DATABASE_URL is required to load lifetime hours in production.");
+    }
+
+    return readImportedWorkbookLifetimeHours();
+  }
+
+  const [result] = await database
+    .select({
+      totalHours: sql<string>`coalesce(sum(${timeEntries.hoursWorked}), 0)`
+    })
+    .from(timeEntries)
+    .where(eq(timeEntries.ownerId, ownerId));
+
+  return Number(result?.totalHours ?? 0);
 }
 
 export async function getWeeklySummary(ownerId: string, weekNumber: number) {

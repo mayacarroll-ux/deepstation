@@ -4,6 +4,7 @@ import { WeekSelector } from "@/components/shared/week-selector";
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
 import {
   getDashboardStats,
+  getLifetimeHours,
   getWeeklySummaryForYear,
   listTimeEntries
 } from "@/lib/services/time-tracking";
@@ -41,6 +42,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
   const resolvedSearchParams = await searchParams;
   const ownerId = await getCurrentWorkbookOwnerId();
   const dashboardStats = await getDashboardStats(ownerId);
+  const lifetimeHours = await getLifetimeHours(ownerId);
   const requestedWeekNumber = getRequestedWeekNumber(resolvedSearchParams);
   const requestedWeekYear = getRequestedWeekYear(resolvedSearchParams);
   const selectedWeekNumber = requestedWeekNumber ?? dashboardStats.currentWeekNumber;
@@ -77,7 +79,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3 lg:gap-5">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4 lg:gap-5">
         <article className="border border-[var(--border)] bg-[var(--panel)] p-5">
           <p className="text-sm text-[var(--muted)]">Selected week</p>
           <p className="mt-3 text-2xl font-semibold">{selectedWeekLabel}</p>
@@ -88,6 +90,13 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
           <p className="mt-3 text-3xl font-semibold">
             {formatHours(weeklySummary.totalHours)} hrs
           </p>
+        </article>
+        <article className="border border-[var(--border)] bg-[var(--panel)] p-5">
+          <p className="text-sm text-[var(--muted)]">Lifetime JA hours</p>
+          <p className="mt-3 text-3xl font-semibold">
+            {formatHours(lifetimeHours)} hrs
+          </p>
+          <p className="mt-1 text-sm text-[var(--muted)]">All tracked time</p>
         </article>
         <article className="border border-[var(--border)] bg-[var(--panel)] p-5">
           <p className="text-sm text-[var(--muted)]">Entries in selected week</p>
