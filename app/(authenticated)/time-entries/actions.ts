@@ -158,17 +158,32 @@ export async function generateCurrentWeekTimesheetAction(formData: FormData) {
   const ownerId = await getCurrentWorkbookOwnerId();
   const returnToPath = String(formData.get("returnTo") ?? "/time-entries");
   const { weekNumber, weekYear } = getCurrentWeekYearAndNumber();
+  const excludedRecurringTemplateIds = JSON.parse(
+    String(formData.get("excludedRecurringTemplateIds") ?? "[]")
+  ) as string[];
+  const allocationPlan = JSON.parse(String(formData.get("allocationPlan") ?? "[]")) as Array<{
+    included?: boolean;
+  }>;
+  const hasAllocationRows = allocationPlan.some((row) => row.included);
 
   await ensureCurrentUserExists();
 
   try {
-    const recurringResult = await applyRecurringTemplates(ownerId, weekNumber, weekYear);
-    const allocationResult = await createWeeklyAllocationEntries(
+    const recurringResult = await applyRecurringTemplates(
       ownerId,
       weekNumber,
       weekYear,
-      formData
+      excludedRecurringTemplateIds
     );
+    const allocationResult = hasAllocationRows
+      ? await createWeeklyAllocationEntries(ownerId, weekNumber, weekYear, formData)
+      : {
+          created: false,
+          duplicateBlocked: false,
+          insertedCount: 0,
+          selectedWeekNumber: weekNumber,
+          selectedWeekYear: weekYear
+        };
 
     revalidatePath("/dashboard");
     revalidatePath("/time-entries");

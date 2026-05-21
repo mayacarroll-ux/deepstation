@@ -321,8 +321,10 @@ function buildCandidateTimeEntryRows(
   templates: RecurringTemplateRecord[],
   budgetMappings: BudgetMappingRecord[],
   selectedWeekNumber: number,
-  selectedWeekYear: number
+  selectedWeekYear: number,
+  excludedRecurringTemplateIds: string[] = []
 ) {
+  const excludedRecurringTemplateIdSet = new Set(excludedRecurringTemplateIds);
   const budgetMappingIdsByKey = new Map(
     budgetMappings.map((budgetMapping) => [
       buildBudgetMappingKey(
@@ -335,6 +337,10 @@ function buildCandidateTimeEntryRows(
   );
 
   return templates.flatMap((template) => {
+    if (excludedRecurringTemplateIdSet.has(template.id)) {
+      return [];
+    }
+
     if (!template.isActive) {
       return [];
     }
@@ -422,7 +428,8 @@ function getRecurringPreviewEntries(
 export async function applyRecurringTemplates(
   ownerId: string,
   selectedWeekNumber: number,
-  selectedWeekYear: number
+  selectedWeekYear: number,
+  excludedRecurringTemplateIds: string[] = []
 ): Promise<RecurringApplyResult> {
   const writableDatabase = requireDatabase();
   const [templates, budgetMappings] = await Promise.all([
@@ -434,7 +441,8 @@ export async function applyRecurringTemplates(
     templates,
     budgetMappings,
     selectedWeekNumber,
-    selectedWeekYear
+    selectedWeekYear,
+    excludedRecurringTemplateIds
   );
 
   if (candidateTimeEntryRows.length === 0) {

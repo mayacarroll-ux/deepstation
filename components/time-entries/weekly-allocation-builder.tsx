@@ -19,12 +19,14 @@ type WeeklyAllocationBuilderProps = {
   action: (formData: FormData) => Promise<void>;
   budgetMappings: BudgetMappingRecord[];
   defaultEntryDate: string;
+  hiddenFields?: Record<string, string>;
   existingHours: number;
   initialRows?: Array<
     Pick<AllocationRowDraft, "budgetMappingId" | "taskDescription" | "notes" | "hoursWorked"> & {
       included?: boolean;
     }
   >;
+  allowEmptyInitialRows?: boolean;
   remainingHours: number;
   returnToPath: string;
   selectedWeekNumber: number;
@@ -77,8 +79,10 @@ export function WeeklyAllocationBuilder({
   action,
   budgetMappings,
   defaultEntryDate,
+  hiddenFields,
   existingHours,
   initialRows,
+  allowEmptyInitialRows = false,
   remainingHours,
   returnToPath,
   selectedWeekNumber,
@@ -97,7 +101,9 @@ export function WeeklyAllocationBuilder({
             notes: row.notes,
             hoursWorked: row.hoursWorked
           }))
-        : firstBudgetMappingId
+        : allowEmptyInitialRows
+          ? []
+          : firstBudgetMappingId
           ? getInitialRows(firstBudgetMappingId, remainingHours)
           : []
   );
@@ -186,6 +192,8 @@ export function WeeklyAllocationBuilder({
     Math.abs(allocationDifferenceHours) < 0.01 &&
     allocationRows.every((row) => !row.included || row.budgetMappingId.length > 0) &&
     allocationRows.every((row) => !row.included || row.taskDescription.trim().length > 0);
+  const canSaveEmptyPlan = allowEmptyInitialRows && remainingHours === 0 && allocationRows.length === 0;
+  const canSubmit = canSave || canSaveEmptyPlan;
 
   if (budgetMappings.length === 0) {
     return (
@@ -198,6 +206,11 @@ export function WeeklyAllocationBuilder({
 
   return (
     <form action={action} className="grid gap-4">
+      {hiddenFields
+        ? Object.entries(hiddenFields).map(([fieldName, fieldValue]) => (
+            <input key={fieldName} name={fieldName} type="hidden" value={fieldValue} />
+          ))
+        : null}
       <input name="allocationWeek" type="hidden" value={selectedWeekNumber} />
       <input name="allocationYear" type="hidden" value={selectedWeekYear} />
       <input name="entryDate" type="hidden" value={defaultEntryDate} />
@@ -353,7 +366,7 @@ export function WeeklyAllocationBuilder({
           </div>
           <Button
             className="h-11 px-5"
-            disabled={!canSave}
+            disabled={!canSubmit}
             type="submit"
           >
             {submitLabel}
