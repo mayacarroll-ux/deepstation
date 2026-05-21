@@ -262,6 +262,26 @@ export function CurrentWeekTimesheetGenerator({
   const totalPreviewHours = roundToTwoDecimals(
     preview.savedHours + recurringPendingHours + allocationSuggestedHours
   );
+  const remainingToAllocateHours = roundToTwoDecimals(Math.max(0, preview.capHours - totalPreviewHours));
+  const overageHours = roundToTwoDecimals(Math.max(0, totalPreviewHours - preview.capHours));
+  const previewStatus =
+    totalPreviewHours < preview.capHours
+      ? "under"
+      : totalPreviewHours > preview.capHours
+        ? "over"
+        : "on-target";
+  const previewStatusLabel =
+    previewStatus === "under"
+      ? `${remainingToAllocateHours} hrs left to allocate`
+      : previewStatus === "over"
+        ? `${overageHours} hrs over cap`
+        : "On target";
+  const previewStatusClassName =
+    previewStatus === "under"
+      ? "text-[var(--muted)]"
+      : previewStatus === "over"
+        ? "text-[var(--warning)]"
+        : "text-[var(--accent)]";
   const warningMessage =
     totalPreviewHours === preview.capHours
       ? null
@@ -271,7 +291,6 @@ export function CurrentWeekTimesheetGenerator({
   const hasRecurringEntriesToCreate = includedRecurringEntries.length > 0;
   const hasAllocationRowsToCreate = remainingHoursAfterRecurring > 0 && allocationRows.length > 0;
   const hasAnythingNewToSave = hasRecurringEntriesToCreate || hasAllocationRowsToCreate;
-  const reviewStateLabel = hasAnythingNewToSave ? "Ready to review" : "Nothing new to save";
   const allocationResetKey = `${excludedRecurringTemplateIds.join(",")}:${remainingHoursAfterRecurring}`;
   const allocationHiddenFields = {
     excludedRecurringTemplateIds: JSON.stringify(excludedRecurringTemplateIds)
@@ -280,80 +299,62 @@ export function CurrentWeekTimesheetGenerator({
   return (
     <Card>
       <CardContent className="grid gap-4 p-4">
-      <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="grid gap-2">
-          <div>
-            <h3 className="text-lg font-semibold">Generate current week timesheet</h3>
-            <p className="mt-2 max-w-3xl text-sm text-[var(--muted)]">
-              Review what is already saved, what recurring rows will be created, and the suggested
-              allocation rows before approving the full week.
-            </p>
-          </div>
           <p className="text-sm font-semibold text-[var(--foreground)]">{preview.weekLabel}</p>
           <p className="text-xs text-[var(--muted)]">
             {preview.weekStartDate} to {preview.weekEndDate}
           </p>
         </div>
-        <Card className="min-w-0">
-          <CardContent className="grid gap-2 p-3 text-right text-sm text-[var(--muted)]">
-          <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">
-            Review state
-          </p>
-          <p className="font-semibold text-[var(--foreground)]">{reviewStateLabel}</p>
-          <p>{formatHours(totalPreviewHours)} hrs previewed</p>
-          <p>{formatHours(preview.savedHours)} hrs already saved</p>
-          <p>{formatHours(remainingHoursAfterRecurring)} hrs remaining</p>
-          </CardContent>
-        </Card>
-      </div>
 
-      <div className="grid gap-3 sm:grid-cols-2">
-        <Card>
-          <CardContent className="grid gap-1 p-3">
-          <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">Weekly cap</p>
-          <p className="text-base font-semibold text-[var(--foreground)]">
-            {formatHours(preview.capHours)} hrs
-          </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="grid gap-1 p-3">
-          <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">Already saved</p>
-          <p className="text-base font-semibold text-[var(--foreground)]">
-            {formatHours(preview.savedHours)} hrs
-          </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="grid gap-1 p-3">
-          <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">Recurring to add</p>
-          <p className="text-base font-semibold text-[var(--foreground)]">
-            {formatHours(recurringPendingHours)} hrs
-          </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="grid gap-1 p-3">
-          <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">Remaining to allocate</p>
-          <p className="text-base font-semibold text-[var(--foreground)]">
-            {formatHours(remainingHoursAfterRecurring)} hrs
-          </p>
-          </CardContent>
-        </Card>
-        <Card className="sm:col-span-2">
-          <CardContent className="grid gap-1 p-3">
-          <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">Final preview total</p>
-          <p className="text-base font-semibold text-[var(--foreground)]">
-            {formatHours(totalPreviewHours)} hrs
-          </p>
-          </CardContent>
-        </Card>
-      </div>
+        <div className="grid gap-3 border border-[var(--border)] bg-[var(--surface)] p-5">
+          <div className="grid gap-2">
+            <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">
+              Current week total
+            </p>
+            <p className="text-4xl font-semibold tabular-nums text-[var(--foreground)] sm:text-5xl">
+              {formatHours(totalPreviewHours)} hrs
+            </p>
+            <p className={`text-sm font-semibold ${previewStatusClassName}`}>{previewStatusLabel}</p>
+            <p className="text-xs text-[var(--muted)]">20 hr weekly cap</p>
+          </div>
+
+          <details className="rounded-md border border-[var(--border)] bg-[var(--panel)] p-3">
+            <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--foreground)]">
+              Details
+            </summary>
+            <div className="mt-3 grid gap-2 sm:grid-cols-3">
+              <div className="grid gap-1 rounded-md border border-[var(--border)] bg-[var(--surface)] p-3">
+                <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">
+                  Already saved
+                </p>
+                <p className="font-semibold text-[var(--foreground)]">
+                  {formatHours(preview.savedHours)} hrs
+                </p>
+              </div>
+              <div className="grid gap-1 rounded-md border border-[var(--border)] bg-[var(--surface)] p-3">
+                <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">
+                  Recurring to add
+                </p>
+                <p className="font-semibold text-[var(--foreground)]">
+                  {formatHours(recurringPendingHours)} hrs
+                </p>
+              </div>
+              <div className="grid gap-1 rounded-md border border-[var(--border)] bg-[var(--surface)] p-3">
+                <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">
+                  Remaining to allocate
+                </p>
+                <p className="font-semibold text-[var(--foreground)]">
+                  {formatHours(remainingHoursAfterRecurring)} hrs
+                </p>
+              </div>
+            </div>
+          </details>
+        </div>
 
       {statusMessage ? (
         <Card>
           <CardContent className="px-4 py-3 text-sm text-[var(--foreground)]">
-          {statusMessage}
+            {statusMessage}
           </CardContent>
         </Card>
       ) : null}
@@ -453,7 +454,7 @@ export function CurrentWeekTimesheetGenerator({
       {warningMessage ? (
         <Card>
           <CardContent className="border border-[var(--accent)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--foreground)]">
-          {warningMessage}
+            {warningMessage}
           </CardContent>
         </Card>
       ) : null}
