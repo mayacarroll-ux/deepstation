@@ -3,6 +3,13 @@
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription
+} from "@/components/ui/sheet";
 import type { CurrentWeekTimesheetPreview } from "@/lib/services/current-week-timesheet";
 
 import { CurrentWeekTimesheetGenerator } from "./current-week-timesheet-generator";
@@ -43,50 +50,36 @@ export function CurrentWeekTimesheetDrawer({
   }, [isOpen]);
 
   return (
-    <>
+    <Sheet onOpenChange={setIsOpen} open={isOpen}>
       <Button className="h-11 px-4" onClick={() => setIsOpen(true)} type="button">
         Generate week
       </Button>
-
-      <div
-        aria-hidden={!isOpen}
-        className="fixed inset-0 z-50"
-      >
-        <button
-          aria-label="Close timesheet generator"
-          className={`absolute inset-0 bg-black/60 transition-opacity duration-200 ${
-            isOpen ? "opacity-100" : "pointer-events-none opacity-0"
-          }`}
-          onClick={() => setIsOpen(false)}
-          tabIndex={isOpen ? 0 : -1}
-          type="button"
-        />
-        <aside
-          className={`absolute right-0 top-0 flex h-dvh w-full max-w-none flex-col border-l border-[var(--border)] bg-[var(--panel)] shadow-2xl transition-transform duration-200 sm:w-[min(100vw,42rem)] ${
-            isOpen ? "translate-x-0" : "pointer-events-none translate-x-full"
-          }`}
-        >
-          <div className="flex items-center justify-between border-b border-[var(--border)] px-4 py-3">
+      <SheetContent className="w-full sm:w-[min(100vw,42rem)]">
+        <SheetHeader className="border-b border-[var(--border)] px-4 py-3">
+          <div className="flex items-center justify-between gap-3">
             <div className="grid gap-1">
-              <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">
+              <SheetTitle className="text-sm uppercase tracking-wide text-[var(--muted)]">
                 Current week
-              </p>
-              <p className="text-sm font-semibold text-[var(--foreground)]">{preview.weekLabel}</p>
+              </SheetTitle>
+              <SheetDescription className="text-sm font-semibold text-[var(--foreground)]">
+                {preview.weekLabel}
+              </SheetDescription>
             </div>
             <Button className="h-9 px-3" onClick={() => setIsOpen(false)} variant="secondary">
               Close
             </Button>
           </div>
-          <div className="min-h-0 flex-1 overflow-y-auto p-4">
-            <CurrentWeekTimesheetGenerator
-              action={action}
-              preview={preview}
-              returnToPath={returnToPath}
-              statusMessage={statusMessage}
-            />
-          </div>
-        </aside>
-      </div>
-    </>
+        </SheetHeader>
+        <div className="min-h-0 flex-1 overflow-y-auto p-4">
+          <CurrentWeekTimesheetGenerator
+            action={action}
+            preview={preview}
+            returnToPath={returnToPath}
+            statusMessage={statusMessage}
+          />
+        </div>
+      </SheetContent>
+    </Sheet>
   );
 }
+

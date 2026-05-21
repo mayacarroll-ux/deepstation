@@ -3,6 +3,8 @@
 import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 import type { CurrentWeekTimesheetPreview } from "@/lib/services/current-week-timesheet";
 import { formatHours, splitHoursEvenlyAcrossRows } from "@/lib/utils/format";
 
@@ -102,16 +104,11 @@ function CompactSavedEntryCard({
   muted?: boolean;
 }) {
   return (
-    <article
-      className={`grid gap-2 border border-[var(--border)] bg-[var(--surface)] p-4 text-sm ${
-        muted ? "opacity-70" : ""
-      }`}
-    >
+    <Card className={muted ? "opacity-70" : ""}>
+      <CardContent className="grid gap-2 p-4 text-sm">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="min-w-0 font-semibold">{entry.taskDescription}</p>
-        <p className="rounded-full border border-[var(--border)] px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-[var(--muted)]">
-          {getSavedEntrySourceLabel(entry.source)}
-        </p>
+        <Badge variant="outline">{getSavedEntrySourceLabel(entry.source)}</Badge>
       </div>
       <p className="text-xs text-[var(--muted)]">
         {entry.entryDate} · {entry.productName} · {entry.budgetName} · {entry.budgetNumber}
@@ -120,7 +117,8 @@ function CompactSavedEntryCard({
         <p className="font-semibold tabular-nums">{formatHours(entry.hoursWorked)} hrs</p>
         {entry.notes ? <p className="text-xs text-[var(--muted)]">{entry.notes}</p> : null}
       </div>
-    </article>
+      </CardContent>
+    </Card>
   );
 }
 
@@ -134,20 +132,13 @@ function PreviewRecurringRow({
   onToggleExcluded: () => void;
 }) {
   return (
-    <article
-      className={`grid gap-2 border border-[var(--border)] bg-[var(--surface)] p-4 text-sm ${
-        isExcluded ? "opacity-65" : ""
-      }`}
-    >
+    <Card className={isExcluded ? "opacity-65" : ""}>
+      <CardContent className="grid gap-2 p-4 text-sm">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="min-w-0 font-semibold">{entry.taskDescription}</p>
-        <p
-          className={`text-xs font-semibold uppercase tracking-wide ${
-            isExcluded ? "text-[var(--muted)]" : "text-[var(--accent)]"
-          }`}
-        >
+        <Badge variant={isExcluded ? "secondary" : "default"}>
           {formatRecurringPreviewLabel(isExcluded ? "excluded" : entry.status)}
-        </p>
+        </Badge>
       </div>
       <p className="text-xs text-[var(--muted)]">
         {entry.entryDate} · {entry.productName} · {entry.budgetName} · {entry.budgetNumber}
@@ -165,7 +156,8 @@ function PreviewRecurringRow({
           </Button>
         </div>
       </div>
-    </article>
+      </CardContent>
+    </Card>
   );
 }
 
@@ -187,7 +179,8 @@ function RecurringOnlyApprovalCard({
   };
 
   return (
-    <div className="grid gap-4 border border-[var(--border)] bg-[var(--surface)] p-4">
+    <Card>
+      <CardContent className="grid gap-4 p-4">
       <div className="grid gap-1">
         <h4 className="text-sm font-semibold text-[var(--foreground)]">Allocation suggestions</h4>
         <p className="text-xs text-[var(--muted)]">
@@ -195,7 +188,8 @@ function RecurringOnlyApprovalCard({
         </p>
       </div>
 
-      <div className="grid gap-2 border border-[var(--border)] bg-[var(--panel)] p-4 text-sm">
+      <Card>
+        <CardContent className="grid gap-2 p-4 text-sm">
         <p className="font-semibold text-[var(--foreground)]">Approval</p>
         <p className="text-xs text-[var(--muted)]">
           Recurring rows can still be created without adding allocation rows.
@@ -213,8 +207,10 @@ function RecurringOnlyApprovalCard({
             {hasRecurringEntriesToCreate ? "Approve recurring entries" : "Nothing new to save"}
           </Button>
         </form>
-      </div>
-    </div>
+        </CardContent>
+      </Card>
+      </CardContent>
+    </Card>
   );
 }
 
@@ -282,7 +278,8 @@ export function CurrentWeekTimesheetGenerator({
   };
 
   return (
-    <section className="grid gap-4 border border-[var(--border)] bg-[var(--panel)] p-4">
+    <Card>
+      <CardContent className="grid gap-4 p-4">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="grid gap-2">
           <div>
@@ -297,7 +294,8 @@ export function CurrentWeekTimesheetGenerator({
             {preview.weekStartDate} to {preview.weekEndDate}
           </p>
         </div>
-        <div className="grid min-w-0 gap-2 rounded-md border border-[var(--border)] bg-[var(--surface)] p-3 text-right text-sm text-[var(--muted)]">
+        <Card className="min-w-0">
+          <CardContent className="grid gap-2 p-3 text-right text-sm text-[var(--muted)]">
           <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">
             Review state
           </p>
@@ -305,49 +303,63 @@ export function CurrentWeekTimesheetGenerator({
           <p>{formatHours(totalPreviewHours)} hrs previewed</p>
           <p>{formatHours(preview.savedHours)} hrs already saved</p>
           <p>{formatHours(remainingHoursAfterRecurring)} hrs remaining</p>
-        </div>
+          </CardContent>
+        </Card>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2">
-        <div className="grid gap-1 border border-[var(--border)] bg-[var(--surface)] p-3">
+        <Card>
+          <CardContent className="grid gap-1 p-3">
           <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">Weekly cap</p>
           <p className="text-base font-semibold text-[var(--foreground)]">
             {formatHours(preview.capHours)} hrs
           </p>
-        </div>
-        <div className="grid gap-1 border border-[var(--border)] bg-[var(--surface)] p-3">
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="grid gap-1 p-3">
           <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">Already saved</p>
           <p className="text-base font-semibold text-[var(--foreground)]">
             {formatHours(preview.savedHours)} hrs
           </p>
-        </div>
-        <div className="grid gap-1 border border-[var(--border)] bg-[var(--surface)] p-3">
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="grid gap-1 p-3">
           <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">Recurring to add</p>
           <p className="text-base font-semibold text-[var(--foreground)]">
             {formatHours(recurringPendingHours)} hrs
           </p>
-        </div>
-        <div className="grid gap-1 border border-[var(--border)] bg-[var(--surface)] p-3">
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="grid gap-1 p-3">
           <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">Remaining to allocate</p>
           <p className="text-base font-semibold text-[var(--foreground)]">
             {formatHours(remainingHoursAfterRecurring)} hrs
           </p>
-        </div>
-        <div className="grid gap-1 border border-[var(--border)] bg-[var(--surface)] p-3 sm:col-span-2">
+          </CardContent>
+        </Card>
+        <Card className="sm:col-span-2">
+          <CardContent className="grid gap-1 p-3">
           <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">Final preview total</p>
           <p className="text-base font-semibold text-[var(--foreground)]">
             {formatHours(totalPreviewHours)} hrs
           </p>
-        </div>
+          </CardContent>
+        </Card>
       </div>
 
       {statusMessage ? (
-        <div className="border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--foreground)]">
+        <Card>
+          <CardContent className="px-4 py-3 text-sm text-[var(--foreground)]">
           {statusMessage}
-        </div>
+          </CardContent>
+        </Card>
       ) : null}
 
-      <div className="grid gap-3 border border-[var(--border)] bg-[var(--surface)] p-3">
+      <Card>
+        <CardContent className="grid gap-3 p-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="grid gap-1">
             <h4 className="text-sm font-semibold text-[var(--foreground)]">Already saved entries</h4>
@@ -371,9 +383,11 @@ export function CurrentWeekTimesheetGenerator({
             No saved entries for this week yet.
           </div>
         )}
-      </div>
+        </CardContent>
+      </Card>
 
-      <div className="grid gap-3 border border-[var(--border)] bg-[var(--surface)] p-3">
+      <Card>
+        <CardContent className="grid gap-3 p-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="grid gap-1">
             <h4 className="text-sm font-semibold text-[var(--foreground)]">Entries to create</h4>
@@ -433,12 +447,15 @@ export function CurrentWeekTimesheetGenerator({
             </div>
           </details>
         ) : null}
-      </div>
+        </CardContent>
+      </Card>
 
       {warningMessage ? (
-        <div className="border border-[var(--accent)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--foreground)]">
+        <Card>
+          <CardContent className="border border-[var(--accent)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--foreground)]">
           {warningMessage}
-        </div>
+          </CardContent>
+        </Card>
       ) : null}
 
       {remainingHoursAfterRecurring > 0 ? (
@@ -466,6 +483,7 @@ export function CurrentWeekTimesheetGenerator({
           returnToPath={returnToPath}
         />
       )}
-    </section>
+      </CardContent>
+    </Card>
   );
 }

@@ -4,7 +4,7 @@ import type { ButtonHTMLAttributes } from "react";
 import { cn } from "@/lib/utils/cn";
 
 const buttonBaseClassName =
-  "inline-flex h-11 items-center justify-center border px-5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-60";
+  "inline-flex h-11 items-center justify-center rounded-md border px-5 text-sm font-semibold transition-colors disabled:pointer-events-none disabled:opacity-60";
 
 const buttonVariantClassNames = {
   primary:

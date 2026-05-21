@@ -3,6 +3,9 @@
 import { useEffect, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Select } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import type {
   BudgetMappingRecord,
   TimeEntryRecord
@@ -137,8 +140,7 @@ export function TimeEntryForm({
       <div className="grid gap-4 md:grid-cols-3">
         <label className="grid gap-2 text-sm font-semibold">
           Date
-          <input
-            className="h-11 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
+          <Input
             name="entryDate"
             onChange={(event) => applyEntryDate(event.target.value)}
             required
@@ -148,8 +150,7 @@ export function TimeEntryForm({
         </label>
         <label className="grid gap-2 text-sm font-semibold">
           Product Name
-          <select
-            className="h-11 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
+          <Select
             name="productName"
             onChange={(event) => applyProductName(event.target.value)}
             required
@@ -161,15 +162,14 @@ export function TimeEntryForm({
                 {availableProductName}
               </option>
             ))}
-          </select>
+          </Select>
           <span className="text-xs font-normal text-[var(--muted)]">
             Add new products on the Budget key page.
           </span>
         </label>
         <label className="grid gap-2 text-sm font-semibold">
           Week Number
-          <input
-            className="h-11 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
+          <Input
             max="53"
             min="1"
             name="weekNumber"
@@ -187,8 +187,7 @@ export function TimeEntryForm({
       {matchingBudgetMappings.length > 1 ? (
         <label className="grid gap-2 text-sm font-semibold">
           Matching budget
-          <select
-            className="h-11 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
+          <Select
             onChange={(event) => applyBudgetMapping(event.target.value)}
             required
             value={budgetMappingId}
@@ -199,15 +198,14 @@ export function TimeEntryForm({
                 {budgetMapping.budgetName} — {budgetMapping.budgetNumber}
               </option>
             ))}
-          </select>
+          </Select>
         </label>
       ) : null}
 
       <div className="grid gap-4 md:grid-cols-3">
         <label className="grid gap-2 text-sm font-semibold">
           Start Time
-          <input
-            className="h-11 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
+          <Input
             name="startTime"
             onChange={(event) => setStartTime(event.target.value)}
             type="time"
@@ -219,8 +217,7 @@ export function TimeEntryForm({
         </label>
         <label className="grid gap-2 text-sm font-semibold">
           End Time
-          <input
-            className="h-11 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
+          <Input
             name="endTime"
             onChange={(event) => setEndTime(event.target.value)}
             type="time"
@@ -232,8 +229,7 @@ export function TimeEntryForm({
         </label>
         <label className="grid gap-2 text-sm font-semibold">
           Hours Worked
-          <input
-            className="h-11 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
+          <Input
             max="999.99"
             min="0.01"
             name="hoursWorked"
@@ -282,8 +278,7 @@ export function TimeEntryForm({
 
       <label className="grid gap-2 text-sm font-semibold">
         Task Description
-        <input
-          className="h-11 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
+        <Input
           defaultValue={timeEntry?.taskDescription}
           name="taskDescription"
           required
@@ -292,8 +287,7 @@ export function TimeEntryForm({
 
       <label className="grid gap-2 text-sm font-semibold">
         Notes
-        <textarea
-          className="min-h-24 resize-y border border-[var(--border)] p-3 font-normal outline-none focus:border-[var(--accent)]"
+        <Textarea
           defaultValue={timeEntry?.notes ?? ""}
           name="notes"
         />

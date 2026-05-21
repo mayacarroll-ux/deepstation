@@ -1,6 +1,15 @@
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from "@/components/ui/table";
 import type { TimeEntryRecord } from "@/lib/services/time-tracking";
 import { formatWeekLabel, getIsoWeekYear } from "@/lib/utils/dates";
 import { formatHours } from "@/lib/utils/format";
@@ -94,9 +103,9 @@ export function TimeEntryTable({
             className="overflow-hidden border border-[var(--border)] bg-[var(--panel)]"
             key={`${weeklyGroup.weekYear}-${weeklyGroup.weekNumber}`}
           >
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border)] bg-[var(--surface-muted)] px-4 py-3">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border)] bg-[var(--surface-muted)] px-4 py-3">
               <div>
-                <h3 className="text-sm font-semibold text-[var(--foreground)]">
+            <h3 className="text-sm font-semibold text-[var(--foreground)]">
                   {weekLabel}
                 </h3>
                 <p className="mt-1 text-xs text-[var(--muted)]">
@@ -109,50 +118,50 @@ export function TimeEntryTable({
               </p>
             </div>
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[1160px] border-collapse text-left text-sm">
-                <thead className="border-b border-[var(--border)] text-[var(--foreground)]">
+              <Table className="min-w-[1160px] text-left text-sm">
+                <TableHeader className="border-b border-[var(--border)] text-[var(--foreground)]">
                   <tr>
-                    <th className="px-4 py-3">Date</th>
-                    <th className="px-4 py-3">Product Name</th>
-                    <th className="px-4 py-3">Budget Name</th>
-                    <th className="px-4 py-3">Budget #</th>
-                    <th className="px-4 py-3">Task Description</th>
-                    <th className="px-4 py-3">Hours</th>
-                    <th className="px-4 py-3">Week</th>
-                    <th className="px-4 py-3">Source</th>
-                    <th className="px-4 py-3">Notes</th>
-                    <th className="px-4 py-3 text-right">Actions</th>
+                    <TableHead className="px-4 py-3">Date</TableHead>
+                    <TableHead className="px-4 py-3">Product Name</TableHead>
+                    <TableHead className="px-4 py-3">Budget Name</TableHead>
+                    <TableHead className="px-4 py-3">Budget #</TableHead>
+                    <TableHead className="px-4 py-3">Task Description</TableHead>
+                    <TableHead className="px-4 py-3">Hours</TableHead>
+                    <TableHead className="px-4 py-3">Week</TableHead>
+                    <TableHead className="px-4 py-3">Source</TableHead>
+                    <TableHead className="px-4 py-3">Notes</TableHead>
+                    <TableHead className="px-4 py-3 text-right">Actions</TableHead>
                   </tr>
-                </thead>
-                <tbody className="divide-y divide-[var(--border)]">
+                </TableHeader>
+                <TableBody className="divide-y divide-[var(--border)]">
                   {orderedEntries.map((timeEntry) => (
                     <tr className="transition-colors hover:bg-[var(--surface)]" key={timeEntry.id}>
-                      <td className="px-4 py-3">{timeEntry.entryDate}</td>
-                      <td className="px-4 py-3 font-semibold">{timeEntry.productName}</td>
-                      <td className="px-4 py-3">{timeEntry.budgetName}</td>
-                      <td className="px-4 py-3">{timeEntry.budgetNumber}</td>
-                      <td className="px-4 py-3">{timeEntry.taskDescription}</td>
-                      <td className="px-4 py-3 tabular-nums">
+                      <TableCell className="px-4 py-3">{timeEntry.entryDate}</TableCell>
+                      <TableCell className="px-4 py-3 font-semibold">{timeEntry.productName}</TableCell>
+                      <TableCell className="px-4 py-3">{timeEntry.budgetName}</TableCell>
+                      <TableCell className="px-4 py-3">{timeEntry.budgetNumber}</TableCell>
+                      <TableCell className="px-4 py-3">{timeEntry.taskDescription}</TableCell>
+                      <TableCell className="px-4 py-3 tabular-nums">
                         {formatHours(Number(timeEntry.hoursWorked))}
-                      </td>
-                      <td className="px-4 py-3">
+                      </TableCell>
+                      <TableCell className="px-4 py-3">
                         {formatWeekLabel(timeEntry.weekNumber, getIsoWeekYear(timeEntry.entryDate))}
-                      </td>
-                      <td className="px-4 py-3">
+                      </TableCell>
+                      <TableCell className="px-4 py-3">
                         {timeEntry.allocationBatchId ? (
-                          <span className="rounded-full border border-[var(--accent)] px-2 py-1 text-xs font-semibold text-[var(--accent)]">
+                          <Badge>
                             Allocation
-                          </span>
+                          </Badge>
                         ) : timeEntry.recurringTemplateId ? (
-                          <span className="rounded-full border border-[var(--accent)] px-2 py-1 text-xs font-semibold text-[var(--accent)]">
+                          <Badge>
                             Recurring
-                          </span>
+                          </Badge>
                         ) : (
                           <span className="text-xs font-semibold text-[var(--muted)]">Manual</span>
                         )}
-                      </td>
-                      <td className="px-4 py-3 text-[var(--muted)]">{timeEntry.notes}</td>
-                      <td className="px-4 py-3">
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-[var(--muted)]">{timeEntry.notes}</TableCell>
+                      <TableCell className="px-4 py-3">
                         <div className="flex justify-end gap-2">
                           {timeEntry.recurringTemplateId ||
                           recurringTemplateSourceTimeEntryIdSet.has(timeEntry.id) ? (
@@ -179,11 +188,11 @@ export function TimeEntryTable({
                             </Button>
                           </form>
                         </div>
-                      </td>
+                      </TableCell>
                     </tr>
                   ))}
-                </tbody>
-              </table>
+                </TableBody>
+              </Table>
             </div>
           </section>
         );

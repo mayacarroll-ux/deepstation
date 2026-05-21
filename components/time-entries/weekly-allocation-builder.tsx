@@ -3,6 +3,10 @@
 import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Select } from "@/components/ui/select";
+import { Card, CardContent } from "@/components/ui/card";
 import type { BudgetMappingRecord } from "@/lib/services/time-tracking";
 import { splitHoursEvenlyAcrossRows, formatHours } from "@/lib/utils/format";
 
@@ -197,10 +201,12 @@ export function WeeklyAllocationBuilder({
 
   if (budgetMappings.length === 0) {
     return (
-      <div className="border border-[var(--border)] bg-[var(--surface)] p-4 text-sm text-[var(--muted)]">
+      <Card>
+        <CardContent className="p-4 text-sm text-[var(--muted)]">
         Add budget mappings first. The allocation builder uses existing project mappings to create
         new time entries.
-      </div>
+        </CardContent>
+      </Card>
     );
   }
 
@@ -220,8 +226,7 @@ export function WeeklyAllocationBuilder({
       <div className="grid gap-3 sm:grid-cols-3">
         <label className="grid gap-2 text-sm font-semibold">
           <span className="min-h-5">Entry date</span>
-          <input
-            className="h-11 border border-[var(--border)] bg-[var(--surface)] px-3 font-normal outline-none focus:border-[var(--accent)]"
+          <Input
             defaultValue={defaultEntryDate}
             name="entryDate"
             type="date"
@@ -244,7 +249,8 @@ export function WeeklyAllocationBuilder({
         </div>
       </div>
 
-      <div className="grid gap-3 border border-[var(--border)] bg-[var(--surface)] p-4">
+      <Card>
+        <CardContent className="grid gap-3 p-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <h4 className="text-sm font-semibold text-[var(--foreground)]">Allocation rows</h4>
@@ -272,8 +278,7 @@ export function WeeklyAllocationBuilder({
             >
               <label className="grid min-w-0 gap-2 text-sm font-semibold">
                 <span className="min-h-5">Project / task</span>
-                <select
-                  className="h-11 min-w-0 border border-[var(--border)] bg-[var(--surface)] px-3 font-normal outline-none focus:border-[var(--accent)]"
+                <Select
                   onChange={(event) =>
                     updateRowField(row.id, "budgetMappingId", event.target.value)
                   }
@@ -284,12 +289,11 @@ export function WeeklyAllocationBuilder({
                       {getBudgetMappingLabel(budgetMapping)}
                     </option>
                   ))}
-                </select>
+                </Select>
               </label>
               <label className="grid min-w-0 gap-2 text-sm font-semibold">
                 <span className="min-h-5">Task description</span>
-                <input
-                  className="h-11 min-w-0 border border-[var(--border)] bg-[var(--surface)] px-3 font-normal outline-none focus:border-[var(--accent)]"
+                <Input
                   onChange={(event) =>
                     updateRowField(row.id, "taskDescription", event.target.value)
                   }
@@ -299,8 +303,7 @@ export function WeeklyAllocationBuilder({
               </label>
               <label className="grid min-w-0 gap-2 text-sm font-semibold xl:col-span-1">
                 <span className="min-h-5">Notes</span>
-                <input
-                  className="h-11 min-w-0 border border-[var(--border)] bg-[var(--surface)] px-3 font-normal outline-none focus:border-[var(--accent)]"
+                <Input
                   onChange={(event) => updateRowField(row.id, "notes", event.target.value)}
                   placeholder="Optional"
                   value={row.notes}
@@ -308,8 +311,7 @@ export function WeeklyAllocationBuilder({
               </label>
               <label className="grid min-w-0 gap-2 text-sm font-semibold">
                 <span className="min-h-5">Hours</span>
-                <input
-                  className="h-11 min-w-0 border border-[var(--border)] bg-[var(--surface)] px-3 font-normal tabular-nums outline-none focus:border-[var(--accent)]"
+                <Input
                   inputMode="decimal"
                   min="0"
                   onChange={(event) =>
@@ -325,11 +327,9 @@ export function WeeklyAllocationBuilder({
                 />
               </label>
               <label className="flex min-w-0 items-end gap-2 text-sm font-semibold">
-                <input
+                <Checkbox
                   checked={row.included}
-                  className="h-4 w-4 border-[var(--border)] accent-[var(--accent)]"
                   onChange={() => toggleIncluded(row.id)}
-                  type="checkbox"
                 />
                 Include
               </label>
@@ -382,7 +382,8 @@ export function WeeklyAllocationBuilder({
             No remaining hours are available for this week.
           </p>
         ) : null}
-      </div>
+        </CardContent>
+      </Card>
     </form>
   );
 }
