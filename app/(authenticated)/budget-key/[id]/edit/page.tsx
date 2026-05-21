@@ -10,12 +10,24 @@ type EditBudgetKeyPageProps = {
   params: Promise<{
     id: string;
   }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
-export default async function EditBudgetKeyPage({ params }: EditBudgetKeyPageProps) {
+function getSearchParamValue(
+  searchParams: Record<string, string | string[] | undefined>,
+  key: string
+) {
+  const value = searchParams[key];
+
+  return Array.isArray(value) ? value[0] : value;
+}
+
+export default async function EditBudgetKeyPage({ params, searchParams }: EditBudgetKeyPageProps) {
   const { id } = await params;
+  const resolvedSearchParams = await searchParams;
   const ownerId = await getCurrentWorkbookOwnerId();
   const budgetMapping = await getBudgetMapping(ownerId, id);
+  const returnToPath = getSearchParamValue(resolvedSearchParams, "returnTo") || "/budget-key";
 
   if (!budgetMapping) {
     notFound();
@@ -32,6 +44,7 @@ export default async function EditBudgetKeyPage({ params }: EditBudgetKeyPagePro
       <BudgetKeyForm
         action={updateBudgetMappingAction.bind(null, budgetMapping.id)}
         budgetMapping={budgetMapping}
+        returnToPath={returnToPath}
         submitLabel="Save mapping"
       />
     </section>

@@ -100,6 +100,18 @@ function normalizeProductName(productName: string) {
   return productName.trim().replace(/\s+/g, " ").toLowerCase();
 }
 
+function normalizeBudgetMappingFieldValue(value: string) {
+  return value.trim().replace(/\s+/g, " ").toLowerCase();
+}
+
+function getNormalizedBudgetMappingKey(productName: string, budgetName: string, budgetNumber: string) {
+  return [
+    normalizeBudgetMappingFieldValue(productName),
+    normalizeBudgetMappingFieldValue(budgetName),
+    normalizeBudgetMappingFieldValue(budgetNumber)
+  ].join("\u0000");
+}
+
 export function getAccountantProjectName(productName: string, budgetName: string) {
   const normalizedProductName = normalizeProductName(productName);
   const normalizedBudgetName = normalizeProductName(budgetName);
@@ -157,8 +169,8 @@ async function listFallbackBudgetMappings() {
       updatedAt: getFallbackDate()
     }))
     .sort((firstBudgetMapping, secondBudgetMapping) =>
-      `${firstBudgetMapping.productName} ${firstBudgetMapping.budgetName}`.localeCompare(
-        `${secondBudgetMapping.productName} ${secondBudgetMapping.budgetName}`
+      `${firstBudgetMapping.productName} ${firstBudgetMapping.budgetName} ${firstBudgetMapping.budgetNumber}`.localeCompare(
+        `${secondBudgetMapping.productName} ${secondBudgetMapping.budgetName} ${secondBudgetMapping.budgetNumber}`
       )
     );
 }
@@ -290,7 +302,7 @@ export async function listBudgetMappings(ownerId: string) {
     .select()
     .from(budgetMappings)
     .where(eq(budgetMappings.ownerId, ownerId))
-    .orderBy(asc(budgetMappings.productName), asc(budgetMappings.budgetName));
+    .orderBy(asc(budgetMappings.productName), asc(budgetMappings.budgetName), asc(budgetMappings.budgetNumber));
 }
 
 export async function getBudgetMapping(ownerId: string, budgetMappingId: string) {
@@ -321,6 +333,25 @@ export async function getBudgetMapping(ownerId: string, budgetMappingId: string)
 export async function createBudgetMapping(ownerId: string, formData: FormData) {
   const writableDatabase = requireDatabase();
   const parsedBudgetMapping = parseBudgetMappingFormData(formData);
+  const normalizedProductName = normalizeBudgetMappingFieldValue(parsedBudgetMapping.productName);
+  const normalizedBudgetName = normalizeBudgetMappingFieldValue(parsedBudgetMapping.budgetName);
+  const normalizedBudgetNumber = normalizeBudgetMappingFieldValue(parsedBudgetMapping.budgetNumber);
+  const [existingBudgetMapping] = await writableDatabase
+    .select({ id: budgetMappings.id })
+    .from(budgetMappings)
+    .where(
+      and(
+        eq(budgetMappings.ownerId, ownerId),
+        sql`lower(trim(${budgetMappings.productName})) = ${normalizedProductName}`,
+        sql`lower(trim(${budgetMappings.budgetName})) = ${normalizedBudgetName}`,
+        sql`lower(trim(${budgetMappings.budgetNumber})) = ${normalizedBudgetNumber}`
+      )
+    )
+    .limit(1);
+
+  if (existingBudgetMapping) {
+    return { created: false, duplicate: true } as const;
+  }
 
   await writableDatabase.insert(budgetMappings).values({
     ownerId,
@@ -329,6 +360,8 @@ export async function createBudgetMapping(ownerId: string, formData: FormData) {
     budgetNumber: parsedBudgetMapping.budgetNumber,
     notes: parsedBudgetMapping.notes || null
   });
+
+  return { created: true, duplicate: false } as const;
 }
 
 export async function updateBudgetMapping(
@@ -338,6 +371,26 @@ export async function updateBudgetMapping(
 ) {
   const writableDatabase = requireDatabase();
   const parsedBudgetMapping = parseBudgetMappingFormData(formData);
+  const normalizedProductName = normalizeBudgetMappingFieldValue(parsedBudgetMapping.productName);
+  const normalizedBudgetName = normalizeBudgetMappingFieldValue(parsedBudgetMapping.budgetName);
+  const normalizedBudgetNumber = normalizeBudgetMappingFieldValue(parsedBudgetMapping.budgetNumber);
+  const [existingBudgetMapping] = await writableDatabase
+    .select({ id: budgetMappings.id })
+    .from(budgetMappings)
+    .where(
+      and(
+        eq(budgetMappings.ownerId, ownerId),
+        sql`${budgetMappings.id} <> ${budgetMappingId}`,
+        sql`lower(trim(${budgetMappings.productName})) = ${normalizedProductName}`,
+        sql`lower(trim(${budgetMappings.budgetName})) = ${normalizedBudgetName}`,
+        sql`lower(trim(${budgetMappings.budgetNumber})) = ${normalizedBudgetNumber}`
+      )
+    )
+    .limit(1);
+
+  if (existingBudgetMapping) {
+    return { updated: false, duplicate: true } as const;
+  }
 
   await writableDatabase
     .update(budgetMappings)
@@ -349,6 +402,16 @@ export async function updateBudgetMapping(
       updatedAt: new Date()
     })
     .where(and(eq(budgetMappings.ownerId, ownerId), eq(budgetMappings.id, budgetMappingId)));
+
+  return { updated: true, duplicate: false } as const;
+}
+
+export function getBudgetMappingDuplicateKey(
+  productName: string,
+  budgetName: string,
+  budgetNumber: string
+) {
+  return getNormalizedBudgetMappingKey(productName, budgetName, budgetNumber);
 }
 
 export async function deleteBudgetMapping(ownerId: string, budgetMappingId: string) {
