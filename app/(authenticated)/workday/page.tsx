@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { WorkdayCopyButton } from "@/components/workday/workday-copy-button";
+import { WorkdayTimeEntryRow } from "@/components/workday/workday-time-entry-row";
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
 import { getWorkdayWeek, workdayTimeType } from "@/lib/services/workday";
 import { getIsoWeekNumber, getIsoWeekYear, getTodayInputValue } from "@/lib/utils/dates";
@@ -7,7 +8,8 @@ import { formatHours, formatHourUnit } from "@/lib/utils/format";
 
 import {
   setWorkdayDayEnteredAction,
-  setWorkdayWeekEnteredAction
+  setWorkdayWeekEnteredAction,
+  updateWorkdayTimeEntryAction
 } from "./actions";
 
 type WorkdayPageProps = {
@@ -53,10 +55,46 @@ function formatWorkdayHours(hours: number) {
   return `${formatHours(hours)} ${formatHourUnit(hours)}`;
 }
 
+function buildReturnToPath(searchParams: Record<string, string | string[] | undefined>) {
+  const urlSearchParameters = new URLSearchParams();
+
+  for (const [key, value] of Object.entries(searchParams)) {
+    if (key === "workdayEntryMessage" || key === "workdayEntryStatus") {
+      continue;
+    }
+
+    if (Array.isArray(value)) {
+      value.forEach((queryValue) => {
+        if (queryValue) {
+          urlSearchParameters.append(key, queryValue);
+        }
+      });
+      continue;
+    }
+
+    if (value) {
+      urlSearchParameters.set(key, value);
+    }
+  }
+
+  const queryString = urlSearchParameters.toString();
+
+  return queryString ? `/workday?${queryString}` : "/workday";
+}
+
+function getWorkdayEntryStatusMessage(
+  searchParams: Record<string, string | string[] | undefined>
+) {
+  const message = getSearchParamValue(searchParams, "workdayEntryMessage");
+
+  return message || null;
+}
+
 export default async function WorkdayPage({ searchParams }: WorkdayPageProps) {
   const resolvedSearchParams = await searchParams;
   const ownerId = await getCurrentWorkbookOwnerId();
   const selectedWeek = getSelectedWeek(resolvedSearchParams);
+  const returnToPath = buildReturnToPath(resolvedSearchParams);
   const workdayWeek = await getWorkdayWeek(
     ownerId,
     selectedWeek.weekNumber,
@@ -65,6 +103,7 @@ export default async function WorkdayPage({ searchParams }: WorkdayPageProps) {
   const daysWithHours = workdayWeek.days.filter((day) => day.totalHours > 0);
   const enteredDaysWithHours = daysWithHours.filter((day) => day.isEntered);
   const hasUnenteredDays = enteredDaysWithHours.length < daysWithHours.length;
+  const workdayEntryStatusMessage = getWorkdayEntryStatusMessage(resolvedSearchParams);
 
   return (
     <section className="py-8">
@@ -106,6 +145,11 @@ export default async function WorkdayPage({ searchParams }: WorkdayPageProps) {
       </div>
 
       <div className="grid gap-6">
+        {workdayEntryStatusMessage ? (
+          <div className="border border-[var(--border)] bg-[var(--panel)] px-4 py-3 text-sm text-[var(--foreground)]">
+            {workdayEntryStatusMessage}
+          </div>
+        ) : null}
         <section className="border border-[var(--border)] bg-[var(--panel)] p-6">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
@@ -195,40 +239,15 @@ export default async function WorkdayPage({ searchParams }: WorkdayPageProps) {
               </div>
 
               {day.entries.length > 0 ? (
-                <div className="mt-5 overflow-x-auto">
-                  <table className="w-full min-w-[840px] border-collapse text-left text-sm">
-                    <thead className="border-b border-[var(--border)] bg-[var(--surface-muted)]">
-                      <tr>
-                        <th className="px-4 py-3">Project</th>
-                        <th className="px-4 py-3">Task</th>
-                        <th className="px-4 py-3">Time</th>
-                        <th className="px-4 py-3">Budget #</th>
-                        <th className="px-4 py-3 text-right">Hours</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {day.entries.map((timeEntry) => (
-                        <tr
-                          className="border-b border-[var(--border)] last:border-0"
-                          key={timeEntry.id}
-                        >
-                          <td className="px-4 py-3 font-semibold">{timeEntry.productName}</td>
-                          <td className="px-4 py-3">{timeEntry.taskDescription}</td>
-                          <td className="px-4 py-3 text-[var(--muted)]">
-                            {timeEntry.startTime && timeEntry.endTime
-                              ? `${timeEntry.startTime} - ${timeEntry.endTime}`
-                              : "—"}
-                          </td>
-                          <td className="px-4 py-3 text-[var(--muted)]">
-                            {timeEntry.budgetNumber}
-                          </td>
-                          <td className="px-4 py-3 text-right">
-                            {formatWorkdayHours(Number(timeEntry.hoursWorked))}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                <div className="mt-5 grid gap-3">
+                  {day.entries.map((timeEntry) => (
+                    <WorkdayTimeEntryRow
+                      entry={timeEntry}
+                      key={timeEntry.id}
+                      returnToPath={returnToPath}
+                      updateAction={updateWorkdayTimeEntryAction}
+                    />
+                  ))}
                 </div>
               ) : (
                 <p className="mt-5 border border-[var(--border)] bg-[var(--surface)] p-4 text-sm text-[var(--muted)]">
