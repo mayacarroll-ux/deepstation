@@ -79,7 +79,10 @@ export function SheetContent({
   }
 
   return createPortal(
-    <div aria-hidden={!open} className="fixed inset-0 z-50">
+    <div
+      aria-hidden={!open}
+      className={cn("fixed inset-0 z-50", open ? "pointer-events-auto" : "pointer-events-none")}
+    >
       <button
         aria-label="Close sheet"
         className={cn(
