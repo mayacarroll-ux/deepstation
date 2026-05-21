@@ -8,7 +8,6 @@ import { cn } from "@/lib/utils/cn";
 const navigationItems = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/time-entries", label: "Time entries" },
-  { href: "/budget-key", label: "Budget key" },
   { href: "/weekly-summary", label: "Weekly summary" },
   { href: "/workday", label: "Workday" }
 ];
@@ -44,10 +43,6 @@ function isNavigationItemActive(pathname: string, navigationItemHref: string) {
 
   if (navigationItemHref === "/time-entries") {
     return pathname === "/time-entries" || pathname.startsWith("/time-entries/");
-  }
-
-  if (navigationItemHref === "/budget-key") {
-    return pathname === "/budget-key" || pathname.startsWith("/budget-key/");
   }
 
   if (navigationItemHref === "/weekly-summary") {

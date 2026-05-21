@@ -53,7 +53,7 @@ export function WeeklySummaryEmailSection({
   const canSendSummary = bodyText.length > 0 && hasConfiguredRecipients;
 
   return (
-    <section className="grid gap-4 border border-[var(--border)] bg-[var(--panel)] p-6">
+    <section id="email-settings" className="grid gap-4 border border-[var(--border)] bg-[var(--panel)] p-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h3 className="text-xl font-semibold">Email weekly summary</h3>
