@@ -275,17 +275,18 @@ export function CurrentWeekTimesheetGenerator({
   const hasRecurringEntriesToCreate = includedRecurringEntries.length > 0;
   const hasAllocationRowsToCreate = remainingHoursAfterRecurring > 0 && allocationRows.length > 0;
   const hasAnythingNewToSave = hasRecurringEntriesToCreate || hasAllocationRowsToCreate;
+  const reviewStateLabel = hasAnythingNewToSave ? "Ready to review" : "Nothing new to save";
   const allocationResetKey = `${excludedRecurringTemplateIds.join(",")}:${remainingHoursAfterRecurring}`;
   const allocationHiddenFields = {
     excludedRecurringTemplateIds: JSON.stringify(excludedRecurringTemplateIds)
   };
 
   return (
-    <section className="grid gap-5 border border-[var(--border)] bg-[var(--panel)] p-5">
+    <section className="grid gap-4 border border-[var(--border)] bg-[var(--panel)] p-4">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="grid gap-2">
           <div>
-            <h3 className="text-xl font-semibold">Generate current week timesheet</h3>
+            <h3 className="text-lg font-semibold">Generate current week timesheet</h3>
             <p className="mt-2 max-w-3xl text-sm text-[var(--muted)]">
               Review what is already saved, what recurring rows will be created, and the suggested
               allocation rows before approving the full week.
@@ -296,40 +297,45 @@ export function CurrentWeekTimesheetGenerator({
             {preview.weekStartDate} to {preview.weekEndDate}
           </p>
         </div>
-        <div className="grid gap-1 text-right text-sm text-[var(--muted)]">
-          <p className="font-semibold text-[var(--foreground)]">
-            {formatHours(totalPreviewHours)} hrs previewed
+        <div className="grid min-w-0 gap-2 rounded-md border border-[var(--border)] bg-[var(--surface)] p-3 text-right text-sm text-[var(--muted)]">
+          <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">
+            Review state
           </p>
+          <p className="font-semibold text-[var(--foreground)]">{reviewStateLabel}</p>
+          <p>{formatHours(totalPreviewHours)} hrs previewed</p>
           <p>{formatHours(preview.savedHours)} hrs already saved</p>
-          <p>{formatHours(recurringPendingHours)} hrs recurring to add</p>
-          <p>{formatHours(remainingHoursAfterRecurring)} hrs remaining to allocate</p>
+          <p>{formatHours(remainingHoursAfterRecurring)} hrs remaining</p>
         </div>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
+      <div className="grid gap-3 sm:grid-cols-2">
         <div className="grid gap-1 border border-[var(--border)] bg-[var(--surface)] p-3">
           <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">Weekly cap</p>
-          <p className="text-lg font-semibold text-[var(--foreground)]">{formatHours(preview.capHours)} hrs</p>
+          <p className="text-base font-semibold text-[var(--foreground)]">
+            {formatHours(preview.capHours)} hrs
+          </p>
         </div>
         <div className="grid gap-1 border border-[var(--border)] bg-[var(--surface)] p-3">
           <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">Already saved</p>
-          <p className="text-lg font-semibold text-[var(--foreground)]">{formatHours(preview.savedHours)} hrs</p>
+          <p className="text-base font-semibold text-[var(--foreground)]">
+            {formatHours(preview.savedHours)} hrs
+          </p>
         </div>
         <div className="grid gap-1 border border-[var(--border)] bg-[var(--surface)] p-3">
           <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">Recurring to add</p>
-          <p className="text-lg font-semibold text-[var(--foreground)]">
+          <p className="text-base font-semibold text-[var(--foreground)]">
             {formatHours(recurringPendingHours)} hrs
           </p>
         </div>
         <div className="grid gap-1 border border-[var(--border)] bg-[var(--surface)] p-3">
           <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">Remaining to allocate</p>
-          <p className="text-lg font-semibold text-[var(--foreground)]">
+          <p className="text-base font-semibold text-[var(--foreground)]">
             {formatHours(remainingHoursAfterRecurring)} hrs
           </p>
         </div>
-        <div className="grid gap-1 border border-[var(--border)] bg-[var(--surface)] p-3">
+        <div className="grid gap-1 border border-[var(--border)] bg-[var(--surface)] p-3 sm:col-span-2">
           <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">Final preview total</p>
-          <p className="text-lg font-semibold text-[var(--foreground)]">
+          <p className="text-base font-semibold text-[var(--foreground)]">
             {formatHours(totalPreviewHours)} hrs
           </p>
         </div>
@@ -341,7 +347,7 @@ export function CurrentWeekTimesheetGenerator({
         </div>
       ) : null}
 
-      <div className="grid gap-4 border border-[var(--border)] bg-[var(--surface)] p-4">
+      <div className="grid gap-3 border border-[var(--border)] bg-[var(--surface)] p-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="grid gap-1">
             <h4 className="text-sm font-semibold text-[var(--foreground)]">Already saved entries</h4>
@@ -367,7 +373,7 @@ export function CurrentWeekTimesheetGenerator({
         )}
       </div>
 
-      <div className="grid gap-4 border border-[var(--border)] bg-[var(--surface)] p-4">
+      <div className="grid gap-3 border border-[var(--border)] bg-[var(--surface)] p-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="grid gap-1">
             <h4 className="text-sm font-semibold text-[var(--foreground)]">Entries to create</h4>

@@ -408,64 +408,68 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
         </div>
         <ButtonLink href="/time-entries/new">New time entry</ButtonLink>
       </div>
-      <div className="grid gap-6">
-        <CurrentWeekTimesheetGenerator
-          action={generateCurrentWeekTimesheetAction}
-          preview={currentWeekTimesheetPreview}
-          returnToPath={returnToPath}
-          statusMessage={currentWeekTimesheetStatusMessage}
-        />
-        {makeRecurringStatusMessage ? (
-          <div className="border border-[var(--border)] bg-[var(--panel)] px-4 py-3 text-sm text-[var(--foreground)]">
-            {makeRecurringStatusMessage}
-          </div>
-        ) : null}
-        <RecurringWorkflow
-          applyRecurringTemplatesAction={applyRecurringTemplatesAction}
-          basePath="/time-entries"
-          createRecurringTemplateAction={createRecurringTemplateAction}
-          defaultWeekNumber={
-            Number.isInteger(requestedRecurringWeekNumber) &&
-            requestedRecurringWeekNumber >= 1 &&
-            requestedRecurringWeekNumber <= 53
-              ? requestedRecurringWeekNumber
-              : defaultWeekNumber
-          }
-          defaultWeekYear={
-            Number.isInteger(requestedRecurringWeekYear) &&
-            requestedRecurringWeekYear >= 2000 &&
-            requestedRecurringWeekYear <= 2100
-              ? requestedRecurringWeekYear
-              : defaultWeekYear
-          }
-          recurringTemplates={recurringTemplateRecords}
-          selectedRecurringTemplate={selectedRecurringTemplate}
-          statusMessage={recurringStatusMessage}
-          toggleRecurringTemplateActiveAction={toggleRecurringTemplateActiveAction}
-          updateRecurringTemplateAction={updateRecurringTemplateAction}
-          nextWeekNumber={nextWeek.weekNumber}
-          nextWeekYear={nextWeek.weekYear}
-        />
-        <WeeklyAllocationSection
-          action={createWeeklyAllocationEntriesAction}
-          allocationHiddenFields={allocationHiddenFields}
-          budgetMappings={budgetMappingRecords}
-          existingHours={allocationPreview.existingHours}
-          remainingHours={allocationPreview.remainingHours}
-          returnToPath={buildReturnToPath(resolvedSearchParams)}
-          selectedWeekLabel={allocationWeekLabel}
-          selectedWeekNumber={allocationWeekNumber}
-          selectedWeekYear={allocationWeekYear}
-          statusMessage={allocationStatusMessage}
-        />
-        <TimeEntryFilters filterOptions={filterOptions} filters={filters} />
-        <TimeEntryTable
-          deleteAction={deleteTimeEntryAction}
-          makeRecurringAction={makeRecurringTemplateAction}
-          recurringTemplateSourceTimeEntryIds={recurringTemplateSourceTimeEntryIds}
-          returnToPath={returnToPath}
-          timeEntries={timeEntryRecords}
-        />
+      <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_24rem] xl:items-start">
+        <div className="grid min-w-0 gap-6">
+          <TimeEntryFilters filterOptions={filterOptions} filters={filters} />
+          <TimeEntryTable
+            deleteAction={deleteTimeEntryAction}
+            makeRecurringAction={makeRecurringTemplateAction}
+            recurringTemplateSourceTimeEntryIds={recurringTemplateSourceTimeEntryIds}
+            returnToPath={returnToPath}
+            timeEntries={timeEntryRecords}
+          />
+          {makeRecurringStatusMessage ? (
+            <div className="border border-[var(--border)] bg-[var(--panel)] px-4 py-3 text-sm text-[var(--foreground)]">
+              {makeRecurringStatusMessage}
+            </div>
+          ) : null}
+          <RecurringWorkflow
+            applyRecurringTemplatesAction={applyRecurringTemplatesAction}
+            basePath="/time-entries"
+            createRecurringTemplateAction={createRecurringTemplateAction}
+            defaultWeekNumber={
+              Number.isInteger(requestedRecurringWeekNumber) &&
+              requestedRecurringWeekNumber >= 1 &&
+              requestedRecurringWeekNumber <= 53
+                ? requestedRecurringWeekNumber
+                : defaultWeekNumber
+            }
+            defaultWeekYear={
+              Number.isInteger(requestedRecurringWeekYear) &&
+              requestedRecurringWeekYear >= 2000 &&
+              requestedRecurringWeekYear <= 2100
+                ? requestedRecurringWeekYear
+                : defaultWeekYear
+            }
+            recurringTemplates={recurringTemplateRecords}
+            selectedRecurringTemplate={selectedRecurringTemplate}
+            statusMessage={recurringStatusMessage}
+            toggleRecurringTemplateActiveAction={toggleRecurringTemplateActiveAction}
+            updateRecurringTemplateAction={updateRecurringTemplateAction}
+            nextWeekNumber={nextWeek.weekNumber}
+            nextWeekYear={nextWeek.weekYear}
+          />
+          <WeeklyAllocationSection
+            action={createWeeklyAllocationEntriesAction}
+            allocationHiddenFields={allocationHiddenFields}
+            budgetMappings={budgetMappingRecords}
+            existingHours={allocationPreview.existingHours}
+            remainingHours={allocationPreview.remainingHours}
+            returnToPath={buildReturnToPath(resolvedSearchParams)}
+            selectedWeekLabel={allocationWeekLabel}
+            selectedWeekNumber={allocationWeekNumber}
+            selectedWeekYear={allocationWeekYear}
+            statusMessage={allocationStatusMessage}
+          />
+        </div>
+        <aside className="xl:sticky xl:top-6 xl:self-start">
+          <CurrentWeekTimesheetGenerator
+            action={generateCurrentWeekTimesheetAction}
+            preview={currentWeekTimesheetPreview}
+            returnToPath={returnToPath}
+            statusMessage={currentWeekTimesheetStatusMessage}
+          />
+        </aside>
       </div>
     </section>
   );
