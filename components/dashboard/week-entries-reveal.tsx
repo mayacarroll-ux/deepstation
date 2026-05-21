@@ -1,5 +1,7 @@
 "use client";
 
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -58,6 +60,9 @@ export function WeekEntriesReveal({ entries, weekLabel }: WeekEntriesRevealProps
           type="button"
           variant="secondary"
         >
+          <span className="mr-2 inline-flex items-center">
+            <FontAwesomeIcon className="h-3.5 w-3.5" icon={isOpen ? faEyeSlash : faEye} />
+          </span>
           {isOpen ? "Hide week entries" : "Show week entries"}
         </Button>
       </div>

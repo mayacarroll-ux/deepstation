@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { faFloppyDisk, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Button } from "@/components/ui/button";
 import type { RecurringTemplateRecord } from "@/lib/services/recurring";
@@ -122,9 +124,17 @@ export function RecurringTemplateForm({
           Active
         </label>
         <div className="flex items-center gap-3">
-          <Button type="submit">{submitLabel}</Button>
+          <Button type="submit">
+            <span className="mr-2 inline-flex items-center">
+              <FontAwesomeIcon className="h-3.5 w-3.5" icon={faFloppyDisk} />
+            </span>
+            {submitLabel}
+          </Button>
           {recurringTemplate ? (
             <Link className="text-sm font-semibold text-[var(--muted)] hover:underline" href={cancelHref}>
+              <span className="mr-1 inline-flex items-center">
+                <FontAwesomeIcon className="h-3 w-3" icon={faXmark} />
+              </span>
               Cancel edit
             </Link>
           ) : null}

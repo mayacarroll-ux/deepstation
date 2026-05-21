@@ -1,5 +1,7 @@
 "use client";
 
+import { faCopy, faFileArrowDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -32,6 +34,9 @@ export function WeeklySummaryCopy({ summaryText, weekNumber }: WeeklySummaryCopy
   return (
     <div className="flex gap-2">
       <Button disabled={!summaryText} onClick={copySummaryText} type="button">
+        <span className="mr-2 inline-flex items-center">
+          <FontAwesomeIcon className="h-3.5 w-3.5" icon={faCopy} />
+        </span>
         {copyLabel}
       </Button>
       <Button
@@ -40,6 +45,9 @@ export function WeeklySummaryCopy({ summaryText, weekNumber }: WeeklySummaryCopy
         type="button"
         variant="secondary"
       >
+        <span className="mr-2 inline-flex items-center">
+          <FontAwesomeIcon className="h-3.5 w-3.5" icon={faFileArrowDown} />
+        </span>
         Export .txt
       </Button>
     </div>

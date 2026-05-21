@@ -1,5 +1,13 @@
 "use client";
 
+import {
+  faBars,
+  faChevronLeft,
+  faEnvelope,
+  faGear,
+  faListCheck
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -33,17 +41,13 @@ const settingsNavigationItems = [
 
 function MenuIcon() {
   return (
-    <svg aria-hidden="true" className="h-4 w-4" viewBox="0 0 16 16" fill="none">
-      <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" strokeLinecap="round" strokeWidth="1.75" />
-    </svg>
+    <FontAwesomeIcon className="h-4 w-4" icon={faBars} />
   );
 }
 
 function CloseIcon() {
   return (
-    <svg aria-hidden="true" className="h-4 w-4" viewBox="0 0 16 16" fill="none">
-      <path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" strokeLinecap="round" strokeWidth="1.75" />
-    </svg>
+    <FontAwesomeIcon className="h-4 w-4" icon={faChevronLeft} />
   );
 }
 
@@ -99,7 +103,16 @@ export function SettingsDrawer() {
                 key={navigationItem.href}
                 onClick={() => setIsOpen(false)}
               >
-                {navigationItem.label}
+                <span className="flex items-center gap-2">
+                  {navigationItem.href === "/budget-key" ? (
+                    <FontAwesomeIcon className="h-3.5 w-3.5" icon={faGear} />
+                  ) : navigationItem.href === "/weekly-summary#email-settings" ? (
+                    <FontAwesomeIcon className="h-3.5 w-3.5" icon={faEnvelope} />
+                  ) : (
+                    <FontAwesomeIcon className="h-3.5 w-3.5" icon={faListCheck} />
+                  )}
+                  <span>{navigationItem.label}</span>
+                </span>
               </Link>
             );
           })}

@@ -1,3 +1,11 @@
+import {
+  faCalendarWeek,
+  faClockRotateLeft,
+  faEye,
+  faEyeSlash
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { Button, ButtonLink } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Select } from "@/components/ui/select";
@@ -43,6 +51,9 @@ export function TimeEntryWeekSelector({
           </label>
           <div className="flex items-end">
             <Button className="h-11 px-5 !text-neutral-950" type="submit">
+              <span className="mr-2 inline-flex items-center">
+                <FontAwesomeIcon className="h-3.5 w-3.5" icon={faCalendarWeek} />
+              </span>
               View week
             </Button>
           </div>
@@ -50,6 +61,12 @@ export function TimeEntryWeekSelector({
 
         <div className="flex flex-wrap items-center justify-start gap-3 lg:justify-end">
           <ButtonLink href={historyHref} variant="secondary">
+            <span className="mr-2 inline-flex items-center">
+              <FontAwesomeIcon
+                className="h-3.5 w-3.5"
+                icon={isHistoryMode ? faEyeSlash : faClockRotateLeft}
+              />
+            </span>
             {isHistoryMode ? "Show selected week" : "Show history"}
           </ButtonLink>
         </div>
@@ -57,4 +74,3 @@ export function TimeEntryWeekSelector({
     </Card>
   );
 }
-

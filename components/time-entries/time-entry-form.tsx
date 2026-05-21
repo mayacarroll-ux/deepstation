@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -325,7 +327,12 @@ function roundToQuarterHour(hours: number) {
       </label>
 
       <div>
-        <Button type="submit">{submitLabel}</Button>
+        <Button type="submit">
+          <span className="mr-2 inline-flex items-center">
+            <FontAwesomeIcon className="h-3.5 w-3.5" icon={faFloppyDisk} />
+          </span>
+          {submitLabel}
+        </Button>
       </div>
     </form>
   );

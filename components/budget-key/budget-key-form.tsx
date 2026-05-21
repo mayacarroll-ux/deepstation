@@ -1,3 +1,6 @@
+import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { Button } from "@/components/ui/button";
 import type { BudgetMappingRecord } from "@/lib/services/time-tracking";
 import { BudgetKeyFields } from "./budget-key-fields";
@@ -20,7 +23,12 @@ export function BudgetKeyForm({
       {returnToPath ? <input name="returnTo" type="hidden" value={returnToPath} /> : null}
       <BudgetKeyFields budgetMapping={budgetMapping} />
       <div>
-        <Button type="submit">{submitLabel}</Button>
+        <Button type="submit">
+          <span className="mr-2 inline-flex items-center">
+            <FontAwesomeIcon className="h-3.5 w-3.5" icon={faFloppyDisk} />
+          </span>
+          {submitLabel}
+        </Button>
       </div>
     </form>
   );

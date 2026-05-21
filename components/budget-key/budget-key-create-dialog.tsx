@@ -1,5 +1,7 @@
 "use client";
 
+import { faFloppyDisk, faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -24,6 +26,9 @@ export function BudgetKeyCreateDialog({ action, returnToPath }: BudgetKeyCreateD
   return (
     <Dialog onOpenChange={setIsOpen} open={isOpen}>
       <Button className="text-neutral-950" onClick={() => setIsOpen(true)} type="button">
+        <span className="mr-2 inline-flex items-center">
+          <FontAwesomeIcon className="h-3.5 w-3.5" icon={faPlus} />
+        </span>
         Add budget key
       </Button>
       <DialogContent className="max-w-2xl max-h-[calc(100vh-2rem)] overflow-y-auto">
@@ -42,9 +47,17 @@ export function BudgetKeyCreateDialog({ action, returnToPath }: BudgetKeyCreateD
               type="button"
               variant="secondary"
             >
+              <span className="mr-2 inline-flex items-center">
+                <FontAwesomeIcon className="h-3.5 w-3.5" icon={faXmark} />
+              </span>
               Cancel
             </Button>
-            <Button type="submit">Save budget key</Button>
+            <Button type="submit">
+              <span className="mr-2 inline-flex items-center">
+                <FontAwesomeIcon className="h-3.5 w-3.5" icon={faFloppyDisk} />
+              </span>
+              Save budget key
+            </Button>
           </div>
         </form>
       </DialogContent>

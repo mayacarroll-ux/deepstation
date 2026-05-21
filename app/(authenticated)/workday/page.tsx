@@ -1,3 +1,6 @@
+import { faCalendarWeek, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { Button } from "@/components/ui/button";
 import { WorkdayCopyButton } from "@/components/workday/workday-copy-button";
 import { WorkdayTimeEntryRow } from "@/components/workday/workday-time-entry-row";
@@ -139,6 +142,9 @@ export default async function WorkdayPage({ searchParams }: WorkdayPageProps) {
             />
           </label>
           <Button className="h-10 px-4 !text-neutral-950" type="submit">
+            <span className="mr-2 inline-flex items-center">
+              <FontAwesomeIcon className="h-3.5 w-3.5" icon={faCalendarWeek} />
+            </span>
             View
           </Button>
         </form>
@@ -201,6 +207,9 @@ export default async function WorkdayPage({ searchParams }: WorkdayPageProps) {
                   value={workdayWeek.isEntered ? "false" : "true"}
                 />
                 <Button type="submit" variant={workdayWeek.isEntered ? "secondary" : "primary"}>
+                  <span className="mr-2 inline-flex items-center">
+                    <FontAwesomeIcon className="h-3.5 w-3.5" icon={faCheck} />
+                  </span>
                   {workdayWeek.isEntered ? "Unmark week" : "Mark week entered"}
                 </Button>
               </form>
@@ -231,6 +240,9 @@ export default async function WorkdayPage({ searchParams }: WorkdayPageProps) {
                         value={day.isEntered ? "false" : "true"}
                       />
                       <Button type="submit" variant={day.isEntered ? "secondary" : "primary"}>
+                        <span className="mr-2 inline-flex items-center">
+                          <FontAwesomeIcon className="h-3.5 w-3.5" icon={faCheck} />
+                        </span>
                         {day.isEntered ? "Unmark day" : "Mark entered"}
                       </Button>
                     </form>

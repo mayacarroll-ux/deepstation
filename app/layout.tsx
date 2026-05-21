@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
+import { config as fontAwesomeConfig } from "@fortawesome/fontawesome-svg-core";
 import { Poppins } from "next/font/google";
 
 import "./globals.css";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 
 import { applicationName } from "@/lib/constants";
+
+fontAwesomeConfig.autoAddCss = false;
 
 const poppins = Poppins({
   subsets: ["latin"],

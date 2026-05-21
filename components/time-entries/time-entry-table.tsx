@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { faPenToSquare, faRotate } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -173,6 +175,9 @@ export function TimeEntryTable({
                             <form action={makeRecurringAction.bind(null, timeEntry.id)}>
                               <input name="returnTo" type="hidden" value={returnToPath} />
                               <Button type="submit" variant="secondary">
+                                <span className="mr-2 inline-flex items-center">
+                                  <FontAwesomeIcon className="h-3.5 w-3.5" icon={faRotate} />
+                                </span>
                                 Make recurring
                               </Button>
                             </form>
@@ -181,6 +186,9 @@ export function TimeEntryTable({
                             className="px-3 py-2 font-semibold hover:underline"
                             href={`/time-entries/${timeEntry.id}/edit`}
                           >
+                            <span className="mr-2 inline-flex items-center">
+                              <FontAwesomeIcon className="h-3.5 w-3.5" icon={faPenToSquare} />
+                            </span>
                             Edit
                           </Link>
                           <DeleteTimeEntryButton

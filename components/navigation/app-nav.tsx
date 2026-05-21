@@ -1,16 +1,23 @@
 "use client";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChartColumn,
+  faClock,
+  faFileInvoiceDollar,
+  faSuitcase
+} from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils/cn";
 
 const navigationItems = [
-  { href: "/dashboard", label: "Dashboard" },
-  { href: "/time-entries", label: "Time entries" },
-  { href: "/weekly-summary", label: "Weekly summary" },
-  { href: "/workday", label: "Workday" }
-];
+  { href: "/dashboard", icon: faChartColumn, label: "Dashboard" },
+  { href: "/time-entries", icon: faClock, label: "Time entries" },
+  { href: "/weekly-summary", icon: faFileInvoiceDollar, label: "Weekly summary" },
+  { href: "/workday", icon: faSuitcase, label: "Workday" }
+] as const;
 
 export function AppNav() {
   const pathname = usePathname();
@@ -29,7 +36,10 @@ export function AppNav() {
           href={navigationItem.href}
           key={navigationItem.href}
         >
-          {navigationItem.label}
+          <span className="flex items-center gap-2">
+            <FontAwesomeIcon className="h-3.5 w-3.5" icon={navigationItem.icon} />
+            <span>{navigationItem.label}</span>
+          </span>
         </Link>
       ))}
     </nav>

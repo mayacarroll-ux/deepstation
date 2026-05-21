@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { faFilter } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -69,6 +71,9 @@ export function TimeEntryFilters({ filters, filterOptions, hiddenFields }: TimeE
           </div>
           <div className="grid items-end">
             <Button className="h-10 w-full min-w-28 px-4 !text-neutral-950" type="submit">
+              <span className="mr-2 inline-flex items-center">
+                <FontAwesomeIcon className="h-3.5 w-3.5" icon={faFilter} />
+              </span>
               Filter
             </Button>
           </div>

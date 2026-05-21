@@ -1,5 +1,14 @@
 "use client";
 
+import {
+  faCheck,
+  faFloppyDisk,
+  faPlay,
+  faStop,
+  faTrash,
+  faXmark
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useActionState, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -420,6 +429,9 @@ export function HeaderQuickTimer({ budgetMappings, saveAction }: HeaderQuickTime
       <div className="flex flex-wrap items-center gap-2">
         {timerState.mode === "idle" ? (
           <Button className="h-10 px-4" onClick={handleStartTimer} type="button">
+            <span className="mr-2 inline-flex items-center">
+              <FontAwesomeIcon className="h-3.5 w-3.5" icon={faPlay} />
+            </span>
             Start timer
           </Button>
         ) : timerState.mode === "running" ? (
@@ -429,6 +441,9 @@ export function HeaderQuickTimer({ budgetMappings, saveAction }: HeaderQuickTime
               <span className="ml-2 text-[var(--muted)]">{timerSummaryLabel}</span>
             </div>
             <Button className="h-10 px-4" onClick={handleStopTimer} type="button">
+              <span className="mr-2 inline-flex items-center">
+                <FontAwesomeIcon className="h-3.5 w-3.5" icon={faStop} />
+              </span>
               Stop
             </Button>
           </>
@@ -439,6 +454,9 @@ export function HeaderQuickTimer({ budgetMappings, saveAction }: HeaderQuickTime
               <span className="ml-2 text-[var(--muted)]">{timerSummaryLabel}</span>
             </div>
             <Button className="h-10 px-4" onClick={handleOpenFinishModal} type="button">
+              <span className="mr-2 inline-flex items-center">
+                <FontAwesomeIcon className="h-3.5 w-3.5" icon={faCheck} />
+              </span>
               Finish time entry
             </Button>
           </>
@@ -462,6 +480,9 @@ export function HeaderQuickTimer({ budgetMappings, saveAction }: HeaderQuickTime
                 onClick={() => setIsFinishModalOpen(false)}
                 type="button"
               >
+                <span className="mr-2 inline-flex items-center">
+                  <FontAwesomeIcon className="h-3.5 w-3.5" icon={faXmark} />
+                </span>
                 Close
               </button>
             </div>
@@ -628,9 +649,15 @@ export function HeaderQuickTimer({ budgetMappings, saveAction }: HeaderQuickTime
                 type="button"
                 variant="secondary"
               >
+                <span className="mr-2 inline-flex items-center">
+                  <FontAwesomeIcon className="h-3.5 w-3.5" icon={faTrash} />
+                </span>
                 Discard
               </Button>
               <Button disabled={isPending || timerState.mode !== "pending"} type="submit">
+                <span className="mr-2 inline-flex items-center">
+                  <FontAwesomeIcon className="h-3.5 w-3.5" icon={faFloppyDisk} />
+                </span>
                 Save time entry
               </Button>
             </div>
@@ -666,6 +693,9 @@ export function HeaderQuickTimer({ budgetMappings, saveAction }: HeaderQuickTime
               type="button"
               variant="destructive"
             >
+              <span className="mr-2 inline-flex items-center">
+                <FontAwesomeIcon className="h-3.5 w-3.5" icon={faTrash} />
+              </span>
               Discard time entry
             </Button>
           </div>

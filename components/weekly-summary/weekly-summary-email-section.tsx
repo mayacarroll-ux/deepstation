@@ -1,3 +1,6 @@
+import { faEnvelope, faFloppyDisk, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { Button } from "@/components/ui/button";
 import type {
   WeeklySummaryEmailSettingsRecord,
@@ -56,7 +59,10 @@ export function WeeklySummaryEmailSection({
     <section id="email-settings" className="grid gap-4 border border-[var(--border)] bg-[var(--panel)] p-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h3 className="text-xl font-semibold">Email weekly summary</h3>
+          <h3 className="flex items-center gap-2 text-xl font-semibold">
+            <FontAwesomeIcon className="h-4 w-4 text-[var(--accent)]" icon={faEnvelope} />
+            Email weekly summary
+          </h3>
           <p className="mt-2 text-sm text-[var(--muted)]">
             Save recipients, preview the exact email body, and send this week manually.
           </p>
@@ -114,6 +120,9 @@ export function WeeklySummaryEmailSection({
           </label>
           <div className="flex items-center gap-3">
             <Button type="submit" variant="secondary">
+              <span className="mr-2 inline-flex items-center">
+                <FontAwesomeIcon className="h-3.5 w-3.5" icon={faFloppyDisk} />
+              </span>
               Save recipients
             </Button>
             <p className="text-xs text-[var(--muted)]">
@@ -182,6 +191,9 @@ export function WeeklySummaryEmailSection({
               I understand this will resend the selected week if it was already emailed.
             </label>
             <Button disabled={!canSendSummary} type="submit">
+              <span className="mr-2 inline-flex items-center">
+                <FontAwesomeIcon className="h-3.5 w-3.5" icon={faPaperPlane} />
+              </span>
               {sendButtonLabel}
             </Button>
             {!hasConfiguredRecipients ? (

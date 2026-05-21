@@ -1,5 +1,7 @@
 "use client";
 
+import { faTrash, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -33,6 +35,9 @@ export function DeleteTimeEntryButton({
         type="button"
         variant="destructive"
       >
+        <span className="mr-2 inline-flex items-center">
+          <FontAwesomeIcon className="h-3.5 w-3.5" icon={faTrash} />
+        </span>
         Delete
       </Button>
 
@@ -70,11 +75,17 @@ export function DeleteTimeEntryButton({
 
           <div className="flex flex-wrap items-center justify-end gap-3 border-t border-[var(--border)] px-5 py-4">
             <Button onClick={() => setIsOpen(false)} type="button" variant="secondary">
+              <span className="mr-2 inline-flex items-center">
+                <FontAwesomeIcon className="h-3.5 w-3.5" icon={faXmark} />
+              </span>
               Cancel
             </Button>
             <form action={deleteAction.bind(null, entry.id)}>
               <input name="returnTo" type="hidden" value={returnToPath} />
               <Button type="submit" variant="destructive">
+                <span className="mr-2 inline-flex items-center">
+                  <FontAwesomeIcon className="h-3.5 w-3.5" icon={faTrash} />
+                </span>
                 Delete entry
               </Button>
             </form>

@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { faPenToSquare, faToggleOn } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Button } from "@/components/ui/button";
 import type { RecurringTemplateRecord } from "@/lib/services/recurring";
@@ -72,6 +74,9 @@ export function RecurringTemplateTable({
                     className="px-3 py-2 font-semibold hover:underline"
                     href={`${basePath}?recurringEdit=${recurringTemplate.id}`}
                   >
+                    <span className="mr-2 inline-flex items-center">
+                      <FontAwesomeIcon className="h-3.5 w-3.5" icon={faPenToSquare} />
+                    </span>
                     Edit
                   </Link>
                   <form action={toggleActiveAction.bind(null, recurringTemplate.id)}>
@@ -86,6 +91,9 @@ export function RecurringTemplateTable({
                       value={recurringTemplate.isActive ? "false" : "true"}
                     />
                     <Button type="submit" variant="secondary">
+                      <span className="mr-2 inline-flex items-center">
+                        <FontAwesomeIcon className="h-3.5 w-3.5" icon={faToggleOn} />
+                      </span>
                       {recurringTemplate.isActive ? "Deactivate" : "Activate"}
                     </Button>
                   </form>

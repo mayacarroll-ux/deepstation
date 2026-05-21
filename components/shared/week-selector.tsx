@@ -1,3 +1,6 @@
+import { faCalendarWeek } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { Button } from "@/components/ui/button";
 import { formatWeekLabel } from "@/lib/utils/dates";
 
@@ -60,6 +63,9 @@ export function WeekSelector({
         <span className="min-h-4 text-xs font-normal text-[var(--muted)]">{selectedWeekLabel}</span>
       </label>
       <Button className="h-11 px-5 !text-neutral-950" type="submit" variant={onSubmitButtonVariant}>
+        <span className="mr-2 inline-flex items-center">
+          <FontAwesomeIcon className="h-3.5 w-3.5" icon={faCalendarWeek} />
+        </span>
         {actionLabel}
       </Button>
     </form>
