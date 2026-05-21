@@ -43,8 +43,15 @@ export async function updateTimeEntryAction(timeEntryId: string, formData: FormD
   redirect("/time-entries");
 }
 
-export async function deleteTimeEntryAction(timeEntryId: string) {
+function buildDeleteReturnToPath(returnToPath: string) {
+  return returnToPath.includes("?")
+    ? `${returnToPath}&deleteStatus=deleted`
+    : `${returnToPath}?deleteStatus=deleted`;
+}
+
+export async function deleteTimeEntryAction(timeEntryId: string, formData: FormData) {
   const ownerId = await getCurrentWorkbookOwnerId();
+  const returnToPath = String(formData.get("returnTo") ?? "/time-entries");
 
   await ensureCurrentUserExists();
   await deleteTimeEntry(ownerId, timeEntryId);
@@ -52,6 +59,7 @@ export async function deleteTimeEntryAction(timeEntryId: string) {
   revalidatePath("/time-entries");
   revalidatePath("/weekly-summary");
   revalidatePath("/workday");
+  redirect(buildDeleteReturnToPath(returnToPath));
 }
 
 function redirectBackWithStatus(returnToPath: string, statusKey: string, statusValue: string) {

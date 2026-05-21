@@ -13,9 +13,10 @@ import {
 import type { TimeEntryRecord } from "@/lib/services/time-tracking";
 import { formatWeekLabel, getIsoWeekYear } from "@/lib/utils/dates";
 import { formatHours } from "@/lib/utils/format";
+import { DeleteTimeEntryButton } from "@/components/time-entries/delete-time-entry-button";
 
 type TimeEntryTableProps = {
-  deleteAction: (timeEntryId: string) => Promise<void>;
+  deleteAction: (timeEntryId: string, formData: FormData) => Promise<void>;
   makeRecurringAction: (timeEntryId: string, formData: FormData) => Promise<void>;
   recurringTemplateSourceTimeEntryIds: string[];
   returnToPath: string;
@@ -182,11 +183,11 @@ export function TimeEntryTable({
                           >
                             Edit
                           </Link>
-                          <form action={deleteAction.bind(null, timeEntry.id)}>
-                            <Button type="submit" variant="secondary">
-                              Delete
-                            </Button>
-                          </form>
+                          <DeleteTimeEntryButton
+                            deleteAction={deleteAction}
+                            entry={timeEntry}
+                            returnToPath={returnToPath}
+                          />
                         </div>
                       </TableCell>
                     </tr>

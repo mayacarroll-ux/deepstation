@@ -4,6 +4,7 @@ import { WeeklyAllocationSection } from "@/components/time-entries/weekly-alloca
 import { TimeEntryFilters } from "@/components/time-entries/time-entry-filters";
 import { TimeEntryTable } from "@/components/time-entries/time-entry-table";
 import { ButtonLink } from "@/components/ui/button";
+import { Toast } from "@/components/ui/toast";
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
 import { getRecurringTemplate, listRecurringTemplates } from "@/lib/services/recurring";
 import { getCurrentWeekTimesheetPreview } from "@/lib/services/current-week-timesheet";
@@ -155,6 +156,16 @@ function getMakeRecurringStatusMessage(
   return null;
 }
 
+function getDeleteStatusMessage(searchParams: Record<string, string | string[] | undefined>) {
+  const statusValue = getSearchParamValue(searchParams, "deleteStatus");
+
+  if (statusValue === "deleted") {
+    return "Time entry deleted";
+  }
+
+  return null;
+}
+
 function getAllocationStatusMessage(
   searchParams: Record<string, string | string[] | undefined>
 ) {
@@ -267,7 +278,8 @@ function buildReturnToPath(searchParams: Record<string, string | string[] | unde
     "currentWeekAllocationAdded",
     "currentWeekAllocationSkipped",
     "currentWeekWeek",
-    "currentWeekYear"
+    "currentWeekYear",
+    "deleteStatus"
   ]);
 
   for (const [key, value] of Object.entries(searchParams)) {
@@ -318,7 +330,8 @@ function buildAllocationHiddenFields(
     "currentWeekAllocationAdded",
     "currentWeekAllocationSkipped",
     "currentWeekWeek",
-    "currentWeekYear"
+    "currentWeekYear",
+    "deleteStatus"
   ]);
 
   for (const [key, value] of Object.entries(searchParams)) {
@@ -392,6 +405,7 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
     resolvedSearchParams
   );
   const makeRecurringStatusMessage = getMakeRecurringStatusMessage(resolvedSearchParams);
+  const deleteStatusMessage = getDeleteStatusMessage(resolvedSearchParams);
   const allocationWeekLabel = formatWeekLabel(allocationWeekNumber, allocationWeekYear);
   const recurringTemplateSourceTimeEntryIds = recurringTemplateRecords
     .map((recurringTemplate) => recurringTemplate.sourceTimeEntryId)
@@ -416,6 +430,7 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
           <ButtonLink href="/time-entries/new">New time entry</ButtonLink>
         </div>
       </div>
+      {deleteStatusMessage ? <Toast clearQueryParam="deleteStatus" message={deleteStatusMessage} /> : null}
       <div className="grid gap-6">
         <div className="grid min-w-0 gap-6">
           <TimeEntryFilters filterOptions={filterOptions} filters={filters} />
