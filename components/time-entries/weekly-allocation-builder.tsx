@@ -221,7 +221,7 @@ export function WeeklyAllocationBuilder({
             </p>
           </div>
           <Button
-            className="h-10 px-4 !text-neutral-950"
+            className="h-10 px-4"
             onClick={() => addRow()}
             disabled={!allocationIsOpen}
             type="button"
@@ -234,13 +234,13 @@ export function WeeklyAllocationBuilder({
         <div className="grid gap-3">
           {allocationRows.map((row, rowIndex) => (
             <div
-              className="grid gap-3 border border-[var(--border)] bg-[var(--panel)] p-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1.5fr)_minmax(0,1.5fr)_8rem_5rem]"
+              className="grid gap-3 border border-[var(--border)] bg-[var(--panel)] p-4 md:grid-cols-2 xl:grid-cols-[minmax(0,1.4fr)_minmax(0,1.3fr)_minmax(0,1.1fr)_7rem_7rem_6.5rem]"
               key={row.id}
             >
-              <label className="grid gap-2 text-sm font-semibold">
+              <label className="grid min-w-0 gap-2 text-sm font-semibold">
                 <span className="min-h-5">Project / task</span>
                 <select
-                  className="h-11 border border-[var(--border)] bg-[var(--surface)] px-3 font-normal outline-none focus:border-[var(--accent)]"
+                  className="h-11 min-w-0 border border-[var(--border)] bg-[var(--surface)] px-3 font-normal outline-none focus:border-[var(--accent)]"
                   onChange={(event) =>
                     updateRowField(row.id, "budgetMappingId", event.target.value)
                   }
@@ -253,10 +253,10 @@ export function WeeklyAllocationBuilder({
                   ))}
                 </select>
               </label>
-              <label className="grid gap-2 text-sm font-semibold">
+              <label className="grid min-w-0 gap-2 text-sm font-semibold">
                 <span className="min-h-5">Task description</span>
                 <input
-                  className="h-11 border border-[var(--border)] bg-[var(--surface)] px-3 font-normal outline-none focus:border-[var(--accent)]"
+                  className="h-11 min-w-0 border border-[var(--border)] bg-[var(--surface)] px-3 font-normal outline-none focus:border-[var(--accent)]"
                   onChange={(event) =>
                     updateRowField(row.id, "taskDescription", event.target.value)
                   }
@@ -264,19 +264,19 @@ export function WeeklyAllocationBuilder({
                   value={row.taskDescription}
                 />
               </label>
-              <label className="grid gap-2 text-sm font-semibold">
+              <label className="grid min-w-0 gap-2 text-sm font-semibold xl:col-span-1">
                 <span className="min-h-5">Notes</span>
                 <input
-                  className="h-11 border border-[var(--border)] bg-[var(--surface)] px-3 font-normal outline-none focus:border-[var(--accent)]"
+                  className="h-11 min-w-0 border border-[var(--border)] bg-[var(--surface)] px-3 font-normal outline-none focus:border-[var(--accent)]"
                   onChange={(event) => updateRowField(row.id, "notes", event.target.value)}
                   placeholder="Optional"
                   value={row.notes}
                 />
               </label>
-              <label className="grid gap-2 text-sm font-semibold">
+              <label className="grid min-w-0 gap-2 text-sm font-semibold">
                 <span className="min-h-5">Hours</span>
                 <input
-                  className="h-11 border border-[var(--border)] bg-[var(--surface)] px-3 font-normal tabular-nums outline-none focus:border-[var(--accent)]"
+                  className="h-11 min-w-0 border border-[var(--border)] bg-[var(--surface)] px-3 font-normal tabular-nums outline-none focus:border-[var(--accent)]"
                   inputMode="decimal"
                   min="0"
                   onChange={(event) =>
@@ -291,18 +291,18 @@ export function WeeklyAllocationBuilder({
                   value={row.hoursWorked}
                 />
               </label>
-              <div className="flex items-end justify-between gap-3">
-                <label className="flex items-center gap-2 text-sm font-semibold">
-                  <input
-                    checked={row.included}
-                    className="h-4 w-4 border-[var(--border)] accent-[var(--accent)]"
-                    onChange={() => toggleIncluded(row.id)}
-                    type="checkbox"
-                  />
-                  Include
-                </label>
+              <label className="flex min-w-0 items-end gap-2 text-sm font-semibold">
+                <input
+                  checked={row.included}
+                  className="h-4 w-4 border-[var(--border)] accent-[var(--accent)]"
+                  onChange={() => toggleIncluded(row.id)}
+                  type="checkbox"
+                />
+                Include
+              </label>
+              <div className="flex min-w-0 items-end justify-start xl:justify-end">
                 <Button
-                  className="h-10 px-3 !text-neutral-950"
+                  className="h-10 px-3"
                   onClick={() => removeRow(row.id)}
                   type="button"
                   variant="secondary"
@@ -312,7 +312,7 @@ export function WeeklyAllocationBuilder({
               </div>
 
               {rowIndex === 0 ? (
-                <p className="text-xs text-[var(--muted)] lg:col-span-5">
+                <p className="text-xs text-[var(--muted)] md:col-span-2 xl:col-span-6">
                   Adjust the first row or add more rows to split the remaining hours across multiple
                   project/task entries.
                 </p>
@@ -332,7 +332,7 @@ export function WeeklyAllocationBuilder({
             </p>
           </div>
           <Button
-            className="h-11 px-5 !text-neutral-950"
+            className="h-11 px-5"
             disabled={!canSave}
             type="submit"
           >
