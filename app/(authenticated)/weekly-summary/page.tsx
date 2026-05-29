@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { WeeklySummaryEmailSection } from "@/components/weekly-summary/weekly-summary-email-section";
 import { WeeklySummaryCopy } from "@/components/weekly-summary/weekly-summary-copy";
 import { WeekSelector } from "@/components/shared/week-selector";
+import { Toast } from "@/components/ui/toast";
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
 import { getDashboardStats, getWeeklySummaryForYear } from "@/lib/services/time-tracking";
 import {
@@ -139,9 +140,38 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
           : emailStatusValue === "send-error"
               ? "Could not send weekly summary email."
               : null;
+  const weeklySummaryToast =
+    emailStatusValue === "sent"
+      ? {
+          message: "Weekly summary email sent.",
+          detail: emailStatus?.lastMessageId ? "Message ID saved." : undefined,
+          tone: "success" as const
+        }
+      : emailStatusValue === "needs-confirmation"
+        ? {
+            message:
+              "This week was already emailed. Check resend confirmation to send it again.",
+            tone: "warning" as const
+          }
+        : emailStatusValue === "send-error"
+          ? {
+              message: "Weekly summary email was not sent.",
+              detail: emailErrorValue ?? "Could not send weekly summary email.",
+              tone: "error" as const
+            }
+          : null;
 
   return (
     <section className="py-8">
+      {weeklySummaryToast ? (
+        <Toast
+          clearQueryParams={["emailStatus", "emailError"]}
+          detail={weeklySummaryToast.detail}
+          message={weeklySummaryToast.message}
+          tone={weeklySummaryToast.tone}
+        />
+      ) : null}
+
       <div className="mb-6">
         <h2 className="text-2xl font-semibold">Weekly billing summary</h2>
         <p className="mt-2 text-[var(--muted)]">
@@ -225,7 +255,11 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
           selectedWeekNumber={selectedWeekNumber}
           selectedWeekYear={selectedWeekYear}
           statusMessage={emailStatusMessage}
-          statusDetail={emailErrorValue ?? null}
+          statusDetail={
+            emailStatusValue === "sent" && emailStatus?.lastMessageId
+              ? "Message ID saved."
+              : emailErrorValue ?? null
+          }
           subject={selectedWeekEmailSubject}
         />
       )}

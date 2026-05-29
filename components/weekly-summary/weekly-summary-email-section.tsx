@@ -1,7 +1,8 @@
-import { faEnvelope, faFloppyDisk, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Button } from "@/components/ui/button";
+import { WeeklySummarySendButton } from "@/components/weekly-summary/weekly-summary-send-button";
 import type {
   WeeklySummaryEmailSettingsRecord,
   WeeklySummaryEmailStatusRecord
@@ -190,12 +191,9 @@ export function WeeklySummaryEmailSection({
               <input name="allowResend" type="checkbox" value="true" />
               I understand this will resend the selected week if it was already emailed.
             </label>
-            <Button disabled={!canSendSummary} type="submit">
-              <span className="mr-2 inline-flex items-center">
-                <FontAwesomeIcon className="h-3.5 w-3.5" icon={faPaperPlane} />
-              </span>
-              {sendButtonLabel}
-            </Button>
+            <div className="flex flex-wrap items-center gap-3">
+              <WeeklySummarySendButton disabled={!canSendSummary} idleLabel={sendButtonLabel} />
+            </div>
             {!hasConfiguredRecipients ? (
               <p className="text-xs text-[var(--warning)]">
                 Save a manager email and at least one accounting email before sending.

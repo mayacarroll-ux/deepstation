@@ -48,6 +48,40 @@ function redirectBackWithError(
   );
 }
 
+function getSafeWeeklySummaryEmailErrorMessage(error: unknown) {
+  const errorMessage = error instanceof Error ? error.message : "";
+
+  if (errorMessage.includes("RESEND_API_KEY")) {
+    return "Missing Resend API key.";
+  }
+
+  if (
+    errorMessage.includes("EMAIL_FROM") ||
+    errorMessage.includes("RESEND_FROM_EMAIL") ||
+    errorMessage.includes("verified Resend sender")
+  ) {
+    return "Missing verified sender email.";
+  }
+
+  if (errorMessage.includes("Save a manager email and at least one accounting email")) {
+    return "No recipients configured.";
+  }
+
+  if (errorMessage.includes("No summary lines are available")) {
+    return "No billable hours for this week.";
+  }
+
+  if (errorMessage.includes("Could not save email recipients")) {
+    return "Could not save email recipients.";
+  }
+
+  if (errorMessage.includes("Resend rejected")) {
+    return "Resend rejected the email.";
+  }
+
+  return "Could not send weekly summary email.";
+}
+
 export async function saveWeeklySummaryEmailSettingsAction(formData: FormData) {
   const ownerId = await getCurrentWorkbookOwnerId();
   const weekNumber = getSelectedWeekNumber(formData);
@@ -58,7 +92,7 @@ export async function saveWeeklySummaryEmailSettingsAction(formData: FormData) {
   try {
     await saveWeeklySummaryEmailSettings(ownerId, formData);
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : "Could not save email recipients.";
+    const errorMessage = getSafeWeeklySummaryEmailErrorMessage(error);
     redirectBackWithError(weekNumber, weekYear, "settings-error", errorMessage);
   }
 
@@ -79,8 +113,7 @@ export async function sendWeeklySummaryEmailAction(formData: FormData) {
   try {
     sendResult = await sendWeeklySummaryEmail(ownerId, weekNumber, weekYear, allowResend);
   } catch (error) {
-    const errorMessage =
-      error instanceof Error ? error.message : "Could not send weekly summary email.";
+    const errorMessage = getSafeWeeklySummaryEmailErrorMessage(error);
     redirectBackWithError(weekNumber, weekYear, "send-error", errorMessage);
   }
 
