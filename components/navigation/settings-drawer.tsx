@@ -3,9 +3,11 @@
 import {
   faBars,
   faChevronLeft,
+  faCalendarWeek,
   faEnvelope,
   faGear,
-  faListCheck
+  faListCheck,
+  faSuitcase
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -28,13 +30,24 @@ const settingsNavigationItems = [
     matches: (pathname: string) => pathname === "/budget-key" || pathname.startsWith("/budget-key/")
   },
   {
+    href: "/workday",
+    label: "Workday helper",
+    matches: (pathname: string) => pathname === "/workday" || pathname.startsWith("/workday/")
+  },
+  {
+    href: "/weekly-allocation",
+    label: "Weekly allocation",
+    matches: (pathname: string) =>
+      pathname === "/weekly-allocation" || pathname.startsWith("/weekly-allocation/")
+  },
+  {
     href: "/weekly-summary#email-settings",
     label: "Email settings",
     matches: (pathname: string) => pathname === "/weekly-summary"
   },
   {
     href: "/recurring",
-    label: "Recurring settings",
+    label: "Recurring entries",
     matches: (pathname: string) => pathname === "/recurring" || pathname.startsWith("/recurring/")
   }
 ] as const;
@@ -106,6 +119,10 @@ export function SettingsDrawer() {
                 <span className="flex items-center gap-2">
                   {navigationItem.href === "/budget-key" ? (
                     <FontAwesomeIcon className="h-3.5 w-3.5" icon={faGear} />
+                  ) : navigationItem.href === "/workday" ? (
+                    <FontAwesomeIcon className="h-3.5 w-3.5" icon={faSuitcase} />
+                  ) : navigationItem.href === "/weekly-allocation" ? (
+                    <FontAwesomeIcon className="h-3.5 w-3.5" icon={faCalendarWeek} />
                   ) : navigationItem.href === "/weekly-summary#email-settings" ? (
                     <FontAwesomeIcon className="h-3.5 w-3.5" icon={faEnvelope} />
                   ) : (

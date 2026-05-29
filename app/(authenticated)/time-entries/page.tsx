@@ -1,7 +1,6 @@
 import { CurrentWeekTimesheetDrawer } from "@/components/time-entries/current-week-timesheet-drawer";
 import { NewTimeEntryDialog } from "@/components/time-entries/new-time-entry-dialog";
 import { TimeEntryWeekSelector } from "@/components/time-entries/time-entry-week-selector";
-import { WeeklyAllocationSection } from "@/components/time-entries/weekly-allocation-section";
 import { TimeEntryFilters } from "@/components/time-entries/time-entry-filters";
 import { TimeEntryTable } from "@/components/time-entries/time-entry-table";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,7 +8,6 @@ import { Toast } from "@/components/ui/toast";
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
 import { getCurrentWeekTimesheetPreview } from "@/lib/services/current-week-timesheet";
 import { listRecurringTemplates } from "@/lib/services/recurring";
-import { getWeeklyAllocationPreview } from "@/lib/services/weekly-allocation";
 import {
   listBudgetMappings,
   listTimeEntries,
@@ -28,7 +26,6 @@ import { formatHours } from "@/lib/utils/format";
 import {
   generateCurrentWeekTimesheetAction,
   createTimeEntryAction,
-  createWeeklyAllocationEntriesAction,
   deleteTimeEntryAction,
   makeRecurringTemplateAction
 } from "./actions";
@@ -115,30 +112,6 @@ function getFilters(searchParams: Record<string, string | string[] | undefined>)
     startDate: getSearchParamValue(searchParams, "from") || undefined,
     endDate: getSearchParamValue(searchParams, "to") || undefined
   } satisfies TimeEntryFilterValues;
-}
-
-function getAllocationWeekNumber(
-  searchParams: Record<string, string | string[] | undefined>,
-  fallbackWeekNumber: number
-) {
-  const allocationWeekValue = Number(getSearchParamValue(searchParams, "allocationWeek"));
-
-  return Number.isInteger(allocationWeekValue) && allocationWeekValue >= 1 && allocationWeekValue <= 53
-    ? allocationWeekValue
-    : fallbackWeekNumber;
-}
-
-function getAllocationWeekYear(
-  searchParams: Record<string, string | string[] | undefined>,
-  fallbackWeekYear: number
-) {
-  const allocationWeekYearValue = Number(getSearchParamValue(searchParams, "allocationYear"));
-
-  return Number.isInteger(allocationWeekYearValue) &&
-    allocationWeekYearValue >= 2000 &&
-    allocationWeekYearValue <= 2100
-    ? allocationWeekYearValue
-    : fallbackWeekYear;
 }
 
 function getSortedUniqueValues(values: string[]) {
@@ -344,41 +317,6 @@ function getTimeEntryMessage(searchParams: Record<string, string | string[] | un
   return getSearchParamValue(searchParams, "timeEntryMessage") || null;
 }
 
-function getAllocationStatusMessage(
-  searchParams: Record<string, string | string[] | undefined>
-) {
-  const statusValue = getSearchParamValue(searchParams, "allocationStatus");
-  const addedValue = Number(getSearchParamValue(searchParams, "allocationAdded"));
-  const skippedValue = Number(getSearchParamValue(searchParams, "allocationSkipped"));
-  const weekValue = Number(getSearchParamValue(searchParams, "allocationWeek"));
-  const yearValue = Number(getSearchParamValue(searchParams, "allocationYear"));
-
-  if (statusValue === "error") {
-    return getSearchParamValue(searchParams, "allocationMessage") || "Allocation failed.";
-  }
-
-  if (
-    !Number.isInteger(addedValue) ||
-    !Number.isInteger(skippedValue) ||
-    !Number.isInteger(weekValue) ||
-    !Number.isInteger(yearValue)
-  ) {
-    return null;
-  }
-
-  const selectedWeekLabel = formatWeekLabel(weekValue, yearValue);
-
-  if (statusValue === "duplicate") {
-    return `Skipped duplicate allocation plan for ${selectedWeekLabel}.`;
-  }
-
-  if (statusValue === "created") {
-    return `${addedValue} allocation entr${addedValue === 1 ? "y" : "ies"} added for ${selectedWeekLabel}.`;
-  }
-
-  return null;
-}
-
 function getCurrentWeekTimesheetStatusMessage(
   searchParams: Record<string, string | string[] | undefined>
 ) {
@@ -436,54 +374,6 @@ function getCurrentWeekTimesheetStatusMessage(
   return null;
 }
 
-function buildAllocationHiddenFields(
-  searchParams: Record<string, string | string[] | undefined>
-) {
-  const hiddenFields: Record<string, string> = {};
-  const excludedKeys = new Set([
-    "recurringTemplateStatus",
-    "recurringAdded",
-    "recurringSkipped",
-    "recurringWeek",
-    "recurringYear",
-    "recurringEdit",
-    "allocationWeek",
-    "allocationYear",
-    "allocationStatus",
-    "allocationMessage",
-    "allocationAdded",
-    "allocationSkipped",
-    "currentWeekTimesheetStatus",
-    "currentWeekTimesheetMessage",
-    "currentWeekRecurringAdded",
-    "currentWeekRecurringSkipped",
-    "currentWeekAllocationAdded",
-    "currentWeekAllocationSkipped",
-    "currentWeekWeek",
-    "currentWeekYear",
-    "deleteStatus"
-  ]);
-
-  for (const [key, value] of Object.entries(searchParams)) {
-    if (excludedKeys.has(key)) {
-      continue;
-    }
-
-    if (Array.isArray(value)) {
-      if (value[0]) {
-        hiddenFields[key] = value[0];
-      }
-      continue;
-    }
-
-    if (value) {
-      hiddenFields[key] = value;
-    }
-  }
-
-  return hiddenFields;
-}
-
 export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageProps) {
   const resolvedSearchParams = await searchParams;
   const ownerId = await getCurrentWorkbookOwnerId();
@@ -491,7 +381,6 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
   const historyMode = getHistoryMode(resolvedSearchParams);
   const defaultWeekNumber = getIsoWeekNumber(getTodayInputValue());
   const defaultWeekYear = getIsoWeekYear(getTodayInputValue());
-  const allocationHiddenFields = buildAllocationHiddenFields(resolvedSearchParams);
   const [allTimeEntryRecords, budgetMappingRecords] = await Promise.all([
     listTimeEntries(ownerId),
     listBudgetMappings(ownerId)
@@ -525,8 +414,6 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
     ...buildTimeEntriesHiddenFields(resolvedSearchParams, ["history"]),
     weekSelection: selectedWeekSelectionValue
   };
-  const allocationWeekNumber = getAllocationWeekNumber(resolvedSearchParams, selectedWeek.weekNumber);
-  const allocationWeekYear = getAllocationWeekYear(resolvedSearchParams, selectedWeek.weekYear);
   const currentWeekTimesheetPreview = await getCurrentWeekTimesheetPreview(
     ownerId,
     selectedWeek.weekNumber,
@@ -540,21 +427,18 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
   const timeEntryRecordsPromise = historyMode
     ? listTimeEntries(ownerId, filters)
     : selectedWeekTimeEntryRecordsPromise;
-  const [selectedWeekTimeEntryRecords, timeEntryRecords, recurringTemplateRecords, allocationPreview] = await Promise.all([
+  const [selectedWeekTimeEntryRecords, timeEntryRecords, recurringTemplateRecords] = await Promise.all([
     selectedWeekTimeEntryRecordsPromise,
     timeEntryRecordsPromise,
-    listRecurringTemplates(ownerId),
-    getWeeklyAllocationPreview(ownerId, allocationWeekNumber, allocationWeekYear)
+    listRecurringTemplates(ownerId)
   ]);
   const filterOptions = getFilterOptions(budgetMappingRecords, allTimeEntryRecords);
-  const allocationStatusMessage = getAllocationStatusMessage(resolvedSearchParams);
   const currentWeekTimesheetStatusMessage = getCurrentWeekTimesheetStatusMessage(
     resolvedSearchParams
   );
   const makeRecurringStatusMessage = getMakeRecurringStatusMessage(resolvedSearchParams);
   const deleteStatusMessage = getDeleteStatusMessage(resolvedSearchParams);
   const timeEntryMessage = getTimeEntryMessage(resolvedSearchParams);
-  const allocationWeekLabel = formatWeekLabel(allocationWeekNumber, allocationWeekYear);
   const selectedWeekLabel = formatWeekLabel(selectedWeek.weekNumber, selectedWeek.weekYear);
   const selectedWeekTotalHours = selectedWeekTimeEntryRecords.reduce(
     (totalHours, timeEntry) => totalHours + Number(timeEntry.hoursWorked),
@@ -641,18 +525,6 @@ export default async function TimeEntriesPage({ searchParams }: TimeEntriesPageP
               {makeRecurringStatusMessage}
             </div>
           ) : null}
-          <WeeklyAllocationSection
-            action={createWeeklyAllocationEntriesAction}
-            allocationHiddenFields={allocationHiddenFields}
-            budgetMappings={budgetMappingRecords}
-            existingHours={allocationPreview.existingHours}
-            remainingHours={allocationPreview.remainingHours}
-            returnToPath={selectedWeekReturnToPath}
-            selectedWeekLabel={allocationWeekLabel}
-            selectedWeekNumber={allocationWeekNumber}
-            selectedWeekYear={allocationWeekYear}
-            statusMessage={allocationStatusMessage}
-          />
         </div>
       </div>
     </section>

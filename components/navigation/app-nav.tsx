@@ -4,8 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChartColumn,
   faClock,
-  faFileInvoiceDollar,
-  faSuitcase
+  faFileInvoiceDollar
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -15,8 +14,7 @@ import { cn } from "@/lib/utils/cn";
 const navigationItems = [
   { href: "/dashboard", icon: faChartColumn, label: "Dashboard" },
   { href: "/time-entries", icon: faClock, label: "Time entries" },
-  { href: "/weekly-summary", icon: faFileInvoiceDollar, label: "Weekly summary" },
-  { href: "/workday", icon: faSuitcase, label: "Workday" }
+  { href: "/weekly-summary", icon: faFileInvoiceDollar, label: "Weekly summary" }
 ] as const;
 
 export function AppNav() {
@@ -57,10 +55,6 @@ function isNavigationItemActive(pathname: string, navigationItemHref: string) {
 
   if (navigationItemHref === "/weekly-summary") {
     return pathname === "/weekly-summary" || pathname.startsWith("/weekly-summary/");
-  }
-
-  if (navigationItemHref === "/workday") {
-    return pathname === "/workday" || pathname.startsWith("/workday/");
   }
 
   return false;
