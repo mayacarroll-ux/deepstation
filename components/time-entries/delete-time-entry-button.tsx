@@ -12,7 +12,7 @@ import {
   DialogHeader,
   DialogTitle
 } from "@/components/ui/dialog";
-import type { TimeEntryRecord } from "@/lib/services/time-tracking";
+import type { TimeEntryRecord } from "@/lib/types/time-tracking";
 
 type DeleteTimeEntryButtonProps = {
   deleteAction: (timeEntryId: string, formData: FormData) => Promise<void>;

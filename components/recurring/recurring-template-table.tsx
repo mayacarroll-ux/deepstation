@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Button } from "@/components/ui/button";
 import { recurringDayOptions } from "@/lib/constants/recurring";
-import type { RecurringTemplateRecord } from "@/lib/services/recurring";
+import type { RecurringTemplateRecord } from "@/lib/types/recurring";
 
 type RecurringTemplateTableProps = {
   recurringTemplates: RecurringTemplateRecord[];

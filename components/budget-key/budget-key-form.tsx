@@ -2,7 +2,7 @@ import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Button } from "@/components/ui/button";
-import type { BudgetMappingRecord } from "@/lib/services/time-tracking";
+import type { BudgetMappingRecord } from "@/lib/types/time-tracking";
 import { BudgetKeyFields } from "./budget-key-fields";
 
 type BudgetKeyFormProps = {

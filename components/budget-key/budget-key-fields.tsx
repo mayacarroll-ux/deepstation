@@ -2,7 +2,7 @@
 
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import type { BudgetMappingRecord } from "@/lib/services/time-tracking";
+import type { BudgetMappingRecord } from "@/lib/types/time-tracking";
 
 type BudgetKeyFieldsProps = {
   budgetMapping?: BudgetMappingRecord;

@@ -12,7 +12,7 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table";
-import type { TimeEntryRecord } from "@/lib/services/time-tracking";
+import type { TimeEntryRecord } from "@/lib/types/time-tracking";
 import { formatWeekLabel, getIsoWeekYear } from "@/lib/utils/dates";
 import { formatHours } from "@/lib/utils/format";
 import { DeleteTimeEntryButton } from "@/components/time-entries/delete-time-entry-button";

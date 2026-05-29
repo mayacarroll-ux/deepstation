@@ -24,10 +24,27 @@ import {
   weeklySummaryScheduleDefaultTimeOfDay,
   weeklySummaryScheduleTimeZone
 } from "@/lib/constants/weekly-summary-email";
+import type {
+  WeeklySummaryEmailPreview,
+  WeeklySummaryEmailScheduleRecord,
+  WeeklySummaryEmailSendMode,
+  WeeklySummaryEmailSendResult,
+  WeeklySummaryEmailSettingsRecord,
+  WeeklySummaryEmailStatusRecord
+} from "@/lib/types/weekly-summary-email";
 import { getIsoWeekDateRange } from "@/lib/utils/dates";
 import { formatBillingSummaryText } from "@/lib/utils/format";
 
 import { getWeeklySummaryForYear, requireDatabase } from "./time-tracking";
+
+export type {
+  WeeklySummaryEmailPreview,
+  WeeklySummaryEmailScheduleRecord,
+  WeeklySummaryEmailSendMode,
+  WeeklySummaryEmailSendResult,
+  WeeklySummaryEmailSettingsRecord,
+  WeeklySummaryEmailStatusRecord
+} from "@/lib/types/weekly-summary-email";
 
 export const weeklySummaryEmailSettingsFormSchema = z.object({
   managerEmail: z.string().trim().email("Manager email is required."),
@@ -52,33 +69,6 @@ export const weeklySummaryEmailScheduleFormSchema = z.object({
     .regex(/^(?:[01]\d|2[0-3]):[0-5]\d$/, "Time must use 24-hour HH:MM format.")
 });
 
-export type WeeklySummaryEmailSettingsRecord =
-  typeof weeklySummaryEmailSettings.$inferSelect;
-
-export type WeeklySummaryEmailScheduleRecord =
-  typeof weeklySummaryEmailSchedules.$inferSelect;
-
-export type WeeklySummaryEmailStatusRecord =
-  typeof weeklySummaryEmailStatuses.$inferSelect;
-
-export type WeeklySummaryEmailPreview = {
-  subject: string;
-  bodyText: string;
-  toRecipients: string[];
-  ccRecipients: string[];
-  bccRecipients: string[];
-};
-
-export type WeeklySummaryEmailSendResult = {
-  sent: boolean;
-  duplicateBlocked: boolean;
-  weekNumber: number;
-  weekYear: number;
-  messageId: string | null;
-  recipientCount: number;
-};
-
-export type WeeklySummaryEmailSendMode = "manual" | "resend" | "auto";
 type WeeklySummaryEmailRecipientSettings = {
   managerEmail: string;
   accountingEmails: string[];

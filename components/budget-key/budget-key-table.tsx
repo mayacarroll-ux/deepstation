@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import type { BudgetMappingRecord } from "@/lib/services/time-tracking";
+import type { BudgetMappingRecord } from "@/lib/types/time-tracking";
 
 type BudgetKeyTableProps = {
   budgetMappings: BudgetMappingRecord[];

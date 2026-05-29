@@ -10,7 +10,7 @@ import {
   SheetTitle,
   SheetDescription
 } from "@/components/ui/sheet";
-import type { CurrentWeekTimesheetPreview } from "@/lib/services/current-week-timesheet";
+import type { CurrentWeekTimesheetPreview } from "@/lib/types/current-week-timesheet";
 
 import { CurrentWeekTimesheetGenerator } from "./current-week-timesheet-generator";
 

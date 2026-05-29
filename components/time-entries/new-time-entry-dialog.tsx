@@ -13,7 +13,7 @@ import {
   DialogHeader,
   DialogTitle
 } from "@/components/ui/dialog";
-import type { BudgetMappingRecord } from "@/lib/services/time-tracking";
+import type { BudgetMappingRecord } from "@/lib/types/time-tracking";
 
 import { TimeEntryForm } from "./time-entry-form";
 

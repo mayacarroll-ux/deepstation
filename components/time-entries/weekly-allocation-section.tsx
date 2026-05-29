@@ -1,6 +1,6 @@
 import { WeekSelector } from "@/components/shared/week-selector";
 import { getIsoWeekDateRange } from "@/lib/utils/dates";
-import type { BudgetMappingRecord } from "@/lib/services/time-tracking";
+import type { BudgetMappingRecord } from "@/lib/types/time-tracking";
 import { formatHours } from "@/lib/utils/format";
 
 import { WeeklyAllocationBuilder } from "./weekly-allocation-builder";

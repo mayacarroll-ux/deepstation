@@ -6,7 +6,14 @@ import { z } from "zod";
 import { database } from "@/db";
 import { budgetMappings, timeEntries } from "@/db/schema";
 import { isProduction } from "@/lib/config";
+import type { TimeEntryFilters } from "@/lib/types/time-tracking";
 import { getIsoWeekNumber, getIsoWeekYear, getTodayInputValue } from "@/lib/utils/dates";
+
+export type {
+  BudgetMappingRecord,
+  TimeEntryFilters,
+  TimeEntryRecord
+} from "@/lib/types/time-tracking";
 
 export const budgetMappingFormSchema = z.object({
   productName: z.string().trim().min(1, "Product Name is required."),
@@ -46,8 +53,6 @@ export const timeEntryFormSchema = z.object({
   notes: z.string().trim().optional()
 });
 
-export type BudgetMappingRecord = typeof budgetMappings.$inferSelect;
-export type TimeEntryRecord = typeof timeEntries.$inferSelect;
 type ImportedWorkbookData = {
   budgetMappings: Array<{
     id: string;
@@ -68,16 +73,6 @@ type ImportedWorkbookData = {
     weekNumber: number;
     notes: string | null;
   }>;
-};
-
-export type TimeEntryFilters = {
-  weekNumber?: number;
-  weekYear?: number;
-  productName?: string;
-  budgetName?: string;
-  budgetNumber?: string;
-  startDate?: string;
-  endDate?: string;
 };
 
 const accountantProjectNamesByProductName = new Map([

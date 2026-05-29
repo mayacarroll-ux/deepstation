@@ -1,61 +1,20 @@
 import { getIsoWeekNumber, getIsoWeekYear, getTodayInputValue, getIsoWeekDateRange, formatWeekLabel } from "@/lib/utils/dates";
 import { splitHoursEvenlyAcrossRows } from "@/lib/utils/format";
 
-import {
-  getRecurringApplyPreview,
-  type RecurringPreviewEntry
-} from "./recurring";
-import {
-  listBudgetMappings,
-  listTimeEntries,
-  type BudgetMappingRecord,
-  type TimeEntryRecord
-} from "./time-tracking";
+import { getRecurringApplyPreview } from "./recurring";
+import { listBudgetMappings, listTimeEntries } from "./time-tracking";
+import type {
+  CurrentWeekTimesheetPreview
+} from "@/lib/types/current-week-timesheet";
+import type { BudgetMappingRecord, TimeEntryRecord } from "@/lib/types/time-tracking";
+import type { RecurringPreviewEntry } from "@/lib/types/recurring";
+
+export type {
+  CurrentWeekAllocationSuggestion,
+  CurrentWeekTimesheetPreview
+} from "@/lib/types/current-week-timesheet";
 
 export const weeklyTimesheetCapHours = 20;
-
-export type CurrentWeekAllocationSuggestion = {
-  budgetMappingId: string;
-  taskDescription: string;
-  notes: string;
-  hoursWorked: number;
-};
-
-export type CurrentWeekTimesheetPreview = {
-  weekNumber: number;
-  weekYear: number;
-  weekLabel: string;
-  weekStartDate: string;
-  weekEndDate: string;
-  capHours: number;
-  savedHours: number;
-  recurringExistingHours: number;
-  recurringPendingHours: number;
-  remainingHoursAfterRecurring: number;
-  totalPreviewHours: number;
-  recurringExistingEntries: RecurringPreviewEntry[];
-  recurringPendingEntries: RecurringPreviewEntry[];
-  savedEntries: Array<{
-    id: string;
-    entryDate: string;
-    productName: string;
-    budgetName: string;
-    budgetNumber: string;
-    taskDescription: string;
-    hoursWorked: number;
-    notes: string | null;
-    source: "manual" | "recurring" | "allocation";
-  }>;
-  allocationSuggestions: CurrentWeekAllocationSuggestion[];
-  manualSourceRows: Array<{
-    id: string;
-    budgetMappingId: string | null;
-    taskDescription: string;
-    notes: string | null;
-  }>;
-  budgetMappings: BudgetMappingRecord[];
-  warningMessage: string | null;
-};
 
 function normalizeText(value: string) {
   return value.trim().replace(/\s+/g, " ");

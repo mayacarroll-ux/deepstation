@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import type { TimeEntryRecord } from "@/lib/services/time-tracking";
+import type { TimeEntryRecord } from "@/lib/types/time-tracking";
 import { calculateHoursFromTimeRange, formatHours, formatTimeRange } from "@/lib/utils/format";
 
 type WorkdayTimeEntryRowProps = {

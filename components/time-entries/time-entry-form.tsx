@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import type {
   BudgetMappingRecord,
   TimeEntryRecord
-} from "@/lib/services/time-tracking";
+} from "@/lib/types/time-tracking";
 import { RepeatWeeklyFields } from "@/components/time-entries/repeat-weekly-fields";
 import {
   getIsoDayOfWeek,

@@ -4,6 +4,18 @@ import { z } from "zod";
 import { database } from "@/db";
 import { recurringTimeEntryTemplates, timeEntries } from "@/db/schema";
 import { isProduction } from "@/lib/config";
+import type {
+  BudgetMappingRecord,
+  TimeEntryRecord
+} from "@/lib/types/time-tracking";
+import type {
+  RecurringApplyPreview,
+  RecurringApplyResult,
+  RecurringPreviewEntry,
+  RecurringTemplateCreationResult,
+  RecurringTemplateRecord,
+  RecurringTemplateSourceInput
+} from "@/lib/types/recurring";
 import { getIsoDayOfWeek, getIsoWeekDateRange } from "@/lib/utils/dates";
 
 import {
@@ -11,9 +23,16 @@ import {
   listBudgetMappings,
   listTimeEntries,
   requireDatabase,
-  type BudgetMappingRecord,
-  type TimeEntryRecord
 } from "./time-tracking";
+
+export type {
+  RecurringApplyPreview,
+  RecurringApplyResult,
+  RecurringPreviewEntry,
+  RecurringTemplateCreationResult,
+  RecurringTemplateRecord,
+  RecurringTemplateSourceInput
+} from "@/lib/types/recurring";
 
 export const recurringTemplateFormSchema = z.object({
   templateId: z.string().uuid().optional().or(z.literal("")),
@@ -35,59 +54,6 @@ export const recurringTemplateFormSchema = z.object({
   endDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().or(z.literal("")),
   isActive: z.string().optional()
 });
-
-export type RecurringTemplateRecord = typeof recurringTimeEntryTemplates.$inferSelect;
-
-export type RecurringApplyResult = {
-  attemptedCount: number;
-  insertedCount: number;
-  skippedCount: number;
-  selectedWeekNumber: number;
-  selectedWeekYear: number;
-};
-
-export type RecurringPreviewEntry = {
-  entryDate: string;
-  hoursWorked: number;
-  notes: string | null;
-  productName: string;
-  budgetName: string;
-  budgetNumber: string;
-  taskDescription: string;
-  recurringTemplateId: string;
-  status: "existing" | "pending";
-  timeEntryId: string | null;
-};
-
-export type RecurringApplyPreview = {
-  attemptedCount: number;
-  existingEntries: RecurringPreviewEntry[];
-  pendingEntries: RecurringPreviewEntry[];
-  existingHours: number;
-  pendingHours: number;
-  selectedWeekNumber: number;
-  selectedWeekYear: number;
-};
-
-export type RecurringTemplateCreationResult = {
-  created: boolean;
-  duplicate: boolean;
-  templateId: string;
-};
-
-export type RecurringTemplateSourceInput = {
-  sourceTimeEntryId?: string | null;
-  taskDescription: string;
-  productName: string;
-  budgetName: string;
-  budgetNumber: string;
-  dayOfWeek: number;
-  hoursWorked: number | string;
-  notes?: string | null;
-  startDate: string;
-  endDate?: string | null;
-  isActive?: boolean;
-};
 
 function normalizeTemplateKey(value: string) {
   return value.trim().replace(/\s+/g, " ").toLowerCase();

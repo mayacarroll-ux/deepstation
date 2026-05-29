@@ -1,9 +1,7 @@
 import { RecurringApplyForm } from "@/components/recurring/recurring-apply-form";
 import { RecurringTemplateForm } from "@/components/recurring/recurring-template-form";
 import { RecurringTemplateTable } from "@/components/recurring/recurring-template-table";
-import type {
-  RecurringTemplateRecord
-} from "@/lib/services/recurring";
+import type { RecurringTemplateRecord } from "@/lib/types/recurring";
 
 type RecurringWorkflowProps = {
   applyRecurringTemplatesAction: (formData: FormData) => Promise<void>;

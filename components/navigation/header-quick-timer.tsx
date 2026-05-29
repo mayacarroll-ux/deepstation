@@ -24,7 +24,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import type { BudgetMappingRecord } from "@/lib/services/time-tracking";
+import type { BudgetMappingRecord } from "@/lib/types/time-tracking";
 import { getIsoDayOfWeek, getIsoWeekNumber, getTodayInputValue } from "@/lib/utils/dates";
 import { formatHours, formatHourUnit, formatTimeInput } from "@/lib/utils/format";
 

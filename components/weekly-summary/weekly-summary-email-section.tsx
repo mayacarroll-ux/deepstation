@@ -15,7 +15,7 @@ import type {
   WeeklySummaryEmailScheduleRecord,
   WeeklySummaryEmailSettingsRecord,
   WeeklySummaryEmailStatusRecord
-} from "@/lib/services/weekly-summary-email";
+} from "@/lib/types/weekly-summary-email";
 import type { WeeklySummaryEmailScheduleDefaults } from "@/lib/constants/weekly-summary-email";
 
 type WeeklySummaryEmailSectionProps = {

@@ -30,13 +30,6 @@ export type WeeklySummaryEmailScheduleDefaults = {
   timeZone: string;
 };
 
-export type WeeklySummaryEmailScheduleRecord = {
-  enabled: boolean;
-  dayOfWeek: number;
-  timeOfDay: string;
-  timeZone: string;
-};
-
 export function formatWeeklySummaryEmailScheduleDayLabel(dayOfWeek: number) {
   return weekdayLabelsByDayOfWeek[dayOfWeek] ?? "Unknown day";
 }
