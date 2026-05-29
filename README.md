@@ -87,6 +87,9 @@ password stored in `APP_PASSWORD`; data remains scoped to `single-user`.
    Summary email view.
 10. Deploy to Vercel with `npm run build`.
 
+If you need to trigger a fresh Vercel build from GitHub, push a small commit to
+`main` after updating the app or deployment settings.
+
 In production, `DATABASE_URL` is required and the local JSON workbook fallback is
 disabled. Missing production auth or database variables fail closed at request
 entry points.
