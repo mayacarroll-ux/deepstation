@@ -1,25 +1,49 @@
 import { faEnvelope, faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
+import { Select } from "@/components/ui/select";
 import { WeeklySummarySendButton } from "@/components/weekly-summary/weekly-summary-send-button";
 import type {
+  WeeklySummaryEmailScheduleDefaults,
+  WeeklySummaryEmailScheduleRecord,
   WeeklySummaryEmailSettingsRecord,
   WeeklySummaryEmailStatusRecord
+} from "@/lib/services/weekly-summary-email";
+import {
+  formatWeeklySummaryEmailScheduleDayLabel,
+  getWeeklySummaryEmailScheduleLabel,
+  formatWeeklySummaryEmailScheduleTimeLabel
 } from "@/lib/services/weekly-summary-email";
 
 type WeeklySummaryEmailSectionProps = {
   bodyText: string;
+  defaultEmailSchedule: WeeklySummaryEmailScheduleDefaults;
   emailSettings: WeeklySummaryEmailSettingsRecord | null;
+  emailSchedule: WeeklySummaryEmailScheduleRecord | null;
   emailStatus: WeeklySummaryEmailStatusRecord | null;
+  onSaveScheduleAction: (formData: FormData) => Promise<void>;
   onSaveSettingsAction: (formData: FormData) => Promise<void>;
   onSendEmailAction: (formData: FormData) => Promise<void>;
   selectedWeekNumber: number;
   selectedWeekYear: number;
+  scheduleStatusMessage: string | null;
+  scheduleStatusDetail: string | null;
   statusMessage: string | null;
   statusDetail: string | null;
   subject: string;
 };
+
+const weekDayOptions = [
+  { value: 1, label: "Monday" },
+  { value: 2, label: "Tuesday" },
+  { value: 3, label: "Wednesday" },
+  { value: 4, label: "Thursday" },
+  { value: 5, label: "Friday" },
+  { value: 6, label: "Saturday" },
+  { value: 7, label: "Sunday" }
+] as const;
 
 function formatRecipientList(recipients: string[]) {
   const uniqueRecipients = Array.from(new Set(recipients.map((recipient) => recipient.trim()))).filter(
@@ -38,12 +62,17 @@ function formatLastSentAt(lastSentAt: Date) {
 
 export function WeeklySummaryEmailSection({
   bodyText,
+  defaultEmailSchedule,
   emailSettings,
+  emailSchedule,
   emailStatus,
+  onSaveScheduleAction,
   onSaveSettingsAction,
   onSendEmailAction,
   selectedWeekNumber,
   selectedWeekYear,
+  scheduleStatusMessage,
+  scheduleStatusDetail,
   statusMessage,
   statusDetail,
   subject
@@ -55,6 +84,20 @@ export function WeeklySummaryEmailSection({
     ? "Resend weekly summary email"
     : "Send weekly summary email";
   const canSendSummary = bodyText.length > 0 && hasConfiguredRecipients;
+  const effectiveEmailSchedule = emailSchedule ?? {
+    id: "",
+    ownerId: "",
+    enabled: defaultEmailSchedule.enabled,
+    dayOfWeek: defaultEmailSchedule.dayOfWeek,
+    timeOfDay: defaultEmailSchedule.timeOfDay,
+    timeZone: defaultEmailSchedule.timeZone,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  };
+  const scheduleStatusLabel = effectiveEmailSchedule.enabled ? "On" : "Off";
+  const scheduleDescription = effectiveEmailSchedule.enabled
+    ? getWeeklySummaryEmailScheduleLabel(effectiveEmailSchedule)
+    : "Scheduled send is off. You can still send manually.";
 
   return (
     <section id="email-settings" className="grid gap-4 border border-[var(--border)] bg-[var(--panel)] p-6">
@@ -81,6 +124,7 @@ export function WeeklySummaryEmailSection({
 
       <div className="grid gap-4 xl:grid-cols-[0.95fr_1.05fr]">
         <form action={onSaveSettingsAction} className="grid gap-4 border border-[var(--border)] bg-[var(--surface)] p-5">
+          <input name="view" type="hidden" value="email" />
           <input name="weekNumber" type="hidden" value={selectedWeekNumber} />
           <input name="weekYear" type="hidden" value={selectedWeekYear} />
           <div>
@@ -135,6 +179,105 @@ export function WeeklySummaryEmailSection({
         <section className="grid gap-4 border border-[var(--border)] bg-[var(--surface)] p-5">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
+              <h4 className="text-lg font-semibold">Scheduled send</h4>
+              <p className="mt-1 text-sm text-[var(--muted)]">{scheduleDescription}</p>
+              {!emailSchedule ? (
+                <p className="mt-1 text-xs text-[var(--muted)]">
+                  No saved schedule yet. The defaults below are shown until you save one.
+                </p>
+              ) : null}
+            </div>
+            <div className="grid gap-1 text-right text-xs text-[var(--muted)]">
+              <p>Scheduled send</p>
+              <p className="font-semibold text-[var(--foreground)]">{scheduleStatusLabel}</p>
+              <p>
+                Day{" "}
+                <span className="font-semibold text-[var(--foreground)]">
+                  {formatWeeklySummaryEmailScheduleDayLabel(effectiveEmailSchedule.dayOfWeek)}
+                </span>
+              </p>
+              <p>
+                Time{" "}
+                <span className="font-semibold text-[var(--foreground)]">
+                  {formatWeeklySummaryEmailScheduleTimeLabel(effectiveEmailSchedule.timeOfDay)}
+                </span>
+              </p>
+              <p>
+                Timezone{" "}
+                <span className="font-semibold text-[var(--foreground)]">
+                  {effectiveEmailSchedule.timeZone}
+                </span>
+              </p>
+            </div>
+          </div>
+
+          {scheduleStatusMessage ? (
+            <div className="border border-[var(--border)] bg-[var(--panel)] px-4 py-3 text-sm text-[var(--foreground)]">
+              <p>{scheduleStatusMessage}</p>
+              {scheduleStatusDetail ? (
+                <p className="mt-1 text-xs text-[var(--muted)]">{scheduleStatusDetail}</p>
+              ) : null}
+            </div>
+          ) : null}
+
+          <form action={onSaveScheduleAction} className="grid gap-4 border-t border-[var(--border)] pt-4">
+            <input name="view" type="hidden" value="email" />
+            <input name="weekNumber" type="hidden" value={selectedWeekNumber} />
+            <input name="weekYear" type="hidden" value={selectedWeekYear} />
+            <input name="timeZone" type="hidden" value={effectiveEmailSchedule.timeZone} />
+            <label className="flex items-center gap-3 text-sm font-semibold">
+              <Checkbox
+                defaultChecked={effectiveEmailSchedule.enabled}
+                name="scheduleEnabled"
+                value="on"
+              />
+              Schedule send
+            </label>
+            <div className="grid gap-4 sm:grid-cols-3">
+              <label className="grid gap-2 text-sm font-semibold">
+                <span className="min-h-5">Day</span>
+                <Select defaultValue={String(effectiveEmailSchedule.dayOfWeek)} name="dayOfWeek">
+                  {weekDayOptions.map((dayOption) => (
+                    <option key={dayOption.value} value={dayOption.value}>
+                      {dayOption.label}
+                    </option>
+                  ))}
+                </Select>
+              </label>
+              <label className="grid gap-2 text-sm font-semibold">
+                <span className="min-h-5">Time</span>
+                <input
+                  className="h-11 border border-[var(--border)] px-3 font-normal outline-none focus:border-[var(--accent)]"
+                  defaultValue={effectiveEmailSchedule.timeOfDay}
+                  name="timeOfDay"
+                  step="60"
+                  type="time"
+                />
+              </label>
+              <div className="grid gap-2 text-sm font-semibold">
+                <span className="min-h-5">Timezone</span>
+                <div className="flex h-11 items-center border border-[var(--border)] bg-[var(--panel)] px-3 font-normal">
+                  {effectiveEmailSchedule.timeZone}
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <Button type="submit">
+                <span className="mr-2 inline-flex items-center">
+                  <FontAwesomeIcon className="h-3.5 w-3.5" icon={faFloppyDisk} />
+                </span>
+                Save schedule
+              </Button>
+              <p className="text-xs text-[var(--muted)]">
+                Scheduled sends still require automation to be enabled in Vercel.
+              </p>
+            </div>
+          </form>
+        </section>
+
+        <section className="grid gap-4 border border-[var(--border)] bg-[var(--surface)] p-5">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
               <h4 className="text-lg font-semibold">Email preview</h4>
               <p className="mt-1 text-sm text-[var(--muted)]">
                 This is the exact summary body that will be sent.
@@ -185,6 +328,7 @@ export function WeeklySummaryEmailSection({
           </pre>
 
           <form action={onSendEmailAction} className="grid gap-3 border-t border-[var(--border)] pt-4">
+            <input name="view" type="hidden" value="email" />
             <input name="weekNumber" type="hidden" value={selectedWeekNumber} />
             <input name="weekYear" type="hidden" value={selectedWeekYear} />
             <label className="flex items-center gap-3 text-sm font-semibold">

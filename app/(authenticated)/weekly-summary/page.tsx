@@ -10,6 +10,8 @@ import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
 import { getWeeklySummaryForYear } from "@/lib/services/time-tracking";
 import {
   buildWeeklySummaryEmailSubject,
+  getDefaultWeeklySummaryEmailSchedule,
+  getWeeklySummaryEmailSchedule,
   getWeeklySummaryEmailSettings,
   getWeeklySummaryEmailStatus
 } from "@/lib/services/weekly-summary-email";
@@ -23,6 +25,7 @@ import { formatBillingSummaryText, formatHours } from "@/lib/utils/format";
 
 import {
   saveWeeklySummaryEmailSettingsAction,
+  saveWeeklySummaryEmailScheduleAction,
   sendWeeklySummaryEmailAction
 } from "./actions";
 
@@ -44,6 +47,15 @@ function getRequestedWeekYear(searchParams: Record<string, string | string[] | u
   const weekYear = Number(Array.isArray(yearValue) ? yearValue[0] : yearValue);
 
   return Number.isInteger(weekYear) && weekYear >= 2000 && weekYear <= 2100 ? weekYear : null;
+}
+
+function getSearchParamValue(
+  searchParams: Record<string, string | string[] | undefined>,
+  key: string
+) {
+  const value = searchParams[key];
+
+  return Array.isArray(value) ? value[0] : value;
 }
 
 function getEmailStatus(searchParams: Record<string, string | string[] | undefined>) {
@@ -113,13 +125,10 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
   const selectedWeekNumber =
     requestedWeekNumber ?? getIsoWeekNumber(currentIsoWeekInputValue);
   const selectedWeekYear = requestedWeekYear ?? getIsoWeekYear(currentIsoWeekInputValue);
-  const weeklySummary = await getWeeklySummaryForYear(
-    ownerId,
-    selectedWeekNumber,
-    selectedWeekYear
-  );
-  const [emailSettings, emailStatus] = await Promise.all([
+  const [weeklySummary, emailSettings, emailSchedule, emailStatus] = await Promise.all([
+    getWeeklySummaryForYear(ownerId, selectedWeekNumber, selectedWeekYear),
     getWeeklySummaryEmailSettings(ownerId),
+    getWeeklySummaryEmailSchedule(ownerId),
     getWeeklySummaryEmailStatus(ownerId, selectedWeekYear, selectedWeekNumber)
   ]);
   const selectedWeekLabel = formatWeekLabel(selectedWeekNumber, selectedWeekYear);
@@ -134,6 +143,9 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
   );
   const emailStatusValue = getEmailStatus(resolvedSearchParams);
   const emailErrorValue = getEmailError(resolvedSearchParams);
+  const scheduleStatusValue = getSearchParamValue(resolvedSearchParams, "scheduleStatus");
+  const scheduleErrorValue = getSearchParamValue(resolvedSearchParams, "scheduleError");
+  const defaultEmailSchedule = getDefaultWeeklySummaryEmailSchedule();
   const emailStatusMessage =
     emailStatusValue === "settings-saved"
       ? "Email recipients saved."
@@ -146,6 +158,12 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
           : emailStatusValue === "send-error"
               ? "Could not send weekly summary email."
               : null;
+  const scheduleStatusMessage =
+    scheduleStatusValue === "saved"
+      ? "Weekly summary schedule updated."
+      : scheduleStatusValue === "error"
+        ? "Could not save weekly summary schedule."
+        : null;
   const weeklySummaryToast =
     emailStatusValue === "sent"
       ? {
@@ -165,13 +183,24 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
               detail: emailErrorValue ?? "Could not send weekly summary email.",
               tone: "error" as const
             }
-          : null;
+          : scheduleStatusValue === "saved"
+            ? {
+                message: "Weekly summary schedule updated.",
+                tone: "success" as const
+              }
+            : scheduleStatusValue === "error"
+              ? {
+                  message: "Weekly summary schedule was not saved.",
+                  detail: scheduleErrorValue ?? "Could not save weekly summary schedule.",
+                  tone: "error" as const
+                }
+              : null;
 
   return (
     <section className="py-8">
       {weeklySummaryToast ? (
         <Toast
-          clearQueryParams={["emailStatus", "emailError"]}
+          clearQueryParams={["emailStatus", "emailError", "scheduleStatus", "scheduleError"]}
           detail={weeklySummaryToast.detail}
           message={weeklySummaryToast.message}
           tone={weeklySummaryToast.tone}
@@ -254,12 +283,17 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
       ) : (
         <WeeklySummaryEmailSection
           bodyText={summaryText}
+          defaultEmailSchedule={defaultEmailSchedule}
           emailSettings={emailSettings}
+          emailSchedule={emailSchedule}
           emailStatus={emailStatus}
+          onSaveScheduleAction={saveWeeklySummaryEmailScheduleAction}
           onSaveSettingsAction={saveWeeklySummaryEmailSettingsAction}
           onSendEmailAction={sendWeeklySummaryEmailAction}
           selectedWeekNumber={selectedWeekNumber}
           selectedWeekYear={selectedWeekYear}
+          scheduleStatusMessage={scheduleStatusMessage}
+          scheduleStatusDetail={scheduleErrorValue ?? null}
           statusMessage={emailStatusMessage}
           statusDetail={
             emailStatusValue === "sent" && emailStatus?.lastMessageId

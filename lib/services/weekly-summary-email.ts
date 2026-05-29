@@ -5,6 +5,7 @@ import { z } from "zod";
 import { database } from "@/db";
 import {
   weeklySummaryEmailSettings,
+  weeklySummaryEmailSchedules,
   weeklySummaryEmailStatuses
 } from "@/db/schema";
 import { isProduction, serverEnvironment } from "@/lib/config";
@@ -23,11 +24,37 @@ export const weeklySummaryEmailSettingsFormSchema = z.object({
   ccEmails: z.string().trim().optional()
 });
 
+export const weeklySummaryEmailScheduleFormSchema = z.object({
+  scheduleEnabled: z
+    .string()
+    .optional()
+    .transform((value) => value === "on" || value === "true"),
+  dayOfWeek: z.coerce
+    .number()
+    .int("Day of week must be a whole number.")
+    .min(1, "Day of week is required.")
+    .max(7, "Day of week cannot be greater than 7."),
+  timeOfDay: z
+    .string()
+    .trim()
+    .regex(/^(?:[01]\d|2[0-3]):[0-5]\d$/, "Time must use 24-hour HH:MM format.")
+});
+
 export type WeeklySummaryEmailSettingsRecord =
   typeof weeklySummaryEmailSettings.$inferSelect;
 
+export type WeeklySummaryEmailScheduleRecord =
+  typeof weeklySummaryEmailSchedules.$inferSelect;
+
 export type WeeklySummaryEmailStatusRecord =
   typeof weeklySummaryEmailStatuses.$inferSelect;
+
+export type WeeklySummaryEmailScheduleDefaults = {
+  enabled: boolean;
+  dayOfWeek: number;
+  timeOfDay: string;
+  timeZone: string;
+};
 
 export type WeeklySummaryEmailPreview = {
   subject: string;
@@ -46,6 +73,29 @@ export type WeeklySummaryEmailSendResult = {
 };
 
 export type WeeklySummaryEmailSendMode = "manual" | "resend" | "auto";
+
+const weeklySummaryScheduleTimeZone = "America/New_York";
+const weeklySummaryScheduleDefaultDayOfWeek = 5;
+const weeklySummaryScheduleDefaultTimeOfDay = "17:00";
+const weekdayLabelsByDayOfWeek = [
+  "",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday"
+] as const;
+const weekdayShortToDayOfWeek = new Map([
+  ["Mon", 1],
+  ["Tue", 2],
+  ["Wed", 3],
+  ["Thu", 4],
+  ["Fri", 5],
+  ["Sat", 6],
+  ["Sun", 7]
+]);
 
 function parseEmailList(rawEmails: string | null | undefined) {
   return String(rawEmails ?? "")
@@ -95,6 +145,145 @@ function getDefaultWeeklySummaryCcRecipients() {
 
 function getEffectiveCcRecipients(rawCcRecipients: string[]) {
   return dedupeEmails([...rawCcRecipients, ...getDefaultWeeklySummaryCcRecipients()]);
+}
+
+export function getDefaultWeeklySummaryEmailSchedule(): WeeklySummaryEmailScheduleDefaults {
+  return {
+    enabled: serverEnvironment.WEEKLY_SUMMARY_AUTOMATION_ENABLED === "true",
+    dayOfWeek: weeklySummaryScheduleDefaultDayOfWeek,
+    timeOfDay: weeklySummaryScheduleDefaultTimeOfDay,
+    timeZone: weeklySummaryScheduleTimeZone
+  };
+}
+
+export function formatWeeklySummaryEmailScheduleDayLabel(dayOfWeek: number) {
+  return weekdayLabelsByDayOfWeek[dayOfWeek] ?? "Unknown day";
+}
+
+export function formatWeeklySummaryEmailScheduleTimeLabel(timeOfDay: string) {
+  const [hourValue, minuteValue] = timeOfDay.split(":").map(Number);
+
+  if (
+    !Number.isInteger(hourValue) ||
+    !Number.isInteger(minuteValue) ||
+    hourValue < 0 ||
+    hourValue > 23 ||
+    minuteValue < 0 ||
+    minuteValue > 59
+  ) {
+    return timeOfDay;
+  }
+
+  const timeValue = new Date(Date.UTC(2000, 0, 1, hourValue, minuteValue));
+
+  return new Intl.DateTimeFormat("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+    timeZone: "UTC"
+  }).format(timeValue);
+}
+
+export function getWeeklySummaryEmailScheduleLabel(schedule: WeeklySummaryEmailScheduleDefaults) {
+  const dayLabel = formatWeeklySummaryEmailScheduleDayLabel(schedule.dayOfWeek);
+  const timeLabel = formatWeeklySummaryEmailScheduleTimeLabel(schedule.timeOfDay);
+  const timezoneLabel =
+    schedule.timeZone === weeklySummaryScheduleTimeZone ? "Eastern" : schedule.timeZone;
+
+  return `Scheduled to send every ${dayLabel} at ${timeLabel} ${timezoneLabel}.`;
+}
+
+function formatWeekdayShort(weekday: string) {
+  return weekdayShortToDayOfWeek.get(weekday);
+}
+
+function getDateTimePartsInTimeZone(currentDate: Date, timeZone: string) {
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone,
+    weekday: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false
+  });
+
+  const partEntries = formatter.formatToParts(currentDate).map((part) => [part.type, part.value]);
+  const parts = Object.fromEntries(partEntries) as Record<string, string>;
+  const dayOfWeek = formatWeekdayShort(parts.weekday);
+
+  return {
+    dayOfWeek,
+    hour: Number(parts.hour),
+    minute: Number(parts.minute)
+  };
+}
+
+export function doesWeeklySummaryScheduleMatch(
+  currentDate: Date,
+  schedule: WeeklySummaryEmailScheduleDefaults
+) {
+  if (!schedule.enabled) {
+    return false;
+  }
+
+  const timeParts = getDateTimePartsInTimeZone(currentDate, schedule.timeZone);
+  const [scheduledHourValue, scheduledMinuteValue] = schedule.timeOfDay.split(":").map(Number);
+
+  return (
+    timeParts.dayOfWeek === schedule.dayOfWeek &&
+    timeParts.hour === scheduledHourValue &&
+    timeParts.minute === scheduledMinuteValue
+  );
+}
+
+export async function getWeeklySummaryEmailSchedule(ownerId: string) {
+  if (!database) {
+    if (isProduction) {
+      throw new Error("DATABASE_URL is required to load weekly summary email schedule in production.");
+    }
+
+    return null;
+  }
+
+  const [schedule] = await database
+    .select()
+    .from(weeklySummaryEmailSchedules)
+    .where(eq(weeklySummaryEmailSchedules.ownerId, ownerId))
+    .limit(1);
+
+  return schedule ?? null;
+}
+
+export async function saveWeeklySummaryEmailSchedule(
+  ownerId: string,
+  formData: FormData
+) {
+  const writableDatabase = requireDatabase();
+  const parsedSchedule = weeklySummaryEmailScheduleFormSchema.parse({
+    scheduleEnabled: formData.get("scheduleEnabled"),
+    dayOfWeek: formData.get("dayOfWeek"),
+    timeOfDay: formData.get("timeOfDay")
+  });
+
+  await writableDatabase
+    .insert(weeklySummaryEmailSchedules)
+    .values({
+      ownerId,
+      enabled: parsedSchedule.scheduleEnabled,
+      dayOfWeek: parsedSchedule.dayOfWeek,
+      timeOfDay: parsedSchedule.timeOfDay,
+      timeZone: weeklySummaryScheduleTimeZone,
+      updatedAt: new Date()
+    })
+    .onConflictDoUpdate({
+      target: weeklySummaryEmailSchedules.ownerId,
+      set: {
+        enabled: parsedSchedule.scheduleEnabled,
+        dayOfWeek: parsedSchedule.dayOfWeek,
+        timeOfDay: parsedSchedule.timeOfDay,
+        timeZone: weeklySummaryScheduleTimeZone,
+        updatedAt: new Date()
+      }
+    });
 }
 
 function getResendClient() {

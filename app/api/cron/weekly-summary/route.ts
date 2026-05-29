@@ -5,31 +5,27 @@ import { serverEnvironment } from "@/lib/config";
 import { getIsoWeekNumber, getIsoWeekYear } from "@/lib/utils/dates";
 
 import {
+  doesWeeklySummaryScheduleMatch,
+  getDefaultWeeklySummaryEmailSchedule,
+  getWeeklySummaryEmailSchedule,
   getWeeklySummaryEmailSettings,
   sendWeeklySummaryEmail
 } from "@/lib/services/weekly-summary-email";
 import { getWeeklySummaryForYear } from "@/lib/services/time-tracking";
 
-const newYorkTimeZone = "America/New_York";
-
-function getNewYorkDateParts(currentDate: Date) {
+function getDatePartsInTimeZone(currentDate: Date, timeZone: string) {
   const formatter = new Intl.DateTimeFormat("en-US", {
-    timeZone: newYorkTimeZone,
-    weekday: "short",
+    timeZone,
     year: "numeric",
     month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    hour12: false
+    day: "2-digit"
   });
 
   const partEntries = formatter.formatToParts(currentDate).map((part) => [part.type, part.value]);
   const parts = Object.fromEntries(partEntries) as Record<string, string>;
 
   return {
-    dateInputValue: `${parts.year}-${parts.month}-${parts.day}`,
-    weekday: parts.weekday,
-    hour: Number(parts.hour)
+    dateInputValue: `${parts.year}-${parts.month}-${parts.day}`
   };
 }
 
@@ -77,29 +73,49 @@ export async function GET(request: NextRequest) {
     );
   }
 
+  const ownerId = singleUserId;
+  const savedSchedule = await getWeeklySummaryEmailSchedule(ownerId);
   const currentDate = new Date();
-  const { dateInputValue, weekday, hour } = getNewYorkDateParts(currentDate);
+  const effectiveSchedule = savedSchedule ?? getDefaultWeeklySummaryEmailSchedule();
 
-  if (weekday !== "Fri" || hour !== 17) {
-    console.log("Weekly summary cron skipped outside the Friday 5 PM Eastern window.", {
-      weekday,
-      hour,
-      timezone: newYorkTimeZone
+  if (!effectiveSchedule.enabled) {
+    console.log("Weekly summary cron skipped because scheduled send is off.", {
+      timezone: effectiveSchedule.timeZone,
+      dayOfWeek: effectiveSchedule.dayOfWeek,
+      timeOfDay: effectiveSchedule.timeOfDay
+    });
+
+    return NextResponse.json(
+      {
+        status: "skipped",
+        reason: "scheduled_send_off"
+      },
+      { status: 200 }
+    );
+  }
+
+  if (!doesWeeklySummaryScheduleMatch(currentDate, effectiveSchedule)) {
+    console.log("Weekly summary cron skipped outside configured send window.", {
+      timezone: effectiveSchedule.timeZone,
+      dayOfWeek: effectiveSchedule.dayOfWeek,
+      timeOfDay: effectiveSchedule.timeOfDay
     });
 
     return NextResponse.json(
       {
         status: "skipped",
         reason: "outside_scheduled_window",
-        timezone: newYorkTimeZone
+        timezone: effectiveSchedule.timeZone,
+        dayOfWeek: effectiveSchedule.dayOfWeek,
+        timeOfDay: effectiveSchedule.timeOfDay
       },
       { status: 200 }
     );
   }
 
+  const { dateInputValue } = getDatePartsInTimeZone(currentDate, effectiveSchedule.timeZone);
   const weekNumber = getIsoWeekNumber(dateInputValue);
   const weekYear = getIsoWeekYear(dateInputValue);
-  const ownerId = singleUserId;
 
   const [emailSettings, weeklySummary] = await Promise.all([
     getWeeklySummaryEmailSettings(ownerId),

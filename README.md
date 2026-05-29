@@ -80,10 +80,11 @@ password stored in `APP_PASSWORD`; data remains scoped to `single-user`.
    DATABASE_URL="postgres://..." npm run import:workbook -- /path/to/workbook.xlsx
    ```
 
-9. Add the Vercel cron schedule in `vercel.json`. Vercel cron uses UTC, so the
-   app schedules Friday runs at `21:00` and `22:00` UTC and the endpoint only
-   sends when the current time in `America/New_York` is Friday at 5 PM. That
-   keeps the send aligned with 5 PM Eastern across daylight saving changes.
+9. Add the Vercel cron schedule in `vercel.json`. The cron route runs on a
+   regular schedule and checks the saved weekly summary email schedule in
+   Postgres before sending. The app defaults to Friday at 5:00 PM Eastern when
+   automation is enabled, and the schedule can be edited from the Weekly
+   Summary email view.
 10. Deploy to Vercel with `npm run build`.
 
 In production, `DATABASE_URL` is required and the local JSON workbook fallback is

@@ -50,6 +50,13 @@
       "when": 1779325841414,
       "tag": "0006_tiny_microchip",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1780091792474,
+      "tag": "0007_normal_mojo",
+      "breakpoints": true
     }
   ]
 }

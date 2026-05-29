@@ -8,6 +8,7 @@ import {
   getCurrentWorkbookOwnerId
 } from "@/lib/services/current-user";
 import {
+  saveWeeklySummaryEmailSchedule,
   saveWeeklySummaryEmailSettings,
   sendWeeklySummaryEmail,
   type WeeklySummaryEmailSendResult
@@ -31,21 +32,68 @@ function getSelectedWeekYear(formData: FormData) {
     : new Date().getFullYear();
 }
 
-function redirectBack(weekNumber: number, weekYear: number, emailStatus: string) {
-  redirect(`/weekly-summary?week=${weekNumber}&year=${weekYear}&emailStatus=${emailStatus}`);
+function redirectBack(
+  weekNumber: number,
+  weekYear: number,
+  emailStatus: string,
+  view: string | undefined
+) {
+  const queryParameters = new URLSearchParams({
+    week: String(weekNumber),
+    year: String(weekYear),
+    emailStatus
+  });
+
+  if (view) {
+    queryParameters.set("view", view);
+  }
+
+  redirect(`/weekly-summary?${queryParameters.toString()}`);
 }
 
 function redirectBackWithError(
   weekNumber: number,
   weekYear: number,
   emailStatus: string,
-  errorMessage: string
+  errorMessage: string,
+  view: string | undefined
 ) {
-  redirect(
-    `/weekly-summary?week=${weekNumber}&year=${weekYear}&emailStatus=${emailStatus}&emailError=${encodeURIComponent(
-      errorMessage
-    )}`
-  );
+  const queryParameters = new URLSearchParams({
+    week: String(weekNumber),
+    year: String(weekYear),
+    emailStatus,
+    emailError: errorMessage
+  });
+
+  if (view) {
+    queryParameters.set("view", view);
+  }
+
+  redirect(`/weekly-summary?${queryParameters.toString()}`);
+}
+
+function redirectBackWithScheduleStatus(
+  weekNumber: number,
+  weekYear: number,
+  scheduleStatus: string,
+  scheduleError?: string,
+  view?: string
+) {
+  const queryParameters = new URLSearchParams({
+    week: String(weekNumber),
+    year: String(weekYear),
+    scheduleStatus
+  });
+
+  if (scheduleError) {
+    queryParameters.set("scheduleError", scheduleError);
+  }
+
+  if (view) {
+    queryParameters.set("view", view);
+  }
+
+  redirect(`/weekly-summary?${queryParameters.toString()}`);
 }
 
 function getSafeWeeklySummaryEmailErrorMessage(error: unknown) {
@@ -75,6 +123,10 @@ function getSafeWeeklySummaryEmailErrorMessage(error: unknown) {
     return "Could not save email recipients.";
   }
 
+  if (errorMessage.includes("Could not save weekly summary schedule")) {
+    return "Could not save weekly summary schedule.";
+  }
+
   if (errorMessage.includes("Resend rejected")) {
     return "Resend rejected the email.";
   }
@@ -86,6 +138,7 @@ export async function saveWeeklySummaryEmailSettingsAction(formData: FormData) {
   const ownerId = await getCurrentWorkbookOwnerId();
   const weekNumber = getSelectedWeekNumber(formData);
   const weekYear = getSelectedWeekYear(formData);
+  const view = String(formData.get("view") ?? "") || undefined;
 
   await ensureCurrentUserExists();
 
@@ -93,17 +146,37 @@ export async function saveWeeklySummaryEmailSettingsAction(formData: FormData) {
     await saveWeeklySummaryEmailSettings(ownerId, formData);
   } catch (error) {
     const errorMessage = getSafeWeeklySummaryEmailErrorMessage(error);
-    redirectBackWithError(weekNumber, weekYear, "settings-error", errorMessage);
+    redirectBackWithError(weekNumber, weekYear, "settings-error", errorMessage, view);
   }
 
   revalidatePath("/weekly-summary");
-  redirectBack(weekNumber, weekYear, "settings-saved");
+  redirectBack(weekNumber, weekYear, "settings-saved", view);
+}
+
+export async function saveWeeklySummaryEmailScheduleAction(formData: FormData) {
+  const ownerId = await getCurrentWorkbookOwnerId();
+  const weekNumber = getSelectedWeekNumber(formData);
+  const weekYear = getSelectedWeekYear(formData);
+  const view = String(formData.get("view") ?? "") || undefined;
+
+  await ensureCurrentUserExists();
+
+  try {
+    await saveWeeklySummaryEmailSchedule(ownerId, formData);
+  } catch (error) {
+    const errorMessage = getSafeWeeklySummaryEmailErrorMessage(error);
+    redirectBackWithScheduleStatus(weekNumber, weekYear, "error", errorMessage, view);
+  }
+
+  revalidatePath("/weekly-summary");
+  redirectBackWithScheduleStatus(weekNumber, weekYear, "saved", undefined, view);
 }
 
 export async function sendWeeklySummaryEmailAction(formData: FormData) {
   const ownerId = await getCurrentWorkbookOwnerId();
   const weekNumber = getSelectedWeekNumber(formData);
   const weekYear = getSelectedWeekYear(formData);
+  const view = String(formData.get("view") ?? "") || undefined;
   const allowResend = formData.get("allowResend") === "true";
 
   await ensureCurrentUserExists();
@@ -114,14 +187,14 @@ export async function sendWeeklySummaryEmailAction(formData: FormData) {
     sendResult = await sendWeeklySummaryEmail(ownerId, weekNumber, weekYear, allowResend);
   } catch (error) {
     const errorMessage = getSafeWeeklySummaryEmailErrorMessage(error);
-    redirectBackWithError(weekNumber, weekYear, "send-error", errorMessage);
+    redirectBackWithError(weekNumber, weekYear, "send-error", errorMessage, view);
   }
 
   revalidatePath("/weekly-summary");
 
   if (sendResult?.duplicateBlocked) {
-    redirectBack(weekNumber, weekYear, "needs-confirmation");
+    redirectBack(weekNumber, weekYear, "needs-confirmation", view);
   }
 
-  redirectBack(weekNumber, weekYear, "sent");
+  redirectBack(weekNumber, weekYear, "sent", view);
 }

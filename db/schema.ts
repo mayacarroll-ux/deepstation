@@ -195,6 +195,27 @@ export const weeklySummaryEmailSettings = pgTable(
   ]
 );
 
+export const weeklySummaryEmailSchedules = pgTable(
+  "weekly_summary_email_schedules",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    ownerId: text("owner_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    enabled: boolean("enabled").notNull(),
+    dayOfWeek: integer("day_of_week").notNull(),
+    timeOfDay: text("time_of_day").notNull(),
+    timeZone: text("time_zone").notNull(),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull()
+  },
+  (weeklySummaryEmailScheduleTable) => [
+    uniqueIndex("weekly_summary_email_schedule_owner_unique").on(
+      weeklySummaryEmailScheduleTable.ownerId
+    )
+  ]
+);
+
 export const weeklySummaryEmailStatuses = pgTable(
   "weekly_summary_email_statuses",
   {
