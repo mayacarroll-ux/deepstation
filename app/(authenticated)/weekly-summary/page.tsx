@@ -7,13 +7,18 @@ import { WeeklySummaryCopy } from "@/components/weekly-summary/weekly-summary-co
 import { WeekSelector } from "@/components/shared/week-selector";
 import { Toast } from "@/components/ui/toast";
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
-import { getDashboardStats, getWeeklySummaryForYear } from "@/lib/services/time-tracking";
+import { getWeeklySummaryForYear } from "@/lib/services/time-tracking";
 import {
   buildWeeklySummaryEmailSubject,
   getWeeklySummaryEmailSettings,
   getWeeklySummaryEmailStatus
 } from "@/lib/services/weekly-summary-email";
-import { formatWeekLabel, getIsoWeekYear, getTodayInputValue } from "@/lib/utils/dates";
+import {
+  formatWeekLabel,
+  getIsoWeekNumber,
+  getIsoWeekYear,
+  getTodayInputValue
+} from "@/lib/utils/dates";
 import { formatBillingSummaryText, formatHours } from "@/lib/utils/format";
 
 import {
@@ -104,9 +109,10 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
   const ownerId = await getCurrentWorkbookOwnerId();
   const requestedWeekNumber = getRequestedWeekNumber(resolvedSearchParams);
   const requestedWeekYear = getRequestedWeekYear(resolvedSearchParams);
-  const dashboardStats = requestedWeekNumber ? null : await getDashboardStats(ownerId);
-  const selectedWeekNumber = requestedWeekNumber ?? dashboardStats?.currentWeekNumber ?? 1;
-  const selectedWeekYear = requestedWeekYear ?? getIsoWeekYear(getTodayInputValue());
+  const currentIsoWeekInputValue = getTodayInputValue();
+  const selectedWeekNumber =
+    requestedWeekNumber ?? getIsoWeekNumber(currentIsoWeekInputValue);
+  const selectedWeekYear = requestedWeekYear ?? getIsoWeekYear(currentIsoWeekInputValue);
   const weeklySummary = await getWeeklySummaryForYear(
     ownerId,
     selectedWeekNumber,
