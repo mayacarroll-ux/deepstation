@@ -30,7 +30,7 @@ export function WeekSelector({
   return (
     <form
       action={formAction}
-      className="grid gap-3 border border-[var(--border)] bg-[var(--panel)] p-4 sm:grid-cols-[8rem_8rem_auto] sm:items-start"
+      className="grid gap-3 border border-[var(--border)] bg-[var(--panel)] p-4 sm:grid-cols-[8rem_10rem_auto] sm:items-end"
     >
       {hiddenFields
         ? Object.entries(hiddenFields).map(([fieldName, fieldValue]) => (
@@ -62,7 +62,11 @@ export function WeekSelector({
         />
         <span className="min-h-4 text-xs font-normal text-[var(--muted)]">{selectedWeekLabel}</span>
       </label>
-      <Button className="h-11 px-5 !text-neutral-950" type="submit" variant={onSubmitButtonVariant}>
+      <Button
+        className="h-11 self-end px-5 !text-neutral-950"
+        type="submit"
+        variant={onSubmitButtonVariant}
+      >
         <span className="mr-2 inline-flex items-center">
           <FontAwesomeIcon className="h-3.5 w-3.5" icon={faCalendarWeek} />
         </span>

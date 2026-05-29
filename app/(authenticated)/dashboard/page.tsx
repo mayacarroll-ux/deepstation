@@ -2,12 +2,8 @@ import { WeeklyHoursPieChart } from "@/components/dashboard/weekly-hours-pie-cha
 import { WeekEntriesReveal } from "@/components/dashboard/week-entries-reveal";
 import { WeekSelector } from "@/components/shared/week-selector";
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
-import {
-  getDashboardStats,
-  listTimeEntries,
-  getWeeklySummaryForYear
-} from "@/lib/services/time-tracking";
-import { formatWeekLabel } from "@/lib/utils/dates";
+import { listTimeEntries, getWeeklySummaryForYear } from "@/lib/services/time-tracking";
+import { formatWeekLabel, getIsoWeekNumber, getIsoWeekYear, getTodayInputValue } from "@/lib/utils/dates";
 
 type DashboardPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -39,11 +35,12 @@ function getRequestedWeekYear(searchParams: Record<string, string | string[] | u
 export default async function DashboardPage({ searchParams }: DashboardPageProps) {
   const resolvedSearchParams = await searchParams;
   const ownerId = await getCurrentWorkbookOwnerId();
-  const dashboardStats = await getDashboardStats(ownerId);
   const requestedWeekNumber = getRequestedWeekNumber(resolvedSearchParams);
   const requestedWeekYear = getRequestedWeekYear(resolvedSearchParams);
-  const selectedWeekNumber = requestedWeekNumber ?? dashboardStats.currentWeekNumber;
-  const selectedWeekYear = requestedWeekYear ?? dashboardStats.currentWeekYear;
+  const currentIsoWeekNumber = getIsoWeekNumber(getTodayInputValue());
+  const currentIsoWeekYear = getIsoWeekYear(getTodayInputValue());
+  const selectedWeekNumber = requestedWeekNumber ?? currentIsoWeekNumber;
+  const selectedWeekYear = requestedWeekYear ?? currentIsoWeekYear;
   const weeklySummary = await getWeeklySummaryForYear(
     ownerId,
     selectedWeekNumber,
@@ -67,7 +64,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
 
   return (
     <section className="py-8">
-      <div className="mb-6 flex flex-wrap items-start justify-start gap-3">
+      <div className="mb-6 grid gap-3">
         <WeekSelector
           actionLabel="View week"
           defaultWeekNumber={selectedWeekNumber}
