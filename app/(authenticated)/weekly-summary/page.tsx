@@ -221,18 +221,18 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
           defaultWeekYear={selectedWeekYear}
           hiddenFields={{ view: selectedView }}
         />
-        <div className="grid gap-2 rounded-md border border-[var(--border)] bg-[var(--panel)] p-1 sm:grid-cols-2">
+        <div className="grid grid-cols-2 gap-1 rounded-md border border-[var(--border)] bg-[var(--panel)] p-1">
           <Link
             aria-current={selectedView === "copy" ? "page" : undefined}
             className={
               selectedView === "copy"
-                ? "border border-[var(--accent)] bg-[var(--accent)] px-4 py-3 text-sm font-semibold !text-neutral-950 shadow-[0_0_0_1px_var(--accent)]"
-                : "border border-transparent bg-[var(--surface)] px-4 py-3 text-sm font-semibold text-[var(--foreground)] transition-colors hover:border-[var(--accent)] hover:bg-[var(--surface-muted)]"
+                ? "border border-[var(--accent)] bg-[var(--accent)] px-3 py-2.5 text-xs font-semibold !text-neutral-950 shadow-[0_0_0_1px_var(--accent)] sm:px-4 sm:py-3 sm:text-sm"
+                : "border border-transparent bg-[var(--surface)] px-3 py-2.5 text-xs font-semibold text-[var(--foreground)] transition-colors hover:border-[var(--accent)] hover:bg-[var(--surface-muted)] sm:px-4 sm:py-3 sm:text-sm"
             }
             href={buildWeeklySummaryHref(resolvedSearchParams, { view: "copy" })}
           >
-            <span className="flex items-center gap-2">
-              <FontAwesomeIcon className="h-3.5 w-3.5" icon={faCopy} />
+            <span className="flex min-w-0 items-center justify-center gap-2">
+              <FontAwesomeIcon className="h-3 w-3 sm:h-3.5 sm:w-3.5" icon={faCopy} />
               <span>Copy / export</span>
             </span>
           </Link>
@@ -240,13 +240,13 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
             aria-current={selectedView === "email" ? "page" : undefined}
             className={
               selectedView === "email"
-                ? "border border-[var(--accent)] bg-[var(--accent)] px-4 py-3 text-sm font-semibold !text-neutral-950 shadow-[0_0_0_1px_var(--accent)]"
-                : "border border-transparent bg-[var(--surface)] px-4 py-3 text-sm font-semibold text-[var(--foreground)] transition-colors hover:border-[var(--accent)] hover:bg-[var(--surface-muted)]"
+                ? "border border-[var(--accent)] bg-[var(--accent)] px-3 py-2.5 text-xs font-semibold !text-neutral-950 shadow-[0_0_0_1px_var(--accent)] sm:px-4 sm:py-3 sm:text-sm"
+                : "border border-transparent bg-[var(--surface)] px-3 py-2.5 text-xs font-semibold text-[var(--foreground)] transition-colors hover:border-[var(--accent)] hover:bg-[var(--surface-muted)] sm:px-4 sm:py-3 sm:text-sm"
             }
             href={buildWeeklySummaryHref(resolvedSearchParams, { view: "email" })}
           >
-            <span className="flex items-center gap-2">
-              <FontAwesomeIcon className="h-3.5 w-3.5" icon={faEnvelope} />
+            <span className="flex min-w-0 items-center justify-center gap-2">
+              <FontAwesomeIcon className="h-3 w-3 sm:h-3.5 sm:w-3.5" icon={faEnvelope} />
               <span>Email</span>
             </span>
           </Link>
@@ -254,28 +254,28 @@ export default async function WeeklySummaryPage({ searchParams }: WeeklySummaryP
       </div>
 
       {selectedView === "copy" ? (
-        <div className="grid gap-6 lg:grid-cols-[0.72fr_1.28fr]">
-          <section className="border border-[var(--border)] bg-[var(--panel)] p-6">
-            <div className="border-t border-[var(--border)] bg-[var(--surface)] p-5">
+        <div className="grid gap-4 lg:grid-cols-[0.72fr_1.28fr]">
+          <section className="border border-[var(--border)] bg-[var(--panel)] p-4 sm:p-6">
+            <div className="border-t border-[var(--border)] bg-[var(--surface)] p-4 sm:p-5">
               <p className="text-sm text-[var(--muted)]">Total hours</p>
-              <p className="mt-2 text-4xl font-semibold text-[var(--accent)]">
+              <p className="mt-2 text-3xl font-semibold text-[var(--accent)] sm:text-4xl">
                 {formatHours(weeklySummary.totalHours)} hrs
               </p>
               <p className="mt-2 text-sm text-[var(--muted)]">{selectedWeekLabel}</p>
             </div>
           </section>
 
-          <section className="border border-[var(--border)] bg-[var(--panel-elevated)] p-6">
-            <div className="flex flex-wrap items-center justify-between gap-4">
+          <section className="border border-[var(--border)] bg-[var(--panel-elevated)] p-4 sm:p-6">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <h3 className="text-xl font-semibold">Ready to send</h3>
+                <h3 className="text-lg font-semibold sm:text-xl">Ready to send</h3>
                 <p className="mt-2 text-sm text-[var(--muted)]">
                   {selectedWeekLabel}, formatted for billing copy/export.
                 </p>
               </div>
               <WeeklySummaryCopy summaryText={summaryText} weekNumber={selectedWeekNumber} />
             </div>
-            <pre className="mt-5 min-h-40 whitespace-pre-wrap border border-[var(--border)] bg-[var(--surface)] p-4 font-mono text-sm leading-7 text-[var(--foreground)]">
+            <pre className="mt-4 min-h-40 overflow-x-auto whitespace-pre-wrap break-words border border-[var(--border)] bg-[var(--surface)] p-3 font-mono text-xs leading-6 text-[var(--foreground)] sm:mt-5 sm:p-4 sm:text-sm sm:leading-7">
               {summaryText || "No billable summary lines for this week."}
             </pre>
           </section>

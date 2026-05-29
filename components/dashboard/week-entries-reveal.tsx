@@ -45,8 +45,8 @@ export function WeekEntriesReveal({ entries, weekLabel }: WeekEntriesRevealProps
   );
 
   return (
-    <section className="mt-4 border border-[var(--border)] bg-[var(--panel)]">
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border)] px-4 py-3">
+    <section className="mt-3 border border-[var(--border)] bg-[var(--panel)] sm:mt-4">
+      <div className="flex flex-col gap-3 border-b border-[var(--border)] px-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-4 sm:py-3">
         <div>
           <h3 className="text-sm font-semibold">Week entries</h3>
           <p className="mt-1 text-xs text-[var(--muted)]">
@@ -55,7 +55,7 @@ export function WeekEntriesReveal({ entries, weekLabel }: WeekEntriesRevealProps
           </p>
         </div>
         <Button
-          className="h-9 px-3"
+          className="h-9 w-full px-3 sm:w-auto"
           onClick={() => setIsOpen((currentValue) => !currentValue)}
           type="button"
           variant="secondary"
@@ -68,11 +68,11 @@ export function WeekEntriesReveal({ entries, weekLabel }: WeekEntriesRevealProps
       </div>
 
       {isOpen ? (
-        <div className="grid gap-3 p-4">
+        <div className="grid gap-3 p-3 sm:p-4">
           {orderedEntries.length > 0 ? (
             orderedEntries.map((entry) => (
               <article
-                className="grid gap-3 border border-[var(--border)] bg-[var(--surface)] p-4 sm:grid-cols-[8rem_minmax(0,1fr)_6rem]"
+                className="grid gap-2 border border-[var(--border)] bg-[var(--surface)] p-3 sm:grid-cols-[8rem_minmax(0,1fr)_6rem] sm:gap-3 sm:p-4"
                 key={entry.id}
               >
                 <div className="grid gap-1">
@@ -87,7 +87,7 @@ export function WeekEntriesReveal({ entries, weekLabel }: WeekEntriesRevealProps
                     {entry.budgetName} · {entry.budgetNumber}
                   </p>
                   {entry.notes ? (
-                    <p className="mt-2 max-h-14 overflow-hidden text-sm text-[var(--muted)]">
+                    <p className="mt-2 max-h-14 overflow-hidden break-words text-sm text-[var(--muted)]">
                       {entry.notes}
                     </p>
                   ) : null}

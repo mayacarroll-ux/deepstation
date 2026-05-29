@@ -486,9 +486,13 @@ export function HeaderQuickTimer({ budgetMappings, saveAction }: HeaderQuickTime
 
   return (
     <>
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center">
         {timerState.mode === "idle" ? (
-          <Button className="h-10 px-4" onClick={handleStartTimer} type="button">
+          <Button
+            className="h-10 w-full whitespace-nowrap px-4 sm:w-auto"
+            onClick={handleStartTimer}
+            type="button"
+          >
             <span className="mr-2 inline-flex items-center">
               <FontAwesomeIcon className="h-3.5 w-3.5" icon={faPlay} />
             </span>
@@ -496,11 +500,15 @@ export function HeaderQuickTimer({ budgetMappings, saveAction }: HeaderQuickTime
           </Button>
         ) : timerState.mode === "running" ? (
           <>
-            <div className="border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--foreground)]">
+            <div className="flex w-full items-center justify-between gap-3 border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--foreground)] sm:w-auto sm:justify-start">
               <span className="font-semibold">{elapsedLabel}</span>
               <span className="ml-2 text-[var(--muted)]">{timerSummaryLabel}</span>
             </div>
-            <Button className="h-10 px-4" onClick={handleStopTimer} type="button">
+            <Button
+              className="h-10 w-full whitespace-nowrap px-4 sm:w-auto"
+              onClick={handleStopTimer}
+              type="button"
+            >
               <span className="mr-2 inline-flex items-center">
                 <FontAwesomeIcon className="h-3.5 w-3.5" icon={faStop} />
               </span>
@@ -509,11 +517,15 @@ export function HeaderQuickTimer({ budgetMappings, saveAction }: HeaderQuickTime
           </>
         ) : (
           <>
-            <div className="border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--foreground)]">
+            <div className="flex w-full items-center justify-between gap-3 border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--foreground)] sm:w-auto sm:justify-start">
               <span className="font-semibold">{pendingDurationLabel}</span>
               <span className="ml-2 text-[var(--muted)]">{timerSummaryLabel}</span>
             </div>
-            <Button className="h-10 px-4" onClick={handleOpenFinishModal} type="button">
+            <Button
+              className="h-10 w-full whitespace-nowrap px-4 sm:w-auto"
+              onClick={handleOpenFinishModal}
+              type="button"
+            >
               <span className="mr-2 inline-flex items-center">
                 <FontAwesomeIcon className="h-3.5 w-3.5" icon={faCheck} />
               </span>

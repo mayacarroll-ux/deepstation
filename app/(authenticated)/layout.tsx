@@ -31,19 +31,21 @@ export default async function AuthenticatedLayout({
   ]);
 
   return (
-    <main className="min-h-screen bg-[var(--background)] px-6 py-6 text-[var(--foreground)]">
+    <main className="min-h-screen bg-[var(--background)] px-4 py-4 text-[var(--foreground)] sm:px-6 sm:py-6">
       <div className="mx-auto max-w-7xl">
-        <header className="grid gap-5 border-b border-[var(--border)] pb-5">
-          <div className="flex flex-wrap items-center justify-between gap-4">
+        <header className="grid gap-4 border-b border-[var(--border)] pb-4 sm:gap-5 sm:pb-5">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-wrap items-center gap-3">
               <SettingsDrawer />
-              <div>
-                <p className="text-sm text-[var(--muted)]">Maya Carroll</p>
-                <h1 className="text-3xl font-semibold">Time tracking</h1>
+              <div className="grid gap-1">
+                <p className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)] sm:text-sm">
+                  Maya Carroll
+                </p>
+                <h1 className="text-2xl font-semibold sm:text-3xl">Time tracking</h1>
               </div>
             </div>
-            <div className="grid justify-items-end gap-3">
-              <p className="text-sm font-semibold text-[var(--muted)]">
+            <div className="flex w-full flex-col gap-2 sm:w-auto sm:items-end">
+              <p className="text-sm font-semibold text-[var(--muted)] sm:text-right">
                 Junior Achievement · {formatHours(lifetimeHours)} hrs
               </p>
               <HeaderQuickTimer

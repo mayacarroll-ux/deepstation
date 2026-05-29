@@ -101,7 +101,10 @@ export function WeeklySummaryEmailSection({
     : "Scheduled send is off. You can still send manually.";
 
   return (
-    <section id="email-settings" className="grid gap-4 border border-[var(--border)] bg-[var(--panel)] p-6">
+    <section
+      id="email-settings"
+      className="grid gap-4 border border-[var(--border)] bg-[var(--panel)] p-4 sm:p-6"
+    >
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h3 className="flex items-center gap-2 text-xl font-semibold">
@@ -124,7 +127,10 @@ export function WeeklySummaryEmailSection({
       ) : null}
 
       <div className="grid gap-4 xl:grid-cols-[0.95fr_1.05fr]">
-        <form action={onSaveSettingsAction} className="grid gap-4 border border-[var(--border)] bg-[var(--surface)] p-5">
+        <form
+          action={onSaveSettingsAction}
+          className="grid gap-4 border border-[var(--border)] bg-[var(--surface)] p-4 sm:p-5"
+        >
           <input name="view" type="hidden" value="email" />
           <input name="weekNumber" type="hidden" value={selectedWeekNumber} />
           <input name="weekYear" type="hidden" value={selectedWeekYear} />
@@ -180,8 +186,8 @@ export function WeeklySummaryEmailSection({
               and CC.
             </span>
           </label>
-          <div className="flex items-center gap-3">
-            <Button type="submit" variant="secondary">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <Button className="w-full sm:w-auto" type="submit" variant="secondary">
               <span className="mr-2 inline-flex items-center">
                 <FontAwesomeIcon className="h-3.5 w-3.5" icon={faFloppyDisk} />
               </span>
@@ -193,8 +199,8 @@ export function WeeklySummaryEmailSection({
           </div>
         </form>
 
-        <section className="grid gap-4 border border-[var(--border)] bg-[var(--surface)] p-5">
-          <div className="flex flex-wrap items-start justify-between gap-4">
+        <section className="grid gap-4 border border-[var(--border)] bg-[var(--surface)] p-4 sm:p-5">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <h4 className="text-lg font-semibold">Scheduled send</h4>
               <p className="mt-1 text-sm text-[var(--muted)]">{scheduleDescription}</p>
@@ -204,7 +210,7 @@ export function WeeklySummaryEmailSection({
                 </p>
               ) : null}
             </div>
-            <div className="grid gap-1 text-right text-xs text-[var(--muted)]">
+            <div className="grid gap-1 text-left text-xs text-[var(--muted)] sm:text-right">
               <p>Scheduled send</p>
               <p className="font-semibold text-[var(--foreground)]">{scheduleStatusLabel}</p>
               <p>
@@ -278,8 +284,8 @@ export function WeeklySummaryEmailSection({
                 </div>
               </div>
             </div>
-            <div className="flex flex-wrap items-center gap-3">
-              <Button type="submit">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Button className="w-full sm:w-auto" type="submit">
                 <span className="mr-2 inline-flex items-center">
                   <FontAwesomeIcon className="h-3.5 w-3.5" icon={faFloppyDisk} />
                 </span>
@@ -292,8 +298,8 @@ export function WeeklySummaryEmailSection({
           </form>
         </section>
 
-        <section className="grid gap-4 border border-[var(--border)] bg-[var(--surface)] p-5">
-          <div className="flex flex-wrap items-start justify-between gap-4">
+        <section className="grid gap-4 border border-[var(--border)] bg-[var(--surface)] p-4 sm:p-5">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <h4 className="text-lg font-semibold">Email preview</h4>
               <p className="mt-1 text-sm text-[var(--muted)]">
@@ -301,7 +307,7 @@ export function WeeklySummaryEmailSection({
               </p>
             </div>
             {emailStatus ? (
-              <div className="text-right text-xs text-[var(--muted)]">
+              <div className="text-left text-xs text-[var(--muted)] sm:text-right">
                 <p>Last sent</p>
                 <p className="font-semibold text-[var(--foreground)]">
                   {formatLastSentAt(emailStatus.lastSentAt)}
@@ -324,7 +330,7 @@ export function WeeklySummaryEmailSection({
             ) : null}
           </div>
 
-          <div className="grid gap-2 text-sm">
+          <div className="grid gap-2 text-xs sm:text-sm">
             <p>
               <span className="font-semibold">Email subject:</span> {subject}
             </p>
@@ -346,7 +352,7 @@ export function WeeklySummaryEmailSection({
             </p>
           </div>
 
-          <pre className="min-h-44 whitespace-pre-wrap border border-[var(--border)] bg-[var(--panel)] p-4 font-mono text-sm leading-7 text-[var(--foreground)]">
+          <pre className="min-h-44 overflow-x-auto whitespace-pre-wrap break-words border border-[var(--border)] bg-[var(--panel)] p-3 font-mono text-xs leading-6 text-[var(--foreground)] sm:p-4 sm:text-sm sm:leading-7">
             {bodyText || "No billable summary lines for this week."}
           </pre>
 
@@ -354,11 +360,11 @@ export function WeeklySummaryEmailSection({
             <input name="view" type="hidden" value="email" />
             <input name="weekNumber" type="hidden" value={selectedWeekNumber} />
             <input name="weekYear" type="hidden" value={selectedWeekYear} />
-            <label className="flex items-center gap-3 text-sm font-semibold">
+            <label className="flex items-start gap-3 text-sm font-semibold">
               <input name="allowResend" type="checkbox" value="true" />
               I understand this will resend the selected week if it was already emailed.
             </label>
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <WeeklySummarySendButton disabled={!canSendSummary} idleLabel={sendButtonLabel} />
             </div>
             {!hasConfiguredRecipients ? (

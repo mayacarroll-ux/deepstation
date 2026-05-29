@@ -58,7 +58,7 @@ export function WeeklyHoursPieChart({
   let accumulatedAngle = 0;
 
   return (
-    <section className="mt-6 border border-[var(--border)] bg-[var(--panel-elevated)] p-6">
+    <section className="mt-4 border border-[var(--border)] bg-[var(--panel-elevated)] p-4 sm:mt-6 sm:p-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h3 className="text-xl font-semibold">Weekly project mix</h3>
@@ -68,7 +68,7 @@ export function WeeklyHoursPieChart({
         </div>
         <div className="text-left sm:text-right">
           <p className="text-sm text-[var(--muted)]">Total weekly hours</p>
-          <p className="mt-1 text-3xl font-semibold text-[var(--accent)]">
+          <p className="mt-1 text-2xl font-semibold text-[var(--accent)] sm:text-3xl">
             {formatHours(totalHours)} hrs
           </p>
         </div>
@@ -79,8 +79,8 @@ export function WeeklyHoursPieChart({
           No time entries for this week yet.
         </div>
       ) : (
-        <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(280px,0.85fr)_minmax(0,1fr)] lg:items-center">
-          <div className="mx-auto w-full max-w-[18rem] lg:max-w-[20rem]">
+        <div className="mt-4 grid gap-4 lg:grid-cols-[minmax(240px,0.78fr)_minmax(0,1fr)] lg:items-center">
+          <div className="mx-auto w-full max-w-[13rem] px-2 sm:max-w-[18rem] sm:px-0 lg:max-w-[20rem]">
             <svg
               aria-label={`Project hours pie chart for week ${weekNumber}, ${weekYear}`}
               className="h-auto w-full"
@@ -127,7 +127,7 @@ export function WeeklyHoursPieChart({
           <div className="grid gap-2.5">
             {chartSegments.map((chartSegment) => (
               <div
-                className="grid gap-3 border border-[var(--border)] bg-[var(--surface)] p-3 sm:grid-cols-[minmax(0,1fr)_auto_auto] sm:items-center"
+                className="grid gap-2 border border-[var(--border)] bg-[var(--surface)] p-2.5 sm:grid-cols-[minmax(0,1fr)_auto_auto] sm:items-center sm:gap-3 sm:p-3"
                 key={chartSegment.budgetName}
               >
                 <div className="flex min-w-0 items-center gap-3">

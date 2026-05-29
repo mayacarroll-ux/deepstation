@@ -15,7 +15,7 @@ export function WeeklySummarySendButton({ disabled = false, idleLabel }: WeeklyS
   const { pending } = useFormStatus();
 
   return (
-    <Button disabled={pending || disabled} type="submit">
+    <Button className="w-full whitespace-nowrap sm:w-auto" disabled={pending || disabled} type="submit">
       <span className="mr-2 inline-flex items-center">
         <FontAwesomeIcon className="h-3.5 w-3.5" icon={faPaperPlane} />
       </span>

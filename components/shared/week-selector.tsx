@@ -63,7 +63,7 @@ export function WeekSelector({
         <span className="min-h-4 text-xs font-normal text-[var(--muted)]">{selectedWeekLabel}</span>
       </label>
       <Button
-        className="h-11 self-end px-5 !text-neutral-950"
+        className="h-11 w-full self-end whitespace-nowrap px-5 !text-neutral-950 sm:w-auto"
         type="submit"
         variant={onSubmitButtonVariant}
       >
