@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { config as fontAwesomeConfig } from "@fortawesome/fontawesome-svg-core";
-import { Poppins } from "next/font/google";
+import "@fontsource/poppins/400.css";
+import "@fontsource/poppins/500.css";
+import "@fontsource/poppins/600.css";
+import "@fontsource/poppins/700.css";
 
 import "./globals.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
@@ -8,12 +11,6 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { applicationName } from "@/lib/constants";
 
 fontAwesomeConfig.autoAddCss = false;
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-poppins"
-});
 
 export const metadata: Metadata = {
   title: applicationName,
@@ -26,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html className={poppins.variable} lang="en">
+    <html lang="en">
       <body>{children}</body>
     </html>
   );
