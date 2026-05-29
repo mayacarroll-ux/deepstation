@@ -89,13 +89,6 @@ export type RecurringTemplateSourceInput = {
   isActive?: boolean;
 };
 
-const isoDayNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-
-export const recurringDayOptions = isoDayNames.map((dayName, index) => ({
-  label: dayName,
-  value: index + 1
-}));
-
 function normalizeTemplateKey(value: string) {
   return value.trim().replace(/\s+/g, " ").toLowerCase();
 }

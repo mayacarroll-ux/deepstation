@@ -3,8 +3,8 @@ import { faFloppyDisk, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Button } from "@/components/ui/button";
+import { recurringDayOptions } from "@/lib/constants/recurring";
 import type { RecurringTemplateRecord } from "@/lib/services/recurring";
-import { recurringDayOptions } from "@/lib/services/recurring";
 
 type RecurringTemplateFormProps = {
   action: (formData: FormData) => Promise<void>;
