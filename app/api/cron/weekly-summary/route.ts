@@ -5,13 +5,13 @@ import { serverEnvironment } from "@/lib/config";
 import { getIsoWeekNumber, getIsoWeekYear } from "@/lib/utils/dates";
 
 import {
-  doesWeeklySummaryScheduleMatch,
   getDefaultWeeklySummaryEmailSchedule,
   getWeeklySummaryEmailSchedule,
   getWeeklySummaryEmailSettings,
   sendWeeklySummaryEmail
 } from "@/lib/services/weekly-summary-email";
 import { getWeeklySummaryForYear } from "@/lib/services/time-tracking";
+import { doesWeeklySummaryScheduleMatch } from "@/lib/constants/weekly-summary-email";
 
 function getDatePartsInTimeZone(currentDate: Date, timeZone: string) {
   const formatter = new Intl.DateTimeFormat("en-US", {

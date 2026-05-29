@@ -6,17 +6,17 @@ import { Button } from "@/components/ui/button";
 import { Select } from "@/components/ui/select";
 import { WeeklySummarySendButton } from "@/components/weekly-summary/weekly-summary-send-button";
 import { weeklySummaryDefaultBccEmail } from "@/lib/constants";
+import {
+  formatWeeklySummaryEmailScheduleDayLabel,
+  formatWeeklySummaryEmailScheduleTimeLabel,
+  getWeeklySummaryEmailScheduleLabel
+} from "@/lib/constants/weekly-summary-email";
 import type {
-  WeeklySummaryEmailScheduleDefaults,
   WeeklySummaryEmailScheduleRecord,
   WeeklySummaryEmailSettingsRecord,
   WeeklySummaryEmailStatusRecord
 } from "@/lib/services/weekly-summary-email";
-import {
-  formatWeeklySummaryEmailScheduleDayLabel,
-  getWeeklySummaryEmailScheduleLabel,
-  formatWeeklySummaryEmailScheduleTimeLabel
-} from "@/lib/services/weekly-summary-email";
+import type { WeeklySummaryEmailScheduleDefaults } from "@/lib/constants/weekly-summary-email";
 
 type WeeklySummaryEmailSectionProps = {
   bodyText: string;
