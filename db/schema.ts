@@ -185,6 +185,7 @@ export const weeklySummaryEmailSettings = pgTable(
     managerEmail: text("manager_email").notNull(),
     accountingEmails: text("accounting_emails").array().default([]).notNull(),
     ccEmails: text("cc_emails").array().default([]).notNull(),
+    bccEmails: text("bcc_emails").array().default([]).notNull(),
     createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
     updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull()
   },

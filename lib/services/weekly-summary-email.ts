@@ -11,6 +11,7 @@ import {
 import { isProduction, serverEnvironment } from "@/lib/config";
 import {
   singleUserName,
+  weeklySummaryDefaultBccEmail,
   weeklySummaryDefaultCcEmail
 } from "@/lib/constants";
 import { getIsoWeekDateRange } from "@/lib/utils/dates";
@@ -21,7 +22,8 @@ import { getWeeklySummaryForYear, requireDatabase } from "./time-tracking";
 export const weeklySummaryEmailSettingsFormSchema = z.object({
   managerEmail: z.string().trim().email("Manager email is required."),
   accountingEmails: z.string().trim().min(1, "Accounting email(s) are required."),
-  ccEmails: z.string().trim().optional()
+  ccEmails: z.string().trim().optional(),
+  bccEmails: z.string().trim().optional()
 });
 
 export const weeklySummaryEmailScheduleFormSchema = z.object({
@@ -61,6 +63,7 @@ export type WeeklySummaryEmailPreview = {
   bodyText: string;
   toRecipients: string[];
   ccRecipients: string[];
+  bccRecipients: string[];
 };
 
 export type WeeklySummaryEmailSendResult = {
@@ -73,6 +76,12 @@ export type WeeklySummaryEmailSendResult = {
 };
 
 export type WeeklySummaryEmailSendMode = "manual" | "resend" | "auto";
+type WeeklySummaryEmailRecipientSettings = {
+  managerEmail: string;
+  accountingEmails: string[];
+  ccEmails: string[];
+  bccEmails: string[];
+};
 
 const weeklySummaryScheduleTimeZone = "America/New_York";
 const weeklySummaryScheduleDefaultDayOfWeek = 5;
@@ -143,8 +152,32 @@ function getDefaultWeeklySummaryCcRecipients() {
   return [weeklySummaryDefaultCcEmail];
 }
 
+function getDefaultWeeklySummaryBccRecipients() {
+  return [weeklySummaryDefaultBccEmail];
+}
+
 function getEffectiveCcRecipients(rawCcRecipients: string[]) {
   return dedupeEmails([...rawCcRecipients, ...getDefaultWeeklySummaryCcRecipients()]);
+}
+
+function getEffectiveBccRecipients(rawBccRecipients: string[]) {
+  return dedupeEmails([...rawBccRecipients, ...getDefaultWeeklySummaryBccRecipients()]);
+}
+
+function buildWeeklySummaryEmailRecipients(settings: WeeklySummaryEmailRecipientSettings) {
+  const toRecipients = dedupeEmails([settings.managerEmail, ...settings.accountingEmails]);
+  const ccRecipients = getEffectiveCcRecipients(settings.ccEmails).filter(
+    (email) => !toRecipients.includes(email)
+  );
+  const bccRecipients = getEffectiveBccRecipients(settings.bccEmails).filter(
+    (email) => !toRecipients.includes(email) && !ccRecipients.includes(email)
+  );
+
+  return {
+    toRecipients,
+    ccRecipients,
+    bccRecipients
+  };
 }
 
 export function getDefaultWeeklySummaryEmailSchedule(): WeeklySummaryEmailScheduleDefaults {
@@ -377,12 +410,15 @@ export async function saveWeeklySummaryEmailSettings(
   const parsedSettings = weeklySummaryEmailSettingsFormSchema.parse({
     managerEmail: formData.get("managerEmail"),
     accountingEmails: formData.get("accountingEmails"),
-    ccEmails: formData.get("ccEmails")
+    ccEmails: formData.get("ccEmails"),
+    bccEmails: formData.get("bccEmails")
   });
   const accountingEmails = dedupeEmails(parseEmailList(parsedSettings.accountingEmails));
   const ccEmails = getEffectiveCcRecipients(parseEmailList(parsedSettings.ccEmails));
+  const bccEmails = getEffectiveBccRecipients(parseEmailList(parsedSettings.bccEmails));
   const validatedAccountingEmails = emailListSchema.parse(accountingEmails);
   const validatedCcEmails = emailListSchema.parse(ccEmails);
+  const validatedBccEmails = emailListSchema.parse(bccEmails);
 
   if (validatedAccountingEmails.length === 0) {
     throw new Error("At least one accounting email is required.");
@@ -395,6 +431,7 @@ export async function saveWeeklySummaryEmailSettings(
       managerEmail: parsedSettings.managerEmail.trim().toLowerCase(),
       accountingEmails: validatedAccountingEmails,
       ccEmails: validatedCcEmails,
+      bccEmails: validatedBccEmails,
       updatedAt: new Date()
     })
     .onConflictDoUpdate({
@@ -403,6 +440,7 @@ export async function saveWeeklySummaryEmailSettings(
         managerEmail: parsedSettings.managerEmail.trim().toLowerCase(),
         accountingEmails: validatedAccountingEmails,
         ccEmails: validatedCcEmails,
+        bccEmails: validatedBccEmails,
         updatedAt: new Date()
       }
     });
@@ -415,19 +453,21 @@ export async function buildWeeklySummaryEmailPreview(
 ): Promise<WeeklySummaryEmailPreview> {
   const summary = await getWeeklySummaryForYear(ownerId, weekNumber, weekYear);
   const settings = await getWeeklySummaryEmailSettings(ownerId);
-  const managerEmail = settings?.managerEmail ?? "";
-  const accountingEmails = settings?.accountingEmails ?? [];
-  const ccEmails = getEffectiveCcRecipients(settings?.ccEmails ?? []);
-  const toRecipients = dedupeEmails([managerEmail, ...accountingEmails].filter(Boolean));
-  const ccRecipients = dedupeEmails(ccEmails).filter(
-    (email) => !toRecipients.includes(email)
+  const recipientLists = buildWeeklySummaryEmailRecipients(
+    settings ?? {
+      managerEmail: "",
+      accountingEmails: [],
+      ccEmails: [],
+      bccEmails: []
+    }
   );
 
   return {
     subject: buildWeeklySummaryEmailSubject(weekNumber, weekYear),
     bodyText: formatBillingSummaryText(summary.groupedHours, summary.totalHours),
-    toRecipients,
-    ccRecipients
+    toRecipients: recipientLists.toRecipients,
+    ccRecipients: recipientLists.ccRecipients,
+    bccRecipients: recipientLists.bccRecipients
   };
 }
 
@@ -459,14 +499,21 @@ export async function sendWeeklySummaryEmail(
       weekNumber,
       weekYear,
       messageId: existingStatus.lastMessageId ?? null,
-      recipientCount: existingStatus.toRecipients.length + existingStatus.ccRecipients.length
+      recipientCount:
+        existingStatus.toRecipients.length +
+        existingStatus.ccRecipients.length +
+        getEffectiveBccRecipients(settings?.bccEmails ?? []).filter(
+          (email) =>
+            !existingStatus.toRecipients.includes(email) &&
+            !existingStatus.ccRecipients.includes(email)
+        ).length
     };
   }
 
-  const toRecipients = dedupeEmails([settings.managerEmail, ...settings.accountingEmails]);
-  const ccRecipients = getEffectiveCcRecipients(settings.ccEmails).filter(
-    (email) => !toRecipients.includes(email)
-  );
+  const recipientLists = buildWeeklySummaryEmailRecipients(settings);
+  const toRecipients = recipientLists.toRecipients;
+  const ccRecipients = recipientLists.ccRecipients;
+  const bccRecipients = recipientLists.bccRecipients;
   const summaryText = formatBillingSummaryText(weeklySummary.groupedHours, weeklySummary.totalHours);
   const subject = buildWeeklySummaryEmailSubject(weekNumber, weekYear);
   const resend = getResendClient();
@@ -475,6 +522,7 @@ export async function sendWeeklySummaryEmail(
     from: fromEmail,
     to: toRecipients,
     cc: ccRecipients.length > 0 ? ccRecipients : undefined,
+    bcc: bccRecipients.length > 0 ? bccRecipients : undefined,
     subject,
     text: summaryText,
     html: buildEmailHtml(summaryText)
@@ -533,6 +581,6 @@ export async function sendWeeklySummaryEmail(
     weekNumber,
     weekYear,
     messageId: data?.id ?? null,
-    recipientCount: toRecipients.length + ccRecipients.length
+    recipientCount: toRecipients.length + ccRecipients.length + bccRecipients.length
   };
 }

@@ -5,6 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Select } from "@/components/ui/select";
 import { WeeklySummarySendButton } from "@/components/weekly-summary/weekly-summary-send-button";
+import { weeklySummaryDefaultBccEmail } from "@/lib/constants";
 import type {
   WeeklySummaryEmailScheduleDefaults,
   WeeklySummaryEmailScheduleRecord,
@@ -161,6 +162,22 @@ export function WeeklySummaryEmailSection({
             />
             <span className="text-xs font-normal text-[var(--muted)]">
               maya.carroll@ja.org is included automatically.
+            </span>
+          </label>
+          <label className="grid gap-2 text-sm font-semibold">
+            BCC optional
+            <textarea
+              className="min-h-20 resize-y border border-[var(--border)] p-3 font-normal outline-none focus:border-[var(--accent)]"
+              defaultValue={
+                emailSettings?.bccEmails.length
+                  ? emailSettings.bccEmails.join("\n")
+                  : weeklySummaryDefaultBccEmail
+              }
+              name="bccEmails"
+            />
+            <span className="text-xs font-normal text-[var(--muted)]">
+              {weeklySummaryDefaultBccEmail} is included automatically and stays separate from To
+              and CC.
             </span>
           </label>
           <div className="flex items-center gap-3">
@@ -320,6 +337,12 @@ export function WeeklySummaryEmailSection({
             <p>
               <span className="font-semibold">CC:</span>{" "}
               {formatRecipientList(emailSettings?.ccEmails ?? [])}
+            </p>
+            <p>
+              <span className="font-semibold">BCC:</span>{" "}
+              {formatRecipientList(
+                emailSettings?.bccEmails.length ? emailSettings.bccEmails : [weeklySummaryDefaultBccEmail]
+              )}
             </p>
           </div>
 

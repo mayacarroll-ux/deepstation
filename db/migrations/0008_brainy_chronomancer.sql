@@ -1,0 +1,1 @@
+ALTER TABLE "weekly_summary_email_settings" ADD COLUMN "bcc_emails" text[] DEFAULT '{}' NOT NULL;
