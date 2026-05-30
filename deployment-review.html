@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Deepstation Deployment Review</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --background: #081018;
+        --panel: #111c28;
+        --panel-muted: #152435;
+        --text: #edf4fb;
+        --muted: #9db0c4;
+        --border: #26384d;
+        --accent: #34d5c5;
+        --warning: #f4b860;
+        --danger: #f67f7f;
+        --ok: #89d99c;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Poppins, Arial, sans-serif;
+        background: linear-gradient(180deg, #09111a 0%, #0d1622 100%);
+        color: var(--text);
+      }
+
+      main {
+        width: min(1040px, calc(100vw - 32px));
+        margin: 32px auto 48px;
+      }
+
+      .hero,
+      .panel {
+        border: 1px solid var(--border);
+        background: var(--panel);
+      }
+
+      .hero {
+        padding: 28px;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-size: clamp(1.8rem, 3vw, 2.6rem);
+        line-height: 1.1;
+      }
+
+      .hero p {
+        margin: 12px 0 0;
+        max-width: 72ch;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .meta span {
+        padding: 8px 10px;
+        border: 1px solid var(--border);
+        background: var(--panel-muted);
+        font-size: 0.92rem;
+      }
+
+      .grid {
+        display: grid;
+        gap: 18px;
+        margin-top: 18px;
+      }
+
+      .grid.two {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+
+      .panel {
+        padding: 22px;
+      }
+
+      h2 {
+        margin: 0 0 14px;
+        font-size: 1.1rem;
+      }
+
+      h3 {
+        margin: 0 0 10px;
+        font-size: 1rem;
+      }
+
+      p,
+      li {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      ul,
+      ol {
+        margin: 0;
+        padding-left: 20px;
+      }
+
+      li + li {
+        margin-top: 8px;
+      }
+
+      .status-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .status {
+        padding: 14px 16px;
+        border: 1px solid var(--border);
+        background: var(--panel-muted);
+      }
+
+      .status strong {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--text);
+      }
+
+      .danger strong {
+        color: var(--danger);
+      }
+
+      .warning strong {
+        color: var(--warning);
+      }
+
+      .ok strong {
+        color: var(--ok);
+      }
+
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.92em;
+        color: var(--text);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.95rem;
+      }
+
+      th,
+      td {
+        border-top: 1px solid var(--border);
+        padding: 12px 10px;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      td {
+        color: var(--muted);
+      }
+
+      .small {
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 640px) {
+        main {
+          width: min(100vw - 20px, 1040px);
+          margin-top: 20px;
+        }
+
+        .hero,
+        .panel {
+          padding: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <h1>Deepstation Compile and Deploy Review</h1>
+        <p>
+          This review separates code health from environment and platform
+          misconfiguration. The app type-checks, but local production builds are
+          currently blocked by the workstation toolchain, and Vercel needs
+          explicit deployment verification against the latest Git commit.
+        </p>
+        <div class="meta">
+          <span>Repo: <code>deepstation</code></span>
+          <span>Current branch: <code>main</code></span>
+          <span>Latest reviewed code fix: <code>ed2f763</code></span>
+          <span>Review date: <code>2026-05-30</code></span>
+        </div>
+      </section>
+
+      <section class="grid two">
+        <div class="panel">
+          <h2>What Passed</h2>
+          <div class="status-list">
+            <div class="status ok">
+              <strong>TypeScript is clean</strong>
+              <p>
+                <code>npm run typecheck</code> passes on the current codebase.
+              </p>
+            </div>
+            <div class="status ok">
+              <strong>Recent client/server import leak was fixed</strong>
+              <p>
+                The browser-side recurring and quick-timer paths now import only
+                DB-free constants and shared types.
+              </p>
+            </div>
+            <div class="status ok">
+              <strong>Production build succeeds under Node 22</strong>
+              <p>
+                Running the build through a Node 22 runtime completes
+                successfully, which matches the repo's pinned version.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>What Fails</h2>
+          <div class="status-list">
+            <div class="status danger">
+              <strong>This workstation fails local builds under Node 24</strong>
+              <p>
+                <code>next build --webpack</code> fails while loading SWC on
+                macOS because <code>@next/swc-darwin-x64</code> is rejected by
+                code-sign validation.
+              </p>
+            </div>
+            <div class="status warning">
+              <strong>WASM fallback is not rescuing the Node 24 build path</strong>
+              <p>
+                <code>@next/swc-wasm-nodejs</code> is installed, but Next still
+                reports it as unavailable during fallback on this machine.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" style="margin-top: 18px">
+        <h2>Systems Not Configured Correctly</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>System</th>
+              <th>Problem</th>
+              <th>Impact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Local Node / Next toolchain</td>
+              <td>
+                Native SWC on this workstation is unusable under the current
+                Node 24 runtime, while the project builds correctly under Node
+                22.
+              </td>
+              <td>
+                Local <code>npm run build</code> cannot complete until the
+                shell/runtime is aligned with the repo's pinned Node version.
+              </td>
+            </tr>
+            <tr>
+              <td>Repo runtime version policy</td>
+              <td>
+                This was missing at review time. The repo now pins
+                <code>22.x</code>, but local and Vercel installs still need to
+                be aligned to that version.
+              </td>
+              <td>
+                Different machines can install unsupported or untested Node
+                versions, which makes build failures harder to isolate.
+              </td>
+            </tr>
+            <tr>
+              <td>Vercel deployment verification</td>
+              <td>
+                The project needed multiple README-only commits to force new
+                deploys, which suggests Git integration or deployment selection
+                has not been reliably validated.
+              </td>
+              <td>
+                Vercel may be building stale commits or old failed deployments,
+                which makes debugging misleading.
+              </td>
+            </tr>
+            <tr>
+              <td>Deployment runbook hygiene</td>
+              <td>
+                Deployment trigger notes were written into
+                <code>README.md</code> as an operational workaround.
+              </td>
+              <td>
+                The deployment process was relying on ad hoc triggers instead of
+                a stable, verified release flow. Those notes should stay out of
+                the long-term runbook.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="grid two">
+        <div class="panel">
+          <h2>Highest-Priority Tasks</h2>
+          <ol>
+            <li>
+              Switch local development to the repo's pinned runtime:
+              use Node <code>22.x</code> from <code>.nvmrc</code> /
+              <code>.node-version</code>.
+            </li>
+            <li>
+              Reinstall dependencies under Node 22 and rerun
+              <code>npm run build</code> from that runtime.
+            </li>
+            <li>
+              Verify Vercel is building the latest pushed commit rather than a
+              stale deployment. The current code fix to compare against is
+              <code>ed2f763</code> or newer.
+            </li>
+            <li>
+              Once Vercel is on the latest commit, confirm the old
+              <code>net</code>/<code>tls</code> import trace is gone from the
+              build logs.
+            </li>
+          </ol>
+        </div>
+
+        <div class="panel">
+          <h2>Secondary Tasks</h2>
+          <ol>
+            <li>
+              Remove deployment-trigger clutter from <code>README.md</code>
+              after Vercel deployment is stable.
+            </li>
+            <li>
+              Add a short deployment verification section to the runbook:
+              commit hash, Vercel deployment URL, migration status, and a manual
+              smoke check list.
+            </li>
+            <li>
+              Decide whether weekly summary cron should be considered part of
+              the baseline deployment or a post-deploy enablement step.
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="panel" style="margin-top: 18px">
+        <h2>Concrete Next Steps</h2>
+        <ol>
+            <li>
+              Use Node 22 locally.
+            </li>
+            <li>
+              Reinstall dependencies under that pinned version and rerun:
+              <code>npm run typecheck</code>, then <code>npm run build</code>.
+            </li>
+          <li>
+            In Vercel, confirm the deployment input commit is the latest
+            <code>origin/main</code> hash before debugging any new build error.
+          </li>
+          <li>
+            If Vercel still reports a <code>pg</code> to
+            <code>net</code>/<code>tls</code> import trace on a post-
+            <code>ed2f763</code> build, treat that as a new leak and inspect the
+            exact trace from that commit, not an older deployment.
+          </li>
+        </ol>
+      </section>
+
+      <section class="panel small" style="margin-top: 18px">
+        <h2>Evidence Captured</h2>
+        <ul>
+          <li><code>npm run typecheck</code>: passed.</li>
+          <li>
+            <code>npm run build</code> under the current local Node 24 runtime:
+            failed with SWC binary code-sign rejection on local macOS.
+          </li>
+          <li>
+            <code>npx -y -p node@22 node ./node_modules/next/dist/bin/next build --webpack</code>:
+            passed.
+          </li>
+          <li>
+            <code>@next/swc-wasm-nodejs</code>: installed and resolvable from
+            Node on this machine.
+          </li>
+          <li>
+            No current <code>"use client"</code> files directly import
+            <code>@/lib/services/*</code>, <code>@/db</code>, or
+            <code>pg</code> at runtime.
+          </li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

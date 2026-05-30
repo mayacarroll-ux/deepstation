@@ -11,13 +11,16 @@ budget-key mappings, persistent time entries, and weekly billing summaries.
    npm install
    ```
 
-2. Copy the environment template:
+2. Use Node `22.x`. This repo now pins that version with `.nvmrc`,
+   `.node-version`, and `package.json#engines`.
+
+3. Copy the environment template:
 
    ```bash
    cp .env.example .env
    ```
 
-3. Configure `DATABASE_URL`. `OPENAI_API_KEY` is only needed for the AI chat
+4. Configure `DATABASE_URL`. `OPENAI_API_KEY` is only needed for the AI chat
    endpoint. `RESEND_API_KEY` is required for weekly summary email sending.
    Set `EMAIL_FROM` or `RESEND_FROM_EMAIL` to a verified Resend sender address
    for the weekly summary email feature. `CRON_SECRET` is required before you
@@ -26,14 +29,14 @@ budget-key mappings, persistent time entries, and weekly billing summaries.
    `WEEKLY_SUMMARY_AUTOMATION_ENABLED=false` until you intentionally add
    scheduled email sending.
 
-4. Run database migrations after editing the schema:
+5. Run database migrations after editing the schema:
 
    ```bash
    npm run db:generate
    npm run db:migrate
    ```
 
-5. Start the development server:
+6. Start the development server:
 
    ```bash
    npm run dev
@@ -86,15 +89,6 @@ password stored in `APP_PASSWORD`; data remains scoped to `single-user`.
    automation is enabled, and the schedule can be edited from the Weekly
    Summary email view.
 10. Deploy to Vercel with `npm run build`.
-
-If you need to trigger a fresh Vercel build from GitHub, push a small commit to
-`main` after updating the app or deployment settings.
-
-Deployment trigger: May 29, 2026.
-Deployment trigger: 2026-05-29 19:47 EDT.
-Deployment trigger: 2026-05-30 12:24 EDT.
-Deployment trigger: 2026-05-30 12:29 EDT.
-Deployment trigger: 2026-05-30 13:05 EDT.
 
 In production, `DATABASE_URL` is required and the local JSON workbook fallback is
 disabled. Missing production auth or database variables fail closed at request
