@@ -25,10 +25,9 @@ import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import type { BudgetMappingRecord } from "@/lib/types/time-tracking";
+import type { QuickTimerSaveState } from "@/lib/types/quick-timer";
 import { getIsoDayOfWeek, getIsoWeekNumber, getTodayInputValue } from "@/lib/utils/dates";
 import { formatHours, formatHourUnit, formatTimeInput } from "@/lib/utils/format";
-
-import type { QuickTimerSaveState } from "@/app/(authenticated)/time-entries/actions";
 
 const quickTimerStorageKey = "deepstation.quick-timer.v1";
 

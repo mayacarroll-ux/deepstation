@@ -24,11 +24,7 @@ import {
   getIsoWeekYear,
   getTodayInputValue
 } from "@/lib/utils/dates";
-
-export type QuickTimerSaveState = {
-  status: "idle" | "error" | "success";
-  message?: string;
-};
+import type { QuickTimerSaveState } from "@/lib/types/quick-timer";
 
 async function saveTimeEntryWithOptionalRecurringTemplate(
   ownerId: string,
