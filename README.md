@@ -92,6 +92,7 @@ If you need to trigger a fresh Vercel build from GitHub, push a small commit to
 
 Deployment trigger: May 29, 2026.
 Deployment trigger: 2026-05-29 19:47 EDT.
+Deployment trigger: 2026-05-30 12:24 EDT.
 
 In production, `DATABASE_URL` is required and the local JSON workbook fallback is
 disabled. Missing production auth or database variables fail closed at request
