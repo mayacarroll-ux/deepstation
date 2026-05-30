@@ -87,7 +87,11 @@ password stored in `APP_PASSWORD`; data remains scoped to `single-user`.
    regular schedule and checks the saved weekly summary email schedule in
    Postgres before sending. The app defaults to Friday at 5:00 PM Eastern when
    automation is enabled, and the schedule can be edited from the Weekly
-   Summary email view.
+   Summary email view. On Vercel Hobby, the cron is limited to once per day, so
+   this repo uses a daily `21:00 UTC` trigger. That matches `5:00 PM
+   America/New_York` during daylight saving time. Exact year-round 5:00 PM
+   Eastern requires a higher-frequency cron, which means upgrading the Vercel
+   plan or adjusting the cron seasonally.
 10. Deploy to Vercel with `npm run build`.
 
 In production, `DATABASE_URL` is required and the local JSON workbook fallback is
