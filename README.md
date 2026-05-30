@@ -94,6 +94,7 @@ Deployment trigger: May 29, 2026.
 Deployment trigger: 2026-05-29 19:47 EDT.
 Deployment trigger: 2026-05-30 12:24 EDT.
 Deployment trigger: 2026-05-30 12:29 EDT.
+Deployment trigger: 2026-05-30 13:05 EDT.
 
 In production, `DATABASE_URL` is required and the local JSON workbook fallback is
 disabled. Missing production auth or database variables fail closed at request
