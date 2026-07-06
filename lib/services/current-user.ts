@@ -4,15 +4,11 @@ import { eq } from "drizzle-orm";
 import { auth } from "@/auth";
 import { database } from "@/db";
 import { users } from "@/db/schema";
-import {
-  assertProductionServerEnvironment,
-  isAuthenticationTemporarilyDisabled,
-  isProduction
-} from "@/lib/config";
+import { assertProductionServerEnvironment, isProduction } from "@/lib/config";
 import { singleUserEmail, singleUserId, singleUserName } from "@/lib/constants";
 
 export async function getCurrentWorkbookOwnerId() {
-  if (!isProduction || isAuthenticationTemporarilyDisabled) {
+  if (!isProduction) {
     return singleUserId;
   }
 

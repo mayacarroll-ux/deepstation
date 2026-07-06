@@ -1,30 +1,17 @@
 import { redirect } from "next/navigation";
-import { AuthError } from "next-auth";
 
 import { signIn, auth } from "@/auth";
 import { Button } from "@/components/ui/button";
-import { isAuthenticationTemporarilyDisabled, serverEnvironment } from "@/lib/config";
+import { serverEnvironment } from "@/lib/config";
 import { protectedHomePath } from "@/lib/constants";
 
-type LoginPageProps = Readonly<{
-  searchParams?: Promise<{
-    error?: string;
-  }>;
-}>;
-
-export default async function LoginPage({ searchParams }: LoginPageProps) {
-  if (isAuthenticationTemporarilyDisabled) {
-    redirect(protectedHomePath);
-  }
-
+export default async function LoginPage() {
   const session = await auth();
 
   if (session?.user) {
     redirect(protectedHomePath);
   }
 
-  const resolvedSearchParams = await searchParams;
-  const hasCredentialsError = resolvedSearchParams?.error === "credentials";
   const isAppPasswordConfigured = Boolean(serverEnvironment.APP_PASSWORD);
 
   return (
@@ -37,23 +24,10 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
         <form
           action={async (formData) => {
             "use server";
-            let redirectUrl = protectedHomePath;
-
-            try {
-              redirectUrl = await signIn("credentials", {
-                password: formData.get("password"),
-                redirect: false,
-                redirectTo: protectedHomePath
-              });
-            } catch (error) {
-              if (error instanceof AuthError) {
-                redirect("/login?error=credentials");
-              }
-
-              throw error;
-            }
-
-            redirect(redirectUrl);
+            await signIn("credentials", {
+              password: formData.get("password"),
+              redirectTo: protectedHomePath
+            });
           }}
           className="mt-8 grid gap-4"
         >
@@ -72,15 +46,6 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
             Continue
           </Button>
         </form>
-        {hasCredentialsError ? (
-          <p
-            aria-live="polite"
-            className="mt-4 text-sm leading-6 text-[var(--danger)]"
-            role="alert"
-          >
-            That password did not match. Try again.
-          </p>
-        ) : null}
         {!isAppPasswordConfigured ? (
           <p className="mt-4 text-sm leading-6 text-[var(--warning)]">
             Configure `APP_PASSWORD` to enable sign in.
