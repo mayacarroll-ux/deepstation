@@ -4,19 +4,21 @@ import { auth } from "@/auth";
 import { HeaderQuickTimer } from "@/components/navigation/header-quick-timer";
 import { AppNav } from "@/components/navigation/app-nav";
 import { SettingsDrawer } from "@/components/navigation/settings-drawer";
-import { isProduction } from "@/lib/config";
+import { isAuthenticationTemporarilyDisabled, isProduction } from "@/lib/config";
 import { getCurrentWorkbookOwnerId } from "@/lib/services/current-user";
 import { getLifetimeHours, listBudgetMappings } from "@/lib/services/time-tracking";
 import { formatHours } from "@/lib/utils/format";
 
 import { createQuickTimerTimeEntryAction } from "./time-entries/actions";
 
+export const dynamic = "force-dynamic";
+
 export default async function AuthenticatedLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  if (isProduction) {
+  if (isProduction && !isAuthenticationTemporarilyDisabled) {
     const session = await auth();
 
     if (!session?.user) {

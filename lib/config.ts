@@ -15,6 +15,7 @@ const serverEnvironmentSchema = z.object({
 export const serverEnvironment = serverEnvironmentSchema.parse(process.env);
 
 export const isProduction = process.env.NODE_ENV === "production";
+export const isAuthenticationTemporarilyDisabled = true;
 
 export function assertProductionServerEnvironment() {
   if (!isProduction) {
